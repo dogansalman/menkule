@@ -1,0 +1,74 @@
+.uploader-btn{
+  bottom: 0px;
+  width: 140px;
+  margin: 10px 10px 10px 0px;
+  max-height: 120px;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  background: #f2f2f2;
+  height: 100%;
+  border: none;
+}
+.uploader-btn:before {
+  content: "\f093";
+  font-family: FontAwesome;
+  font-size: 33px;
+  color: #9e9e9e;
+}
+.empty-message p{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  font-size: 29px;
+  transform: translate(-50%, -50%);
+  border-bottom: 1px solid #65c3f9;
+  padding-bottom: 5px;
+}
+.default-img
+{
+  margin: 5px 0px 0px 5px;
+  position: absolute;
+  background: #1dc7ea;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  padding: 1px 0px 0px 0px;
+  color: #fff;
+  left: 0px;
+  border-radius: 50%;
+}
+.default-img:before{
+  content: "\f00c";
+  font-family: FontAwesome;
+}
+.delete-img-btn{
+  position: absolute;
+  right: 0px;
+  width: 18px;
+  text-align: center;
+  height: 18px;
+  border-radius: 50%;
+  background: #e74c3c;
+  color: white;
+  vertical-align: middle;
+  font-size: 12px;
+  padding: 0px;
+  margin: 5px 3px 0px 0px;
+}
+.delete-img-btn:before{
+  content: "\f00d";
+  font-family: FontAwesome;
+}
+@media all and (max-width: 768px) {
+  .uploader-btn{
+    height: auto;
+    width: 100%;
+  }
+  .empty-message p{
+        top: 60%;
+  }
+
+}

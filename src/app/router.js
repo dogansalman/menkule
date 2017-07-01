@@ -1,0 +1,25 @@
+export default {
+  // User require
+  '/user/account': [() => Menkule.isLogged(), 'user-account', '/user/register'],
+  '/user/alert/list': [() => Menkule.isLogged(), 'user-alerts', '/user/register'],
+  '/user/activate': [() => Menkule.isLogged(), 'user-activate', '/user/register'],
+  '/user/advert/list': [() => Menkule.isLogged(), 'user-adverts', '/user/register'],
+  '/user/advert/detail/:id': [() => Menkule.isLogged(), 'user-advert', '/user/register'],
+  '/user/advert/create': [() => Menkule.isLogged(), 'user-advert', '/user/register'],
+  '/user/advert/create': [() => Menkule.isActive(), 'user-advert', '/user/activate'],
+  '/user/messages': [() => Menkule.isLogged(), 'user-messages', '/user/register'],
+  '/user/messages/:id': [() => Menkule.isLogged(), 'user-message', '/user/register'],
+  '/user/rezervations/:type': [() => Menkule.isLogged(), 'user-rezervations', '/user/register'],
+  '/user/advert/calendar': [() => Menkule.isLogged(), 'user-advert-calendar', '/user/register'],
+  '/logout': [() => Menkule.logout().then(() => App.promise(() => false)), 'main-page', '/'],
+  '/user/register': [() => Menkule.isLogged().equals(false), 'user-register', '/user/account'],
+  '/error/:type': 'error',
+  '/detail/advert/:id': 'detail',
+  '/help/:subject' : 'help',
+  '/help/' : 'help',
+  '/contact': 'contact',
+  '/policy': 'policy',
+  '/rezervation/:id': 'rezervation',
+  '/search/:state': 'search',
+  '/': 'main-page'
+};

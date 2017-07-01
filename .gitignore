@@ -1,0 +1,12 @@
+### Node Modules ###
+/node_modules/
+npm-debug.log
+.idea
+
+### Dist ###
+/dist/
+
+### IIS ###
+.well-known/
+Web.config
+Global.asax
