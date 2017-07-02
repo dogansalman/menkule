@@ -10,9 +10,10 @@
     const cloudinaryBaseUrl = "https://res.cloudinary.com/www-menkule-com-tr/image/upload/";
 
     //Constructer
-    function Menkule(){
+    function Menkule(){}
 
-    }
+    //Extend from eventemmiter
+    Menkule.prototype = Object.create(eventemitter.prototype);
 
     //Request
     Menkule.prototype.request = function(method, url, data) {
@@ -160,12 +161,11 @@
     };
 
 
-    // Extend from eventemmiter
-    Menkule.prototype = Object.create(eventemitter.prototype);
-
+    //SOR
+    //Sınıf içerisindeki prototype methodları içeride nasıl kullanabilirim ?
+    //Örnek: aşağıdaki şekilde
     // Start socket
-    //token ? Menkule.startSocket() : Menkule.stopSocket();
+    //token ? this.startSocket() : this.stopSocket();
 
     export default Menkule;
 
-    console.log(Menkule);

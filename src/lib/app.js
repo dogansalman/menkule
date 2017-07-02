@@ -282,4 +282,5 @@ App.prototype.validate = {
   }
 };
 
+console.log(App);
 export default App;

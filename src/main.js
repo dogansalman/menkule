@@ -1,6 +1,4 @@
-//import main from './template/main/main';
-//Sor aynı şekilde export edilmesine rağmen menkule prototype functionları kullanılamıyor.
-
+import main from './template/main/main';
 import Menkule from './lib/menkule';
 import App from './lib/app';
 
