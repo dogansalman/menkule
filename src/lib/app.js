@@ -1,5 +1,8 @@
 import Navigo from 'navigo';
+import eventemitter from 'event-emitter';
+import notification from 'bootstrap-notify';
 
+//Private Properties
 const templateRoot = "/dist/template/";
 const templateStore = {};
 let preloadState = true;
@@ -9,8 +12,7 @@ function App(){
   this.preloaderElem = $('#page-preloader')[0];
 }
 
-App.prototype = Object.create(require('eventemitter').prototype);
-
+App.prototype = Object.create(eventemitter.prototype);
 App.prototype.showPreloader = function(arg, opacity){
   if (typeof arg == "number") {
     opacity = arg;
@@ -35,7 +37,6 @@ App.prototype.hidePreloader = function(arg){
     });
   });
 };
-
 App.prototype.parseJSON = function (value) {
   return new Promise((resolve, reject) => {
     try {
@@ -46,29 +47,34 @@ App.prototype.parseJSON = function (value) {
   });
 };
 
-App.prototype.getTemplate = function(templateName, templateData) {
-  templateData = templateData || {};
-  return new Promise((resolve, reject) => {
-    // Before get check cache
-    if (templateStore.hasOwnProperty(templateName)) {
-      return this.renderTemplate(templateStore[templateName], templateData).then(template => resolve(template));
-    }
-    $.get(templateRoot + templateName + '/' + templateName + '.html')
-      .then(template => this.renderTemplate((templateStore[templateName] = template), templateData))
-      .then(template => resolve(template));
-  });
-};
+/*
+ App.prototype.getTemplate = function(templateName, templateData) {
+ templateData = templateData || {};
+ return new Promise((resolve, reject) => {
+ // Before get check cache
+ if (templateStore.hasOwnProperty(templateName)) {
+ return this.renderTemplate(templateStore[templateName], templateData).then(template => resolve(template));
+ }
+ $.get(templateRoot + templateName + '/' + templateName + '.html')
+ .then(template => this.renderTemplate((templateStore[templateName] = template), templateData))
+ .then(template => resolve(template));
+ });
+ };
+ */
 
-App.prototype.renderTemplate = function (template, templateData) {
-  require("handlebars");
-  require("handlebar-helpers");
+/*
+ App.prototype.renderTemplate = function (template, templateData) {
+ require("handlebars");
+ require("handlebar-helpers");
 
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(Handlebars.compile(template)(templateData));
-    }, 0);
-  });
-};
+ return new Promise((resolve) => {
+ setTimeout(() => {
+ resolve(Handlebars.compile(template)(templateData));
+ }, 0);
+ });
+ };
+
+ */
 
 App.prototype.addStyle = function(styleName) {
   return new Promise((resolve) => {
@@ -82,18 +88,15 @@ App.prototype.addStyle = function(styleName) {
       });
   });
 };
-
 App.prototype.notifyDanger = function (message, title) {
   return this.showNotify({message, title, type: 'danger'});
 };
 App.prototype.notifySuccess = function (message, title) {
   return this.showNotify({message, title});
 };
-
 App.prototype.showNotify = function(options) {
   return new Promise(resolve => {
-    require('jquery');
-    require('notification');
+    //require('notification');
 
     options = Object.assign({
       'icon': 'fa fa-bell-o',
@@ -129,19 +132,14 @@ App.prototype.showNotify = function(options) {
     });
   });
 };
-
-
 App.prototype.navigate = function(path, queryString) {
   var parts = [];
   queryString = queryString || {};
   Object.keys(queryString).forEach(key => parts.push(key + "=" + encodeURIComponent(queryString[key])));
   window.location = path + (parts.length > 0 ? '?' + parts.join('&') : '');
 };
-
 App.prototype.generateAdvertSearchUrl = function(searchParameters) {
   return new Promise(resolve => {
-    var Menkule = require('core/menkule.js');
-    var Md5 = require('md5');
     searchParameters = Object.assign({
       'guest': '1'
     }, searchParameters || {});
@@ -152,20 +150,16 @@ App.prototype.generateAdvertSearchUrl = function(searchParameters) {
       'lat' : searchParameters.lat,
       'lng' : searchParameters.lng,
       'guest': searchParameters.guest,
-      //'chash': $.md5(searchParameters.lat + searchParameters.lng),
       'login': Menkule.hasToken()
     };
     resolve({'url': '/search/' + searchParameters.name, 'query': query });
   });
 };
-
-
 App.prototype.wait = function(waitTime) {
   return new Promise((resolve, reject) => {
     var t = setTimeout(() => { resolve(t) }, waitTime);
   });
 };
-
 App.prototype.promise = function(callback) {
   return new Promise((resolve, reject) => {
     setTimeout(() =>{
@@ -178,14 +172,12 @@ App.prototype.promise = function(callback) {
     }, 0);
   });
 };
-
 App.prototype.isMobile = function(callback) {
   return new Promise(resolve => {
     resolve(window.matchMedia("only screen and (max-width: 768px)").matches);
   });
 
 };
-
 App.prototype.router = function(routerConfig){
   var router = new Navigo();
   Object.keys(routerConfig).forEach(path => {
@@ -227,33 +219,30 @@ App.prototype.router = function(routerConfig){
   });
   return router;
 };
-
 App.prototype.PasswordChange = function() {
-  var PasswordPopup = require('template/popup-password/popup-password.js');
-  return PasswordPopup();
+  //var PasswordPopup = require('template/popup-password/popup-password.js');
+  //return PasswordPopup();
 };
 App.prototype.Ownershipping = function() {
-  var OwnershippingPopup = require('template/popup-homeowner/popup-homeowner.js');
-  return OwnershippingPopup();
+  //var OwnershippingPopup = require('template/popup-homeowner/popup-homeowner.js');
+  //return OwnershippingPopup();
 };
 App.prototype.Login = function() {
-  var LoginPopup = require('template/popup-login/popup-login.js');
-  return new Promise((resolve, reject) => {
-    LoginPopup()
-      .then(user => resolve(user))
-      .catch(err => reject(err));
-  });
+  //var LoginPopup = require('template/popup-login/popup-login.js');
+  //return new Promise((resolve, reject) => {
+  //  LoginPopup()
+  //    .then(user => resolve(user))
+  //    .catch(err => reject(err));
+  //});
 };
-
 App.prototype.DatePicker = function() {
-  var DatePicker = require('template/popup-datetime/popup-datetime.js');
-  return new Promise((resolve, reject) => {
-    DatePicker()
-      .then(user => resolve(user))
-      .catch(err => reject(err));
-  });
+  //var DatePicker = require('template/popup-datetime/popup-datetime.js');
+  //return new Promise((resolve, reject) => {
+  //  DatePicker()
+  //    .then(user => resolve(user))
+  //    .catch(err => reject(err));
+  //});
 };
-
 App.prototype.validate = {
   REQUIRED: function (value) {
     if(value === null) return false;
@@ -292,4 +281,5 @@ App.prototype.validate = {
     }
   }
 };
+
 export default App;

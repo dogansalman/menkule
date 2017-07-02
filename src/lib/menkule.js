@@ -1,19 +1,17 @@
     import io from 'socket.io-client';
     import eventemitter from 'event-emitter';
+
     // Private properties
     let socket = null;
     let token = window.localStorage.getItem("menkule_token") || null;
     let loggedUser = null;
+    const apiAddress = "https://api.menkule.com.tr";
+    const socketAddress = "https://ws.menkule.com.tr";
+    const cloudinaryBaseUrl = "https://res.cloudinary.com/www-menkule-com-tr/image/upload/";
 
-    // If Loaded return instance
-    if (window.m) return window.m;
+    //Constructer
+    function Menkule(){
 
-    // Public Properties
-    function Menkule(apiAddress, socketAddress,cloudinaryBaseUrl){
-      this.apiAddress = apiAddress;
-      this.socketAddress = socketAddress;
-      this.cloudinaryBaseUrl = cloudinaryBaseUrl;
-      this.nullImageUrl = "no-image_ibo9hw.jpg";
     }
 
     //Request
@@ -68,8 +66,8 @@
       return loggedUser;
     };
     Menkule.prototype.confirmPopup = function(messages,succesEvent){
-      Menkule.prototype.addListener('popupaccept',succesEvent);
-      this.loadTemplate("confirm",$("body"),"css,js",function(){$('#confirmpopup .message').html(messages);$('#confirmpopup').modal('show')});
+     // Menkule.prototype.addListener('popupaccept',succesEvent);
+     // this.loadTemplate("confirm",$("body"),"css,js",function(){$('#confirmpopup .message').html(messages);$('#confirmpopup').modal('show')});
     };
     Menkule.prototype.logout = function(){
       return new Promise(resolve => {
@@ -102,21 +100,21 @@
       });
     };
     Menkule.prototype.changePass = function(current, newpass, replypass) {
-      return new Promise((resolve, reject) => {
-        this.post("/user/password", {"currentpassword": current, "password": newpass, "reply": replypass })
-          .then(result => {
-            resolve();
-          })
-          .catch(err => reject(err));
-      });
+       return new Promise((resolve, reject) => {
+       this.post("/user/password", {"currentpassword": current, "password": newpass, "reply": replypass })
+       .then(result => {
+       resolve();
+       })
+       .catch(err => reject(err));
+       });
+
     };
     Menkule.prototype.register = function (name,lastname,email,gsm,gender,password) {
-      return new Promise((resolve, reject) => {
-        this.post("/user/register", { "name": name, "lastname": lastname, "email": email, "gsm": gsm, "gender": gender, "password": password })
-          .then(result => resolve(result))
-          .catch(err => reject(err));
-      });
-
+         return new Promise((resolve, reject) => {
+         this.post("/user/register", { "name": name, "lastname": lastname, "email": email, "gsm": gsm, "gender": gender, "password": password })
+         .then(result => resolve(result))
+         .catch(err => reject(err));
+         });
     };
     Menkule.prototype.Ownershipping = function() {
       return new Promise((resolve, reject) => {
@@ -165,16 +163,9 @@
     // Extend from eventemmiter
     Menkule.prototype = Object.create(eventemitter.prototype);
 
-
-    // Create new Menkule instance
-    var m = new Menkule("https://api.menkule.com.tr", "https://ws.menkule.com.tr","https://res.cloudinary.com/www-menkule-com-tr/image/upload/");
-
     // Start socket
-    token ? m.startSocket() : m.stopSocket();
+    //token ? Menkule.startSocket() : Menkule.stopSocket();
 
-    //Set global
-    return window.m = m;
+    export default Menkule;
 
-module.exports = (function (window, $) {
-
-})(window, require('jquery'));
+    console.log(Menkule);

@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import template from './header.handlebars';
 
 export default function () {
