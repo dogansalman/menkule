@@ -1,6 +1,7 @@
 import Navigo from 'navigo';
 import eventemitter from 'event-emitter';
 import notification from 'bootstrap-notify';
+import router from '../app/router';
 
 //Private Properties
 const templateRoot = "/dist/template/";
@@ -282,5 +283,4 @@ App.prototype.validate = {
   }
 };
 
-console.log(App);
 export default App;
