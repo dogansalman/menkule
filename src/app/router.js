@@ -1,14 +1,5 @@
 import Navigo from 'navigo';
-const root = "/";
-const useHash = true; // Defaults to: false
-const hash = '#!'; // Defaults to: '#'
-let router = new Navigo(root, useHash, hash);
-
-
-function Router(){
-  this.preloaderElem = $('#page-preloader')[0];
-}
-
+let router = new Navigo();
 
 router
   .on({
@@ -20,4 +11,4 @@ router
   .resolve();
 
   console.log(router)
-export default Router;
+
