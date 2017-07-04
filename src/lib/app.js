@@ -9,9 +9,11 @@ const templateStore = {};
 let preloadState = true;
 
 //Constructer
-function App(){
-  this.preloaderElem = $('#page-preloader')[0];
-}
+//function App(){
+  //this.preloaderElem = $('#page-preloader')[0];
+//}
+
+function App(){}
 
 App.prototype = Object.create(eventemitter.prototype);
 App.prototype.showPreloader = function(arg, opacity){
@@ -180,14 +182,17 @@ App.prototype.isMobile = function(callback) {
 
 };
 App.prototype.router = function(routerConfig){
+  console.log(routerConfig);
+  return;
+
   var router = new Navigo();
   Object.keys(routerConfig).forEach(path => {
     // key - value bind
     if (typeof routerConfig[path] == 'string') {
       router.on(path, (params,query) => {
-        SystemJS.import('template/' + routerConfig[path] + '/' + routerConfig[path] + '.js')
-          .then(module => module(params,query))
-          .then(() => a.emit('loaded.page'));
+        //SystemJS.import('template/' + routerConfig[path] + '/' + routerConfig[path] + '.js')
+        //  .then(module => module(params,query))
+        //  .then(() => a.emit('loaded.page'));
       });
       return;
     }
@@ -209,9 +214,9 @@ App.prototype.router = function(routerConfig){
               if (config.length === 3) this.navigate(config[2]);
               return;
             }
-            SystemJS.import('template/' + config[1] + '/' + config[1] + '.js')
-              .then(module => module(params,query))
-              .then(() => a.emit('loaded.page'));
+            //SystemJS.import('template/' + config[1] + '/' + config[1] + '.js')
+            //  .then(module => module(params,query))
+            //  .then(() => a.emit('loaded.page'));
           });
         });
       })(path, routerConfig[path]);
