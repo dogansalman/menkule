@@ -1,12 +1,13 @@
 import Navigo from 'navigo';
 import eventemitter from 'event-emitter';
 import notification from 'bootstrap-notify';
-import router from '../app/router';
+
 
 //Private Properties
 const templateRoot = "/dist/template/";
 const templateStore = {};
 let preloadState = true;
+let router = new Navigo();
 
 //Constructer
 //function App(){
@@ -182,10 +183,6 @@ App.prototype.isMobile = function(callback) {
 
 };
 App.prototype.router = function(routerConfig){
-  console.log(routerConfig);
-  return;
-
-  var router = new Navigo();
   Object.keys(routerConfig).forEach(path => {
     // key - value bind
     if (typeof routerConfig[path] == 'string') {
@@ -199,6 +196,7 @@ App.prototype.router = function(routerConfig){
     // key - function bind
     if (typeof routerConfig[path] == 'function') {
       router.on(path, (params) => {
+        console.log('test2');
         var result = routerConfig[path](params,query);
         if (!(result instanceof Promise)) result = new Promise((resolve) => resolve(result));
         result.then(() => a.emit('loaded.page'));
@@ -210,10 +208,12 @@ App.prototype.router = function(routerConfig){
       ((path, config) => {
         router.on(path, (params,query) => {
           config[0](params).then((result) => {
+              console.log('test3');
             if (result !== true) {
               if (config.length === 3) this.navigate(config[2]);
               return;
             }
+
             //SystemJS.import('template/' + config[1] + '/' + config[1] + '.js')
             //  .then(module => module(params,query))
             //  .then(() => a.emit('loaded.page'));
