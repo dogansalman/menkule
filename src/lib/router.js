@@ -1,11 +1,11 @@
 import Menkule from './menkule';
-import App from './app';
+import  Navigo from 'navigo';
 
 let menkule = new Menkule();
-let app = new App();
+let router = new Navigo();
 
 
-const config = {
+const routerConfig = {
     '/user/account': [() => menkule.isLogged(), 'user-account', '/user/register'],
     '/user/alert/list': [() => menkule.isLogged(), 'user-alerts', '/user/register'],
     '/user/activate': [() => menkule.isLogged(), 'user-activate', '/user/register'],
@@ -30,26 +30,46 @@ const config = {
     '/': 'main-page'
 }
 
-app.router(config);
+///TODO systemJs ile yüklenen modülleri revize et.
 
-//let a = new App();
-//console.log(a);
+    Object.keys(routerConfig).forEach(path => {
+        // key - value bind
+        if (typeof routerConfig[path] == 'string') {
+            router.on(path, (params,query) => {
+                //SystemJS.import('template/' + routerConfig[path] + '/' + routerConfig[path] + '.js')
+                //  .then(module => module(params,query))
+                //  .then(() => a.emit('loaded.page'));
+            });
+            return;
+        }
+        // key - function bind
+        if (typeof routerConfig[path] == 'function') {
+            router.on(path, (params) => {
+                console.log('test2');
+                var result = routerConfig[path](params,query);
+                if (!(result instanceof Promise)) result = new Promise((resolve) => resolve(result));
+                result.then(() => a.emit('loaded.page'));
+            });
+            return;
+        }
+        // key - array bind
+        if (typeof routerConfig[path] == 'object' && routerConfig[path].length > 1 && typeof routerConfig[path][0] == 'function') {
+            ((path, config) => {
+                router.on(path, (params,query) => {
+                    config[0](params).then((result) => {
+                        console.log('test3');
+                        if (result !== true) {
+                            if (config.length === 3) this.navigate(config[2]);
+                            return;
+                        }
 
-//let apps = new App();
-//let router = new Navigo();
-
-//const menkule = new Menkule();
-
-//routing config
-
-//console.log('tested');
-//app.router(config);
-
-//router
-// .on({
-//    '/test': function () {
-//    console.log('test');
- //   },
- //   '/products': function () { console.log('asdasd') },
- // })
- // .resolve();
+                        //SystemJS.import('template/' + config[1] + '/' + config[1] + '.js')
+                        //  .then(module => module(params,query))
+                        //  .then(() => a.emit('loaded.page'));
+                    });
+                });
+            })(path, routerConfig[path]);
+            return;
+        }
+    });
+    router.resolve();
