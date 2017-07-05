@@ -22,7 +22,7 @@ const routerConfig = {
     '/error/:type': 'error',
     '/detail/advert/:id': 'detail',
     '/help/:subject' : 'help',
-    '/help/' : 'help',
+    '/help' : 'help',
     '/contact': 'contact',
     '/policy': 'policy',
     '/rezervation/:id': 'rezervation',
@@ -36,6 +36,9 @@ const routerConfig = {
         // key - value bind
         if (typeof routerConfig[path] == 'string') {
             router.on(path, (params,query) => {
+                console.log(path);
+                console.log(routerConfig[path]);
+
                 //SystemJS.import('template/' + routerConfig[path] + '/' + routerConfig[path] + '.js')
                 //  .then(module => module(params,query))
                 //  .then(() => a.emit('loaded.page'));
