@@ -1,1 +1,191 @@
-<div> <h2>Main Page</h2> {{deneme}}</div>
+<div class="visible-xs visible-sm">
+    <div class="col-xs-12 text-center home-message">
+        <h2>Farklı Yerler <span class="bluespan">KEŞFET !</span> </h2>
+        <p>Farklı şehirlerde özel anılar biriktirmek için en çok tercih edilen şehirlerdeki ilanları inceleyin.</p>
+    </div>
+    <div class="col-xs-12 searchengine">
+        <div class="form-inline search-form-mobile text-center">
+            <div class="col-xs-8 disable_padding">
+                <input type="text" data-form-element="state" class="form-control searchcity"  x-webkit-speech placeholder="Nereye seyahat edeceksiniz ?"></input>
+            </div>
+            <div class="col-xs-4 disable_padding">
+                <select data-form-element="guest" class="form-control">
+                    {{#times 6}}
+                        <option value="{{this}}">{{this}} Misafir</option>
+                    {{/times}}
+                    <option value="7">7+ Misafir</option>
+                </select>
+            </div>
+            <div class="col-xs-12 disable_padding moffset3">
+                <input type="text" data-form-element="date" placeholder="Ne zaman ?" class="form-control calendar"></input>
+            </div>
+            <div class="col-xs-12 disable_padding moffset3">
+                <button class="form-control seachengine_btn hvr-icon-up"> </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="banner video-container hidden-xs hidden-sm">
+    <div class="tv">
+        <div class="screen mute" id="tv"></div>
+        <div class="loadingvideo"></div>
+    </div>
+    <div class="container disable_padding  home-searchbox-container">
+
+        <div class="head_message text-center">
+            <span class="indextitle">KEŞFEDİLMEYİ BEKLEYEN HERYERDE EVİNİZ VAR.</span>
+            <span class="index-desc">Hızlı, Kolay Ücretsiz ve hep ücretsiz kalacak ! </span>
+            {{#unless user}}
+                <a class="index-registerbtn" href="/user/register">Hemen Üye Olun !</a>
+            {{/unless}}
+        </div>
+
+        <div class="col-xs-12 searchengine">
+            <div class="form-inline search-form text-center">
+                <input type="text" data-form-element="state" class="form-control searchcity"  x-webkit-speech placeholder="Nereye seyahat edeceksiniz ?"></input>
+                <input type="text" data-form-element="date" placeholder="Ne zaman ?" class="form-control calendar"></input>
+                <select data-form-element="guest" class="form-control">
+                    {{#times 6}}
+                        <option value="{{this}}">{{this}} Misafir</option>
+                    {{/times}}
+                    <option value="7">7+ Misafir</option>
+                </select>
+                <button class="form-control seachengine_btn hvr-icon-up"> </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="clear: both"></div>
+
+<div class="middle2 hidden-xs hidden-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-3 circle-homepage text-center">
+                    <div class="circle_iconcontainer">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                    </div>
+                    <h2>Onaylanmış Üyeler</h2>
+                    <p>Tüm üyelerin gerçek bilgileri kullandıkları 2 farklı yöntem ile kontrol edilir. </p>
+                </div>
+                <div class="col-md-3 circle-homepage text-center">
+                    <div class="circle_iconcontainer">
+                        <i style="font-size: 29px; margin-top: -3px;" class="fa fa-mobile" aria-hidden="true"></i>
+                    </div>
+                    <h2>GELİŞMİŞ BİLDİRİM</h2>
+                    <p>Rezervasyon durumunuz ile ilgili gelişmeden anında  haberdar olun tüm bildirimler cebinize gelsin. </p>
+                </div>
+                <div class="col-md-3 circle-homepage text-center">
+                    <div class="circle_iconcontainer">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    </div>
+                    <h2>Harita İle Arama</h2>
+                    <p>Seyahat edeceğiniz yeri ve konaklama noktalarını haritada inceleyin. </p>
+                </div>
+                <div class="col-md-3 circle-homepage text-center">
+                    <div class="circle_iconcontainer">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                    <h2>Güvenilir İlanlar</h2>
+                    <p>Menkule ilan güvenilirliğine ve doğruluna önem verir ve sizin için geri bildirim ile ilanları kontrol eder.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="container ">
+        <div class="row">
+            <div class="col-xs-12 text-center home-message">
+                <h2>Farklı Yerler <span class="bluespan">KEŞFET !</span> </h2>
+                <p>Farklı şehirlerde özel anılar biriktirmek için en çok tercih edilen şehirlerdeki ilanları inceleyin.</p>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="container bottomset7">
+        <div class="row">
+            <div class="col-md-8 city1">
+                <a href="/harita/tekirdag/">
+                    <div class="citybackground">
+                        <div class="mappin"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div class="statename">TEKİRDAĞ</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 city2">
+                <a href="/harita/izmir/">
+                    <div class="citybackground">
+                        <div class="mappin"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div class="statename">İZMİR</div>
+                    </div>
+                </a>
+            </div>
+            <div style="clear: both;margin-top: 20px"></div>
+            <div class="col-md-4 city3">
+                <a href="/harita/antalya/">
+                    <div class="citybackground">
+                        <div class="mappin"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div class="statename">ANTALYA</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8 city4">
+                <a href="/harita/istanbul/">
+                    <div class="citybackground">
+                        <div class="mappin"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+                        <div class="statename">İSTANBUL</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container ">
+        <div class="row">
+            <div class="col-xs-12 text-center  home-message">
+                <h2><span class="bluespan">Ev Sahipliği</span> Ücretsiz İlanınızı Oluşturun! </h2>
+                <p>Ücretsiz kayıt olun ! İlanınızı oluşturun hemen kazanmaya başlayın. </p>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="col-md-12 homeownership disable_padding">
+        <a href="/user/register">
+            <div class="citybackground"></div>
+            <img class="img-responsive" src="/dist/images/ev_sahipligi_yap.jpg" alt="ev sahipliği yap" />
+        </a>
+    </div>
+    <div style="clear: both"></div>
+
+    <div class="container moffset5">
+        <div class="row">
+            <div class="col-xs-12 slide_faq text-center">
+                <h2>KISACA <span class="bluespan">MENKULE </span> NEDİR ? </h2>
+                <ul class="menkule_faq">
+                    <div class="col-xs-12">
+                        <h2>Menkule Nedir ?</h2>
+                        <p>
+                            Evinizi, yazlığınızı veya kullanmadığınız boş odanızı değelendirebileceğiniz imkanlar sunar, Alternatif tatil seçenekleri ile uygun fiyatlarla bulabileceğiniz yüzlerce ev menkule.com.tr'da Taşınmaz ilanlarınızı bir limite takılmaksızın ekleyebilirsiniz. Eklediğiniz ilanları tüm Türkiye'de milyonlara ulaştırabilirsiniz.
+                        </p>
+                    </div>
+                    <div class="col-xs-12">
+                        <h2>Ev Sahipliği Nasıl Yapabilirim ?</h2>
+                        <p>
+                            Ev sahipliği yapabilmeniz için öncelikle menkule.com.tr'a üye olmanız gerekmektedir. Üye olmak için Üye ol sayfasını ziyaret edebilirsiniz. Üye olduktan sonra üyeliğinizin aktif olabilmesi için üye olurken kullandığınız e-posta adresinize otomatik olarak gönderilen onay iletisini onaylamalısınız. Üyeliğinizi onayladıktan sonra üyelik bilgileriniz ile Üye Girişi yapabilirsiniz. Üye girişi yaptıktan sonra İlan Ekle sayfasını ziyaret ederek İlanınızı ekleyebilirsiniz
+                        </p>
+                    </div>
+                    <div class="col-xs-12">
+                        <h2>Nasıl Üye Olabilirim ?</h2>
+                        <p>
+                            <a href="/user/register">Üye Ol</a> sayfasını ziyaret ederek e-posta,isim,soyisim,gsm no bilgilerizi belirterek menkule.com.tr a üye olabilirsiniz. Bu bilgiler kesinlikle 3. gerçek veya tüzel kişi ve kurumla paylaşılmamaktadır. Üyeliğinizin aktif olabilmesi için kayıt olurken kullandığınız e-posta adresinize gönderilen onay iletisindeki onay bağlantısına tıklayarak hesabınızı onaylayabilirsiniz.<a href="/user/policy/">Üyelik sözleşmesi</a> tamamını inceleyebilirsiniz.
+                        </p>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<div style="clear:both;"></div>

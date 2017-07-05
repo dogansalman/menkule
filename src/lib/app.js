@@ -182,49 +182,6 @@ App.prototype.isMobile = function(callback) {
   });
 
 };
-App.prototype.router = function(routerConfig){
-  Object.keys(routerConfig).forEach(path => {
-    // key - value bind
-    if (typeof routerConfig[path] == 'string') {
-      router.on(path, (params,query) => {
-        //SystemJS.import('template/' + routerConfig[path] + '/' + routerConfig[path] + '.js')
-        //  .then(module => module(params,query))
-        //  .then(() => a.emit('loaded.page'));
-      });
-      return;
-    }
-    // key - function bind
-    if (typeof routerConfig[path] == 'function') {
-      router.on(path, (params) => {
-        console.log('test2');
-        var result = routerConfig[path](params,query);
-        if (!(result instanceof Promise)) result = new Promise((resolve) => resolve(result));
-        result.then(() => a.emit('loaded.page'));
-      });
-      return;
-    }
-    // key - array bind
-    if (typeof routerConfig[path] == 'object' && routerConfig[path].length > 1 && typeof routerConfig[path][0] == 'function') {
-      ((path, config) => {
-        router.on(path, (params,query) => {
-          config[0](params).then((result) => {
-              console.log('test3');
-            if (result !== true) {
-              if (config.length === 3) this.navigate(config[2]);
-              return;
-            }
-
-            //SystemJS.import('template/' + config[1] + '/' + config[1] + '.js')
-            //  .then(module => module(params,query))
-            //  .then(() => a.emit('loaded.page'));
-          });
-        });
-      })(path, routerConfig[path]);
-      return;
-    }
-  });
-  return router;
-};
 App.prototype.PasswordChange = function() {
   //var PasswordPopup = require('template/popup-password/popup-password.js');
   //return PasswordPopup();

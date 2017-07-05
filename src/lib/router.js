@@ -1,8 +1,10 @@
 import Menkule from './menkule';
-import  Navigo from 'navigo';
+import Navigo from 'navigo';
+import App from '../lib/app';
 
 let menkule = new Menkule();
 let router = new Navigo();
+const app = new App();
 
 
 const routerConfig = {
@@ -27,31 +29,27 @@ const routerConfig = {
     '/policy': 'policy',
     '/rezervation/:id': 'rezervation',
     '/search/:state': 'search',
-    '/': 'main-page'
+    '/': 'main'
 }
 
-///TODO systemJs ile yüklenen modülleri revize et.
+///TODO dinamik olarak sytle dosyalarını import et
 
     Object.keys(routerConfig).forEach(path => {
         // key - value bind
         if (typeof routerConfig[path] == 'string') {
             router.on(path, (params,query) => {
-                console.log(path);
-                console.log(routerConfig[path]);
-
-                //SystemJS.import('template/' + routerConfig[path] + '/' + routerConfig[path] + '.js')
-                //  .then(module => module(params,query))
-                //  .then(() => a.emit('loaded.page'));
+                require('../template/' + routerConfig[path] + '/' + routerConfig[path] + '.css');
+                let main = require('../template/' + routerConfig[path] + '/' + routerConfig[path]).default();
+                app.emit('loaded.page');
             });
             return;
         }
         // key - function bind
         if (typeof routerConfig[path] == 'function') {
             router.on(path, (params) => {
-                console.log('test2');
                 var result = routerConfig[path](params,query);
                 if (!(result instanceof Promise)) result = new Promise((resolve) => resolve(result));
-                result.then(() => a.emit('loaded.page'));
+                app.emit('loaded.page');
             });
             return;
         }
@@ -60,7 +58,6 @@ const routerConfig = {
             ((path, config) => {
                 router.on(path, (params,query) => {
                     config[0](params).then((result) => {
-                        console.log('test3');
                         if (result !== true) {
                             if (config.length === 3) this.navigate(config[2]);
                             return;
