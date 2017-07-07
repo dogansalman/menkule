@@ -7,7 +7,7 @@ import EventEmitter from 'event-emitter';
 function Router(routerConfig) {
   // Set variables
   this.routerConfig = routerConfig;
-  this.navigo = new Navigo(null, false, '#');
+  this.navigo = new Navigo(window.location.protocol + '//' + window.location.host);
 
   // Load router config
   this.routerConfig.forEach(c => {

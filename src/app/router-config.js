@@ -9,7 +9,7 @@ import UserAccount from './page/user-account';
  * @type {[*]}
  */
 export default [
-  [ '/user/account', () => Menkule.isLogged(), UserAccount ],
+  [ '/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
   [ /^\/$/, MainPage ]
 ];
 
