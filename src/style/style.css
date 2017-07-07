@@ -1135,7 +1135,6 @@ a:hover {
 .banner_middle {
   background: rgba(119, 197, 244, 0.24);
   padding: 0;
-  background-image: url(/dist/images/banner.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 200px
@@ -2037,7 +2036,7 @@ advert-select:focus:active {
     height: auto;
   }
   .logo {
-    content: url("/dist/images/logo_white.png")!important
+    content: url("../assets/logo-white.png")!important
   }
   .row {
     padding: 0!important;
