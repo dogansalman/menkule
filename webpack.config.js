@@ -11,12 +11,18 @@ module.exports = {
     style: "./style/app.css",
   },
   output: {
-    filename: "[name]-[hash].bundle.js",
     path: path.resolve(__dirname, 'dist'),
+    filename: "[name]-[hash].bundle.js",
+    chunkFilename: '[chunkhash].bundle.js',
     publicPath: "/"
   },
   module: {
-    rules: [{
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['raw-loader']
+      },
+      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
@@ -31,8 +37,20 @@ module.exports = {
         }
       },
       {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          'url-loader?limit=10000',
+          'img-loader'
+        ]
+      },
+      {
         test: /\.handlebars/,
-        loader: "handlebars-loader"
+        loader: "handlebars-loader",
+        query: {
+          helperDirs: [
+            path.resolve(__dirname, 'src', 'handlebar', 'helpers')
+          ]
+        }
       },
       {
         test: /\.js$/,
@@ -51,8 +69,8 @@ module.exports = {
       historyApiFallback: true
     },
     plugins: [
-      new HtmlWebpackPlugin({template: './index.html',inject: true}),
-      new ExtractTextPlugin("app-[hash].css"),
+      new HtmlWebpackPlugin({template: './index.html', inject: true}),
+      new ExtractTextPlugin("style-[hash].bundle.css"),
       new CopyWebpackPlugin([{ from: 'assets/', to: 'assets' }]),
       new webpack.ProvidePlugin({
         $: 'jquery',

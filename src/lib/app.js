@@ -1,22 +1,28 @@
-import Navigo from 'navigo';
-import eventemitter from 'event-emitter';
-import notification from 'bootstrap-notify';
+import EventEmitter from 'event-emitter';
+import 'bootstrap-notify';
 
-
-//Private Properties
-const templateRoot = "/dist/template/";
-const templateStore = {};
+// Private Properties
 let preloadState = true;
-let router = new Navigo();
 
-//Constructer
-//function App(){
-  //this.preloaderElem = $('#page-preloader')[0];
-//}
+/**
+ * App Constructor
+ * @constructor
+ */
+function App(){
+  this.preloaderElem = $('body > #page-preloader')[0];
+}
 
-function App(){}
+/**
+ * Extend App
+ */
+EventEmitter(App.prototype);
 
-App.prototype = Object.create(eventemitter.prototype);
+/**
+ * Show preloader
+ * @param arg
+ * @param opacity
+ * @return {Promise}
+ */
 App.prototype.showPreloader = function(arg, opacity){
   if (typeof arg == "number") {
     opacity = arg;
@@ -31,6 +37,12 @@ App.prototype.showPreloader = function(arg, opacity){
     });
   });
 };
+
+/**
+ * Hide preloader
+ * @param arg
+ * @return {Promise}
+ */
 App.prototype.hidePreloader = function(arg){
   return new Promise(resolve => {
     if (preloadState == false) return resolve(arg);
@@ -41,6 +53,7 @@ App.prototype.hidePreloader = function(arg){
     });
   });
 };
+
 App.prototype.parseJSON = function (value) {
   return new Promise((resolve, reject) => {
     try {
@@ -51,47 +64,6 @@ App.prototype.parseJSON = function (value) {
   });
 };
 
-/*
- App.prototype.getTemplate = function(templateName, templateData) {
- templateData = templateData || {};
- return new Promise((resolve, reject) => {
- // Before get check cache
- if (templateStore.hasOwnProperty(templateName)) {
- return this.renderTemplate(templateStore[templateName], templateData).then(template => resolve(template));
- }
- $.get(templateRoot + templateName + '/' + templateName + '.html')
- .then(template => this.renderTemplate((templateStore[templateName] = template), templateData))
- .then(template => resolve(template));
- });
- };
- */
-
-/*
- App.prototype.renderTemplate = function (template, templateData) {
- require("handlebars");
- require("handlebar-helpers");
-
- return new Promise((resolve) => {
- setTimeout(() => {
- resolve(Handlebars.compile(template)(templateData));
- }, 0);
- });
- };
-
- */
-
-App.prototype.addStyle = function(styleName) {
-  return new Promise((resolve) => {
-    if ($("style[data-style-name='" + styleName + "']").size() > 0) return resolve();
-    $.get(templateRoot + styleName + '/' + styleName + '.css')
-      .then(css => {
-        setTimeout(() => {
-          $('<style type="text/css" data-style-name="' + styleName + '"></style>').html(css).appendTo("head");
-          resolve();
-        })
-      });
-  });
-};
 App.prototype.notifyDanger = function (message, title) {
   return this.showNotify({message, title, type: 'danger'});
 };
@@ -100,8 +72,6 @@ App.prototype.notifySuccess = function (message, title) {
 };
 App.prototype.showNotify = function(options) {
   return new Promise(resolve => {
-    //require('notification');
-
     options = Object.assign({
       'icon': 'fa fa-bell-o',
       'title': '',

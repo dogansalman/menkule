@@ -8,7 +8,7 @@ import MainPage from './page/main';
  * @type {[*]}
  */
 export default [
-  [ '/', MainPage ]
+  [ /^\/$/, MainPage ]
 ];
 
 /*

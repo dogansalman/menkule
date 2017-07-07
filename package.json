@@ -45,6 +45,8 @@
     "handlebars-loader": "^1.5.0",
     "html-webpack-plugin": "^2.29.0",
     "image-webpack-loader": "^3.3.1",
+    "img-loader": "^2.0.0",
+    "raw-loader": "^0.5.1",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.0.0",

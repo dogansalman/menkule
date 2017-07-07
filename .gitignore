@@ -10,3 +10,5 @@ npm-debug.log
 .well-known/
 Web.config
 Global.asax
+
+/.idea/

@@ -1,2 +1,7 @@
 @import "third-party.css";
 @import "style.css";
+
+/* Parts */
+@import "./parts/main-page.css";
+@import "./parts/header.css";
+@import "./parts/footer.css";

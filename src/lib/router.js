@@ -1,82 +1,91 @@
 import Navigo from 'navigo';
+import EventEmitter from 'event-emitter';
 
 /**
  * Router class
  */
-class Router {
-  constructor(routerConfig) {
-    this.routerConfig = routerConfig;
-    this.navigo = new Navigo(null, false, '#');
-    this.loadConfig();
-  }
+function Router(routerConfig) {
+  // Set variables
+  this.routerConfig = routerConfig;
+  this.navigo = new Navigo(null, false, '#');
 
-  loadConfig() {
-    this.routerConfig.forEach(c => {
-      // Get Pattern
-      const pattern = c[0];
-      // Get Callbacks
-      const callbackChain = c.slice(1);
+  // Load router config
+  this.routerConfig.forEach(c => {
 
-      console.log(callbackChain);
-    });
-  }
+    // Sanitize call
+    if (typeof c[0] !== 'string' && !(c[0] instanceof RegExp)) c = [ null, c[0] ];
+
+    // Get Pattern
+    const pattern = c[0];
+
+    // Get Callbacks
+    const callbackChain = c.slice(1, 3);
+
+    // Set callback
+    const callback = (params) => {
+      const pageResult = callbackChain[callbackChain.length - 1](params);
+      const e = new CustomEvent('resolve', { cancelable: false });
+      e['params'] = params;
+      if (pageResult instanceof Promise) return pageResult.then(result => this.emit('resolve', e));
+      this.emit('resolve', e);
+    };
+
+    // Set config
+    const config = {
+      before: (done, params) => {
+        if (callbackChain.length > 1) {
+          const result = callbackChain[0](params);
+          if (result instanceof Promise) return result.then(result => done(result));
+          return done(result);
+        }
+        done(true);
+      }
+    };
+
+    // Set rule
+    pattern ? this.navigo.on(pattern, callback, config) : this.navigo.on(callback, config);
+
+    // Set global hooks
+    this.navigo.hooks({
+      before: (done, params) => this._onBefore(done, params),
+      after: (params) => this._onAfter(params)
+    })
+  });
 }
+
+/**
+ * Extends event emitter
+ * @type {EventEmitter}
+ */
+EventEmitter(Router.prototype);
+
+/**
+ * Router before resolve function
+ */
+Router.prototype._onAfter = function (params) {
+  const e = new CustomEvent('after.resolve', { cancelable: false });
+  e['params'] = params;
+  this.emit('after.resolve', e);
+};
+
+/**
+ * Router before resolve function
+ */
+Router.prototype._onBefore = function (done, params) {
+  const e = new CustomEvent('before.resolve', { cancelable: true });
+  e['params'] = params;
+  this.emit('before.resolve', e);
+  done(!e.defaultPrevented);
+};
 
 /**
  * Router resolve function
  */
 Router.prototype.resolve = function () {
-
+  if (this.navigo.resolve(window.location.href) === false) this.emit('resolve');
 };
 
 /**
  * Exports
  */
 export default Router;
-
-
-
-/*
-
-///TODO dinamik olarak sytle dosyalarını import et
-
-    Object.keys(routerConfig).forEach(path => {
-        // key - value bind
-        if (typeof routerConfig[path] == 'string') {
-            router.on(path, (params,query) => {
-                require('../template/' + routerConfig[path] + '/' + routerConfig[path] + '.css');
-                let main = require('../template/' + routerConfig[path] + '/' + routerConfig[path]).default();
-                app.emit('loaded.page');
-            });
-            return;
-        }
-        // key - function bind
-        if (typeof routerConfig[path] == 'function') {
-            router.on(path, (params) => {
-                var result = routerConfig[path](params,query);
-                if (!(result instanceof Promise)) result = new Promise((resolve) => resolve(result));
-                app.emit('loaded.page');
-            });
-            return;
-        }
-        // key - array bind
-        if (typeof routerConfig[path] == 'object' && routerConfig[path].length > 1 && typeof routerConfig[path][0] == 'function') {
-            ((path, config) => {
-                router.on(path, (params,query) => {
-                    config[0](params).then((result) => {
-                        if (result !== true) {
-                            if (config.length === 3) this.navigate(config[2]);
-                            return;
-                        }
-
-                        //SystemJS.import('template/' + config[1] + '/' + config[1] + '.js')
-                        //  .then(module => module(params,query))
-                        //  .then(() => a.emit('loaded.page'));
-                    });
-                });
-            })(path, routerConfig[path]);
-            return;
-        }
-    });
-    router.resolve();
-*/
