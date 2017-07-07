@@ -2,12 +2,14 @@
  * Pages
  */
 import MainPage from './page/main';
+import UserAccount from './page/user-account';
 
 /**
  * Define routes
  * @type {[*]}
  */
 export default [
+  [ '/user/account', () => Menkule.isLogged(), UserAccount ],
   [ /^\/$/, MainPage ]
 ];
 

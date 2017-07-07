@@ -1,8 +1,7 @@
 import template from './header.handlebars';
 
 export default (isOpen) => Menkule.user()
-  .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen })).then(header => new Promise(resolve => {
-    isOpen = isOpen || false;
+  .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen: isOpen || false })).then(header => new Promise(resolve => {
 
     if (user) {
       // On new message

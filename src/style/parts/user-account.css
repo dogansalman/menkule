@@ -1,0 +1,65 @@
+.emailinfo .input-group-addon,
+.gmsinfo .input-group-addon {
+    position: absolute;
+    right: 1px;
+    width: 30px;
+    text-align: center;
+    height: 34px;
+    padding: 8px 0 0
+}
+.member_state {
+    color: #797B7D;
+    font-size: 12px;
+    text-transform: capitalize
+}
+.changepassword {
+    font-size: 12px;
+    display: inline-block !important;
+    background: #16a085;
+    padding: 8px;
+    border-radius: 0px;
+    color: #fff !important;
+}
+.changepassword:hover,
+.changepassword:focus,
+.changepassword:focus:active,
+.changepassword:active {
+    color: #fff;
+    background: #26bda0;
+}
+.accontbtnoptn {
+    display: inline-block;
+    text-align: right
+}
+.activestate{
+    color:#49bafb !important;
+    background:transparent !important;
+    border:none !important;
+}
+.activestate:before{
+    color:#49bafb;
+    content: "\f00c";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    font-size: 16px;
+    padding: 0px;
+    display: block;
+}
+.passivestate{
+    color: #e74c3c !important;
+    background: transparent !important;
+    border: none !important;
+}
+.passivestate:before{
+    color:#e74c3c;
+    content: "\f06a";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    font-size: 16px;
+    padding: 0px;
+    display: block;
+}
