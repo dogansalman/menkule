@@ -309,16 +309,16 @@
     top: 0
 }
 @media all and (max-width: 768px) {
-  .footer{
-    position: fixed !important;
-    bottom: 0px !important;
-    background: none !important;
+  .home > .mobile_footer {
+      padding: 0!important;
+      background: rgba(0, 0, 0, 0.23);
+      margin-top: 20px;
   }
-  .footer-link{
+    .home > .footer-link{
     color: #fff;
     font-size: 14px;
   }
-  .mobile-footer-container p{
+    .home > .mobile-footer-container p{
     color:#fff;
   }
   .home-message p{

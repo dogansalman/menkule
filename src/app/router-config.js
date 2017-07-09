@@ -3,6 +3,8 @@
  */
 import MainPage from './page/main';
 import UserAccount from './page/user-account';
+import  HelpPage from './page/help';
+
 
 /**
  * Define routes
@@ -10,6 +12,8 @@ import UserAccount from './page/user-account';
  */
 export default [
   [ '/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
+  ['/help', HelpPage],
+  ['/help/:subject', HelpPage],
   [ /^\/$/, MainPage ]
 ];
 
