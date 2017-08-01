@@ -1,13 +1,23 @@
-import modal from '../../page/modal';
-import template from './login.handlebars';
+import loginTemplate from './login.handlebars'
+import modal from '../modal';
+
+
 
 export default () => {
-
     return new Promise(resolve => {
-        console.log(template);
-        $(modal).zone('modal-content').setContentAsync(template)
-            .then(template => resolve(modal));
-        resolve(modal);
+
+        //modal-content e erişip burda login.handlebars ı append etmek gerek.
+
+        console.log($(modal));
+        console.log(modal);
+
+
+        //resolve($(modal));
+
+        //$(modalTemplate()).zone('modal-content').setContentAsync(loginTemplate())
+        //     .then(() => resolve($(modal)));
+
+
     });
 
 }

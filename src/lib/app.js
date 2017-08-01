@@ -1,6 +1,9 @@
 import EventEmitter from 'event-emitter';
 import 'bootstrap-notify';
 
+
+import loginModal from '../app/popup/login';
+
 // Private Properties
 let preloadState = true;
 
@@ -161,12 +164,12 @@ App.prototype.Ownershipping = function() {
   //return OwnershippingPopup();
 };
 App.prototype.Login = function() {
-  //var LoginPopup = require('template/popup-login/popup-login.js');
-  //return new Promise((resolve, reject) => {
-  //  LoginPopup()
-  //    .then(user => resolve(user))
-  //    .catch(err => reject(err));
-  //});
+  return new Promise((resolve, reject) => {
+      loginModal()
+      .then(tested => console.log('tested'))
+      //.then(user => resolve(user))
+      .catch(err => reject(err));
+  });
 };
 App.prototype.DatePicker = function() {
   //var DatePicker = require('template/popup-datetime/popup-datetime.js');
