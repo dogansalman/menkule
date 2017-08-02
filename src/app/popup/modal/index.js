@@ -2,24 +2,26 @@ import Bootstrap from 'bootstrap';
 import modal from '../modal';
 import template from './modal.handlebars';
 
-export default () => {
+export default (options) => {
 
-    $(template).on('hidden.bs.modal', (e) => {
-        $(template).remove();
+    return new Promise(resolve => {
+
+        $(template).on('hidden.bs.modal', (e) => {
+            $(template).remove();
+        });
+
+        $(template).on('shown.bs.modal', (e) => {
+            App.promise(() => require('../login/login.handlebars'))
+                .then(mc=> $(template).zone('modal-content').setContentAsync(mc))
+                .then(t => resolve(t));
+        });
+
+        $(template()).modal({
+            show: 'true'
+        });
+
     });
 
-    $(template).on('shown.bs.modal', (e) => {
-
-        //$(template).zone('modal-content').setContentAsync(asd);
-
-        //App.getTemplate(options.template, options.templateData)
-        //    .then(html => template.zone('modal-content').setContentAsync(html))
-        //    .then(template => resolve(template));
-    });
-
-    $(template()).modal({
-        show: 'true'
-    });
 }
 
 
