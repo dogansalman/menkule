@@ -3,7 +3,7 @@
  */
 import MainPage from './page/main';
 import UserAccount from './page/user-account';
-import  HelpPage from './page/help';
+import HelpPage from './page/help';
 
 
 /**
@@ -13,6 +13,7 @@ import  HelpPage from './page/help';
 export default [
   [ '/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
   ['/help', HelpPage],
+  ['/user/account/:test', UserAccount],
   ['/help/:subject', HelpPage],
   [ /^\/$/, MainPage ]
 ];

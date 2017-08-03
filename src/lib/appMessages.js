@@ -1,0 +1,34 @@
+export default (key) => {
+
+    const messages = {
+        //User
+        'register_success': "<h2>Kayıt olduğunuz için teşekkür ederiz.</h2><p>Sizleri üye giriş sayfasına yönlendiriyoruz. Üye girişi gerçekleştirdikten sonra cep telefonunuza gelen onay kodu ile üyeliğinizi onaylamayı unutmayın.</p><p><i class='fa fa-clock-o'></i> <span class='sure'>kısa bir süre sonra</span> üye girişi sayfasına yönlendirileceksiniz.</p>",
+        'login_fail': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> E-posta adresiniz veya şifreniz hatalı. </div>",
+        'forgot_fail': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> E-posta adresiniz hatalı. Lütfen tekrar deneyin. </div>",
+        'changepass_fail': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Şifreniz hatalı. Lütfen tekrar deneyin. </div>",
+
+        //search
+        'advert_error_search': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Üzgünüz beklenmedik bir hata!</h2> <p>Beklenmedik bir hata yaşandı. Lütfen tekrar deneyin. </p> </div></div>",
+        'advert_no_result': "<div class='col-xs-12'> <h2>Sonuç bulunamadı</h2> <p> Üzgünüz aradığınız bölge için bir ilan kaydı bulunmamakta. </p> </div>",
+
+        //adverts
+        'error_advert_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz bir kayıt bulunamamakta!</h2> <p>Henüz bir ilan kaydınız bulunmamaktadır. </p> </div></div>",
+        'error_advert_detail': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Üzgünüz. Bir sorun oluştu !</h2> <p>İlan detaylarına erişim sağlanmamaktadır. Bunun nedeni ilan size ait olmayabilir veya ilan kaydı silinmiş olabilir. </p> </div></div>",
+        'feedback_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> bildiriminiz iletilemedi. Lütfen tekrar deneyin. </div>",
+
+        //messages
+        'error_message_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz bir kayıt bulunamamakta!</h2> <p>Henüz bir mesaj kaydınız bulunmamaktadır. </p> </div></div>",
+        'error_message_detail': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Üzgünüz. Bir sorun oluştu !</h2> <p>Mesaj detaylarına erişim sağlanmamaktadır. Bunun nedeni mesaj size ait olmayabilir veya mesaj kaydı silinmiş olabilir. </p> </div></div>",
+        'message_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Mesajınız iletilemedi. </div>",
+        //alerts
+        'error_alert_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz Yeni bildiriminiz bulunamamakta!</h2> <p>Henüz bir bildirim kaydınız bulunmamaktadır. </p> </div></div>",
+
+        //comments
+        'no_comments': "<div class='col-xs-12 disable_padding'> <h2>Henüz bir yorum bulunmamakta!</h2> <p>İlk yorum yapan siz olun!</p> </div>",
+        'comments_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Yorumunuz iletilemedi. </div>",
+        //rezervations
+        'no_rezervation': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Rezevasyon bulunamadı!</h2> <p>Henüz bir rezervasyon kaydınız bulunmamaktadır.</p> </div></div>",
+
+    };
+    return messages[key] || "";
+}
