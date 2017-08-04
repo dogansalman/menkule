@@ -166,8 +166,7 @@ App.prototype.Ownershipping = function() {
 App.prototype.Login = function() {
   return new Promise((resolve, reject) => {
       loginModal()
-      .then(tested => console.log('tested'))
-      //.then(user => resolve(user))
+      .then(user => resolve(user))
       .catch(err => reject(err));
   });
 };

@@ -22,7 +22,7 @@ export default () => {
                             modalContent.validateFormAsync(loginFormRules)
                                 .then((loginForm) => Menkule.login(loginForm.email, loginForm.password, 'false'))
                                 .then(() => Menkule.user())
-                                .then((user) => modalContent.modal('hide').promise().done(() => resolve(user)))
+                                .then((user) => modalContent.parents('.modal').modal('hide').promise().done(() => resolve(user)))
                                 .catch(err => {
                                     // If Validate Error
                                     if (err instanceof ValidateError) {

@@ -17,8 +17,10 @@ EventEmitter(Menkule.prototype);
 
 //Request
 Menkule.prototype.request = function(method, url, data) {
+
   return new Promise((resolve, reject) => {
-    var ajaxOptions = {url: this.apiAddress + url, method: method, dataType: "json"};
+    var ajaxOptions = {url: apiAddress + url, method: method, dataType: "json"};
+
     if (["POST", "PUT"].indexOf(method) > -1) {
       if (!(data instanceof File)) {
         ajaxOptions["data"] = JSON.stringify(data ? data : {});
@@ -54,12 +56,15 @@ Menkule.prototype.hasToken = function(){
   return token !== null;
 };
 Menkule.prototype.saveToken = function(t){
-  this.startSocket();
   window.localStorage.setItem("menkule_token", token = t);
+  this.startSocket();
 };
 Menkule.prototype.removeToken = function(){
   this.stopSocket();
   window.localStorage.removeItem("menkule_token");
+};
+Menkule.prototype.getToken = function(){
+    return token;
 };
 
 //User
@@ -79,7 +84,7 @@ Menkule.prototype.logout = function(){
 };
 Menkule.prototype.startSocket = function (){
   if (socket) return;
-  socket = io(this.socketAddress, {'query': 'token=' + token});
+  socket = io(socketAddress, {'query': 'token=' + token});
   socket.on('notification', (notification) => this.emit('new.notification', notification));
   socket.on('message', (message) => this.emit('new.message', message));
 };
@@ -161,12 +166,6 @@ Menkule.prototype.user = function(force) {
   });
 };
 
-
-//SOR
-//Sınıf içerisindeki prototype methodları içeride nasıl kullanabilirim ?
-//Örnek: aşağıdaki şekilde
-// Start socket
-//token ? this.startSocket() : this.stopSocket();
 
 export default Menkule;
 

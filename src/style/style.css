@@ -2036,7 +2036,7 @@ advert-select:focus:active {
     height: auto;
   }
   .logo {
-    content: url("../assets/logo-white.png")!important
+    content: url("../assets/logo_white.png")!important
   }
   .row {
     padding: 0!important;
