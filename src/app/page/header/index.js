@@ -154,5 +154,5 @@ App.on('logged.user', (user) => {
 
 // When header changed
 App.on('changed.header', (isOpen) => {
-    module.exports(isOpen).then();
+    //module.exports(isOpen).then();
 });
