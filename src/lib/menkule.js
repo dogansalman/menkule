@@ -1,16 +1,23 @@
 import io from 'socket.io-client';
 import EventEmitter from 'event-emitter';
+import config from './config';
 
 // Private properties
 let socket = null;
 let token = window.localStorage.getItem("menkule_token") || null;
 let loggedUser = null;
-const apiAddress = "https://api.menkule.com.tr";
-const socketAddress = "https://ws.menkule.com.tr";
-const cloudinaryBaseUrl = "https://res.cloudinary.com/www-menkule-com-tr/image/upload/";
+let apiAddress = config().apiAdress;
+let socketAddress = config().socketAddress;
+let cloudinaryBaseUrl = config().cloudinaryBaseUrl;
+
+
 
 // Menkule Constructor
-function Menkule(){ }
+function Menkule(){
+    this.apiAddress = config().apiAdress;
+    this.socketAddress = config().socketAddress;
+    this.cloudinaryBaseUrl = config().cloudinaryBaseUrl;
+}
 
 //Extend from eventemmiter
 EventEmitter(Menkule.prototype);
@@ -167,5 +174,5 @@ Menkule.prototype.user = function(force) {
 };
 
 
-export default Menkule;
+export default Menkule
 

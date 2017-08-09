@@ -1,4 +1,5 @@
 import template from './header.handlebars';
+import messages from './messages.handlebars';
 
 export default (isOpen) => Menkule.user()
   .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen: isOpen || false })).then(header => new Promise(resolve => {
@@ -55,11 +56,16 @@ export default (isOpen) => Menkule.user()
           .then(() => header.find('.alertlists').addClass('open'))
       });
 
+
+
+
       //render messages
-      App.renderTemplate(header.find('#message-template').html(), {
+      App.renderTemplate($(template()).find('#message-template').html(), {
         message: user.messages
       })
-        .then((msg_temp) => $("body").zone('messages').setContentAsync(msg_temp));
+        //.then((msg_temp) => $("body").zone('messages').setContentAsync(msg_temp))
+        .then((msg_temp) => console.log(msg_temp))
+
 
       //render notification
       App.renderTemplate(header.find('#alert-template').html(), {

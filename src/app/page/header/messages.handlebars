@@ -1,0 +1,30 @@
+{{{{raw-helper}}}}
+
+<a href="#">
+    <i class="fa fa-envelope-o"></i>
+    {{#zif message.length '>' '0'}}
+    <span class=messagesize>{{message.length}}</span>
+    {{/zif}}
+</a>
+<div class="messagelist hidden-xs hidden-sm">
+    <div class="messagelist-maintitle">
+        Mesajlar
+    </div>
+    <i class="message-upper-arrow fa fa-caret-up"></i>
+    {{#zif message.length '==' '0'}}
+    <p class="emptymsg">Yeni bir mesajınız bulunmamaktadır.</p>
+    {{else}}
+    <ul>
+        {{#each message}}
+        <li class='newmessagelist'>
+            <a href='/user/messages/{{message_id}}'> <span class='newmessagelist-photo hidden-xs hidden-sm'>
+            <img src='{{#image sender_photo 250 200 }} {{/image}}'></img> </span> <span class='newmessagelist-message'>{{last_message.message}} {{message}} <br/> <span class='messagelist-dateicon'>{{date date "D MMMM YYYY, dddd"}} </span> </span>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+    {{/zif}}
+    <a class="newmessage-all" href="/user/messages/">Tümü</a>
+</div>
+
+{{{{/raw-helper}}}}

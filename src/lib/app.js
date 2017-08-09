@@ -1,6 +1,6 @@
 import EventEmitter from 'event-emitter';
 import 'bootstrap-notify';
-
+import Handlebars from 'handlebars/dist/handlebars.min.js';
 
 import loginModal from '../app/popup/login';
 
@@ -66,7 +66,14 @@ App.prototype.parseJSON = function (value) {
     }
   });
 };
+App.prototype.renderTemplate = function (template, templateData) {
 
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(Handlebars.compile(template)(templateData));
+        }, 0);
+    });
+};
 App.prototype.notifyDanger = function (message, title) {
   return this.showNotify({message, title, type: 'danger'});
 };

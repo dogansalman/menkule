@@ -62,144 +62,91 @@
    </div>
    {{/unless}}
 </div>
-{{#isLogin}}
-<div class='rightbigmenu{{#isOpen}} bigmenu-open{{/isOpen}}' >
-   <div class="col-xs-12 text-center">
-      <a href="javascript:void(0)" class="closebigmenu">X</a>
-      <div class="bigmenu-profile-img"> <a href="/user/account/"><img src="{{#image user.photo 150 150 }} {{/image}}" onerror="this.onerror=null;this.src='/assets/no-photo.png';" alt="profile photos"/></a></div>
-      <div class="bigmenu-profile-detail">
-         <div class="bigmenu-name">
-            {{#if user.state}}
-            <span class=" activemembericon "></span>
+
+{{#if user}}
+    <div class='rightbigmenu{{#isOpen}} bigmenu-open{{/isOpen}}' >
+        <div class="col-xs-12 text-center">
+            <a href="javascript:void(0)" class="closebigmenu">X</a>
+            <!--
+        <div class="bigmenu-profile-img"> <a href="/user/account/"><img src="{{#image user.photo 150 150 }} {{/image}}" onerror="this.onerror=null;this.src='/assets/no-photo.png';" alt="profile photos"/></a></div>
+        -->
+
+            <div class="bigmenu-profile-detail">
+                <div class="bigmenu-name">
+                    {{#if user.state}}
+                        <span class=" activemembericon "></span>
+                    {{else}}
+                        <span class=" passiveaccounticon"></span>
+                    {{/if}} {{user.name}} {{user.lastname}}
+                </div>
+                <div class="bigmenu-eposta"></div>
+                <div class="bigmenu-btn">
+                    <a href="/user/account/"><i class="fa fa-user"></i> Hesabım</a>
+                    <a href="/logout" class="logoutbtn"><i class="fa fa-power-off"></i>  Oturumu Kapat</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 disable_padding bigmenu-menulist">
+            <a href="/user/account">
+                <div class="bigmenu-icon"><i class="fa fa-user"></i></div>
+                <div class="bigmenu-text">Hesabım</div>
+            </a>
+            {{#if user.ownershiping}}
+                {{#if user.state}}
+                    <a class="owneritem"  href="/user/advert/create">
+                        <div class="bigmenu-icon"><i class="fa fa-plus"></i></div>
+                        <div class="bigmenu-text">Yeni İlan Oluştur</div>
+                    </a>
+                {{/if}}
+                <a class="owneritem" href="/user/advert/list">
+                    <div class="bigmenu-icon"><i class="fa fa-home"></i></div>
+                    <div class="bigmenu-text">İlanlarım <span class=badges>{{user.advert_count}}</span></div>
+                </a>
+                <a class="owneritem"  href="/user/advert/calendar">
+                    <div class="bigmenu-icon"><i class="fa fa-calendar-o"></i></div>
+                    <div class="bigmenu-text">İlan Takvimi</div>
+                </a>
             {{else}}
-            <span class=" passiveaccounticon"></span>
-            {{/if}} {{user.name}} {{user.lastname}}
-         </div>
-         <div class="bigmenu-eposta"></div>
-         <div class="bigmenu-btn">
-            <a href="/user/account/"><i class="fa fa-user"></i> Hesabım</a>
-            <a href="/logout" class="logoutbtn"><i class="fa fa-power-off"></i>  Oturumu Kapat</a>
-         </div>
-      </div>
-   </div>
-   <div class="col-xs-12 disable_padding bigmenu-menulist">
-      <a href="/user/account">
-         <div class="bigmenu-icon"><i class="fa fa-user"></i></div>
-         <div class="bigmenu-text">Hesabım</div>
-      </a>
-      {{#if user.ownershiping}}
-      {{#if user.state}}
-      <a class="owneritem"  href="/user/advert/create">
-         <div class="bigmenu-icon"><i class="fa fa-plus"></i></div>
-         <div class="bigmenu-text">Yeni İlan Oluştur</div>
-      </a>
-      {{/if}}
-      <a class="owneritem" href="/user/advert/list">
-         <div class="bigmenu-icon"><i class="fa fa-home"></i></div>
-         <div class="bigmenu-text">İlanlarım <span class=badges>{{user.advert_count}}</span></div>
-      </a>
-      <a class="owneritem"  href="/user/advert/calendar">
-         <div class="bigmenu-icon"><i class="fa fa-calendar-o"></i></div>
-         <div class="bigmenu-text">İlan Takvimi</div>
-      </a>
-      {{else}}
-      <a class="ownerstart"  href="javascript:void(0);">
-         <div class="bigmenu-icon"><i class="fa fa-home"></i></div>
-         <div class="bigmenu-text">Ev sahipliği yapmak istiyorum </div>
-      </a>
-      {{/if}}
-      {{#if user.ownershiping}}
-      <div class="drop">
-         <div class="bigmenu-icon"><i class="fa fa-ticket"></i></div>
-         <div class="bigmenu-text">Rezervasyon</div>
-         <a class="drop-link" href="/user/rezervations/incoming">
-            <div class="bigmenu-icon"><i class="fa fa-angle-right"></i></div>
-            <div class="bigmenu-text">Gelen Rezervasyonlar</div>
-         </a>
-         <a class="drop-link" href="/user/rezervations/outbound">
-            <div class="bigmenu-icon"><i class="fa fa-angle-right"></i></div>
-            <div class="bigmenu-text">Rezervasyon Taleplerim</div>
-         </a>
-      </div>
-      {{else}}
-      <a href="#">
-         <div class="bigmenu-icon"><i class="fa fa-ticket"></i></div>
-         <div class="bigmenu-text">Rezervasyonlarım</div>
-      </a>
-      {{/if}}
-      <a href="/user/messages">
-         <div class="bigmenu-icon"><i class="fa fa-envelope-o"></i></div>
-         <div class="bigmenu-text">Mesajlar</div>
-      </a>
-      <a href="/user/alert/list">
-         <div class="bigmenu-icon"><i class="fa fa-bell-o"></i></div>
-         <div class="bigmenu-text">Bildirimler <span class=badges>{{user.alert_count}}</span></div>
-      </a>
-      <a href="/logout">
-         <div class="bigmenu-icon"><i class="fa fa-power-off"></i></div>
-         <div class="bigmenu-text">Oturumu kapat</div>
-      </a>
-   </div>
-</div>
-{{/isLogin}}
-<script id="message-template" type="text/x-handlebars-template">
-   {{{{raw-helper}}}}
+                <a class="ownerstart"  href="javascript:void(0);">
+                    <div class="bigmenu-icon"><i class="fa fa-home"></i></div>
+                    <div class="bigmenu-text">Ev sahipliği yapmak istiyorum </div>
+                </a>
+            {{/if}}
+            {{#if user.ownershiping}}
+                <div class="drop">
+                    <div class="bigmenu-icon"><i class="fa fa-ticket"></i></div>
+                    <div class="bigmenu-text">Rezervasyon</div>
+                    <a class="drop-link" href="/user/rezervations/incoming">
+                        <div class="bigmenu-icon"><i class="fa fa-angle-right"></i></div>
+                        <div class="bigmenu-text">Gelen Rezervasyonlar</div>
+                    </a>
+                    <a class="drop-link" href="/user/rezervations/outbound">
+                        <div class="bigmenu-icon"><i class="fa fa-angle-right"></i></div>
+                        <div class="bigmenu-text">Rezervasyon Taleplerim</div>
+                    </a>
+                </div>
+            {{else}}
+                <a href="#">
+                    <div class="bigmenu-icon"><i class="fa fa-ticket"></i></div>
+                    <div class="bigmenu-text">Rezervasyonlarım</div>
+                </a>
+            {{/if}}
+            <a href="/user/messages">
+                <div class="bigmenu-icon"><i class="fa fa-envelope-o"></i></div>
+                <div class="bigmenu-text">Mesajlar</div>
+            </a>
+            <a href="/user/alert/list">
+                <div class="bigmenu-icon"><i class="fa fa-bell-o"></i></div>
+                <div class="bigmenu-text">Bildirimler <span class=badges>{{user.alert_count}}</span></div>
+            </a>
+            <a href="/logout">
+                <div class="bigmenu-icon"><i class="fa fa-power-off"></i></div>
+                <div class="bigmenu-text">Oturumu kapat</div>
+            </a>
+        </div>
+    </div>
+{{/if}}
 
-   <a href="#">
-   <i class="fa fa-envelope-o"></i>
-   {{#zif message.length '>' '0'}}
-   <span class=messagesize>{{message.length}}</span>
-   {{/zif}}
-   </a>
-   <div class="messagelist hidden-xs hidden-sm">
-      <div class="messagelist-maintitle">
-         Mesajlar
-      </div>
-      <i class="message-upper-arrow fa fa-caret-up"></i>
-      {{#zif message.length '==' '0'}}
-      <p class="emptymsg">Yeni bir mesajınız bulunmamaktadır.</p>
-      {{else}}
-      <ul>
-        {{#each message}}
-        <li class='newmessagelist'>
-          <a href='/user/messages/{{message_id}}'> <span class='newmessagelist-photo hidden-xs hidden-sm'>
-            <img src='{{#image sender_photo 250 200 }} {{/image}}'></img> </span> <span class='newmessagelist-message'>{{last_message.message}} {{message}} <br/> <span class='messagelist-dateicon'>{{date date "D MMMM YYYY, dddd"}} </span> </span>
-          </a>
-        </li>
-        {{/each}}
-      </ul>
-      {{/zif}}
-      <a class="newmessage-all" href="/user/messages/">Tümü</a>
-   </div>
 
-   {{{{/raw-helper}}}}
-</script>
-<script id="alert-template" type="text/x-handlebars-template">
-   {{{{raw-helper}}}}
-   <a href="#">
-   <i class="fa fa-bell-o"></i>
-   {{#zif alert.length '>' '0'}}
-   <span class="alertsize">{{alert.length}}</span>
-   {{/zif}}
-   </a>
-   <div class="alertlists hidden-xs hidden-sm">
-      <div class="alertlist-maintitle">Bildirimler</div>
-      <i class="alert-upper-arrow fa fa-caret-up"></i>
-      {{#zif alert.length '==' '0'}}
-      <p class="emptymsg">Yeni bir bildiriminiz bulunmamaktadır.</p>
-      {{else}}
-      <ul>
-        {{#each alert}}
-        <li>
-          <a class='alertmessage-alert-title' bind-data="{{id}}">
-            <div class='alertlist-icon'><i class='fa fa-bell'></i></div>
-            <div class='alertlist-title'> {{title}} <span class='alertlist-date'>{{date date "D MMMM YYYY, dddd"}} </span></div>
-          </a>
-        </li>
-        {{/each}}
-      </ul>
-      {{/zif}}
-      <a class="newalerts-all" href="/user/alert/list">Tümü</a>
-   </div>
-   {{{{/raw-helper}}}}
-</script>
+
+
