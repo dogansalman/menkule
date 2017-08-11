@@ -1,4 +1,4 @@
-{{{{raw-helper}}}}
+
 
 <a href="#">
     <i class="fa fa-envelope-o"></i>
@@ -6,6 +6,8 @@
     <span class=messagesize>{{message.length}}</span>
     {{/zif}}
 </a>
+
+{{{{raw-helper}}}}
 <div class="messagelist hidden-xs hidden-sm">
     <div class="messagelist-maintitle">
         Mesajlar
@@ -18,7 +20,7 @@
         {{#each message}}
         <li class='newmessagelist'>
             <a href='/user/messages/{{message_id}}'> <span class='newmessagelist-photo hidden-xs hidden-sm'>
-            <img src='{{#image sender_photo 250 200 }} {{/image}}'></img> </span> <span class='newmessagelist-message'>{{last_message.message}} {{message}} <br/> <span class='messagelist-dateicon'>{{date date "D MMMM YYYY, dddd"}} </span> </span>
+            <img src='{{#image sender_photo 250 200 }} {{/image}}'></img> </span> <span class='newmessagelist-message'>{{last_message.message}} {{message}} <br/> <span class='messagelist-dateicon'>{{date}} </span> </span>
             </a>
         </li>
         {{/each}}

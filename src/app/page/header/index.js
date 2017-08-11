@@ -21,13 +21,13 @@ export default (isOpen) => Menkule.user()
 
       // On new notification
       Menkule.on('new.notification', (notification) => {
-        App.promise(() => user.notifications.push(notification))
-          .then(() => App.promise(() => user.alert_count = +1))
-          .then(() => App.renderTemplate(header.find('#alert-template').html(), {
-            alert: user.notifications
-          }))
-          .then((msg_temp) => $("body").zone('alert').setContentAsync(msg_temp));
-      });
+            App.promise(() => user.notifications.push(notification))
+                .then(() => App.promise(() => user.alert_count = +1))
+                .then(() => App.renderTemplate(header.find('#alert-template').html(), {
+                    alert: user.notifications
+                }))
+                .then((msg_temp) => $("body").zone('alert').setContentAsync(msg_temp));
+        });
 
       //On change notification
       Menkule.on('change.notification', () => {
@@ -58,37 +58,36 @@ export default (isOpen) => Menkule.user()
 
 
 
-
       //render messages
-      App.renderTemplate($(template()).find('#message-template').html(), {
+      App.renderTemplate(messages(), {
         message: user.messages
       })
-        //.then((msg_temp) => $("body").zone('messages').setContentAsync(msg_temp))
-        .then((msg_temp) => console.log(msg_temp))
+       .then((msg_temp) => $("body").zone('messages').setContentAsync(msg_temp))
+       //.then((msg_temp) => console.log(msg_temp))
 
 
       //render notification
-      App.renderTemplate(header.find('#alert-template').html(), {
-        alert: user.notifications
-      })
-        .then((msg_temp) => $("body").zone('alert').setContentAsync(msg_temp))
-        .then(() => {
+      //App.renderTemplate(header.find('#alert-template').html(), {
+      //  alert: user.notifications
+      //})
+      //  .then((msg_temp) => $("body").zone('alert').setContentAsync(msg_temp))
+      //  .then(() => {
           //On clicked notification
-          header.find('.alertmessage-alert-title').on('click', (e) => {
-            e.preventDefault();
-            if ($(e.target).closest('.alertmessage-alert-title')) {
-              Menkule.post("/alert/read", {
-                id: $(e.target).closest('.alertmessage-alert-title').attr('bind-data')
-              }).
-              then(() => App.promise(() => $(e.target).closest('li').fadeOut(500, function() {
-                $(e.target).closest('li').remove()
-              })))
-                .then(() => App.promise(() => user.notifications.splice(user.notifications.findIndex(i => i.id == $(e.target).closest('.alertmessage-alert-title').attr('bind-data')), 1)))
-                .then(() => App.wait(1000))
-                .then(() => App.promise(() => Menkule.emit('change.notification')))
-            }
-          })
-        })
+      //    header.find('.alertmessage-alert-title').on('click', (e) => {
+      //      e.preventDefault();
+      //      if ($(e.target).closest('.alertmessage-alert-title')) {
+      //        Menkule.post("/alert/read", {
+      //          id: $(e.target).closest('.alertmessage-alert-title').attr('bind-data')
+      //        }).
+      //        then(() => App.promise(() => $(e.target).closest('li').fadeOut(500, function() {
+      //          $(e.target).closest('li').remove()
+      //        })))
+      //          .then(() => App.promise(() => user.notifications.splice(user.notifications.findIndex(i => i.id == $(e.target).closest('.alertmessage-alert-title').attr('bind-data')), 1)))
+      //          .then(() => App.wait(1000))
+      //          .then(() => App.promise(() => Menkule.emit('change.notification')))
+      //      }
+      //    })
+      //  })
     }
 
     header.find('.newalert-alert-btn').click(e => {
