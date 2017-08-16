@@ -162,6 +162,15 @@ App.prototype.isMobile = function(callback) {
   });
 
 };
+
+App.prototype.renderTemplate = function (template, templateData) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(Handlebars.compile(template)(templateData));
+        }, 0);
+    });
+};
+
 App.prototype.PasswordChange = function() {
   //var PasswordPopup = require('template/popup-password/popup-password.js');
   //return PasswordPopup();
