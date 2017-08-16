@@ -5,6 +5,5 @@ module.exports = function(date,format,option){
         options = format;
         format = "D MMMM YYYY, dddd [Saat:] HH:mm";
     }
-    return Handlebars.SafeString("date");
-    //return new Handlebars.SafeString(moment(date).format(format));
+    return new Handlebars.SafeString(moment(date).format(format));
 }

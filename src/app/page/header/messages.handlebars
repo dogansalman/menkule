@@ -1,13 +1,9 @@
-
-
 <a href="#">
     <i class="fa fa-envelope-o"></i>
     {{#zif message.length '>' '0'}}
     <span class=messagesize>{{message.length}}</span>
     {{/zif}}
 </a>
-
-{{{{raw-helper}}}}
 <div class="messagelist hidden-xs hidden-sm">
     <div class="messagelist-maintitle">
         Mesajlar
@@ -29,4 +25,3 @@
     <a class="newmessage-all" href="/user/messages/">Tümü</a>
 </div>
 
-{{{{/raw-helper}}}}
