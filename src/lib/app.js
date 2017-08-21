@@ -1,7 +1,6 @@
 import EventEmitter from 'event-emitter';
 import 'bootstrap-notify';
 import Handlebars from 'handlebars/dist/handlebars.min.js';
-
 import loginModal from '../app/popup/login';
 
 // Private Properties
@@ -232,5 +231,6 @@ App.prototype.validate = {
     }
   }
 };
+
 
 export default App;
