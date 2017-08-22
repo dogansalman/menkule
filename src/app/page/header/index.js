@@ -1,5 +1,6 @@
 import template from './header.handlebars';
 import messages from './messages.handlebars';
+import Header from '../header';
 
 export default (isOpen) => Menkule.user()
   .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen: isOpen || false })).then(header => new Promise(resolve => {
@@ -162,4 +163,6 @@ App.on('logged.user', (user) => {
     App.emit('changed.header');
 });
 
-
+App.on('changed.header', (user) => {
+    Header(false);
+});
