@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="registerpage">
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="registercontainer borderer">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">E-Posta Adresi</label>
+                    <input data-form-element="email" name="email"  class="form-control" maxlength="90" placeholder="E-Posta">
+                </div>
+                <div class="form-group">
+                    <label for="ad">Ad</label>
+                    <input data-form-element="firstname" name="firstname"  class="form-control firstname" maxlength="35" placeholder="İsim">
+                </div>
+                <div class="form-group">
+                    <label for="soyad">Soyad</label>
+                    <input data-form-element="lastname" name="lastname" class="form-control lastname" maxlength="35" placeholder="Soyisim">
+                </div>
+                <div class="form-group">
+                    <label for="cinsiyet">Cinsiyet</label>
+                    <select data-form-element="gender" name="gender" class="form-control">
+                        <option value="Bay">Bay</option>
+                        <option value="Bayan">Bayan</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="gsm">GSM No</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">0</div>
+                        <input type="tel" data-form-element="gsm" class="form-control" mask="0000000000" maxlength="10" placeholder="5550000000 ">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="sifre">Şifre</label>
+                    <input type="password" data-form-element="password" class="form-control" maxlength="35" placeholder="Şifre">
+                </div>
+                <div class="form-group">
+                    <label for="sifre2">Şifre Tekrar</label>
+                    <input type="password" data-form-element="password_retype" class="form-control" name="replypassword" maxlength="35" placeholder="Şifre Tekrar">
+                </div>
+                <div class="form-group">
+
+                    <div class="checkbox checkbox-info">
+                        <input data-form-element="accept_user_policy" id="policy" name="policy"  type="checkbox" />
+                        <label for="policy"><a href="/user/policy" target="_blank">Üyelik Koşullarını</a> okudum kabul ediyorum.</label>
+                    </div>
+                </div>
+                <a href="javascript:void(0)" class="default_btn register">Tamam</a>
+
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="logincontainer borderer">
+                <h4>Zaten Üyeyim</h4>
+                <p>menkule.com.tr üyeliğiniz varsa aşağıdaki butona tıklayarak üye girişi yapabilirsiniz.</p>
+                <a href="javascript:void(0);" class="loginbtn default_btn">Üye Giriş</a>
+            </div>
+            <div class="logincontainer borderer">
+                <h4 class="hidden-xs hidden-sm">Sosyal Ağ İle Bağlan</h4>
+                <p>
+                    <a href="javascript:void(0);" class="login-page-withfacebook"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook İle Bağlan</a>
+                </p>
+                <p>
+                    Facebook hesabınız ile kolayca kayıt olabilirsiniz. Facebook ile giriş yaptıktan sonra şifrenizi belirlemeniz gerekmektedir.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+    <div class="col-md-12 homeconfort disable_padding hidden-xs hidden-sm moffset5">
+        <img class="img-responsive" src="/dist/images/evinizdekikonfor.jpg" alt="ev sahipliği yap">
+    </div>
+    <div style="clear:both"></div>
+
+</div>

@@ -4,6 +4,7 @@
 import MainPage from './page/main';
 import UserAccount from './page/user-account';
 import HelpPage from './page/help';
+import Register from './page/register';
 
 
 /**
@@ -11,11 +12,13 @@ import HelpPage from './page/help';
  * @type {[*]}
  */
 export default [
-  [ '/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
-  ['/help', HelpPage],
-  ['/user/account/:test', UserAccount],
-  ['/help/:subject', HelpPage],
-  [ /^\/$/, MainPage ]
+    ['/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
+    ['/help', HelpPage],
+    ['/logout', () => Menkule.logout().then(() => App.promise(() => window.location.href = "/")), MainPage],
+    ['/user/account/:test', UserAccount],
+    ['/help/:subject', HelpPage],
+    [ /^\/$/, MainPage ],
+    ['/user/register', () => Menkule.isLogged() ,Register, MainPage ],
 ];
 
 /*

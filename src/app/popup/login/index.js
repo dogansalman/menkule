@@ -13,6 +13,7 @@ export default () => {
         modal({template: 'login', title: 'Üye Giriş', width:350})
             .then(modalContent => {
 
+                // Click login
                 modalContent.find('button.login-btn').on('click', (e) => {
                     e.preventDefault();
                     $(e.target).disable();
@@ -41,6 +42,15 @@ export default () => {
                                 })
                         })
                 });
+
+                // Enter login
+                modalContent.formFields().on('keyup', (e) => {
+                    var keyCode = e.which || e.keyCode;
+                    if (keyCode == 13) modalContent.find('button.login-btn').triggerHandler('click');
+                });
+
+                // Focus first form element
+                modalContent.formFields().first().select();
 
             });
     });

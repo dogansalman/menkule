@@ -149,7 +149,6 @@ Menkule.prototype.isLogged = function () {
   return new Promise((resolve) => {
     this.user().then(user => {
       if (user !== null) return resolve(true);
-      window.location.href = '/user/register';
       resolve(false);
     });
   });

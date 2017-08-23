@@ -150,15 +150,9 @@ export default (isOpen) => Menkule.user()
 
     resolve();
 
-
   })));
 
 
-// When user logged
-/*
-    Modulu yeniden nasıl export edebilirim ? Aşağıdaki bağlantıdaki şekillerde denedim ancak olmadı module sadece bir kere export edilebilir gibisinden bir uyarı verdi
-    http://jamesknelson.com/re-exporting-es6-modules/
- */
 App.on('logged.user', (user) => {
     App.emit('changed.header');
 });

@@ -12,6 +12,18 @@ function Router(routerConfig) {
   // Load router config
   this.routerConfig.forEach(c => {
 
+    //Check request requirement
+    let checkingFunc = (typeof c.slice(1, 2)[0] == 'function' && c.length === 4  ? c.slice(1, 2)[0] : null);
+
+    //devam edilecek...
+    if(checkingFunc){
+        const checkResult = checkingFunc();
+        if (checkResult instanceof Promise){
+            checkResult.then(result =>{ if(!result) checkingFunc = c[3] });
+        }
+    }
+
+
     // Sanitize call
     if (typeof c[0] !== 'string' && !(c[0] instanceof RegExp)) c = [ null, c[0] ];
 
@@ -20,6 +32,7 @@ function Router(routerConfig) {
 
     // Get Callbacks
     const callbackChain = c.slice(1, 3);
+
 
     // Set callback
     const callback = (params) => {

@@ -41,15 +41,16 @@ export default (options) => {
 
         //modal preloaders
         $.fn.showPreloader = function (opacity) {
+            console.log($(this));
             opacity = typeof opacity != "undefined" ? opacity : 1;
             return App.promise(() => {
-                $(this).find('.modal-body').append("<div class='loading-process'></div>");
+                $(this).append("<div class='loading-process'></div>");
                 $(this).find('.loading-process').css('opacity', opacity);
             });
         };
         $.fn.hidePreloader = function () {
             return App.promise(() => {
-                $(this).find('.modal-body').find('.loading-process').remove();
+                $(this).find('.loading-process').remove();
             });
         };
 
