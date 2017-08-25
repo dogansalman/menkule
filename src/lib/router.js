@@ -4,6 +4,7 @@ import EventEmitter from 'event-emitter';
 /**
  * Router class
  */
+
 function Router(routerConfig) {
   // Set variables
   this.routerConfig = routerConfig;
@@ -12,51 +13,52 @@ function Router(routerConfig) {
   // Load router config
   this.routerConfig.forEach(c => {
 
-    //Check request requirement
-    let checkingFunc = (typeof c.slice(1, 2)[0] == 'function' && c.length === 4  ? c.slice(1, 2)[0] : null);
+          //Check request requirement
+          let reqValidation = (typeof c.slice(1, 2)[0] == 'function' && c.length === 4  ? c.slice(1, 2)[0] : () => false);
+          const reqValidateResult = typeof reqValidation == "function" ? reqValidation() : false;
 
-    //devam edilecek...
-    if(checkingFunc){
-        const checkResult = checkingFunc();
-        if (checkResult instanceof Promise){
-            checkResult.then(result =>{ if(!result) checkingFunc = c[3] });
-        }
-    }
+          // Sanitize call
+          if (typeof c[0] !== 'string' && !(c[0] instanceof RegExp)) c = [ null, c[0] ];
 
+          // Get Pattern
+          const pattern = c[0];
 
-    // Sanitize call
-    if (typeof c[0] !== 'string' && !(c[0] instanceof RegExp)) c = [ null, c[0] ];
+          //Get callbacks
+          const reqCallbacks = c.slice(Math.max(c.length - 2, 1))
 
-    // Get Pattern
-    const pattern = c[0];
+          //Get Callback Total Size
+          const callbackTotalSize = c.slice(1,5).length;
 
-    // Get Callbacks
-    const callbackChain = c.slice(1, 3);
+          //Get CallbackChain Index
+          const callbackChainIndex =  reqValidateResult && callbackTotalSize == 3 ?  1 : 0
 
+          // Set callback
+          const callback = (params) => {
+              const pageResult = reqCallbacks[callbackChainIndex](params);
+              const e = new CustomEvent('resolve', { cancelable: false });
+              if(reqValidateResult) this.navigo.navigate('/');
+              e['params'] = params;
+              if (pageResult instanceof Promise) return pageResult.then(result => this.emit('resolve', e));
+              this.emit('resolve', e);
 
-    // Set callback
-    const callback = (params) => {
-      const pageResult = callbackChain[callbackChain.length - 1](params);
-      const e = new CustomEvent('resolve', { cancelable: false });
-      e['params'] = params;
-      if (pageResult instanceof Promise) return pageResult.then(result => this.emit('resolve', e));
-      this.emit('resolve', e);
-    };
+          };
 
-    // Set config
-    const config = {
-      before: (done, params) => {
-        if (callbackChain.length > 1) {
-          const result = callbackChain[0](params);
-          if (result instanceof Promise) return result.then(result => done(result));
-          return done(result);
-        }
-        done(true);
-      }
-    };
+      // Set config
+      const config = {
 
-    // Set rule
-    pattern ? this.navigo.on(pattern, callback, config) : this.navigo.on(callback, config);
+          before: (done, params) => {
+              if (reqCallbacks.length > 1) {
+                  const result = reqCallbacks[callbackChainIndex](params);
+                  if (result instanceof Promise) return result.then(result => done(result));
+                  return done(result);
+              }
+              done(true);
+          }
+      };
+
+      // Set rule
+      pattern ? this.navigo.on(pattern, callback, config) : this.navigo.on(callback, config);
+
 
     // Set global hooks
     this.navigo.hooks({
@@ -65,6 +67,7 @@ function Router(routerConfig) {
     })
   });
 }
+
 
 /**
  * Extends event emitter
@@ -91,12 +94,14 @@ Router.prototype._onBefore = function (done, params) {
   done(!e.defaultPrevented);
 };
 
+
 /**
  * Router resolve function
  */
 Router.prototype.resolve = function () {
   if (this.navigo.resolve(window.location.href) === false) this.emit('resolve');
 };
+
 
 /**
  * Exports

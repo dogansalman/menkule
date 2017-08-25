@@ -12,13 +12,13 @@ import Register from './page/register';
  * @type {[*]}
  */
 export default [
-    ['/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
+    //['/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
     ['/help', HelpPage],
     ['/logout', () => Menkule.logout().then(() => App.promise(() => window.location.href = "/")), MainPage],
     ['/user/account/:test', UserAccount],
     ['/help/:subject', HelpPage],
     [ /^\/$/, MainPage ],
-    ['/user/register', () => Menkule.isLogged() ,Register, MainPage ],
+    ['/user/register', () => Menkule.hasToken() ,Register, MainPage ],
 ];
 
 /*
