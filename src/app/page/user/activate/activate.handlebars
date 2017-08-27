@@ -1,0 +1,72 @@
+<div class='container'>
+    <div class="col-xs-12 page-title-container">
+        {{#if onRezervation}}
+            <a href="/"><i class="fa fa-home"></i></a> <a href="/#">Rezervasyon</a> <a href="#">Onay</a>
+        {{else}}
+            <a href="/"><i class="fa fa-home"></i></a> <a href="/user/account/">Hesabım</a> <a href="javascript:void(0);">Aktivasyon</a>
+        {{/if}}
+
+    </div>
+
+    <div class="activation-container">
+        <div class='col-xs-12 col-sm-6 col-md-6'>
+            {{#if onRezervation}}
+                <h2 class="user-activate-title text-left">Rezervasyonunuzu Tamamlayın !</h2>
+                <p class="user-activate-desc moffset3">Rezervasyonunuzu tamamlamak için lütfen gsm numaranıza gönderilen onay kodunu kullanarak hesabınızı doğrulayın. </p>
+            {{else}}
+                <h2 class='user-activate-title text-left'>Hesabınızı Onaylayın !</h2>
+                <p class='user-activate-desc moffset3'>Menkule üye bilgilerinin doğruluğuna önem vermektedir. Ayrıca rezervasyon bildirimleri gsm numaranıza iletilmektedir. Lütfen gsm numaranızı doğrulayın. </p>
+            {{/if}}
+
+            <div class="input-group moffset3">
+                <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
+                <input data-form-element="code"  class="form-control" type="text" maxlength="10" placeholder="Aktivasyon Kodunu Yazın">
+            </div>
+            <div class='col-xs-12 modal-buttoncontainer disable_padding moffset3 text-center'>
+                <button class='default_btn active' href='javascript:void(0);'>Tamam</button>
+                <button href="javascript:void(0)" class="default_btn resend">Tekrar Gönder</button>
+            </div>
+        </div>
+        <div class='col-xs-12 col-sm-6 col-md-6'>
+            <div class="col-xs-12 disable_padding moffset3">
+                <div class="col-xs-3 col-sm-3 col-md-2 disable_padding">
+                    <div class='activation-ico fleft'><i class="fa fa-mobile"></i></div>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 disable_padding">
+                    <h2 class="disable_margin">Aktivasyon Kodu</h2>
+                    <p class='user-activate-desc moffset2'>
+                        Hesabınızın aktive edilebilmesi için gsm numaranıza gönderilen aktivasyon kodunu kullanarak hesabınızı onaylamalısınız.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-xs-12 disable_padding moffset3">
+                <div class="col-xs-9 col-sm-9 col-md-9 disable_padding">
+                    <h2 class="disable_margin">Hesabınızı Onaylayın</h2>
+                    <p class='user-activate-desc moffset2'>
+                        Hesabınızı aktif edin. Hesabınızı aktif ederek sınırsız ilan oluşturabilir ve yayınlayabilirsiniz. Aynı zamanda rezervasyon talebinde bulunabilirsiniz.
+                    </p>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-2 disable_padding ">
+                    <div class='activation-ico fright'><i class="fa fa-check"></i></div>
+                </div>
+            </div>
+            <div class="col-xs-12 disable_padding moffset3">
+                <div class="col-xs-3 col-sm-3 col-md-2 disable_padding">
+                    <div class='activation-ico fleft'><i class="fa fa-exclamation"></i></div>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 disable_padding">
+                    <h2 class="disable_margin">Unutmayın </h2>
+                    <p class='user-activate-desc moffset2'>
+                        Unutmayın ! hesabınızı onayladıktan sonra gsm numaranız değiştirdiğinizde yeniden onaylamanız gerekmektedir.
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div style='clear:both;'></div>
+    </div>
+
+</div>

@@ -156,10 +156,12 @@ Menkule.prototype.isLogged = function () {
 Menkule.prototype.isActive = function () {
   return new Promise((resolve) => {
     this.user().then(user => {
-      resolve(user.state);
+        if(user) resolve(user.state);
+        resolve(false);
     });
   });
 };
+
 Menkule.prototype.user = function(force) {
   force = force || false;
   return new Promise((resolve) => {

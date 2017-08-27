@@ -26,47 +26,36 @@ export default () => Header(false)
         $('body').zone('content').setContentAsync(template())
             .then((template) => {
 
+            //Login
+            template.find('.loginbtn').on('click', (e) => {
+                e.preventDefault();
+                App.Login().then((user) => App.emit('logged.user', user));
+            });
 
+            //Register Click
+              template.find('.register').on('click', (e) => {
+                  e.preventDefault();
+                  $(e.target).disable();
+                  $(".registercontainer").formFields().disable();
 
-                /*
-                template.find('.loginbtn').on('click', (e) => {
-                    e.preventDefault();
-                    App.Login().then((user) => App.emit('logged.user', user));
-                });
-                */
-                //Register Click
-                /*
-                  template.find('.register').on('click', (e) => {
-                      e.preventDefault();
-                      $(e.target).disable();
-                      $(".registercontainer").formFields().disable();
+                  $(".registercontainer").validateFormAsync(registerFormRules)
+                      .then(() => App.showPreloader(.7))
+                      .then(() => $(".registercontainer").validateFormAsync(registerFormRules))
+                      .then((registerForm) => Menkule.register(registerForm.firstname, registerForm.lastname, registerForm.email, registerForm.gsm, registerForm.gender, registerForm.password))
+                      .then(() => Menkule.login($(".registercontainer").fieldValue('email'), $(".registercontainer").fieldValue('password'), 'true'))
+                      .then(() => App.navigate('/user/activate'))
+                      .catch(err => {
+                          $(e.target).enable();
+                          $(".registercontainer").formFields().enable();
+                          if (err instanceof ValidateError) return App.hidePreloader().then(() => $(err.fields[0]).select());
+                          App.hidePreloader()
+                              .then(() => App.parseJSON(err.responseText))
+                              .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
+                              .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
+                      });
+              });
 
-                      $(".registercontainer").validateFormAsync(registerFormRules)
-                          .then(() => App.showPreloader(.7))
-                          .then(() => $(".registercontainer").validateFormAsync(registerFormRules))
-                          .then((registerForm) => Menkule.register(registerForm.firstname, registerForm.lastname, registerForm.email, registerForm.gsm, registerForm.gender, registerForm.password))
-                          .then(() => Menkule.login($(".registercontainer").fieldValue('email'), $(".registercontainer").fieldValue('password'), 'true'))
-                          .then(() => App.navigate('/user/activate'))
-                          .catch(err => {
-                              $(e.target).enable();
-                              $(".registercontainer").formFields().enable();
+            new Promise((resolve) => resolve());
 
-                              if (err instanceof ValidateError) return App.hidePreloader().then(() => $(err.fields[0]).select());
-
-                              App.hidePreloader()
-                                  .then(() => App.parseJSON(err.responseText))
-                                  .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
-                                  .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
-                          });
-                  });
-              */
-
-                new Promise((resolve) => resolve())
             })
-
-
-
-
-
-
     });

@@ -637,6 +637,35 @@ textarea {
 label {
   font-family: 'Open Sans', sans-serif!important
 }
+
+/*
+  User Activate
+ */
+.user-activate-title{
+  font-size: 27px;
+  font-weight: 300;
+  color: #49BAFB;
+}
+.user-activate-desc{
+  font-size: 12px;
+  color: #666;
+  font-weight: 300;
+}
+.activation-ico{
+  font-size: 37px;
+  background: #fbfbfb;
+  color: #65c3f9;
+  text-align: center;
+  width: 70px;
+  height: 70px;
+  vertical-align: middle;
+  padding: 14px;
+  border: 1px solid #f9f8f8;
+}
+
+/*
+User Messages
+ */
 .message-recipient {
   height: 35px;
   border: 1px solid #e0e0e0;
@@ -1823,6 +1852,16 @@ advert-select:focus:active {
 .alertlists ul li .alertmessage-alert-title i {
   font-size: 13px!important
 }
+.radio label, .checkbox label{
+  padding-left:15px;
+}
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  margin-left:0px;
+}
+
 @media all and (max-width: 768px) {
   textarea {
     height: 85px!important;
