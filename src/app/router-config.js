@@ -8,22 +8,19 @@ import Register from './page/register';
 import UserActivate from './page/user/activate';
 
 
-
-
-
 /**
  * Define routes
  * @type {[*]}
  */
 export default [
     //['/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
-    //['/help', HelpPage],
-    //['/logout', () => Menkule.logout().then(() => App.promise(() => window.location.href = "/")), MainPage],
-   // ['/user/account/:test', UserAccount],
-    ['/user/activate/', () => Menkule.isActive(), UserActivate ,MainPage],
-    //['/help/:subject', HelpPage],
+    ['/help', HelpPage],
+    ['/logout', () => Menkule.logout().then(() => App.promise(() => window.location.href = "/")), MainPage],
+    ['/user/account/:test', UserAccount],
+    ['/user/activate/',  UserActivate ],
+    ['/help/:subject', HelpPage],
     [ /^\/$/, MainPage ],
-    ['/user/register', () => Menkule.isLogged(), MainPage, Register],
+    ['/user/register', Register],
 ];
 
 /*
