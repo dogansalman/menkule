@@ -1,11 +1,12 @@
 /**
  * Pages
  */
-import MainPage from './page/main';
-import UserAccount from './page/user/account';
-import HelpPage from './page/help';
-import Register from './page/register';
-import UserActivate from './page/user/activate';
+import MainPage from '../../app/page/main';
+import UserAccount from '../../app/page/user/account';
+import HelpPage from '../../app/page/help';
+import Register from '../../app/page/register';
+import UserActivate from '../../app/page/user/activate';
+
 
 
 /**

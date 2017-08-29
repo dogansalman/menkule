@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import EventEmitter from 'event-emitter';
-import config from './config';
+import config from './configs/config';
 
 // Private properties
 let socket = null;

@@ -41,7 +41,6 @@ export default (options) => {
 
         //modal preloaders
         $.fn.showPreloader = function (opacity) {
-            console.log($(this));
             opacity = typeof opacity != "undefined" ? opacity : 1;
             return App.promise(() => {
                 $(this).append("<div class='loading-process'></div>");

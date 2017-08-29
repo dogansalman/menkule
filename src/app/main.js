@@ -1,7 +1,7 @@
 import { Router } from '../lib/index';
-import RouterConfig from './router-config';
+import RouterConfig from '../lib/configs/router-config';
 import Rules from '../lib/rules';
-import RulesConfig from './rules-config';
+import RulesConfig from '../lib/configs/rules-config';
 
 // Create router instance with router config
 const router = new Router(RouterConfig);
