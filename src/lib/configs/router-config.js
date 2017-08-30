@@ -2,9 +2,9 @@
  * Pages
  */
 import MainPage from '../../app/page/main';
-import UserAccount from '../../app/page/user/account';
 import HelpPage from '../../app/page/help';
-import Register from '../../app/page/register';
+import UserAccount from '../../app/page/user/account';
+import Register from '../../app/page/user/register';
 import UserActivate from '../../app/page/user/activate';
 
 
