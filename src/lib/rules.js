@@ -4,14 +4,15 @@ function Rules(routerRules) {
     const routePath = location.pathname;
 
     //find request rule
-    const rule = routerRules.find(r => r.route == routePath);
+    const rules = routerRules.filter(r => r.route == routePath);
 
+    //rules exist
+    if(rules) {
 
-
-    //exist rule
-    if(rule) {
-        const ruleMethods = rule.method;
-        ruleMethods().then(r => { if(r == rule.condition) location.href = rule.backUrl });
+        rules.forEach(rule => {
+            const ruleMethods = rule.method;
+            ruleMethods().then(r => { if(r == rule.condition) location.href = rule.backUrl });
+        })
     }
 }
 export default Rules;

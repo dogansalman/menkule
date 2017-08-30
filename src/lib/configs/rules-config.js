@@ -7,6 +7,12 @@ export default [
     },
     {
         route: '/user/activate',
+        method: () => Menkule.isLogged(),
+        condition: false,
+        backUrl: '/'
+    },
+    {
+        route: '/user/activate',
         method: () => Menkule.isActive(),
         condition: true,
         backUrl: '/'
