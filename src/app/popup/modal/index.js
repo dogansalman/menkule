@@ -17,6 +17,20 @@ export default (options) => {
 
     const compiledTemplate = template({waitMessage: options.waitMessage, width: options.width, data : options.data, title: options.title});
 
+      //modal preloaders
+      $.fn.showPreloader = function (opacity) {
+        opacity = typeof opacity != "undefined" ? opacity : 1;
+        return App.promise(() => {
+          $(this).append("<div class='loading-process'></div>");
+          $(this).find('.loading-process').css('opacity', opacity);
+        });
+      };
+      $.fn.hidePreloader = function () {
+        return App.promise(() => {
+          $(this).find('.loading-process').remove();
+        });
+      };
+
     return new Promise(resolve => {
 
         //close event remove modal
@@ -26,9 +40,8 @@ export default (options) => {
 
         //show event and render modal content
         $(template).on('shown.bs.modal', (e) => {
-            App.promise(() => require('../' + options.template + '/' + options.template + '.handlebars'))
-                .then(mc=> $(template).zone('modal-body').setContentAsync(mc))
-                .then(t => resolve(t)); //resolved content
+            $(template).zone('modal-body').setContentAsync(options.template)
+                .then(t => resolve(t));
         });
 
         //show modal
@@ -39,19 +52,9 @@ export default (options) => {
             remote: options.remote,
         });
 
-        //modal preloaders
-        $.fn.showPreloader = function (opacity) {
-            opacity = typeof opacity != "undefined" ? opacity : 1;
-            return App.promise(() => {
-                $(this).append("<div class='loading-process'></div>");
-                $(this).find('.loading-process').css('opacity', opacity);
-            });
-        };
-        $.fn.hidePreloader = function () {
-            return App.promise(() => {
-                $(this).find('.loading-process').remove();
-            });
-        };
+
+
+       // resolve(compiledTemplate);
 
     });
 

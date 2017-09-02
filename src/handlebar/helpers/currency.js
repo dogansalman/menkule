@@ -4,5 +4,5 @@ module.exports = function (value, decimalCount, options) {
         options = decimalCount;
         decimalCount = 2;
     }
-    return new Handlebars.SafeString(accounting.formatMoney(value, '', decimalCount, '.', ','));
+    return accounting.formatMoney(value, '', decimalCount, '.', ',');
 }

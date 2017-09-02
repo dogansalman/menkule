@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars/dist/handlebars.min.js';
 
 function executeHelper(expression, options) {
     var result;

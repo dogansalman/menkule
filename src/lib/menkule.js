@@ -74,14 +74,13 @@ Menkule.prototype.getToken = function(){
     return token;
 };
 
-//User
+/*
+ User
+ */
 Menkule.prototype.getUser = function(){
   return loggedUser;
 };
-Menkule.prototype.confirmPopup = function(messages,succesEvent){
- // Menkule.prototype.addListener('popupaccept',succesEvent);
- // this.loadTemplate("confirm",$("body"),"css,js",function(){$('#confirmpopup .message').html(messages);$('#confirmpopup').modal('show')});
-};
+
 Menkule.prototype.logout = function(){
   return new Promise(resolve => {
     loggedUser = null;
@@ -102,49 +101,8 @@ Menkule.prototype.stopSocket = function (){
   socket.disconnect();
   socket = null;
 };
-Menkule.prototype.login = function(email, password, save) {
-  return new Promise((resolve, reject) => {
-    this.post("/user/login", {"email": email, "password": password, "save": save })
-      .then(result => {
-        this.saveToken(result.result);
-        resolve(result);
-      })
-      .catch(err => reject(err));
-  });
-};
-Menkule.prototype.changePass = function(current, newpass, replypass) {
-   return new Promise((resolve, reject) => {
-   this.post("/user/password", {"currentpassword": current, "password": newpass, "reply": replypass })
-   .then(result => {
-   resolve();
-   })
-   .catch(err => reject(err));
-   });
 
-};
-Menkule.prototype.register = function (name,lastname,email,gsm,gender,password) {
-     return new Promise((resolve, reject) => {
-     this.post("/user/register", { "name": name, "lastname": lastname, "email": email, "gsm": gsm, "gender": gender, "password": password })
-     .then(result => resolve(result))
-     .catch(err => reject(err));
-     });
-};
-Menkule.prototype.Ownershipping = function() {
-  return new Promise((resolve, reject) => {
-    m.post("/user/ownership", { })
-      .then(() => this.user(true)) // refresh user data
-      .then((user) => resolve(user))
-      .catch(err => reject(err));
-  });
-};
-Menkule.prototype.updateProfile = function(name, lastname, email, gsm){
-  return new Promise((resolve,reject) => {
-    m.post("/user/update", { name, lastname, email, gsm })
-      .then(() => this.user(true)) // refresh user
-      .then((user) => resolve(user))
-      .catch(err => reject(err));
-  });
-};
+
 Menkule.prototype.isLogged = function () {
   return new Promise((resolve) => {
     this.user().then(user => {
@@ -173,7 +131,6 @@ Menkule.prototype.user = function(force) {
       .catch(err => this.logout().then(() => resolve(null)));
   });
 };
-
 
 export default Menkule
 

@@ -1,1 +1,64 @@
-User account page
+<div class='container'>
+    <div class="col-xs-12 page-title-container">
+        <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a> <a href="javascript:void(0);">Hesabım</a>
+    </div>
+    <div class="profile_setting col-xs-12 col-sm-12 col-md-3">
+        <div class="profil_photo text-center">
+            <img alt="photo" class="img-responsive img-circle profile_photo" src="{{#image user.photo 150 150 }} {{/image}}"/>
+            <a class="photoadd" href="#"><i class="fa fa-camera"></i> Düzenle</a>
+            <input type="file" accept="image/*" style="display:none" id="FileUpload1" />
+            <h4 class="name"><span class="{{#if user.state}} activemembericon {{else}} passiveaccounticon {{/if}}"></span> {{user.name}} {{user.lastname}}</h4>
+            <div class="member_state active">
+            </div>
+            {{#if user.gsm_state}}
+            {{else}}
+            <div> <a class="default_btn" href="/user/activate"> Hesabınızı doğrulayın</a> </div>
+            {{/if}}
+
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-9 disable_padding account-container">
+        <div class="emailinfo">
+            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+                <div class="form-group">
+                    <label for="ad">E-Posta Adresi</label>
+                    <div class="input-group-addon  {{#if user.email_state}} activestate {{else}} passivestate {{/if}}"></div>
+                    <input name="email" data-form-element="email"  type="text" class="form-control" value={{user.email}} placeholder="E-Posta">
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div class="personelinfo">
+            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+                <div class="form-group">
+                    <label for="ad">Ad</label>
+                    <input name="firstname" data-form-element="name" type="text" value="{{user.name}}" class="form-control" placeholder="İsim">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+                <div class="form-group">
+                    <label for="soyad">Soyad</label>
+                    <input name="lastname" data-form-element="lastname"  type="text" value="{{user.lastname}}" class="form-control"  placeholder="Soyisim">
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div class="gmsinfo">
+            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+                <div class="form-group">
+                    <label for="soyad">GSM No</label>
+                    <div class="input-group-addon {{#if user.gsm_state}} activestate {{else}} passivestate {{/if}}"></div>
+                    <input name="gsm" data-form-element="gsm" type="tel" class="form-control" value="{{user.gsm}}" mask="0000000000" placeholder="Ornek: 5340000000">
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">
+            <button type="button" name="update" class="btn default_btn">Tamam</button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 accontbtnoptn disable_padding">
+            <a href="javascript:void(0);" class="btn default_btn changepas-btn"><i class="fa fa-lock"></i> Şifre Güncelle</a>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>

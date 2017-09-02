@@ -65,14 +65,6 @@ App.prototype.parseJSON = function (value) {
     }
   });
 };
-App.prototype.renderTemplate = function (template, templateData) {
-
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(Handlebars.compile(template)(templateData));
-        }, 0);
-    });
-};
 App.prototype.notifyDanger = function (message, title) {
   return this.showNotify({message, title, type: 'danger'});
 };
@@ -170,14 +162,7 @@ App.prototype.renderTemplate = function (template, templateData) {
     });
 };
 
-App.prototype.PasswordChange = function() {
-  //var PasswordPopup = require('template/popup-password/popup-password.js');
-  //return PasswordPopup();
-};
-App.prototype.Ownershipping = function() {
-  //var OwnershippingPopup = require('template/popup-homeowner/popup-homeowner.js');
-  //return OwnershippingPopup();
-};
+
 App.prototype.Login = function() {
   return new Promise((resolve, reject) => {
       loginModal()

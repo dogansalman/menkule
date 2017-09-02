@@ -5,7 +5,7 @@ import template from './register.handlebars';
 // Validate config
 var registerFormRules = {
     'email': [App.validate.REQUIRED, App.validate.EMAIL],
-    'firstname': [App.validate.REQUIRED, App.validate.STRING],
+    'name': [App.validate.REQUIRED, App.validate.STRING],
     'lastname': [App.validate.REQUIRED, App.validate.STRING],
     'gsm': [App.validate.REQUIRED, App.validate.PHONE],
     'password': [App.validate.REQUIRED],
@@ -41,8 +41,9 @@ export default () => Header(false)
                   $(".registercontainer").validateFormAsync(registerFormRules)
                       .then(() => App.showPreloader(.7))
                       .then(() => $(".registercontainer").validateFormAsync(registerFormRules))
-                      .then((registerForm) => Menkule.register(registerForm.firstname, registerForm.lastname, registerForm.email, registerForm.gsm, registerForm.gender, registerForm.password))
-                      .then(() => Menkule.login($(".registercontainer").fieldValue('email'), $(".registercontainer").fieldValue('password'), 'true'))
+                      .then((registerForm) => Menkule.post('/user/register', registerForm))
+                      .then(() => Menkule.post('/user/login', {email: $(".registercontainer").fieldValue('email'), password: $(".registercontainer").fieldValue('password')}))
+                      .then((result) => App.promise(() => Menkule.saveToken(result.result)))
                       .then(() => App.navigate('/user/activate'))
                       .catch(err => {
                           $(e.target).enable();

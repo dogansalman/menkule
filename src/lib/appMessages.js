@@ -28,6 +28,11 @@ export default (key) => {
         'comments_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Yorumunuz iletilemedi. </div>",
         //rezervations
         'no_rezervation': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Rezevasyon bulunamadı!</h2> <p>Henüz bir rezervasyon kaydınız bulunmamaktadır.</p> </div></div>",
+        //confirms
+        'ownership_title': 'EV SAHİPLİĞİ YAPMAK ÜZERESİNİZ!',
+        'ownership_confirm': 'Ev sahipliği ile ile ek kazanç elde edebilir ve kullanmadığınız evinizi odanızı veya yazlığınızı değerlendirebilirsiniz. Ev sahipliği ile üyelik sözleşmesinde ki ev sahipliği şartlarını kabul etmiş olursunuz.'
+
+
 
     };
     return messages[key] || "";
