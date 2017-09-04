@@ -3,6 +3,18 @@ import Header from '../header';
 import Footer from '../footer';
 import swiper from 'swiper';
 import geocomplate from 'geocomplete';
+import flatpickr from 'flatpickr';
+
+let location = null;
+// Validate config
+var searchRules = {
+  'state': [App.validate.REQUIRED, App.validate.STRING],
+  'date': function (value) {
+    return (value != null);
+  },
+  'guest': [App.validate.REQUIRED, App.validate.NUMBER]
+};
+
 /**
  * Main page
  */
@@ -11,19 +23,27 @@ export default () => Header(false)
   .then(() => $("body").zone("content").setContentAsync(template()))
   .then(template => new Promise(resolve => {
 
+    /*
+    Inıt geocomplate
+     */
     template.find('.searchcity')
       .geocomplete({
         country: ['tr'],
         types: ['(cities)']
       })
       .bind("geocode:result", function(event, result){
-        Map.getLocationViewport(result.name).then((locationDetail) => {
+        Gmap.getLocationViewport(result.name).then((locationDetail) => {
           location = Object.assign(locationDetail,{'name':result.name});
         })
       });
+    /*
+    Geocomplate set default text
+     */
     template.find('.searchcity').defaultText();
 
-    //search
+   /*
+   Search
+    */
     template.find('button.seachengine_btn').on('click', (e) => {
       e.preventDefault();
       App.isMobile()
@@ -31,8 +51,8 @@ export default () => Header(false)
         .then((searchForm) => $(searchForm).validateFormAsync(searchRules))
         .then((formData) =>  {
           App.generateAdvertSearchUrl({
-            'checkin': formData.date.split(' - ')[0].trim(),
-            'checkout': formData.date.split(' - ')[1].trim(),
+            'checkin': formData.date.split(' to ')[0].trim(),
+            'checkout': formData.date.split(' to ')[1].trim(),
             'lat' : location.lat,
             'lng' : location.lng,
             'guest' : formData.guest,
@@ -52,8 +72,10 @@ export default () => Header(false)
       });
 
 
-/*
-    //create calendar
+
+    /*
+    Inıt calendar
+     */
     template.find('.calendar').flatpickr(
       {
         mode: 'range',
@@ -61,8 +83,6 @@ export default () => Header(false)
         maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD')
       }
     );
- */
-
 
     //Initalize background video
     //player.onYouTubePlayerAPIReady();

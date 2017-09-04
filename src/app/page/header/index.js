@@ -1,11 +1,15 @@
 import template from './header.handlebars';
 import messages from './messages.handlebars';
+import alerts from './alerts.handlebars';
 import Header from '../header';
+import Confirm from '../../popup/confirm';
 
 export default (isOpen) => Menkule.user()
   .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen: isOpen || false })).then(header => new Promise(resolve => {
 
+    // User is Logged
     if (user) {
+      // TODO render
       // On new message
       Menkule.on('new.message', (message) => {
         App.promise(() => user.messages.findIndex(ms => ms.message_id == message.message_id))
@@ -19,7 +23,7 @@ export default (isOpen) => Menkule.user()
           }))
           .then((msg_temp) => $("body").zone('messages').setContentAsync(msg_temp));
       });
-
+      //TODO render
       // On new notification
       Menkule.on('new.notification', (notification) => {
             App.promise(() => user.notifications.push(notification))
@@ -60,64 +64,60 @@ export default (isOpen) => Menkule.user()
 
 
       //render messages
-      App.renderTemplate(messages(), {
-        message: user.messages
-      })
-       .then((msg_temp) => $("body").zone('messages').setContentAsync(msg_temp))
-
+      $("body").zone('messages').setContentAsync( messages({message: user.messages}));
 
       //render notification
-      //App.renderTemplate(header.find('#alert-template').html(), {
-      //  alert: user.notifications
-      //})
-      //  .then((msg_temp) => $("body").zone('alert').setContentAsync(msg_temp))
-      //  .then(() => {
-          //On clicked notification
-      //    header.find('.alertmessage-alert-title').on('click', (e) => {
-      //      e.preventDefault();
-      //      if ($(e.target).closest('.alertmessage-alert-title')) {
-      //        Menkule.post("/alert/read", {
-      //          id: $(e.target).closest('.alertmessage-alert-title').attr('bind-data')
-      //        }).
-      //        then(() => App.promise(() => $(e.target).closest('li').fadeOut(500, function() {
-      //          $(e.target).closest('li').remove()
-      //        })))
-      //          .then(() => App.promise(() => user.notifications.splice(user.notifications.findIndex(i => i.id == $(e.target).closest('.alertmessage-alert-title').attr('bind-data')), 1)))
-      //          .then(() => App.wait(1000))
-      //          .then(() => App.promise(() => Menkule.emit('change.notification')))
-      //      }
-      //    })
-      //  })
+      $("body").zone('alert').setContentAsync( alerts({alert: user.notifications}))
+
+      //On clicked notification
+      header.find('.alertmessage-alert-title').on('click', (e) => {
+        e.preventDefault();
+        if ($(e.target).closest('.alertmessage-alert-title')) {
+          Menkule.post("/alert/read", {
+            id: $(e.target).closest('.alertmessage-alert-title').attr('bind-data')
+          }).
+          then(() => App.promise(() => $(e.target).closest('li').fadeOut(500, function() {
+            $(e.target).closest('li').remove()
+          })))
+            .then(() => App.promise(() => user.notifications.splice(user.notifications.findIndex(i => i.id == $(e.target).closest('.alertmessage-alert-title').attr('bind-data')), 1)))
+            .then(() => App.wait(1000))
+            .then(() => App.promise(() => Menkule.emit('change.notification')))
+        }
+      })
+      //On clicked alert button
+      header.find('.newalert-alert-btn').click(e => {
+        App.isMobile()
+          .then((mbl) => {
+            if (mbl) App.navigate('/user/alerts')
+          })
+          .then(() => {
+            if (!e.target.closest('.alertlists')) {
+              header.find('.open').removeClass('open');
+              e.preventDefault();
+              header.find('.alertlists').toggleClass('open');
+            }
+          })
+      });
+
+      //On clicked message button
+      header.find('.newmessage-alert-btn').click(e => {
+        App.isMobile()
+          .then((mbl) => {
+            if (mbl) App.navigate('/user/messages/')
+          })
+          .then(() => {
+            if (!e.target.closest('.messagelist')) {
+              header.find('.open').removeClass('open');
+              e.preventDefault();
+              header.find('.messagelist').toggleClass('open');
+            }
+          })
+      });
+
+
     }
 
-    header.find('.newalert-alert-btn').click(e => {
-      App.isMobile()
-        .then((mbl) => {
-          if (mbl) App.navigate('/user/alert/list')
-        })
-        .then(() => {
-          if (!e.target.closest('.alertlists')) {
-            header.find('.open').removeClass('open');
-            e.preventDefault();
-            header.find('.alertlists').toggleClass('open');
-          }
-        })
-    });
-
-    header.find('.newmessage-alert-btn').click(e => {
-      App.isMobile()
-        .then((mbl) => {
-          if (mbl) App.navigate('/user/messages/')
-        })
-        .then(() => {
-          if (!e.target.closest('.messagelist')) {
-            header.find('.open').removeClass('open');
-            e.preventDefault();
-            header.find('.messagelist').toggleClass('open');
-          }
-        })
-    });
-
+    //Focusout close nav menu
     $(window).on('click', e => {
       if (!e.target.closest('.newmessage-alert-btn') && !e.target.closest('.newalert-alert-btn')) header.find('.open').removeClass('open');
       if (!e.target.closest('.rightbigmenu') && !e.target.closest('.bigmenu_btn')) header.find('.rightbigmenu').removeClass('bigmenu-open') && $('body').removeClass('open-bar');
@@ -134,8 +134,20 @@ export default (isOpen) => Menkule.user()
     });
     header.find('.ownerstart').click(e => {
       e.preventDefault();
-      App.Ownershipping().then(() => App.emit('changed.header', true));
+      let modal;
+      Confirm().do(m => modal = m)
+        .then(() => Menkule.post('/user/ownership'))
+        .then(() => Menkule.user(true))
+        .then(() => App.promise(() => modal.modal('hide')))
+        .then(() => App.promise(() => App.emit('changed.header', true)))
+        .then(() => App.showNotify({type:'success',message:' Artık ev sahipliği yapabilir ve ilan oluşturabilirsiniz.',title:'Tebrikler',icon:'fa fa-bell-o'}))
+        .catch(() => {
+          modal.modal('hide');
+          App.showNotify({type:'danger',message:' Bir hata oluştu. Lütfen tekrar deneyin.',title:'Üzgünüz',icon:'fa fa-bell-o'});
+        })
     });
+
+
     header.find('.bigmenu_btn').click(e => {
       e.preventDefault();
       header.find('.rightbigmenu').toggleClass('bigmenu-open');

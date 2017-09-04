@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="col-xs-12 page-title-container">
+        <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a> <a href="javascript:void(0);">Bildirimlerim</a>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+        <div class="alertlist moffset3">
+            {{#each alerts}}
+                <div class='col-xs-12 alertlisting'>
+                    <div class='col-xs-12 col-sm-12 col-md-8 disable_padding'>
+                        <a rel='{{id}}' class='alert-check' href='javascript:void(0);'><i class='fa fa-check'></i>
+                        <span class='title'> {{title}}  {{#if state}}</span> <span class='newalert'>yeni</span> {{/if}}
+                        </a>
+                        <p class='alertdetailtext'> {{detail}}
+                        </p>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12  text-right moffset3 disable_padding">
+            <a href="javascript:void(0);" class="default_btn selectall">Tümünü Seç</a>
+            <button href="javascript:void(0);" class="default_btn deleteall">Sil</button>
+        </div>
+
+    </div>
+</div>

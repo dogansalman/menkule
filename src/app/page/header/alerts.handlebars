@@ -1,0 +1,25 @@
+<a href="#">
+    <i class="fa fa-bell-o"></i>
+    {{#zif alert.length '>' '0'}}
+    <span class="alertsize">{{alert.length}}</span>
+    {{/zif}}
+</a>
+<div class="alertlists hidden-xs hidden-sm">
+    <div class="alertlist-maintitle">Bildirimler</div>
+    <i class="alert-upper-arrow fa fa-caret-up"></i>
+    {{#zif alert.length '==' '0'}}
+    <p class="emptymsg">Yeni bir bildiriminiz bulunmamaktadır.</p>
+    {{else}}
+    <ul>
+        {{#each alert}}
+        <li>
+            <a class='alertmessage-alert-title' bind-data="{{id}}">
+                <div class='alertlist-icon'><i class='fa fa-bell'></i></div>
+                <div class='alertlist-title'> {{title}} <span class='alertlist-date'>{{date date "D MMMM YYYY, dddd"}} </span></div>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+    {{/zif}}
+    <a class="newalerts-all" href="/user/alert/list">Tümü</a>
+</div>

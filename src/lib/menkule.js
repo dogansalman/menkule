@@ -58,7 +58,9 @@ Menkule.prototype.request = function(method, url, data) {
 Menkule.prototype.post = function(url, data){ return this.request("POST", url, data); };
 Menkule.prototype.get = function(url, data){ return this.request("GET", url, data); };
 
-//Token
+/*
+Token
+ */
 Menkule.prototype.hasToken = function(){
   return token !== null;
 };
@@ -75,19 +77,9 @@ Menkule.prototype.getToken = function(){
 };
 
 /*
- User
+Sockets
  */
-Menkule.prototype.getUser = function(){
-  return loggedUser;
-};
 
-Menkule.prototype.logout = function(){
-  return new Promise(resolve => {
-    loggedUser = null;
-    this.removeToken();
-    resolve(true);
-  });
-};
 Menkule.prototype.startSocket = function (){
   if (socket) return;
   socket = io(socketAddress, {'query': 'token=' + token});
@@ -102,6 +94,21 @@ Menkule.prototype.stopSocket = function (){
   socket = null;
 };
 
+
+/*
+ User
+ */
+Menkule.prototype.getUser = function(){
+  return loggedUser;
+};
+
+Menkule.prototype.logout = function(){
+  return new Promise(resolve => {
+    loggedUser = null;
+    this.removeToken();
+    resolve(true);
+  });
+};
 
 Menkule.prototype.isLogged = function () {
   return new Promise((resolve) => {
@@ -119,6 +126,16 @@ Menkule.prototype.isActive = function () {
     });
   });
 };
+
+Menkule.prototype.hasOwnershipping = function () {
+  return new Promise((resolve) => {
+    this.user().then(user => {
+      if(user) resolve(user.ownershiping);
+      resolve(false);
+    });
+  });
+};
+
 
 Menkule.prototype.user = function(force) {
   force = force || false;

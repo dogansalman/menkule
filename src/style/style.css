@@ -17,6 +17,13 @@ input[type="tel"],
 input[type="email"] {
   -webkit-appearance: none
 }
+h2, .h2, h3, .h3 {
+  font-size:18px;
+  font-weight:300;
+}
+p {
+  font-weight:300;
+}
 textarea {
   -webkit-appearance: none
 }
@@ -635,8 +642,103 @@ textarea {
   background: #1972A5!important;
 }
 label {
-  font-family: 'Open Sans', sans-serif!important
+  font-family: 'Open Sans', sans-serif!important;
+  font-weight: 400;
 }
+
+
+
+/*
+User Alerts
+ */
+
+.alert-delete {
+  margin-right: 5px!important;
+  border: 1px solid #E4E4E4;
+  padding: 5px;
+  right: 15px;
+  background: #fff!important;
+  box-shadow: none!important;
+  color: #45b5f4;
+  font-size: 13px!important
+}
+.alert-delete:hover,
+.alert-delete:active,
+.alert-delete:focus {
+  border: 1px solid #F90A0A;
+  color: #F90A0A!important
+}
+.alert-read {
+  margin-right: 5px!important;
+  border: 1px solid #E4E4E4;
+  padding: 5px;
+  right: 15px;
+  background: #fff!important;
+  box-shadow: none!important;
+  color: #45b5f4;
+  font-size: 13px!important
+}
+.alert-read:hover,
+.alert-read:focus,
+.alert-read:active {
+  border: 1px solid #45b5f4!important;
+  color: #45b5f4!important
+}
+.alert-check i {
+  margin-right: 5px!important;
+  padding: 2px;
+  right: 15px;
+  background: #fff!important;
+  box-shadow: none!important;
+  color: #666;
+  font-size: 12px!important;
+  border: 1px solid #ececec;
+  display: inline-block;
+  height: 17px;
+  width: 17px;
+  text-align: center;
+}
+.alert-check i:hover {
+  color: #ffffff!important;
+  background: #1dc7ea !important;
+  border: 1px solid #1dc7ea;
+}
+.alert-selected i {
+  color: #ffffff!important;
+  background: #1dc7ea !important;
+  border: 1px solid #1dc7ea;
+}
+.alert-selected i:hover,
+.alert-selected i:active,
+alert-selected i:focus {
+  color: #fff!important;
+  background: #5eddf7 !important;
+  border: 1px solid #5eddf7;
+}
+.alertlisting {
+  margin-bottom: 0px;
+  color: #666;
+  border-bottom: 1px solid #ececec;
+  padding: 7px 0px 7px 0px;
+}
+.alertlisting .title{
+  font-size:14px;
+  font-weight:300;
+}
+.alertlisting .newalert {
+  margin-left: 5px;
+  background: #7FCA85;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 10px;
+  width: 25px;
+  height: 20px;
+  display: inline-block;
+  padding: 2px 0 0;
+  text-align: center
+}
+
+
 
 /*
   User Activate
@@ -991,7 +1093,9 @@ User Messages
 }
 .profile_setting .name {
   color: #797979;
+  font-size: 16px;
   line-height: inherit;
+  font-weight: 300;
 }
 .activemembericon {
   background: #45b5f4;

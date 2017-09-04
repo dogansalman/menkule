@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="col-xs-12 page-title-container">
+        <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a> <a href="javascript:void(0);">İlanlarım</a>
+    </div>
+
+    {{#each adverts}}
+        <div class="list col-xs-12">
+            <a href='/user/advert/{{id}}'>
+                <div class='col-xs-3 col-sm-2 col-md-1 photo'> <img alt='photo' src='{{#image photo 150 150 }} {{/image}}' /> </div>
+            </a>
+            <div class='col-xs-9 col-sm-10 col-md-11 detail'>
+                <a href='/user/advert/{{id}}'>
+                    <div class='col-xs-12 col-sm-12 col-md-12 text'>
+                        {{#if state}}  <div class="advert-active"></div>  {{/if}}  <h2 class='title'> {{title}} </h2>
+                        <span class='location'> {{typename}}  {{city}} / {{town}} </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    {{/each}}
+
+</div>

@@ -9,9 +9,11 @@
     var default_icon = $('<a href="#" class="default-img"></a>');
     var emptyMessage = $('<div class="empty-message"><p>Fotoğraflar</p></div>');
 
+    function uploader(){}
+
     ///////////////Private Functions
     function changeDefault(id){
-        var arr = uploader.getImages();
+        var arr = getImages();
         for (var i in arr) {
             arr[i].is_default = false;
         }
@@ -22,7 +24,7 @@
         //renderImages();
     }
     function checkImageLimit() {
-        return _.filter(uploader.getImages(), function(i) { return i.hasOwnProperty('deleted')} ).length > maxImage ? false : true
+        return _.filter(getImages(), function(i) { return i.hasOwnProperty('deleted')} ).length > maxImage ? false : true
     }
     //Create Image Template
     function createImage(data) {
@@ -59,12 +61,12 @@
     //Render Images
     function renderImages()
     {
-        $(uploader.getContainer()).find('div').remove();
-        if ( uploader.getImages() == null || uploader.getImages().length == 0 ) {
-            $(uploader.getContainer()).append($(emptyMessage));
+        $(getContainer()).find('div').remove();
+        if ( getImages() == null || getImages().length == 0 ) {
+            $(getContainer()).append($(emptyMessage));
         }
-        $.each(uploader.getImages(), function (index, data) {
-            $(uploader.getContainer()).append($(createImage(data)));
+        $.each(getImages(), function (index, data) {
+            $(getContainer()).append($(createImage(data)));
         });
     }
 
@@ -91,7 +93,7 @@
         App.showPreloader(0.8)
             .then(() => Menkule.post("/photo/upload", image))
             .then((data) => {
-                uploader.appendFile(data);
+                appendFile(data);
                 renderImages();
                 $("#uploader").val('');
             })
@@ -104,6 +106,7 @@
                     .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
             })
     }
+
     //Uploader Image to User
     function uploadPhotoUser(image,targetElm) {
         if (!checkImage(image)) return false;
@@ -156,10 +159,56 @@
         return uploader;
     }
 
+
+    //Set Uploader
+    function setContainer(containerElm) {
+      container = containerElm;
+    };
+    //Get Uploader
+    function getContainer() {
+      return container;
+    };
+    //Get Images
+    function getImages() {
+      if(imageList.length == 0) return null;
+      if (_.filter(imageList, function(i) { return (i.is_default && !i.hasOwnProperty('deleted'))}).length == 0) Object.assign(imageList[0],{'is_default':true});
+      return imageList;
+    };
+    //Set Images
+    function setImages(images) {
+      Object.assign(imageList,images)
+    };
+    //Set Image Collection
+    function setImageCollection (images) {
+      imageList = images;
+    };
+    //Add Images
+    function appendFile(image) {
+      imageList.push(Object.assign(image, {'new':true}));
+    };
+    //add empty message
+    function setEmptyMessage () {
+      if (getImages().length == 0) {
+        $(getContainer()).append($(emptyMessage));
+      }
+    };
+    //find and remove image
+    function findAndRemove(property, value) {
+      var array = getImages();
+      array.forEach(function (result, index) {
+        if (result[property] === parseInt(value)) {
+          $("div[data-id='" + value + "']").remove();
+          if(array[index].hasOwnProperty('is_default')) changeDefault(array[0].image_id);
+          //Remove from array
+          Object.assign(array[index],{'deleted':true,'is_default': false})
+        }
+      });
+    }
+
     //extend return value
     var _valFn = $.fn.val;
     $.fn.val = function () {
-        return $(this).data('uploader') ?  uploader.getImages() : _valFn.apply(this, arguments);
+        return $(this).data('uploader') ?  getImages() : _valFn.apply(this, arguments);
     };
 
     $.fn.createUploader = function (images) {
@@ -169,7 +218,7 @@
             $(this).attr("style", "width: 100%; min-height: 150px; border: 1px solid #f9f9f9;");
 
             //set uplaoder global
-            uploader.setContainer($(this));
+            setContainer($(this));
 
             //create uploader
             $(this).append($(emptyMessage));
@@ -178,7 +227,7 @@
 
             //exist images render
             if(images != null && images.length > 0){
-                uploader.setImages(images);
+                setImages(images);
                 renderImages();
             }
         });
@@ -196,54 +245,7 @@
     };
 
 
-    //ConfirmPopup = require('template/confirm/confirm.js');
-    function uploader(){}
 
-
-    //Set Uploader
-    uploader.prototype.setContainer = function (containerElm) {
-        container = containerElm;
-    };
-    //Get Uploader
-    uploader.prototype.getContainer = function () {
-        return container;
-    };
-    //Get Images
-    uploader.prototype.getImages = function () {
-        if(imageList.length == 0) return null;
-        if (_.filter(imageList, function(i) { return (i.is_default && !i.hasOwnProperty('deleted'))}).length == 0) Object.assign(imageList[0],{'is_default':true});
-        return imageList;
-    };
-    //Set Images
-    uploader.prototype.setImages = function (images) {
-        Object.assign(imageList,images)
-    };
-    //Set Image Collection
-    uploader.prototype.setImageCollection = function (images) {
-        imageList = images;
-    };
-    //Add Images
-    uploader.prototype.appendFile = function (image) {
-        imageList.push(Object.assign(image, {'new':true}));
-    };
-    //add empty message
-    uploader.prototype.setEmptyMessage = function () {
-        if (uploader.getImages().length == 0) {
-            $(uploader.getContainer()).append($(emptyMessage));
-        }
-    };
-    //find and remove image
-    uploader.prototype.findAndRemove = function (property, value) {
-        var array = uploader.getImages();
-        array.forEach(function (result, index) {
-            if (result[property] === parseInt(value)) {
-                $("div[data-id='" + value + "']").remove();
-                if(array[index].hasOwnProperty('is_default')) changeDefault(array[0].image_id);
-                //Remove from array
-                Object.assign(array[index],{'deleted':true,'is_default': false})
-            }
-        });
-    }
 
 
 
