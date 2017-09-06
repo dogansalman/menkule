@@ -244,10 +244,10 @@ console.log(Gmap);
             .then((advert) => App.showPreloader(advert, .7))
             .then((advert) => {
 
-              Menkule.post(advert.id ? '/advert/update' : '/advert/create', Uploader.getImages() == null ? _.omit(Object.assign(advert, advert.map[0], {
+              Menkule.post(advert.id ? '/advert/update' : '/advert/create', uploader.getImages() == null ? _.omit(Object.assign(advert, advert.map[0], {
                 'available_date': dateList
               }), ['map', 'marker', 'toVal']) : Object.assign(_.omit(Object.assign(advert, advert.map[0]), ['map', 'marker', 'toVal']), {
-                'images': Uploader.getImages()
+                'images': uploader.getImages()
               }, {
                 'available_date': dateList
               }))
