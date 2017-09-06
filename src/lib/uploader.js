@@ -1,4 +1,8 @@
-    //Images List
+import Confirm from '../app/popup/confirm';
+
+const uploader2 = new uploader();
+
+//Images List
     var imageList = [];
     //Uploader
     var container = null;
@@ -9,11 +13,24 @@
     var default_icon = $('<a href="#" class="default-img"></a>');
     var emptyMessage = $('<div class="empty-message"><p>Fotoğraflar</p></div>');
 
+
+    /*
+    Constructor uploader
+     */
     function uploader(){}
+
+    uploader.prototype.getImages = function () {
+      if (imageList.length == 0) return null;
+      if (_.filter(imageList, function (i) {
+          return (i.is_default && !i.hasOwnProperty('deleted'))
+        }).length == 0) Object.assign(imageList[0], {'is_default': true});
+      return imageList;
+    }
+
 
     ///////////////Private Functions
     function changeDefault(id){
-        var arr = getImages();
+        var arr = uploader2.getImages();
         for (var i in arr) {
             arr[i].is_default = false;
         }
@@ -21,10 +38,9 @@
         Object.assign(arr[index],{'is_default':true});
         $(container).find("div i").parent().remove();
         $("div[data-id='" + arr[index].image_id  + "']").append($(default_icon));
-        //renderImages();
     }
     function checkImageLimit() {
-        return _.filter(getImages(), function(i) { return i.hasOwnProperty('deleted')} ).length > maxImage ? false : true
+        return _.filter(uploader2.getImages(), function(i) { return i.hasOwnProperty('deleted')} ).length > maxImage ? false : true
     }
     //Create Image Template
     function createImage(data) {
@@ -33,17 +49,19 @@
 
         var deleteImageBtn = $('<a href="#" id="' + data.image_id + '" class="delete-img-btn"></a>');
 
-
-
         $(deleteImageBtn).on('click', (e) => {
             e.preventDefault();
-            /*
-             ConfirmPopup({ message: 'Fotoğrafı silmek istediğiniz emin misiniz ?' })
+            let modal;
+             Confirm({
+                message: 'Fotoğrafı silmek istediğiniz emin misiniz ?',
+                title: 'Emin misiniz ?'
+             }).do(m => modal = m)
              .then(() => {
-             uploader.findAndRemove('image_id', $(e.target).attr('id'));
+                 findAndRemove('image_id', $(e.target).attr('id'));
+                 modal.modal('hide');
              })
              .catch(() => console.log(''))
-             */
+
 
         });
         var imageContainer = $('<div data-id="' + data.image_id + '"class="col-xs-12 col-sm-3 col-md-3 disable_padding" style=" width:140px; margin:10px 10px 10px 0px; max-height: 120px; overflow: hidden; display: inline-block; position: relative;"></div>');
@@ -58,14 +76,15 @@
     }
 
 
+
     //Render Images
     function renderImages()
     {
         $(getContainer()).find('div').remove();
-        if ( getImages() == null || getImages().length == 0 ) {
+        if ( uploader2.getImages() == null || uploader2.getImages().length == 0 ) {
             $(getContainer()).append($(emptyMessage));
         }
-        $.each(getImages(), function (index, data) {
+        $.each(uploader2.getImages(), function (index, data) {
             $(getContainer()).append($(createImage(data)));
         });
     }
@@ -168,12 +187,7 @@
     function getContainer() {
       return container;
     };
-    //Get Images
-    function getImages() {
-      if(imageList.length == 0) return null;
-      if (_.filter(imageList, function(i) { return (i.is_default && !i.hasOwnProperty('deleted'))}).length == 0) Object.assign(imageList[0],{'is_default':true});
-      return imageList;
-    };
+
     //Set Images
     function setImages(images) {
       Object.assign(imageList,images)
@@ -188,13 +202,13 @@
     };
     //add empty message
     function setEmptyMessage () {
-      if (getImages().length == 0) {
+      if (uploader2.getImages().length == 0) {
         $(getContainer()).append($(emptyMessage));
       }
     };
     //find and remove image
     function findAndRemove(property, value) {
-      var array = getImages();
+      var array = uploader2.getImages();
       array.forEach(function (result, index) {
         if (result[property] === parseInt(value)) {
           $("div[data-id='" + value + "']").remove();
@@ -208,7 +222,7 @@
     //extend return value
     var _valFn = $.fn.val;
     $.fn.val = function () {
-        return $(this).data('uploader') ?  getImages() : _valFn.apply(this, arguments);
+        return $(this).data('uploader') ?  uploader2.getImages() : _valFn.apply(this, arguments);
     };
 
     $.fn.createUploader = function (images) {
@@ -245,6 +259,9 @@
     };
 
 
+
+
+    export default new uploader;
 
 
 

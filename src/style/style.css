@@ -430,6 +430,38 @@ textarea {
   color: #fff;
   background: #42b0ef;
 }
+
+/*
+Notify
+ */
+.alert-danger{
+  color: #fff;
+  background-color: #e26764;
+  border-color: #e26764;
+  font-size: 12px;
+  width: auto;
+  border-radius: 0px;
+  min-width: 300px;
+}
+.alert-success{
+  border-color: #2ecc71;
+  background: #2ecc71;
+  color: #fff;
+  font-size: 12px;
+  width: auto;
+  border-radius: 0px;
+  min-width: 300px;
+}
+/*
+Modal
+ */
+.modal-header {
+  padding: 10px 10px 0px 0px;
+  border: none;
+}
+.modal-body{
+  padding:5px;
+}
 .modaltitle {
   color: #49BAFB!important;
   font-size: 14px!important;

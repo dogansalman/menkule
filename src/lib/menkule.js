@@ -94,14 +94,12 @@ Menkule.prototype.stopSocket = function (){
   socket = null;
 };
 
-
 /*
  User
  */
 Menkule.prototype.getUser = function(){
   return loggedUser;
 };
-
 Menkule.prototype.logout = function(){
   return new Promise(resolve => {
     loggedUser = null;
@@ -109,7 +107,6 @@ Menkule.prototype.logout = function(){
     resolve(true);
   });
 };
-
 Menkule.prototype.isLogged = function () {
   return new Promise((resolve) => {
     this.user().then(user => {
@@ -126,7 +123,6 @@ Menkule.prototype.isActive = function () {
     });
   });
 };
-
 Menkule.prototype.hasOwnershipping = function () {
   return new Promise((resolve) => {
     this.user().then(user => {
@@ -135,8 +131,6 @@ Menkule.prototype.hasOwnershipping = function () {
     });
   });
 };
-
-
 Menkule.prototype.user = function(force) {
   force = force || false;
   return new Promise((resolve) => {

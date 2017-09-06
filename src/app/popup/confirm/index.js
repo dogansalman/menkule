@@ -1,11 +1,18 @@
 import modal from '../modal';
 import confirmTemplate from './confirm.handlebars';
-import appMessages from '../../../lib/appMessages';
 
-export default () => {
+export default (options) => {
+
+
+  options = Object.assign({
+    message: 'İşleme devam etmek istediğinize emin misiniz ?',
+    title: 'Emin misiniz ?',
+    width: 450
+  }, options || {});
+
     return new Promise((resolve,reject) => {
 
-        modal({ template: confirmTemplate({message: appMessages('ownership_confirm'), title: appMessages('ownership_title')}), title: appMessages('ownership_title'), width:450 })
+        modal({ template: confirmTemplate({message: options.message, title: options.title}), title: options.title, width: options.width})
             .then((template) => {
 
             //get opened modal

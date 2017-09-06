@@ -3,6 +3,7 @@ import messages from './messages.handlebars';
 import alerts from './alerts.handlebars';
 import Header from '../header';
 import Confirm from '../../popup/confirm';
+import appMessages from '../../../lib/appMessages';
 
 export default (isOpen) => Menkule.user()
   .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen: isOpen || false })).then(header => new Promise(resolve => {
@@ -135,7 +136,7 @@ export default (isOpen) => Menkule.user()
     header.find('.ownerstart').click(e => {
       e.preventDefault();
       let modal;
-      Confirm().do(m => modal = m)
+      Confirm({title: appMessages('ownership_confirm'), title: appMessages('ownership_title')}).do(m => modal = m)
         .then(() => Menkule.post('/user/ownership'))
         .then(() => Menkule.user(true))
         .then(() => App.promise(() => modal.modal('hide')))

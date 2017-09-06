@@ -3,7 +3,7 @@ import Footer from '../../footer';
 import appMessages from '../../../../lib/appMessages';
 import geocomplate from 'geocomplete';
 import uploader from '../../../../lib/uploader';
-import confirm from '../../../popup/confirm';
+import Confirm from '../../../popup/confirm';
 import templatee from './advert.handlebars';
 import avaiableDates from './availableDate.handlebars';
 
@@ -49,7 +49,7 @@ let dateList = [];
 
 
 export default (params) => {
-console.log(Gmap);
+
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
@@ -237,12 +237,16 @@ console.log(Gmap);
        Update or Create
         */
         template.find('button.update').on('click', (e) => {
+
+
+
           e.preventDefault();
           $(e.target).disable();
           $(".advert-detail").formFields().disable();
           template.find(".advert-detail").validateFormAsync(advertRules)
             .then((advert) => App.showPreloader(advert, .7))
             .then((advert) => {
+
 
               Menkule.post(advert.id ? '/advert/update' : '/advert/create', uploader.getImages() == null ? _.omit(Object.assign(advert, advert.map[0], {
                 'available_date': dateList
@@ -280,8 +284,9 @@ console.log(Gmap);
        Delete
         */
         template.find('button.delete').on('click', (e) => {
-          ConfirmPopup({
-            message: 'İlan kaydını silmek istediğinize emin misiniz ?'
+          Confirm({
+            message: 'İlan kaydını silmek istediğinize emin misiniz ?',
+            title: 'Emin misiniz ?'
           })
             .then(() => {
               App.showPreloader(.7)
