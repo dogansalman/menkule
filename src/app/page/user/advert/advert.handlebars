@@ -13,6 +13,7 @@
 <div class="col-xs-12" style="padding:10px;position: absolute; top: 9%; z-index: 1; background: rgba(255, 255, 255, 0.81);">
     <div class="col-xs-12 col-sm-2 col-md-2">
         <select data-form-element="city_id" class="form-control moffset1 cities">
+        {{{{raw-helper}}}}
                 <option value="">Seçiniz</option>
                 {{#each cities}}
                 {{#zif ../cityId "==" id}}
@@ -21,6 +22,7 @@
                 <option value="{{id}}">{{name}}</option>
                 {{/zif}}
                 {{/each}}
+        {{{{/raw-helper}}}}
         </select>
     </div>
 <div class="col-xs-12 col-sm-2 col-md-2">

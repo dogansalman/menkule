@@ -6,6 +6,7 @@ import geocomplate from 'geocomplete';
 import uploader from '../../../../lib/uploader';
 import confirm from '../../../popup/confirm';
 import templatee from './advert.handlebars';
+import avaiableDates from './availableDate.handlebars';
 
 /*
 Validate
@@ -47,6 +48,7 @@ Avaiable date list
  */
 let dateList = [];
 
+
 export default (params) => {
 
   return new Promise((resolve) => {
@@ -72,22 +74,8 @@ export default (params) => {
           dateList.push(new DateRange(moment(date.from_date), moment(date.to_date)));
         });
 
-        // render date list
-        function RenderDateList() {
-          return App.renderTemplate(template.find('#date-list-template').html(), {
-            dates: dateList
-          })
-            .then((data) => template.zone('dateselect-container').setContentAsync(data))
-            .then((listTemplate) => {
-              listTemplate.find(".deletedatebtn").on('click', (e) => {
-                e.preventDefault();
-                var index = parseInt($(e.target).attr('data-index'), 10);
-                dateList.splice(index, 1);
-                // Remove
-                $(e.target).closest('.datecontainer').remove();
-              });
-            });
-        }
+
+
 
         // on date select button
         template.find('.daterangebtn').on('click', (e) => {
@@ -97,8 +85,20 @@ export default (params) => {
           });
         });
 
-        // render list
-        RenderDateList();
+         /*
+         Render avaiable dates
+          */
+         $("body").zone('dateselect-container').setContentAsync( avaiableDates({dates: dateList}))
+          .then((listTemplate) => {
+              listTemplate.find(".deletedatebtn").on('click', (e) => {
+                  e.preventDefault();
+                  var index = parseInt($(e.target).attr('data-index'), 10);
+                  dateList.splice(index, 1);
+                  // Remove
+                  $(e.target).closest('.datecontainer').remove();
+              });
+          });
+
 
 
 
@@ -137,7 +137,9 @@ export default (params) => {
         template.find('.uploader').createUploader(advert.images != null ? advert.images : null);
 
 
-
+        /*
+        Set center latitude longitude
+         */
         if (advert.id) template.find("#map").centerTo({
           'lat': advert.latitude,
           'lng': advert.longitude
@@ -161,8 +163,11 @@ export default (params) => {
         });
 
 
-        //advert types
-        $("body").zone('adverttypes')
+        /*
+        Advert types
+         */
+          /*
+          $("body").zone('adverttypes')
           .applyRemote('/advert/types', {
             resolve: "types",
             wait: false,
@@ -171,9 +176,14 @@ export default (params) => {
               advert_type_id: advert.advert_type_id || 0
             }
           });
+           */
 
-        //city & town selector
-        template.formFields('town_id')
+
+         /*
+           City & town selector
+          */
+          /*
+             template.formFields('town_id')
           .disable()
           .on('rendered.template', (e) => $(e.target).enable().trigger("change", e))
           .applyRemote('/other/state', {
@@ -184,6 +194,8 @@ export default (params) => {
               townId: advert.town_id || 0
             }
           });
+           */
+
 
 
         template.formFields('city_id')
@@ -200,7 +212,7 @@ export default (params) => {
                 loadingText: "<option>İl seçiniz</option>"
               });
           })
-          .on('rendered.template', (e) => $(e.target).trigger("change", e))
+        //  .on('rendered.template', (e) => $(e.target).trigger("change", e))
           .applyRemote('/other/city', {
             resolve: "cities",
             extraData: {
@@ -208,8 +220,12 @@ export default (params) => {
             }
           });
 
-        //change map on town select
-        template.formFields('town_id').on("change", (e, a) => {
+
+      /*
+      Change map on town select
+       */
+      /*
+             template.formFields('town_id').on("change", (e, a) => {
           if (a && advert.id) return;
           var city = template.formFields('city_id')[0].value ? template.formFields('city_id')[0].selectedOptions.item(0).text : "Türkiye";
           if (city != "Türkiye" && e.target.value) city = city + " " + e.target.selectedOptions.item(0).text;
@@ -217,8 +233,12 @@ export default (params) => {
           Map.getLatLgn(city).then(coords => template.find("#map").centerTo(coords).zoom(zoom));
         });
 
+         */
 
-        //update & create click
+
+       /*
+       Update or Create
+        */
         template.find('button.update').on('click', (e) => {
           e.preventDefault();
           $(e.target).disable();
@@ -259,7 +279,9 @@ export default (params) => {
         });
 
 
-        //delete click
+       /*
+       Delete
+        */
         template.find('button.delete').on('click', (e) => {
           ConfirmPopup({
             message: 'İlan kaydını silmek istediğinize emin misiniz ?'
