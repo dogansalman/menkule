@@ -255,8 +255,8 @@ Gmap.prototype.getCityName = function (latitude, longitude) {
       if (request.readyState == 4) {
         if (request.status == 200) {
           var data = JSON.parse(request.responseText);
-          for (i = 0; i < data.results[0].address_components.length; i++) {
-            for (j = 0; j < data.results[0].address_components[i].types.length; j++) {
+          for (let i = 0; i < data.results[0].address_components.length; i++) {
+            for (let j = 0; j < data.results[0].address_components[i].types.length; j++) {
               if (data.results[0].address_components[i].types[j] == "administrative_area_level_2") {
                 Object.assign(cities,{town: data.results[0].address_components[i].long_name.replace("Merkez", "").trim()})
               }

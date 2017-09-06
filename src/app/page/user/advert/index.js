@@ -1,7 +1,6 @@
 import Header from '../../header';
 import Footer from '../../footer';
 import appMessages from '../../../../lib/appMessages';
-import Gmap from '../../../../lib/map';
 import geocomplate from 'geocomplete';
 import uploader from '../../../../lib/uploader';
 import confirm from '../../../popup/confirm';
@@ -50,7 +49,7 @@ let dateList = [];
 
 
 export default (params) => {
-
+console.log(Gmap);
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
@@ -105,9 +104,9 @@ export default (params) => {
         //get location set city & town
         template.find("button.search-cordi-btn").on('click', (e) => {
           App.showPreloader(.7)
-            .then((latlng) => Map.getMyLocation())
+            .then((latlng) => Gmap.getMyLocation())
             .then((latlng) => {
-              Map.getCityName(latlng.latitude, latlng.longitude)
+              Gmap.getCityName(latlng.latitude, latlng.longitude)
                 .then((cities) => App.promise(() => {
                   App.promise(() => template.find(".cities").val(template.find(".cities option").filter(function() {
                     return $(this).html().toLowerCase() == cities.city.toLowerCase();
@@ -151,7 +150,7 @@ export default (params) => {
         //check marker location
         template.find("#map").on('pin.map', function(e) {
           e.preventDefault();
-          Map.getCityName(e.location.lat(), e.location.lng())
+          Gmap.getCityName(e.location.lat(), e.location.lng())
             .then((cities) => {
               if(template.find(".towns option:selected").text().toLowerCase() == cities.town.toLowerCase()) {
                 $(e.target).clearMarkers();
@@ -166,7 +165,7 @@ export default (params) => {
         /*
         Advert types
          */
-          /*
+
           $("body").zone('adverttypes')
           .applyRemote('/advert/types', {
             resolve: "types",
@@ -176,14 +175,13 @@ export default (params) => {
               advert_type_id: advert.advert_type_id || 0
             }
           });
-           */
+
 
 
          /*
            City & town selector
           */
-          /*
-             template.formFields('town_id')
+          template.formFields('town_id')
           .disable()
           .on('rendered.template', (e) => $(e.target).enable().trigger("change", e))
           .applyRemote('/other/state', {
@@ -194,7 +192,7 @@ export default (params) => {
               townId: advert.town_id || 0
             }
           });
-           */
+
 
 
 
@@ -221,19 +219,18 @@ export default (params) => {
           });
 
 
-      /*
-      Change map on town select
-       */
-      /*
-             template.formFields('town_id').on("change", (e, a) => {
+        /*
+        Change map on town select
+        */
+        template.formFields('town_id').on("change", (e, a) => {
           if (a && advert.id) return;
           var city = template.formFields('city_id')[0].value ? template.formFields('city_id')[0].selectedOptions.item(0).text : "Türkiye";
           if (city != "Türkiye" && e.target.value) city = city + " " + e.target.selectedOptions.item(0).text;
           var zoom = (city == "Türkiye") ? 6 : (e.target.value ? 15 : 10);
-          Map.getLatLgn(city).then(coords => template.find("#map").centerTo(coords).zoom(zoom));
+          Gmap.getLatLgn(city).then(coords => template.find("#map").centerTo(coords).zoom(zoom));
         });
 
-         */
+
 
 
        /*

@@ -1,4 +1,4 @@
-import Handlebars from 'handlebars/dist/handlebars';
+import Handlebars from './handlebarHelper';
 import * as _ from 'lodash';
 import './validate';
 
