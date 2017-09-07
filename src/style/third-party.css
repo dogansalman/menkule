@@ -14,3 +14,5 @@
 @import "~awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css";
 /* Uploader */
 @import "jquery.uploader.css";
+/* Open Sans Fonts */
+@import '~open-sans-all';

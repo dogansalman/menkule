@@ -210,7 +210,7 @@ export default (params) => {
                 loadingText: "<option>İl seçiniz</option>"
               });
           })
-        //  .on('rendered.template', (e) => $(e.target).trigger("change", e))
+          .on('rendered.template', (e) => $(e.target).trigger("change", e))
           .applyRemote('/other/city', {
             resolve: "cities",
             extraData: {

@@ -2,7 +2,7 @@
 @import "style.css";
 
 /* Parts */
-@import "./parts/main-page.css";
+@import "./parts/home.css";
 @import "./parts/header.css";
 @import "./parts/footer.css";
 @import "./parts/user-account.css";
