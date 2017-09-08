@@ -21,6 +21,7 @@ export default (options) => {
             const openedModal = template.parents('.modal');
 
             //remove modal header
+            openedModal.find('.modal-header').remove();
 
              //accept
              template.find('button.acceptbtn').on('click', (e) => {

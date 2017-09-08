@@ -1,11 +1,11 @@
 import Header from '../../header';
 import Footer from '../../footer';
-import appMessages from '../../../../lib/appMessages';
-import geocomplate from 'geocomplete';
 import uploader from '../../../../lib/uploader';
 import Confirm from '../../../popup/confirm';
 import templatee from './advert.handlebars';
 import avaiableDates from './availableDate.handlebars';
+import calendar from '../../../popup/calendar';
+
 
 /*
 Validate
@@ -76,32 +76,43 @@ export default (params) => {
 
 
 
-        // on date select button
+        /*
+        Add avaiable dates
+         */
         template.find('.daterangebtn').on('click', (e) => {
-          App.DatePicker().then((dateRange) => {
-            dateList.push(dateRange);
-            RenderDateList();
-          });
+            calendar()
+                .then((dateRange) => App.promise(() =>  dateList.push(dateRange)))
+                //TODO fix dispatchEvent console error.
+                .then(() => App.promise(() => $("body").zone('dateselect-container')[0].dispatchEvent((new CustomEvent('selected.date', { detail: dateList})))))
         });
 
-         /*
+
+
+
+          /*
          Render avaiable dates
           */
-         $("body").zone('dateselect-container').setContentAsync( avaiableDates({dates: dateList}))
-          .then((listTemplate) => {
-              listTemplate.find(".deletedatebtn").on('click', (e) => {
-                  e.preventDefault();
-                  var index = parseInt($(e.target).attr('data-index'), 10);
-                  dateList.splice(index, 1);
-                  // Remove
-                  $(e.target).closest('.datecontainer').remove();
-              });
+          $("body").zone('dateselect-container')[0].addEventListener("selected.date", function(e) {
+
+              $("body").zone('dateselect-container').setContentAsync( avaiableDates({dates: e.detail}))
+                  .then((listTemplate) => {
+                      /*
+                      Delete date
+                       */
+                      listTemplate.find(".deletedatebtn").on('click', (e) => {
+                          e.preventDefault();
+                          var index = parseInt($(e.target).attr('data-index'), 10);
+                          dateList.splice(index, 1);
+                          $(e.target).closest('.datecontainer').remove();
+                      });
+                  });
           });
 
 
 
-
-        //get location set city & town
+          /*
+          Get my location select city and town
+           */
         template.find("button.search-cordi-btn").on('click', (e) => {
           App.showPreloader(.7)
             .then((latlng) => Gmap.getMyLocation())

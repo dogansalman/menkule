@@ -59,6 +59,14 @@ $.fn.exists = function () {
     return this.length > 0;
 };
 
+// clear form
+$.fn.clearForm = function () {
+    $(this).find('input').val('');
+    $(this).find('textarea').val('');
+    $(this).find('select').selectedIndex = 0
+};
+
+
 $.fn.applyRemote = function (url, options) {
     var el = $(this).toArray().find(e => true);
     if (url == "refresh" && !$(el).data("template")) return this;

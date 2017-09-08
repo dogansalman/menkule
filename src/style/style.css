@@ -678,6 +678,19 @@ label {
   font-weight: 400;
 }
 
+/*
+Contact
+ */
+.contact-body {
+
+}
+.contactpage-container {
+    background: #fff;
+    min-height: 500px;
+}
+.contact-middle {
+    margin-bottom: 0!important
+}
 
 
 /*
