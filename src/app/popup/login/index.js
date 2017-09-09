@@ -1,6 +1,7 @@
 import loginModal from './login.handlebars'
 import modal from '../modal';
 import Messages from '../../../lib/appMessages';
+import forgotModal from '../forgot';
 
 export default () => {
 
@@ -13,7 +14,10 @@ export default () => {
         modal({template: loginModal, title: 'Üye Giriş', width:350})
             .then(Content => {
 
-                // Click login
+                const openedModal = Content.parents('.modal');
+                /*
+                Login
+                 */
                 Content.find('button.login-btn').on('click', (e) => {
                     e.preventDefault();
                     $(e.target).disable();
@@ -44,13 +48,26 @@ export default () => {
                         })
                 });
 
-                // Enter login
+                /*
+                Enter
+                 */
                 Content.formFields().on('keyup', (e) => {
                     var keyCode = e.which || e.keyCode;
                     if (keyCode == 13) Content.find('button.login-btn').triggerHandler('click');
                 });
 
-                // Focus first form element
+                /*
+                Forgot password
+                 */
+                Content.find('.forgotpassword').on('click', (e) => {
+                  openedModal.modal('hide');
+                  forgotModal();
+                });
+
+
+                /*
+                Focus first form element
+                 */
                 Content.formFields().first().select();
 
             });

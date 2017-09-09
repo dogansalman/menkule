@@ -1,19 +1,21 @@
 import modal from '../modal';
-import changePassword from './password.handlebars';
+import password from './password.handlebars';
 import appMessages from '../../../lib/appMessages';
 
-var passwordFormRules = {
-  'currentpassword': [App.validate.REQUIRED],
-  'password': [App.validate.REQUIRED],
-  'reply': [App.validate.REQUIRED, function (value, fields) {
-    return ($(fields['reply']).fieldValue() === value);
-  }]
-};
-export default () => {
+
+  export default () => {
 
   return new Promise((resolve) => {
 
-      modal({template: changePassword, title: 'Şifre güncelle', width: 350})
+    let passwordFormRules = {
+      'currentpassword': [App.validate.REQUIRED],
+      'password': [App.validate.REQUIRED],
+      'reply': [App.validate.REQUIRED, function (value, fields) {
+        return ($(fields['reply']).fieldValue() === value);
+      }]
+    };
+
+      modal({template: password, title: 'Şifre güncelle', width: 350})
         .then((template) => {
 
           //get opened modal
