@@ -4,6 +4,7 @@
 import MainPage from '../../app/page/main';
 import HelpPage from '../../app/page/help';
 import Contact from '../../app/page/contact';
+import Search from '../../app/page/search';
 import Register from '../../app/page/user/register';
 import UserPolicy from '../../app/page/user/policy';
 import UserAccount from '../../app/page/user/account';
@@ -21,6 +22,7 @@ export default [
     //['/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
     ['/help', HelpPage],
     ['/contact', Contact],
+    ['/search/:state', Search],
     ['/logout', () => Menkule.logout().then(() => App.promise(() => window.location.href = "/")), MainPage],
     ['/user/account', UserAccount],
     ['/user/activate',  UserActivate ],

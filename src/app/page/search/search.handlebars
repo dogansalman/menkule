@@ -1,0 +1,128 @@
+<div class="container disable_padding">
+<div class="location-searchbox col-xs-12 disable_padding col-sm-12 col-md-12">
+    <div class="col-xs-2 col-sm-2 col-md-1 searchbox-filter-container disable_padding text-center">
+        <button href="#" class="btn search-cordi-btn fullwidth"></button>
+    </div>
+    <div class="col-xs-8 col-sm-8 col-md-9 searchbox-container disable_padding">
+        <input type="text" placeholder="Nereye seyahat edeceksiniz ?" class="form-control searchtxt_searchmap"/>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 searchbox-filter-container disable_padding text-right">
+        <button href="#" class="advert-search-btn fullwidth text-center"><span class="hidden-xs hidden-sm"> Daha Fazla Filtre</span></button>
+    </div>
+</div>
+<div class="col-xs-12 disable_padding col-sm-12 col-md-7">
+    <button class="search-refresh-btn"></button>
+    <div id="map" class="mapsearch col-xs-12 col-sm-12 col-md-8 disable_padding"></div>
+</div>
+<div class="hidden-xs hidden-sm disable_padding col-md-5 advert-list-container animated" data-zone="advert-list"></div>
+<div class="col-xs-12 visible-xs visible-sm advert-slide-container up">
+    <div class="advert-slide-down down"></div>
+    <div data-zone="adverts-slidelist" class="adverts-slidelist"></div>
+</div>
+
+
+<script id="advert-list-template" type="text/x-handlebars-template">
+    {{{{raw-helper}}}}
+        {{#each adverts}}
+        <div id={{id}} class="advert-detail-map col-md-6">
+            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding map-result-image">
+                <div class="map-advertphoto">
+                    <img class="photoadvert" src="{{#image photo 250 200 }} {{/image}}"/>
+                </div>
+                <div class="col-md-12 map-result-price">{{price}} TL</div>
+                <div style="display:none;" class="map-result-profilecontainer text-center">
+                    <img alt="profile-photo" class="map-result-profileimage" src="{{#image user_photo 60 60 }} {{/image}}"/>
+                    <h2 class="map-result-profilename">{{fullname}}</h2>
+                </div>
+            </div>
+            <div class="col-md-12 map-result-comments">
+                <div class="col-md-6 disable_padding text-left">
+                    <i class="fa fa-comment-o"></i> {{comment_size}} Yorum
+                </div>
+                <div class="col-md-6 disable_padding text-right">
+                    <i class="fa fa-eye"></i> {{views}} İzlenme
+                </div>
+            </div>
+            <div class="col-xs-12  advert-detail-map-footer">
+                <div class="city-town">{{city}}/{{town}} </div>
+                <div style="display:none;" class="map-result-shortdesc">
+                    {{adress}}
+                </div>
+                <div class="col-xs-12 disable_padding advertbig-icons moffset1">
+                    <div>
+                        <span class="badcount"><i class="fa fa-bed"></i><span>{{beds}} Yatak</span></span>
+                        <span class="visitorcount"><i class="fa fa-users"></i> <span>{{visitor}} Misafir</span></span>
+                        <span class="adverttype"><i class="fa fa-home"></i> <span>{{type}}</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    {{{{/raw-helper}}}}
+</script>
+
+<script id="advert-slide-template" type="text/x-handlebars-template">
+<div class="swiper-container swiper-container-horizontal">
+<div class="swiper-wrapper" style="transform: translate3d(-2617.5px, 0px, 0px); transition-duration: 0ms;">
+{{{{raw-helper}}}}
+{{#each adverts}}
+<div data-index="{{@index}}" class="swiper-slide" style="width: 319px; margin-right: 30px;">
+    <a href="/detail/advert/{{id}}">
+        <div class="col-xs-12 col-sm-12 col-md-12 map-result-image">
+            <div class="map-advertphoto">
+                <img class="photoadvert" src="{{#image photo 400 250 }} {{/image}}"/>
+            </div>
+            <div class="col-md-4 map-result-price">{{price}} TL</div>
+            <div class="map-result-profilecontainer hidden-xs hidden-sm text-center">
+                <img alt="profile-photo" class="map-result-profileimage" src="{{#image user_photo 100 100 }} {{/image}}"/>
+                <h2 class="map-result-profilename">Doğan SALMAN</h2>
+            </div>
+        </div>
+        <div class="col-xs-12 advert-slide-footer">
+            <div class="col-xs-4 text-left">
+                {{room}} + {{hall}} {{type}}
+            </div>
+            <div class="col-xs-8 text-right">
+                <i class="fa fa-bed"></i> {{beds}} Yatak  / <i class="fa fa-users"></i> {{visitor}} Misafir
+            </div>
+        </div>
+    </a>
+</div>
+{{/each}}
+{{{{/raw-helper}}}}
+</div>
+</div>
+</script>
+
+<script id="advert-infowin-template" type="text/x-handlebars-template">
+    {{{{raw-helper}}}}
+    <div tabindex="-1" class="advert-info-window animated pulse hidden-xs hidden-sm" id={{id}} class="col-md-6">
+        <div id={{id}} class="advert-detail-map col-md-12 moffset2">
+            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding map-result-image">
+                <div class="map-advertphoto">
+                    <img class="photoadvert" src="{{#image photo 250 200 }} {{/image}}"/>
+                </div>
+                <div class="col-md-12 map-result-price">{{price}} TL</div>
+            </div>
+            <div class="col-md-12 map-result-comments">
+                <div class="col-md-6 disable_padding text-left">
+                    <i class="fa fa-comment-o"></i> {{comment_size}} Yorum
+                </div>
+                <div class="col-md-6 disable_padding text-right">
+                    <i class="fa fa-eye"></i> {{views}} İzlenme
+                </div>
+            </div>
+            <div class="col-xs-12  advert-detail-map-footer">
+                <div class="col-xs-12 disable_padding advertbig-icons moffset1">
+                    <div>
+                        <span class="badcount"><i class="fa fa-bed"></i><span>{{beds}} Yatak</span></span>
+                        <span class="visitorcount"><i class="fa fa-users"></i> <span>{{visitor}} Misafir</span></span>
+                        <span class="adverttype"><i class="fa fa-home"></i> <span>{{type}}</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{{{{/raw-helper}}}}
+</script>
