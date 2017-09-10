@@ -5,6 +5,7 @@ import MainPage from '../../app/page/main';
 import HelpPage from '../../app/page/help';
 import Contact from '../../app/page/contact';
 import Register from '../../app/page/user/register';
+import UserPolicy from '../../app/page/user/policy';
 import UserAccount from '../../app/page/user/account';
 import UserActivate from '../../app/page/user/activate';
 import UserAdverts from '../../app/page/user/adverts';
@@ -26,6 +27,7 @@ export default [
     ['/help/:subject', HelpPage],
     [ /^\/$/, MainPage ],
     ['/user/register', Register],
+    ['/user/policy', UserPolicy],
     ['/user/adverts', UserAdverts],
     ['/user/advert/:id', UserAdvert],
     ['/user/alerts', UserAlerts],
