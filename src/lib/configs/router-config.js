@@ -3,13 +3,14 @@
  */
 import MainPage from '../../app/page/main';
 import HelpPage from '../../app/page/help';
-import UserAccount from '../../app/page/user/account';
+import Contact from '../../app/page/contact';
 import Register from '../../app/page/user/register';
+import UserAccount from '../../app/page/user/account';
 import UserActivate from '../../app/page/user/activate';
 import UserAdverts from '../../app/page/user/adverts';
 import UserAlerts from '../../app/page/user/alerts';
 import UserAdvert from '../../app/page/user/advert';
-import Contact from '../../app/page/contact';
+import UserMessage from '../../app/page/user/messages';
 /**
  * Define routes
  * @type {[*]}
@@ -26,5 +27,6 @@ export default [
     ['/user/register', Register],
     ['/user/adverts', UserAdverts],
     ['/user/advert/:id', UserAdvert],
-    ['/user/alerts', UserAlerts]
+    ['/user/alerts', UserAlerts],
+    ['/user/messages', UserMessage]
 ];

@@ -34,6 +34,12 @@ export default [
         method: () => Menkule.isLogged(),
         condition: false,
         backUrl: '/'
+    },
+    {
+        route: '/user/messages',
+        method: () => Menkule.isLogged(),
+        condition: false,
+        backUrl: '/'
     }
 ];
 

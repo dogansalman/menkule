@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="col-xs-12 page-title-container">
+        <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a> <a href="javascript:void(0);">Mesajlarım</a>
+    </div>
+    {{#each messages}}
+        <div class="col-xs-12 disable_padding">
+            <a href='/user/messages/{{message_id}}'>
+                <div class='messagelist-container'>
+                    <div class='message-container col-xs-2 col-sm-3 col-md-3'>
+                        <div class='col-xs-3 hidden-sm hidden-xs'> <img class='message-profile' src='{{#image sender_photo 150 150 }} {{/image}}' />
+                        </div>
+                        <div class='disable_padding col-md-9 col-sm-9 col-xs-2'> <img class='message-profilemobile visible-xs' src='{{#image sender_photo 150 150 }} {{/image}}' /> <span class='message-sendername'>{{sender_fullname}}</span>
+                            <span class='message-date'> {{date date "D MMMM YYYY, dddd" }} </span>
+                        </div>
+                    </div>
+                    <div class='message-text col-xs-10 col-sm-9 col-md-9'>
+                        <p><b>{{last_message.fullname}}:</b> {{last_message.message}}</p>
+                        <span class='message-time'> {{fromNow last_message.date}} </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div style="clear:both"></div>
+    {{/each}}
+</div>
