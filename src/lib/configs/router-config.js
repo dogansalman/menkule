@@ -10,7 +10,8 @@ import UserActivate from '../../app/page/user/activate';
 import UserAdverts from '../../app/page/user/adverts';
 import UserAlerts from '../../app/page/user/alerts';
 import UserAdvert from '../../app/page/user/advert';
-import UserMessage from '../../app/page/user/messages';
+import UserMessages from '../../app/page/user/messages';
+import UserMessage from '../../app/page/user/message';
 /**
  * Define routes
  * @type {[*]}
@@ -28,5 +29,6 @@ export default [
     ['/user/adverts', UserAdverts],
     ['/user/advert/:id', UserAdvert],
     ['/user/alerts', UserAlerts],
-    ['/user/messages', UserMessage]
+    ['/user/messages', UserMessages],
+    ['/user/messages/:id', UserMessage]
 ];
