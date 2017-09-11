@@ -1,6 +1,16 @@
 import Handlebars from './handlebarHelper';
 import * as _ from 'lodash';
 import './validate';
+import { extendMoment } from 'moment-range';
+import 'moment/locale/tr';
+
+
+/*
+Moment Range & Locale
+ */
+extendMoment(moment);
+moment.locale('tr');
+
 
 // Disable
 $.fn.disable = function () {

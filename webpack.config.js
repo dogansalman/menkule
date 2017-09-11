@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const IgnorePlugin = require("webpack/lib/IgnorePlugin");
+const ProvidePlugin = require("webpack/lib/ProvidePlugin");
 
 module.exports = {
   context: path.resolve(__dirname, "src"),
@@ -71,11 +73,13 @@ module.exports = {
     plugins: [
       new HtmlWebpackPlugin({template: './index.html', inject: true}),
       new ExtractTextPlugin("style-[hash].bundle.css"),
-      new CopyWebpackPlugin([{ from: 'assets/', to: 'assets' }]),
-      new webpack.ProvidePlugin({
+      new ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
         moment: 'moment'
-      })
+      }),
+        new CopyWebpackPlugin([{ from: 'assets/', to: 'assets' }]),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
     ]
 };
