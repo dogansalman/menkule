@@ -61,7 +61,7 @@ $.fn.addAdvertToMap = function (location,options) {
 }
 
 $.fn.AddPeopleMarker = function (location) {
-  if (typeof peopleMarker != 'undefined') peopleMarker.setMap(null);
+     if (peopleMarker) peopleMarker.setMap(null)
   peopleMarker = new customMarker(
     new google.maps.LatLng(location.lat,location.lng),
     this.Map(),

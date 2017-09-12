@@ -47,7 +47,6 @@ Avaiable date list
  */
 let dateList = [];
 
-
 export default (params) => {
 
   return new Promise((resolve) => {
@@ -65,16 +64,12 @@ export default (params) => {
         */
         if (advert.id && !advert.state) App.notifyDanger('İlanınız onay için incelenmektedir.', 'Onay Bekleniyor');
 
-
         /*
         Advert avaiable date add to list
          */
         advert.available_date.forEach(function(date, index) {
           dateList.push(new DateRange(moment(date.from_date), moment(date.to_date)));
         });
-
-
-
 
         /*
         Add avaiable dates
@@ -85,9 +80,6 @@ export default (params) => {
                 //TODO fix dispatchEvent console error.
                 .then(() => App.promise(() => $("body").zone('dateselect-container')[0].dispatchEvent((new CustomEvent('selected.date', { detail: dateList})))))
         });
-
-
-
 
           /*
          Render avaiable dates
@@ -107,8 +99,6 @@ export default (params) => {
                       });
                   });
           });
-
-
 
           /*
           Get my location select city and town
@@ -145,7 +135,6 @@ export default (params) => {
         Create uploader
          */
         template.find('.uploader').createUploader(advert.images != null ? advert.images : null);
-
 
         /*
         Set center latitude longitude
@@ -187,8 +176,6 @@ export default (params) => {
             }
           });
 
-
-
          /*
            City & town selector
           */
@@ -203,9 +190,6 @@ export default (params) => {
               townId: advert.town_id || 0
             }
           });
-
-
-
 
         template.formFields('city_id')
           .on("change", (e, firstLoad) => {
@@ -229,7 +213,6 @@ export default (params) => {
             }
           });
 
-
         /*
         Change map on town select
         */
@@ -241,16 +224,10 @@ export default (params) => {
           Gmap.getLatLgn(city).then(coords => template.find("#map").centerTo(coords).zoom(zoom));
         });
 
-
-
-
        /*
        Update or Create
         */
         template.find('button.update').on('click', (e) => {
-
-
-
           e.preventDefault();
           $(e.target).disable();
           $(".advert-detail").formFields().disable();
@@ -290,7 +267,6 @@ export default (params) => {
           });
         });
 
-
        /*
        Delete
         */
@@ -315,7 +291,6 @@ export default (params) => {
                 })
             });
         });
-
       })
       .then(() => resolve())
   })

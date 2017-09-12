@@ -135,6 +135,12 @@ export default (params,  query = location.href) => {
                             .then(() => App.promise(() =>  new $.Event('re.slide', {adverts: adverts})))
                             .then((_e) => template.trigger(_e))
                     })
+                    .catch(err => {
+                        template.zone('advert-list').setContentAsync(appMessages('advert_no_result'))
+                            .then(() => App.notifyDanger(appMessages('advert_no_result').clearHtml()))
+                            .then(() => template.zone('adverts-slidelist').setContentAsync(''))
+                            .then(() => resolve());
+                    })
             })
 
             /*
@@ -230,7 +236,7 @@ export default (params,  query = location.href) => {
                                         'lng': String(latlgn.lng),
                                         'name': cities.town
                                     };
-                                    _e['setcenter'] = true;
+                                    _e['setcenter'] = false;
                                     _e['zoom'] = 15;
                                     template.trigger(_e);
                                 })
@@ -239,6 +245,7 @@ export default (params,  query = location.href) => {
                                 lat: latlng.latitude,
                                 lng: latlng.longitude
                             }))
+                            .then(() => App.promise(() => template.find('#map').centerTo({lat: latlng.latitude, lng: latlng.longitude})))
                             .then(() => App.hidePreloader())
                     })
             })
@@ -299,8 +306,6 @@ export default (params,  query = location.href) => {
                     })
             })
 
-
-
            /*
            Select marker info window
             */
@@ -332,22 +337,15 @@ export default (params,  query = location.href) => {
                     template.find("#map").on('clk.map', (e) => infowin.find('.advert-info-window').remove());
                 })
             });
-
-
-
         })
-        .then(() => resolve())
         .catch(err => {
-            console.log(err);
-            //no advert result
-            App.renderTemplate(appMessages('advert_no_result'))
-                .then((data) => {
-                   // template.zone('advert-list').setContentAsync(data);
-                    App.notifyDanger(data.clearHtml());
-                })
-           //     .then((data) => template.zone('adverts-slidelist').setContentAsync(''))
+            template.zone('advert-list').setContentAsync(appMessages('advert_no_result'))
+                .then((data) => App.notifyDanger(data.clearHtml()))
+                .then(() => template.zone('adverts-slidelist').setContentAsync(''))
                 .then(() => resolve());
         })
+
+        resolve();
   })
 
 }
