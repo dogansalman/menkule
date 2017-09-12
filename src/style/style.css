@@ -581,9 +581,6 @@ Message
 }
 
 @media all and (max-width: 768px) {
-  body {
-    position: fixed
-  }
   [data-zone~="footer"] {
     display:none !important;
   }
@@ -958,9 +955,7 @@ img[src="https://maps.gstatic.com/mapfiles/transparent.png"] {
   text-align: center !important;
 }
 @media all and (max-width: 768px) {
-  body {
-    position: fixed
-  }
+
   .map-result-price {
     font-size: 18px;
     top: 10px;

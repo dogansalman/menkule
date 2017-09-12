@@ -4,6 +4,9 @@ import Search from './search.handlebars';
 import Swiper from 'swiper';
 import appMessages from '../../../lib/appMessages';
 
+import infoWindowTemplate from './info.handlebars';
+import advertListTemplate from './list.handlebars';
+import advertSlideTemplate from './slide.handlebars';
 
 let advertSlider = null;
 let filtered_data = null;
@@ -18,9 +21,26 @@ export default (params,  query = location.href) => {
         .then(() => Footer())
         .then(() => $("body").zone('content').setContentAsync(Search))
         .then((template) => {
+
+            //disable new mark pin.
+            template.find("#map").on('pin.map', function(e) {
+                e.preventDefault()
+            });
+            //search set default text
             template.find('.searchtxt_searchmap').defaultText();
 
-            //Get & Render Adverts
+            /*
+            Create map set center
+             */
+            template.find("#map").createMap();
+            Gmap.getLatLgn(params.state).then(coords => {
+                template.find("#map").centerTo(coords).zoom(15)
+            });
+
+
+            /*
+            Get adverts and render
+             */
             template.on('re.advrt', function(e) {
                 e.preventDefault();
                 template.find('#map').clearMarkers();
@@ -40,7 +60,9 @@ export default (params,  query = location.href) => {
 
                 Menkule.post('/search/advert', latlng)
                     .then((adverts) => {
-                        //set default filtered_data
+                        /*
+                        Set default filtered_data
+                         */
                         filtered_data = Object.assign({
                             advert_type_id: 0,
                             room: 1,
@@ -56,7 +78,9 @@ export default (params,  query = location.href) => {
                         }, filtered_data || {});
                         adverts._advertFilter(filtered_data);
 
-                        //add available advert to map marker
+                        /*
+                        Add available advert to map marker
+                         */
                         _.each(adverts, function (advert, key) {
                             template.find("#map").addAdvertToMap({
                                 'lat': advert.latitude,
@@ -67,22 +91,25 @@ export default (params,  query = location.href) => {
                             });
                         });
 
-                        //set global advert list filtred adverts
+                        /*
+                        Set global advert list filtered adverts
+                         */
                         globalAdverts = adverts;
 
-                        //Render list
-                        App.renderTemplate(template.find('#advert-list-template').html(), {
-                            adverts: adverts
-                        })
-                            .then((data) => template.zone('advert-list').setContentAsync(data))
+                        /*
+                        Render advert list
+                         */
+                        template.zone('advert-list').setContentAsync(advertListTemplate({adverts: adverts}))
                             .then((advertTemple) => {
-
-                                //click to detail on list
+                                /*
+                                 Go detail
+                                 */
                                 advertTemple.find('.advert-detail-map').on('click', (e) => App.navigate('/detail/advert/' + $(e.target).closest('.advert-detail-map').attr('id')));
 
-                                //hover pan to map
+                                /*
+                                Hover pan to map
+                                 */
                                 advertTemple.find('.advert-detail-map').hover((evt) => {
-
                                     //mouse leave
                                     if (String(evt.type) != 'mouseenter' || !$(evt.target).closest('.advert-detail-map')) {
                                         clearTimeout(globalTimeoutHandle);
@@ -90,8 +117,6 @@ export default (params,  query = location.href) => {
                                         globalTimeoutHandle = null;
                                         return;
                                     }
-                                    ;
-
                                     //mouse enter
                                     $(evt.target).closest('.advert-detail-map').toggleClass('loading');
                                     globalTimeoutHandle = setTimeout(function () {
@@ -106,41 +131,58 @@ export default (params,  query = location.href) => {
                                             .then(() => App.promise(() => template.find('.advert-info-window').remove()))
                                     }, 500);
                                 });
-                            });
+                            })
+                            .then(() => App.promise(() =>  new $.Event('re.slide', {adverts: adverts})))
+                            .then((_e) => template.trigger(_e))
                     })
             })
 
-
-            //render mobile view slider
             /*
-            App.renderTemplate(template.find('#advert-slide-template').html(), {
-                adverts: adverts
-            })
-                .then((datam) => template.zone('adverts-slidelist').setContentAsync(datam))
-                .then(() => {
-                    advertSlider = new Swiper('.swiper-container', {
-                        initialSlide: 0,
-                        pagination: '.swiper-pagination',
-                        slidesPerView: 1.1,
-                        slidesPerGroup: 1,
-                        paginationClickable: false,
-                        centeredSlides: true,
-                        spaceBetween: 5,
-                        onInit: function(e) {
-                            e.update(true);
-                            e.slideTo(0, 0);
-                        },
-                        onSlideChangeStart: function(e) {
-                            $('.marker-selected-advert').removeClass('marker-selected-advert');
-                            $(template.find("#map").getMarkers()[$(e.slides[e.activeIndex]).attr("data-index")].div).addClass('marker-selected-advert');
-                            template.find("#map").panToMarker(template.find("#map").getMarkers()[$(e.slides[e.activeIndex]).attr("data-index")]);
-                        }
-                    });
-                });
+            Render slide
              */
+            template.on('re.slide', function(e) {
+                //TODO fix handlebars @index problem
+                for (let i = 0; i < e.adverts.length; i++) { e.adverts[i].indx = i}
+                template.zone('adverts-slidelist').setContentAsync(advertSlideTemplate({adverts: e.adverts}))
+                    .then(() => {
+                        /*
+                        Slider show/hide
+                         */
+                        template.find(".advert-slide-down").on('click', (e) => {
+                            e.preventDefault();
+                            template.find("#map").toggleClass('fullheight');
+                            $(e.target).toggleClass('up');
+                            $(e.target).parents('.advert-slide-container').toggleClass("down");
+                        });
+
+                        /*
+                        Inıt slider
+                         */
+                        advertSlider = new Swiper('.swiper-container', {
+                            initialSlide: 0,
+                            pagination: '.swiper-pagination',
+                            slidesPerView: 1.1,
+                            slidesPerGroup: 1,
+                            paginationClickable: false,
+                            centeredSlides: true,
+                            spaceBetween: 5,
+                            onInit: function(e) {
+                                e.update(true);
+                                e.slideTo(0, 0);
+                            },
+                            onSlideChangeStart: function(e) {
+                                $('.marker-selected-advert').removeClass('marker-selected-advert');
+                                $(template.find("#map").getMarkers()[$(e.slides[e.activeIndex]).attr("data-index")].div).addClass('marker-selected-advert');
+                                template.find("#map").panToMarker(template.find("#map").getMarkers()[$(e.slides[e.activeIndex]).attr("data-index")]);
+                            }
+                        });
+                    })
+            });
 
 
-            //render advert fire
+           /*
+           Trigger event render
+            */
             var _e = new $.Event('re.advrt');
             template.trigger(_e);
             template.find('.searchtxt_searchmap')
@@ -170,52 +212,11 @@ export default (params,  query = location.href) => {
                         });
                 });
 
-            //disable new mark pin.
-            template.find("#map").on('pin.map', function(e) {
-                e.preventDefault()
-            });
 
 
-            //other filter
-            template.find('button.advert-search-btn').on('click', (e) => {
-                e.preventDefault();
-                FilterPopup({
-                    template: 'popup-search-filter',
-                    width: 450,
-                    templateData: {}
-                }, filtered_data)
-                    .then((selected_filter) => {
-                        filtered_data = selected_filter;
-                        var _e = new $.Event('re.advrt');
-                        _e['cordinates'] = cordinate;
-                        _e['filter'] = true;
-                        template.trigger(_e);
-                    })
-            });
-
-            //advert slide down/up button
-            template.find(".advert-slide-down").on('click', (e) => {
-                e.preventDefault();
-                template.find("#map").toggleClass('fullheight');
-                $(e.target).toggleClass('up');
-                $(e.target).parents('.advert-slide-container').toggleClass("down");
-            });
-
-            //search text click down/up slide
-            template.find(".searchtxt_searchmap").on('click', (e) => {
-                e.preventDefault();
-                template.find(".advert-slide-down").addClass('up');
-                template.find('.advert-slide-container').addClass("down");
-            });
-
-
-            //create map & set center
-            template.find("#map").createMap();
-            Gmap.getLatLgn(params.state).then(coords => {
-                template.find("#map").centerTo(coords).zoom(15)
-            });
-
-            //get location adverts
+            /*
+            Get my location
+            */
             template.find("button.search-cordi-btn").on('click', (e) => {
                 App.showPreloader(.7)
                     .then((latlng) => Gmap.getMyLocation())
@@ -240,12 +241,45 @@ export default (params,  query = location.href) => {
                             }))
                             .then(() => App.hidePreloader())
                     })
-
-
             })
 
-            //refrehs location adverts
-            template.find("button.search-refresh-btn").on('click', (e) => {
+
+
+            //other filter
+            /*
+            template.find('button.advert-search-btn').on('click', (e) => {
+                e.preventDefault();
+                FilterPopup({
+                    template: 'popup-search-filter',
+                    width: 450,
+                    templateData: {}
+                }, filtered_data)
+                    .then((selected_filter) => {
+                        filtered_data = selected_filter;
+                        var _e = new $.Event('re.advrt');
+                        _e['cordinates'] = cordinate;
+                        _e['filter'] = true;
+                        template.trigger(_e);
+                    })
+            });
+             */
+
+
+            /*
+                Search text click down/up slide
+             */
+            template.find(".searchtxt_searchmap").on('click', (e) => {
+                e.preventDefault();
+                template.find("#map").addClass('fullheight');
+                template.find(".advert-slide-down").addClass('up');
+                template.find('.advert-slide-container').addClass("down");
+            });
+
+
+            /*
+                Refresh search
+             */
+             template.find("button.search-refresh-btn").on('click', (e) => {
                 $(e.target).disable().addClass('btn-loading-ico');
                 var centerCordinate = template.find("#map").getMapCenterCordinate();
                 Gmap.getCityName(centerCordinate.lat(), centerCordinate.lng())
@@ -266,7 +300,10 @@ export default (params,  query = location.href) => {
             })
 
 
-            //select advert marker
+
+           /*
+           Select marker info window
+            */
             template.find("#map").on('mrk.map', function(e) {
                 e.preventDefault();
                 //Pan to selected marker
@@ -284,21 +321,22 @@ export default (params,  query = location.href) => {
                 $('.marker-selected-advert').removeClass('marker-selected-advert');
                 $(e.target).addClass('marker-selected-advert');
 
-
                 //selected advert info window
                 App.promise(() => $(".advert-info-window").remove())
-                    .then(() => globalAdverts.find(a => a.id == e.advert.advert_id))
-                    .then((advert) => App.renderTemplate(template.find('#advert-infowin-template').html(), advert))
-                    .then((tmp) => $(marker.div).appenndContentAsync(tmp))
-                    .then((infowin) => {
-                        //click to detail on info window
-                        infowin.find('.advert-info-window').on('click', (e) => App.navigate('/detail/advert/' + $(e.target).closest('.advert-detail-map').attr('id')));
-                        //map click remove info window
-                        template.find("#map").on('clk.map', (e) => infowin.find('.advert-info-window').remove());
-                    });
+                .then(() => globalAdverts.find(a => a.id === e.advert.advert_id))
+                .then((advert) => $(marker.div).appenndContentAsync(infoWindowTemplate(advert)))
+                .then((infowin) => {
+                    //click to detail on info window
+                    infowin.find('.advert-info-window').on('click', (e) => App.navigate('/detail/advert/' + $(e.target).closest('.advert-detail-map').attr('id')));
+                    //map click remove info window
+                    template.find("#map").on('clk.map', (e) => infowin.find('.advert-info-window').remove());
+                })
             });
 
+
+
         })
+        .then(() => resolve())
         .catch(err => {
             console.log(err);
             //no advert result

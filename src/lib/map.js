@@ -1,5 +1,5 @@
 import mapStyle from './configs/map-config';
-
+import customMarker from '../lib/mapMarker';
 /*
 Properties
  */
