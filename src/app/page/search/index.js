@@ -275,12 +275,18 @@ export default (params,  query = location.href) => {
             /*
                 Search text click down/up slide
              */
-            template.find(".searchtxt_searchmap").on('click', (e) => {
-                e.preventDefault();
-                template.find("#map").addClass('fullheight');
-                template.find(".advert-slide-down").addClass('up');
-                template.find('.advert-slide-container').addClass("down");
-            });
+            App.isMobile().then((mobile) =>  {
+                if(!mobile) return;
+
+                template.find(".searchtxt_searchmap").on('click', (e) => {
+                    e.preventDefault();
+                    template.find("#map").addClass('fullheight');
+                    template.find(".advert-slide-down").addClass('up');
+                    template.find('.advert-slide-container').addClass("down");
+                });
+            })
+
+
 
 
             /*
