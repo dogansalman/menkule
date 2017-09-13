@@ -16,3 +16,5 @@
 @import "jquery.uploader.css";
 /* Open Sans Fonts */
 @import '~open-sans-all';
+/* Icomoon Fonts */
+@import "icons.css";
