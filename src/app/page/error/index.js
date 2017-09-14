@@ -7,7 +7,7 @@ export default(params) => {
     return new Promise((resolve) => {
         Header()
             .then(() => Footer())
-            .then(() => $("body").zone('content').setContentAsync(error({'message': appMessage(params.error)})))
+            .then(() => $("body").zone('content').setContentAsync(error({'message': appMessage(params.error), 'error_title': appMessage('error_title')})))
             .then(() => resolve())
     })
 }

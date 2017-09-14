@@ -32,7 +32,8 @@ export default (key) => {
         'ownership_title': 'EV SAHİPLİĞİ YAPMAK ÜZERESİNİZ!',
         'ownership_confirm': 'Ev sahipliği ile ile ek kazanç elde edebilir ve kullanmadığınız evinizi odanızı veya yazlığınızı değerlendirebilirsiniz. Ev sahipliği ile üyelik sözleşmesinde ki ev sahipliği şartlarını kabul etmiş olursunuz.',
         //error
-        'timeout': 'Sunucularımız yük altında. Lütfen daha sonra tekrar deneyiniz.'
+        'timeout': 'Sunucularımız yük altında. Lütfen daha sonra tekrar deneyiniz.',
+        'error_title': 'Üzgünüz bir problem var !'
 
 
 
