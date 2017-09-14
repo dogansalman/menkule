@@ -7,14 +7,15 @@ import appMessages from '../../../lib/appMessages';
 import infoWindowTemplate from './info.handlebars';
 import advertListTemplate from './list.handlebars';
 import advertSlideTemplate from './slide.handlebars';
+import filter from '../../popup/filter';
 
 let advertSlider = null;
 let filtered_data = null;
 let cordinate = null;
 let globalAdverts = null;
 let globalTimeoutHandle = null;
-export default (params,  query = location.href) => {
 
+export default (params,  query = location.href) => {
 
     return new Promise((resolve) => {
     Header()
@@ -22,11 +23,15 @@ export default (params,  query = location.href) => {
         .then(() => $("body").zone('content').setContentAsync(Search))
         .then((template) => {
 
-            //disable new mark pin.
+            /*
+            Disable new mark pin.
+             */
             template.find("#map").on('pin.map', function(e) {
                 e.preventDefault()
             });
-            //search set default text
+            /*
+            Search set default text
+             */
             template.find('.searchtxt_searchmap').defaultText();
 
             /*
@@ -37,7 +42,6 @@ export default (params,  query = location.href) => {
                 template.find("#map").centerTo(coords).zoom(15)
             });
 
-
             /*
             Get adverts and render
              */
@@ -45,17 +49,17 @@ export default (params,  query = location.href) => {
                 e.preventDefault();
                 template.find('#map').clearMarkers();
 
-                //default cordinate
-                latlng = Object.assign({
+                /*
+                Set default cordi
+                 */
+                let latlng = Object.assign({
                     lat: location.href.getParameterByName('lat'),
                     lng: location.href.getParameterByName('lng')
                 }, latlng || {});
 
-                //Todo get viewport cordinates
                 if (typeof e['cordinates'] != typeof undefined) {
-                    var latlng = e['cordinates'];
+                    if(e['cordinates']) latlng = e['cordinates'];
                     if (e['setcenter']) Gmap.getLatLgn(latlng.name).then(coords => template.find("#map").centerTo(coords).zoom(typeof e['zoom'] != typeof undefined ? parseInt(e['zoom']) : 12));
-                    delete latlng.name;
                 }
 
                 Menkule.post('/search/advert', latlng)
@@ -110,14 +114,18 @@ export default (params,  query = location.href) => {
                                 Hover pan to map
                                  */
                                 advertTemple.find('.advert-detail-map').hover((evt) => {
-                                    //mouse leave
+                                    /*
+                                    Mouse leave
+                                     */
                                     if (String(evt.type) != 'mouseenter' || !$(evt.target).closest('.advert-detail-map')) {
                                         clearTimeout(globalTimeoutHandle);
                                         $(evt.target).closest('.advert-detail-map').removeClass('loading');
                                         globalTimeoutHandle = null;
                                         return;
                                     }
-                                    //mouse enter
+                                    /*
+                                    Mouse enter
+                                     */
                                     $(evt.target).closest('.advert-detail-map').toggleClass('loading');
                                     globalTimeoutHandle = setTimeout(function () {
                                         App.promise(() => $(evt.target).closest('.advert-detail-map').removeClass('loading'))
@@ -218,8 +226,6 @@ export default (params,  query = location.href) => {
                         });
                 });
 
-
-
             /*
             Get my location
             */
@@ -250,17 +256,12 @@ export default (params,  query = location.href) => {
                     })
             })
 
-
-
-            //other filter
-            /*
+           /*
+           Filter
+            */
             template.find('button.advert-search-btn').on('click', (e) => {
                 e.preventDefault();
-                FilterPopup({
-                    template: 'popup-search-filter',
-                    width: 450,
-                    templateData: {}
-                }, filtered_data)
+                filter(filtered_data)
                     .then((selected_filter) => {
                         filtered_data = selected_filter;
                         var _e = new $.Event('re.advrt');
@@ -269,15 +270,12 @@ export default (params,  query = location.href) => {
                         template.trigger(_e);
                     })
             });
-             */
-
 
             /*
                 Search text click down/up slide
              */
             App.isMobile().then((mobile) =>  {
                 if(!mobile) return;
-
                 template.find(".searchtxt_searchmap").on('click', (e) => {
                     e.preventDefault();
                     template.find("#map").addClass('fullheight');
@@ -285,9 +283,6 @@ export default (params,  query = location.href) => {
                     template.find('.advert-slide-container').addClass("down");
                 });
             })
-
-
-
 
             /*
                 Refresh search
@@ -317,29 +312,41 @@ export default (params,  query = location.href) => {
             */
             template.find("#map").on('mrk.map', function(e) {
                 e.preventDefault();
-                //Pan to selected marker
+                /*
+                Pan to selected marker
+                 */
                 var marker = _.find($("#map").getMarkers(), function(obj) {
                     return obj.args.advert_id === e.advert.advert_id
                 })
                 template.find("#map").panToMarker(marker);
 
-                //slide go to selected advert
+                /*
+                Slide to advert
+                 */
                 advertSlider.slideTo(_.findIndex(globalAdverts, {
                     id: e.advert.advert_id
                 }), 300, false);
 
-                //selected advert marker change style
+                /*
+                Marker change style
+                 */
                 $('.marker-selected-advert').removeClass('marker-selected-advert');
                 $(e.target).addClass('marker-selected-advert');
 
-                //selected advert info window
+                /*
+                Open info window
+                 */
                 App.promise(() => $(".advert-info-window").remove())
                 .then(() => globalAdverts.find(a => a.id === e.advert.advert_id))
                 .then((advert) => $(marker.div).appenndContentAsync(infoWindowTemplate(advert)))
                 .then((infowin) => {
-                    //click to detail on info window
+                    /*
+                    Go detail
+                     */
                     infowin.find('.advert-info-window').on('click', (e) => App.navigate('/detail/advert/' + $(e.target).closest('.advert-detail-map').attr('id')));
-                    //map click remove info window
+                    /*
+                    Close
+                     */
                     template.find("#map").on('clk.map', (e) => infowin.find('.advert-info-window').remove());
                 })
             });

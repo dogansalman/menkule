@@ -1,0 +1,87 @@
+<div style='clear: both;'></div>
+<div class="filter-container">
+    <div class='col-xs-12'>
+        <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+            <h4>Rezerve Tarih:</h4>
+            <input type="text" placeholder="Giriş/Çıkış Tarihi" data-form-element="date" class="form-control calendar"></input>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+            <h4>İlan Tipi</h4>
+            <div data-zone="adverttypes">
+
+                {{#zif advert_type_id '==' '0'}}
+                    <div class="radio radio-info radio-inline">
+                        <input type="radio" checked="checked" data-form-element="advert_type_id" id="0" value="0" name="adverttype">
+                        <label for="0"> Tümü </label>
+                    </div>
+                {{else}}
+                    <div class="radio radio-info radio-inline">
+                        <input type="radio" data-form-element="advert_type_id" id="0" value="0" name="adverttype">
+                        <label for="0"> Tümü </label>
+                    </div>
+                {{/zif}}
+
+                {{{{raw-helper}}}}
+                    {{#each types}}
+                    {{#zif ../advert_type_id '==' id}}
+                    <div class="radio radio-info radio-inline">
+                        <input type="radio" data-form-element="advert_type_id" id="{{id}}" value="{{id}}" name="adverttype" checked="checked">
+                        <label for="{{id}}"> {{name}}  </label>
+                    </div>
+                    {{else}}
+                    <div class="radio radio-info radio-inline">
+                        <input type="radio" data-form-element="advert_type_id" id="{{id}}" value="{{id}}" name="adverttype">
+                        <label for="{{id}}"> {{name}}  </label>
+                    </div>
+                    {{/zif}}
+                    {{/each}}
+                {{{{/raw-helper}}}}
+
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+            <h4>Fiyat</h4>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-try"></i></div>
+                <input data-form-element="price" placeholder="En yüksek fiyat"  type="number" class="form-control" value="{{price}}">
+                <div class="input-group-btn">
+                    {{#select price_type}}
+                    <select data-form-element="price_type" class="form-control" style="width: 130px;">
+                        <option value="0">En Düşük</option>
+                        <option value="1">En Yüksek</option>
+                    </select>
+                    {{/select}}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 disable_padding">
+            <h4>Misafir Kapasitesi</h4>
+            <div class="handle-counter" id="visitor">
+                <button class="counter-minus default_btn">-</button>
+                <input type="number" data-form-element="visitor" class="form-control" value="{{visitor}}">
+                <button class="counter-plus default_btn">+</button>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 disable_padding">
+            <h4>Yatak Sayısı</h4>
+            <div class="handle-counter" id="beds">
+                <button class="counter-minus default_btn">-</button>
+                <input type="number" data-form-element="beds" class="form-control" value="{{beds}}">
+                <button class="counter-plus default_btn">+</button>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 disable_padding">
+            <h4>Oda Sayısı </h4>
+            <div class="handle-counter" id="room">
+                <button class="counter-minus default_btn">-</button>
+                <input type="number" data-form-element="room" class="form-control" value="{{room}}">
+                <button class="counter-plus default_btn">+</button>
+            </div>
+        </div>
+        <div class='col-xs-12 disable_padding moffset2 bottomset2'>
+            <a class='acceptbtn' href='javascript:void(0);'>Uygula</a>
+            <a class='cancelbtn' data-dismiss='modal'  href='javascript:void(0);'>İptal</a>
+        </div>
+    </div>
+</div>
+<div style='clear: both;'></div>
