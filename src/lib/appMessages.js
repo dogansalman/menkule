@@ -30,7 +30,9 @@ export default (key) => {
         'no_rezervation': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Rezevasyon bulunamadı!</h2> <p>Henüz bir rezervasyon kaydınız bulunmamaktadır.</p> </div></div>",
         //confirms
         'ownership_title': 'EV SAHİPLİĞİ YAPMAK ÜZERESİNİZ!',
-        'ownership_confirm': 'Ev sahipliği ile ile ek kazanç elde edebilir ve kullanmadığınız evinizi odanızı veya yazlığınızı değerlendirebilirsiniz. Ev sahipliği ile üyelik sözleşmesinde ki ev sahipliği şartlarını kabul etmiş olursunuz.'
+        'ownership_confirm': 'Ev sahipliği ile ile ek kazanç elde edebilir ve kullanmadığınız evinizi odanızı veya yazlığınızı değerlendirebilirsiniz. Ev sahipliği ile üyelik sözleşmesinde ki ev sahipliği şartlarını kabul etmiş olursunuz.',
+        //error
+        'timeout': 'Sunucularımız yük altında. Lütfen daha sonra tekrar deneyiniz.'
 
 
 
