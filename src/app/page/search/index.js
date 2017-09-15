@@ -108,7 +108,7 @@ export default (params,  query = location.href) => {
                                 /*
                                  Go detail
                                  */
-                                advertTemple.find('.advert-detail-map').on('click', (e) => App.navigate('/detail/advert/' + $(e.target).closest('.advert-detail-map').attr('id')));
+                                advertTemple.find('.advert-detail-map').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-detail-map').attr('id')));
 
                                 /*
                                 Hover pan to map
@@ -343,7 +343,7 @@ export default (params,  query = location.href) => {
                     /*
                     Go detail
                      */
-                    infowin.find('.advert-info-window').on('click', (e) => App.navigate('/detail/advert/' + $(e.target).closest('.advert-detail-map').attr('id')));
+                    infowin.find('.advert-info-window').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-detail-map').attr('id')));
                     /*
                     Close
                      */
@@ -357,8 +357,9 @@ export default (params,  query = location.href) => {
                 .then(() => template.zone('adverts-slidelist').setContentAsync(''))
                 .then(() => resolve());
         })
+        .then(() => resolve());
 
-        resolve();
+
   })
 
 }

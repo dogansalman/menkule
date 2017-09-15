@@ -1,0 +1,11 @@
+{{#each images}}
+    {{#if is_default}}
+        <div class="image-counter col-xs-12 col-sm-2 col-md-2">{{../images.length}} Fotoğraf Tümünü Gör</div>
+        <div data-fancybox="gallery" href="{{#image url 1000 1000 }} {{/image}}" style="background:url('{{#image url 1000 500 }} {{/image}}')" class="fullwidth detail_image">
+            <div class="visible-xs visible-sm mprice">{{../price}} TL</div>
+        </div>
+
+    {{else}}
+        <div data-fancybox="gallery" href="{{#image url 1000 1000 }} {{/image}}" style="display:none;"class="detail_image"></div>
+    {{/if}}
+{{/each}}

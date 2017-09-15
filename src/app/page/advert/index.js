@@ -6,8 +6,9 @@ import appMessage from '../../../lib/appMessages';
 import Advert from './advert.handlebars';
 import Comment from './comment.handlebars';
 import Price from './price.handlebars';
+import Images from './images.handlebars';
 
-export default () => {
+export default (params) => {
     /*
     Rezervation rules
      */
@@ -42,7 +43,8 @@ export default () => {
                 /*
                 Inıt Gmap
                  */
-                template.find("#map").createMap({scroll: true}).centerTo({
+                template.find("#map").createMap({scroll: true});
+                template.find("#map").centerTo({
                     'lat': advert.latitude,
                     'lng': advert.longitude
                 }).zoom(15).addMarker({
@@ -50,6 +52,12 @@ export default () => {
                     lng: advert.longitude
                 })
 
+                /*
+                Disable add marker
+                 */
+                template.find("#map").on('pin.map', function(e) {
+                    e.preventDefault();
+                });
 
                 /*
                 Render comments
@@ -57,7 +65,16 @@ export default () => {
                 template.zone('comments').setContentAsync( advert.comments.length > 0 ? Comment({comments: advert.comments}): Comment(appMessage('no_comments')));
 
                 /*
-                Rezervation calendar
+                Render Images
+                 */
+                template.zone('images').setContentAsync(Images({images: advert.images, price: '250'}))
+                .then(() => App.promise(() => template.find("[data-fancybox]").fancybox({})))
+                .then(() => {
+                    template.find('.image-counter').on('click', e => $.fancybox.open($("[data-fancybox]")))
+                });
+
+                /*
+                Inıt Calendar
                  */
                 template.find('#calendar').flatpickr({
                     inline: true,
@@ -69,31 +86,63 @@ export default () => {
                         return moment(new Date(moment(t.fulldate))).format('YYYY/MM/DD')
                     }),
                     onDayCreate: function(dObj, dStr, fp, dayElem) {
-                        if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event unavailable'>Dolu</span>";
+                        if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event unavailable'></span>";
                     },
                     onChange: function(selectedDates, dateStr, instance) {
-                        App.renderTemplate(template.find('#total_price').html(), {
-                            total: selectedDates.length == 2 ?  ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1) * advert.price) : advert.price,
-                            day: selectedDates.length,
-                            day_price: advert.price
-                        })
-                            .then((data) => template.zone('total_price').setContentAsync(data));
+                        template.zone('total_price').setContentAsync(Price({ total: selectedDates.length == 2 ? ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1) * advert.price) : advert.price, day: selectedDates.length, day_price: advert.price }));
                     },
                     onReady: function(dateObj, dateStr, instance) {
                         //render price detail default
-                        App.renderTemplate(template.find('#total_price').html(), {total: 0,day: 0, day_price: advert.price})
-                            .then((data) => template.zone('total_price').setContentAsync(data));
+                        template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.price}))
 
                         //add document clear date event
                         $('.flatpickr-calendar').each(function() {
                             var $this = $(this);
                             document.addEventListener("onDateChange", function(e) {
                                 App.promise(() => instance.clear() && instance.close())
-                                    .then(() => App.renderTemplate(template.find('#total_price').html(), {total: 0,day: 0, day_price: advert.price}))
-                                    .then((data) => template.zone('total_price').setContentAsync(data))
+                                    .then((data) => template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.price})))
                             });
                         });
                     }
+                });
+
+                /*
+                Rezervation
+                 */
+                template.find('.rez-create').on('click', e => {
+                    App.isMobile()
+                        .then((mbl) => {
+                            var dateValue = template.find('#calendar').val();
+                            if(mbl && !dateValue || dateValue.split(' to ').length < 2){
+                                template.find('.rezervation-form').addClass('open');
+                                $('body').addClass("open-calendar");
+                            }
+                        })
+                    template.find('.rezervation-form').validateFormAsync(rezervationRules)
+                        .then((d) =>  {
+                            var checkin = d.date.split(' to ')[0].trim();
+                            var checkout =  d.date.split(' to ')[1].trim();
+                            var days =  moment(checkout).diff(moment(checkin),'days')+1
+                            var total = advert.price * days
+                            App.navigate('/rezervation/' + params.id, {'checkin':checkin, 'checkout':checkout, 'days':days, 'total': total});
+                        })
+                        .catch((e) => App.isMobile().then((mbl) => { if(!mbl) App.notifyDanger('Rezervasyon tarihini seçin.', '') }) );
+                })
+
+                //close calendar btn
+                template.find('.close-calendar').on('click', e => {
+                    $('body').removeClass('open-calendar');
+                    template.find('.rezervation-form').removeClass('open');
+                    document.dispatchEvent(new CustomEvent("onDateChange"))
+
+                });
+                /*
+                Mobile rezervation focusout
+                 */
+                $(window).on('click', e => {
+                    if (!e.target.closest('.rezervation-form')) $('body').removeClass('open-calendar') &&
+                    template.find('.rezervation-form').removeClass('open');
+                    App.isMobile().then((mbl) => { if(mbl) document.dispatchEvent(new CustomEvent("onDateChange")) })
                 });
 
                 /*
@@ -105,6 +154,27 @@ export default () => {
                     $(e.target).parent().addClass('active');
                     template.find('#' + $(e.target).attr('data-scroll')).scrollView();
                 })
+
+                /*
+                Add score
+                 */
+                template.find('.advert-star a').on('click', function(e) {
+                    var _score;
+                    e.preventDefault()
+                    App.promise(() => $(e.target).attr('data-score'))
+                        .do(s => _score = s)
+                        .then((dataScore) => Menkule.post("/advert/add/score", {
+                            advert_id: params.id,
+                            score: dataScore
+                        }))
+                        .then(() => App.notifySuccess('Değerlendirme puanınız uygulandı.', 'Teşekkürler.'))
+                        .then(() => App.promise(() => template.zone('currentscore').setContentAsync('(' + String(parseInt(_score) + parseInt(advert.score)) + ')')))
+                        .catch((err) => {
+                            if (err.status == 401) App.notifyDanger('Lütfen oturum açın.', 'Teşekkürler.');
+                            else App.notifyDanger('Değerlendirme sadece bir kere uygulanabilir.', 'Üzgünüz.');
+                        });
+                });
+
 
                 /*
                 Feedback
@@ -150,6 +220,9 @@ export default () => {
                             });
                         });
                  */
+
+
             })
+            .then(() => resolve())
     })
 }

@@ -76,6 +76,8 @@ module.exports = {
       new ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
+        jquery: 'jquery',
+        'window.jQuery': 'jquery',
         moment: 'moment'
       }),
         new CopyWebpackPlugin([{ from: 'assets/', to: 'assets' }]),

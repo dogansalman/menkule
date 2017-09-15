@@ -2543,8 +2543,11 @@ Filter Popup
     font-family: 'Open Sans', sans-serif;
 }
 /*
-Detail
+Advert Detail
  */
+.rezervation-form{
+    border: 10px solid #f9f9f9;
+}
 .advert-state {
     background: #45b5f4;
     color: #fff;
@@ -2581,7 +2584,7 @@ Detail
     padding: 0;
     margin-top: 20px;
     font-weight: 400;
-    text-align: center;
+    text-align: left;
 }
 .details_container .details_logo img {
     height: 30px;
@@ -2597,7 +2600,6 @@ Detail
 .details_container .small_desc {
     font-size: 11px;
     color: #444;
-    padding: 20px
 }
 .details_container .small_desc p {
     font-size: 13px;
@@ -2619,7 +2621,8 @@ Detail
     font-size: 13px
 }
 .details_container .prices {} .details_container .prices span {
-                                  font-size: 16px;
+    font-size: 16px;
+    color:#666;
                               }
 .details_container .prices > div {
     border-bottom: 1px solid #f3f3f3;
@@ -2698,6 +2701,15 @@ Detail
 }
 .detail_content .advert-star a {
     font-size: 16px;
+    color:#f1c40f;
+}
+.detail_content .advert-star a:hover {
+    color:#f39c12;
+}
+.detail_content .advert-star a:before{
+    font-family: FontAwesome;
+    content: '\f005';
+
 }
 .details_container .map {
     margin-top: 20px
@@ -2990,6 +3002,28 @@ Detail
     .content_detail_desc {
         margin-top: 20px;
     }
+}
+/*
+Flatpicker Custom Style
+ */
+.flatpickr-calendar{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.flatpickr-calendar{
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.flatpickr-day.disabled, .flatpickr-day.disabled:hover, .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay, .flatpickr-day.notAllowed, .flatpickr-day.notAllowed.prevMonthDay, .flatpickr-day.notAllowed.nextMonthDay
+{
+    background: #fdfdfd;
+    color: #d6d6d6;
+}
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
+    background: #49bafb;
+    border-color: #49bafb;
 }
 /*
 Modal
