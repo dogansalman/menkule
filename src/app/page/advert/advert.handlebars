@@ -1,0 +1,278 @@
+<div class="details_container">
+    <!-- IMAGE DETAIL START-->
+    <div data-zone="images" class="col-md-12 detail_image_container"></div>
+    <!-- IMAGE DETAIL END-->
+
+    <div class="container">
+        <!-- PROFILE DETAIL START-->
+        <div id="detail_content" class="col-xs-12 col-sm-12 col-md-12 disable_padding detail_content bottomset2">
+            <div class="col-xs-12 col-sm-12 col-md-5 disable_padding">
+                <div class="col-md-12 col-sm-12 hidden-xs advert-detail-bar disable_padding">
+                    <h2 class="active"><a href="#" data-scroll="detail_content">Genel Bakış</a></h2>
+                    <h2><a href="#" data-scroll="comments-container">Değerlendirmeler</a></h2>
+                    <h2><a href="#" data-scroll="advert_user">Ev Sahibi</a></h2>
+                    <h2><a href="#" data-scroll="location">Konum</a></h2>
+                </div>
+                <div class="col-xs-12 disable_padding">
+                    <div class="col-xs-12 col-sm-12 col-md-4 text-center disable_padding">
+                        <div class="detail_profile_image">
+                            <img src='{{#image user_photo 150 150 }} {{/image}}' alt="Profile" />
+                            <br />
+                            {{#if user_state}}<span class="active-circle"><i class="fa fa-check"></i></span>{{/if}}
+                            <span class="advertdetail-fullname">{{user_name}} {{user_lastname}}</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8 disable_padding">
+                        <h2 class="advert_title moffset2"><strong>#{{id}}</strong> {{title}}</h2>
+                        <div class="col-xs-6 col-sm-6 col-md-12 disable_padding">
+                            <span class="advert_location_detail">{{cityName}} / {{townName}}</span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-12 disable_padding">
+                            <div class="advert-star">
+                                <a data-score="1" href="#"></a>
+                                <a data-score="2" href="#"></a>
+                                <a data-score="3" href="#"></a>
+                                <a data-score="4" href="#"></a>
+                                <a data-score="5" href="#"></a>
+                                <span data-zone="currentscore" class="currentscore">({{score}})</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-7 text-right">
+                <div class="col-xs-6 col-sm-6 col-md-3 details_logo">
+                    <i class="fa fa-bed"></i>
+                    <span class="badcounts">{{beds}} Yatak</span>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-3 details_logo">
+                    <i class="fa fa-users"></i>
+                    <span class="capacity">{{visitor}} Misafir</span>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-3 details_logo">
+                    <i class="fa fa-home"></i>
+                    <span class="adverttypename">{{advert_type_name}}</span>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-3 details_logo">
+                    <i class="fa fa-try"></i>
+                    <span class="pricedetail">{{price}} / Gece</span>
+                </div>
+                <div class="hidden-xs col-sm-12 col-md-12 small_desc text-left">
+                    <p>
+                        İlan <b> <span class="advertdate"></span> </b>tarihinde <b class="profilenamedesc">{{user_name}} {{user_lastname}}</b> tarafından  yayınlanmıştır. İlan sahibi <span class="registerdate"> {{date user_register.date "D MMMM YYYY, dddd"}} </span>  tarihinden beri menkule.com.tr üyesidir. İlan detaylarını aşağıda bulabilirsiniz.  İlanın yanıltıcı olduğunu düşünüyorsanız lütfen bize bildiriniz.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- PROFILE DETAIL END-->
+
+        <!-- ADVERT CONTENT START-->
+        <div class="col-xs-12 col-sm-12 col-md-4 rezervation-form">
+            <div class="text-right close-calendar-btn"><a class="close-calendar">X</a></div>
+
+
+            <div id="calendar"  data-form-element="date" class='col-xs-12 disable_padding'></div>
+            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding moffset2 text-left rez-create-btn">
+                <button class="success_btn fullwidth rez-create">Rezervasyon Talebi Gönder </button>
+            </div>
+            <div data-zone="total_price" class="col-xs-12 col-sm-12 col-md-12 disable_padding moffset2 text-left prices"></div>
+        </div>
+
+        <!-- ADVERT DESC START-->
+        <div class="col-xs-12 col-sm-12 col-md-8 content_detail_desc">
+            <h2 class="detail_content_title bottomset2">Açıklama</h2>
+            <p class="detaildesc">{{description}}</p>
+            <div class="col-xs-12 disable_padding">
+                <div class="col-xs-12 col-sm-6 col-md-6 disable_padding">
+                    <h2 class="detail_content_title bottomset2">Özellikler</h2>
+                    <div class="col-xs-12 detail_content_list form-inline">
+                        <div class="col-xs-12 property-container">
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Oda Sayısı</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{room}}</div>
+                        </div>
+                        <div class="col-xs-12 property-container">
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Misafir Kapasitesi:</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{visitor}}</div>
+                        </div>
+                        <div class="col-xs-12 property-container">
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Banyo Sayısı:</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{bathroom}}</div>
+                        </div>
+
+                        <div class="col-xs-12 property-container">
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Metrekare:</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{m2}}</div>
+                        </div>
+                        <div class="col-xs-12 property-container">
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Yatak Sayısı:</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{beds}}</div>
+                        </div>
+
+                        <div class="col-xs-12 property-container">
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Yatak Odası:</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{bedroom}}</div>
+                        </div>
+
+                        <div class="col-xs-12 property-container">
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Giriş Saati:</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{entry_time}}</div>
+                        </div>
+
+                        <div class="col-xs-12 property-container">
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Çıkış Saati:</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{exit_time}}</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6 disable_padding">
+                    <div class="visible-xs moffset2"></div>
+                    <h2 class="detail_content_title bottomset2">Olanaklar</h2>
+                    <div class="col-xs-12 detail_content_list posibility form-inline">
+                        {{#if jacuzzi}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-bath"></i></span> Jakuzi</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if internet}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-wifi"></i></span> İnternet</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if air}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-thermometer-empty"></i></span> Klima</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if tv}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-television"></i></span> TV</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if requiments}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-check"></i></span> Temel İhtiyaç(havlu,şampuan,sabun vb)</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if heat}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-fire"></i></span> Isıtma</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if kitchen}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-spoon"></i></span> Özel Mutfak</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if gym}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-futbol-o"></i></span> Spor Salonu</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if elevator}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-check"></i></span> Asansör</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if smoke}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-check"></i></span> Sigara İçilebilir</label>
+                            </div>
+                        {{/if}}
+
+                        {{#if pet}}
+                            <div class="col-xs-12">
+                                <label><span class="posibility-circle"><i class="fa fa-paw"></i></span> Evcil Hayvan Kabul Edilebilir.</label>
+                            </div>
+                        {{/if}}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- ADVERT DESC END-->
+
+
+
+        <div style="clear: both"></div>
+
+        <!-- ADVERT LOCATİON START-->
+        <div id="location" class="col-xs-12 map">
+            <h2 class="detail_content_title bottomset2">Konum</h2>
+            <div id="map" style="width: 100%; height: 400px;"></div>
+        </div>
+        <!-- ADVERT LOCATİON END-->
+
+    </div>
+
+    <div class="container">
+
+        <!-- ADVERT OWNER DETAIL START-->
+        <div id="advert_user" class="col-xs-12 col-sm-12 col-md-2 hidden-xs hidden-sm advert_owner_container text-center moffset4">
+            <div class="col-xs-12 disable_padding advert_owner_profile">
+                <img src='{{#image user_photo 150 150 }} {{/image}}' alt="Profile Photo">
+            </div>
+            <div class="col-xs-12 disable_padding profile_name">
+                <h2>{{user_name}} {{user_lastname}}</h2>
+                {{#if user_state}}
+                    <a href="javascript:void(0);" class="activeaccount"><i class="fa fa-check"></i> Onaylanmış Kimlik</a>
+                {{/if}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-10 advert_owner_desc moffset3">
+            <h2>İlan Sahibi Hakkında</h2>
+            <p>İlan sahibi <b> {{user_register_date}} </b> tarihinde menkule.com.tr üye olmuştur.  menkule.com.tr da yayinlanmış  <b class="profilenamedesc" style="text-transform: uppercase">{{user_name}} {{user_lastname}}</b>'ın üyeliği aktif ve onaylanmış profildir. </p>
+            {{#isLogin}} <button class="default_btn message-btn moffset2">Mesaj Gönder</button>{{/isLogin}}
+        </div>
+        <!-- ADVERT OWNER DETAIL END-->
+
+        <!-- ADVERT COMMENT START-->
+        <div id="comments-container" class="col-xs-12  advert_detail_comment_container moffset3">
+            <h2 class="detail_content_title bottomset2">Değerlendirmeler ({{comment_size}})</h2>
+            <div data-zone="comments" class="col-xs-12 disable_padding"></div>
+        </div>
+        {{#isLogin}}
+            <div class="col-xs-12 text-right moffset2">
+                <button href="javascript:void(0);" class="default_btn comment-btn">Sizde yorum yapın</button>
+            </div>
+        {{/isLogin}}
+        <!-- ADVERT COMMENT END-->
+
+        <div class="col-xs-12 text-left feedback-container moffset2">
+            <h2>Geri Bildirim</h2>
+            <p>İlan ile ilgili olumlu veya olumsuz geri bildiriminizi bize iletebilirsiniz. </p>
+            <a href="#" class="default_btn alert feedback-btn">Şikayet</a>
+        </div>
+        <!-- ADVERT CONTENT END-->
+    </div>
+</div>
+
+
+<script id="images" type="text/x-handlebars-template">
+{{{raw-helper}}}
+    {{#each images}}
+    {{#if is_default}}
+    <div class="image-counter col-xs-12 col-sm-2 col-md-2">{{../images.length}} Fotoğraf Tümünü Gör</div>
+    <div data-fancybox="gallery" href="{{#image url 1000 1000 }} {{/image}}" style="background:url('{{#image url 1000 500 }} {{/image}}')" class="fullwidth detail_image">
+        <div class="visible-xs visible-sm mprice">{{../price}} TL</div>
+    </div>
+
+    {{else}}
+    <div data-fancybox="gallery" href="{{#image url 1000 1000 }} {{/image}}" style="display:none;"class="detail_image"></div>
+    {{/if}}
+    {{/each}}
+{{{/raw-helper}}}
+</script>
+
