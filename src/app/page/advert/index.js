@@ -4,9 +4,12 @@ import Fancybox from  '@fancyapps/fancybox';
 import Datetime from 'flatpickr';
 import appMessage from '../../../lib/appMessages';
 import Advert from './advert.handlebars';
-import Comment from './comment.handlebars';
+import Comments from './comment.handlebars';
 import Price from './price.handlebars';
 import Images from './images.handlebars';
+import Feedback from '../../popup/feedback';
+import Message from '../../popup/message';
+import Comment from '../../popup/comment';
 
 export default (params) => {
     /*
@@ -62,7 +65,7 @@ export default (params) => {
                 /*
                 Render comments
                  */
-                template.zone('comments').setContentAsync( advert.comments.length > 0 ? Comment({comments: advert.comments}): Comment(appMessage('no_comments')));
+                template.zone('comments').setContentAsync( advert.comments.length > 0 ? Comments({comments: advert.comments}): Comments(appMessage('no_comments')));
 
                 /*
                 Render Images
@@ -178,50 +181,30 @@ export default (params) => {
 
                 /*
                 Feedback
-                 template.find('.feedback-btn').on('click', function(e) {
-                            e.preventDefault();
-                            FeedbackPopup({
-                                template: 'popup-feedback',
-                                width: 550,
-                                templateData: {
-                                    advertId: params.id
-                                }
-                            })
-                        });
                  */
+                template.find('.feedback-btn').on('click', function(e) {
+                  e.preventDefault();
+                  Feedback({id: advert.id});
+                });
 
                 /*
                 Comment
-                 template.find('.comment-btn').on('click', function(e) {
-                            e.preventDefault();
-                            CommentPopup({
-                                template: 'popup-comment',
-                                width: 550,
-                                templateData: {
-                                    advertId: params.id
-                                }
-                            });
-                        });
                  */
+                template.find('.comment-btn').on('click', function(e) {
+                  e.preventDefault();
+                  Comment({id: advert.id});
+                  });
 
                 /*
                 Message
-                if (advert.loggin) template.find('.message-btn').on('click', function(e) {
-                            e.preventDefault();
-                            MessagePopup({
-                                template: 'popup-message',
-                                width: 550,
-                                templateData: {
-                                    data: 'dataTemplate'
-                                }
-                            }, {
-                                fullname: advert.user_name + " " + advert.user_lastname,
-                                Id: advert.user_id
-                            });
-                        });
                  */
-
-
+                template.find('.message-btn').on('click', function(e) {
+                  e.preventDefault();
+                  Message({
+                    fullname: advert.user_name + " " + advert.user_lastname,
+                    Id: advert.user_id
+                  });
+                });
             })
             .then(() => resolve())
     })

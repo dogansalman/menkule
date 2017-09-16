@@ -15,6 +15,7 @@ export default (options) => {
         data: {}
     }, options || {});
 
+
     const compiledTemplate = template({waitMessage: options.waitMessage, width: options.width, data : options.data, title: options.title});
 
       //modal preloaders
@@ -40,7 +41,7 @@ export default (options) => {
 
         //show event and render modal content
         $(template).on('shown.bs.modal', (e) => {
-            $(template).zone('modal-body').setContentAsync(options.template)
+            $(template).zone('modal-body').setContentAsync(options.template(options.data))
                 .then(t => resolve(t));
         });
 
@@ -51,10 +52,6 @@ export default (options) => {
             keyboard: options.keyboard,
             remote: options.remote,
         });
-
-
-
-       // resolve(compiledTemplate);
 
     });
 
