@@ -3026,6 +3026,25 @@ Flatpicker Custom Style
     border-color: #49bafb;
 }
 /*
+Advert calendar
+ */
+.advert-selected-detail{
+  min-height: 280px;
+}
+#advert-list .list, .advert-selected{
+  border: 1px solid #f9f9f9;
+}
+.calendar-container{
+  border: 1px solid #f9f9f9;
+}
+@media all and (max-width: 768px) {
+  .calendar-container
+  {
+    margin-top:30px;
+  }
+
+}
+/*
 Modal
  */
 .modal-header {

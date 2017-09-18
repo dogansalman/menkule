@@ -14,6 +14,7 @@ import UserActivate from '../../app/page/user/activate';
 import UserAdverts from '../../app/page/user/adverts';
 import UserAlerts from '../../app/page/user/alerts';
 import UserAdvert from '../../app/page/user/advert';
+import UserAdvertCalendar from '../../app/page/user/advert-calendar';
 import UserMessages from '../../app/page/user/messages';
 import UserMessage from '../../app/page/user/message';
 /**
@@ -35,6 +36,7 @@ export default [
     ['/user/register', Register],
     ['/user/policy', UserPolicy],
     ['/user/adverts', UserAdverts],
+    ['/user/advert/calendar', UserAdvertCalendar],
     ['/user/advert/:id', UserAdvert],
     ['/user/alerts', UserAlerts],
     ['/user/messages', UserMessages],
