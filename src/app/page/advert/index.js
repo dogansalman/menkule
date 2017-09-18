@@ -10,6 +10,7 @@ import Images from './images.handlebars';
 import Feedback from '../../popup/feedback';
 import Message from '../../popup/message';
 import Comment from '../../popup/comment';
+import _Advert from '../advert';
 
 export default (params) => {
     /*
@@ -22,12 +23,6 @@ export default (params) => {
         }
     };
 
-    /*
-    When user logged
-     */
-    App.on('logged.user', (user) => {
-        Advert(user);
-    });
 
     return new Promise((resolve) => {
         /*
@@ -207,5 +202,15 @@ export default (params) => {
                 });
             })
             .then(() => resolve())
+
+        /*
+       When user logged
+        */
+        App.on('logged.user', (user) => {
+            _Advert({id: advert.id});
+        });
     })
 }
+
+
+
