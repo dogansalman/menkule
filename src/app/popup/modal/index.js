@@ -41,7 +41,7 @@ export default (options) => {
 
         //show event and render modal content
         $(template).on('shown.bs.modal', (e) => {
-            $(template).zone('modal-body').setContentAsync(options.template(options.data))
+            $(template).zone('modal-body').setContentAsync( typeof options.template === 'function' ? options.template(options.data): options.template)
                 .then(t => resolve(t));
         });
 
