@@ -2751,7 +2751,7 @@ Advert Detail
     font-weight: 300;
 }
 .advert_owner_container .activeaccount {
-    background: #5BC0F9;
+    background: #2ecc71;
     color: #fff;
     padding: 5px;
     display: block
@@ -4726,7 +4726,7 @@ advert-select:focus:active {
   }
   .modal-dialog {
     width: 100%!important;
-    margin: 50% 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
   }
   .seachengine_btn:before {
     content: "Hemen Ara ";
