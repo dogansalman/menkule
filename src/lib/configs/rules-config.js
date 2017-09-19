@@ -40,7 +40,19 @@ export default [
         method: () => Menkule.isLogged(),
         condition: false,
         backUrl: '/'
-    }
+    },
+    {
+        route: '/user/advert/calendar',
+        method: () => Menkule.isLogged(),
+        condition: false,
+        backUrl: '/'
+    },
+    {
+        route: '/user/advert/calendar',
+        method: () => Menkule.hasOwnershipping(),
+        condition: false,
+        backUrl: '/'
+    },
 ];
 
 
