@@ -1,11 +1,11 @@
 <div class="hidden-xs col-sm-3 col-md-3 moffset3">
-    <img alt='photo' src='{{#image advert.photo 150 150 }} {{/image}}' />
+    <img alt='photo' class='photo' src='{{#image advert.photo 150 150 }} {{/image}}' />
 </div>
 
 <div class="col-xs-12 col-sm-9 col-md-9">
     <h2> <b>İlan No: #{{advert.id}}</b></h2>
-    <h2> {{advert.adress}}</h2>
-    <h3> {{advert.typename}} {{advert.city}} / {{advert.town}} </h3>
+    <p> {{advert.adress}}</p>
+    <p> {{advert.typename}} -  {{advert.city}} / {{advert.town}} </p>
     <p>Seçtiğiniz ilanın yıl içinde toplam <b> {{advert.total_reserved}} gün rezervasyon</b> bulunmaktadır. </p>
     <p>İlanınız toplam <b> {{advert.total_unavailable}} gün dolu</b> olarak işaretlenmiştir.. </p>
     <p>Dolu olarak işaretlenen tarihler için rezervasyon gerçekleştirilemez.</p>
