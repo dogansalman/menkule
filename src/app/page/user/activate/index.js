@@ -7,7 +7,7 @@ var activationFormRules = {
     'code': [App.validate.REQUIRED, App.validate.NUMBER]
 };
 
-export default () => Header()
+export default (params) => Header()
     .then(() => Footer())
     .then(() =>  $('body').zone('content').setContentAsync(template()))
     .then(template => new Promise(resolve => {

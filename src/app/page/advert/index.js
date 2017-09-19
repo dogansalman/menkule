@@ -18,7 +18,7 @@ export default (params) => {
      */
     const rezervationRules = {
         'date': function (value) {
-            if(!value || value.split(' - ').length < 2) return false;
+            if(!value || value.split(' to ').length < 2) return false;
             return true;
         }
     };
@@ -124,7 +124,12 @@ export default (params) => {
                             var total = advert.price * days
                             App.navigate('/rezervation/' + params.id, {'checkin':checkin, 'checkout':checkout, 'days':days, 'total': total});
                         })
-                        .catch((e) => App.isMobile().then((mbl) => { if(!mbl) App.notifyDanger('Rezervasyon tarihini seçin.', '') }) );
+                        .catch((e) =>
+                            {
+                                console.log(e);
+                                App.isMobile().then((mbl) => { if(!mbl) App.notifyDanger('Rezervasyon tarihini seçin.', '') })
+                            }
+                        );
                 })
 
                 //close calendar btn

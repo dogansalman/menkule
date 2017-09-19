@@ -1,0 +1,125 @@
+<div data-zone="rezervation"  class="container">
+    <div class="col-xs-12 page-title-container">
+        <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a> <a href="#">Rezervasyon</a>
+    </div>
+    <div class="rezervation-container">
+        <div class="col-xs-12 detail-container borderer">
+            <div class="col-xs-4 col-sm-4 col-md-1 disable_padding">
+                {{#each advert.images}}
+                    {{#if is_default}}
+                        <img src="{{#image url 90 90 }} {{/image}}"></img>
+                    {{/if}}
+                {{/each}}
+            </div>
+            <div class="col-xs-8 col-sm-8 col-md-11 adress">
+                <p><strong>#{{advert.id}}</strong> {{advert.title}}</p>
+                <div class="col-xs-12  disable_padding">
+                    <label>Giriş: {{rezervation.checkin}}</label>
+                </div>
+                <div class="col-xs-12  disable_padding">
+                    <label>Çıkış: {{rezervation.checkout}}</label>
+                </div>
+                <div class="col-xs-12  disable_padding">
+                    <label>Konaklama: {{rezervation.days}} Gün</label>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 disable_padding">
+                    <label>Toplam: {{#currency rezervation.total 2 0 }} {{/currency}} TL</label>
+                </div>
+                <div class="hidden-xs col-sm-6 col-md-6 disable_padding text-right price">
+                    <span class="total">Toplam {{#currency rezervation.total 2 0 }} {{/currency}} TL</span>
+                </div>
+            </div>
+        </div>
+        {{#notLogged}}
+            <div class="col-xs-12 borderer moffset2 information-container">
+                <div class="col-xs-12 login">
+                    <h2>Zaten Üyesimisiniz ?</h2>
+                    <p>Üyelik kaydınız varsa üye girişi yaparak rezervasyon işleminize devam edebilirsiniz. </br>
+                        <a href="#" class="login-btn">Giriş Yap</a>
+                    </p>
+                </div>
+            </div>
+        {{/notLogged}}
+        <div class="col-xs-12 disable_padding rezervation-form-container">
+            <div class="col-xs-12 col-sm-12 col-md-5 moffset2 borderer">
+                {{#isLogin}}
+                    <div class="col-xs-12 text-center disable_padding">
+                        <img alt="photo" class="img-responsive photo bottomset2" src="{{#image photo 150 150 }} {{/image}}"/>
+                        <span class="activemembericon"></span>
+                        <h3 class="inline disable_margin"> {{name}} {{lastname}}</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="ad">E-Posta: </label>
+                        <h3 class="disable_margin">{{email}}</h3>
+                    </div>
+                    <div class="form-group">
+                        <label for="ad">Gsm: </label>
+                        <h3 class="disable_margin">{{gsm}}</h3>
+                    </div>
+                    <p>SN. {{name}} {{lastname}} rezervasyonunuzun onaylanabilmesi için lütfen kimlik numaranızı belirtiniz.</p>
+                    <div class="form-group">
+                        <label for="ad">TC No: </label>
+                        <input type="number" data-form-element="tc" class="form-control"  mask="00000000000" maxlength="11" value="{{tc}}" placeholder="TC kimlik numarası">
+                    </div>
+                    <div class="form-group">
+                        <p>Rezervasyon talebiniz ile ilgili varsa notunuzu iletebilirsiniz.</p>
+                        <textarea class="form-control" data-form-element="note" rows="5" cols="70" maxlength="300" placeholder="(Maks 300 karakter)"></textarea>
+                    </div>
+                {{/isLogin}}
+                {{#notLogged}}
+                    <h2>Kişisel Bilgi</h2>
+                    <div class="form-group">
+                        <label for="ad">Ad </label>
+                        <input type="text" data-form-element="name" class="form-control" value="{{name}}" maxlength="90" placeholder="Ad">
+                    </div>
+                    <div class="form-group">
+                        <label for="ad">Soyad</label>
+                        <input type="text" data-form-element="lastname" class="form-control" value="{{lastname}}" maxlength="90" placeholder="Soyad">
+                    </div>
+                    <div class="form-group">
+                        <label for="eposta">E-Posta</label>
+                        <input type="text" data-form-element="email" class="form-control" value="{{email}}" maxlength="120" placeholder="E-Posta">
+                    </div>
+                    <div class="form-group">
+                        <label for="gsm">GSM No</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">0</div>
+                            <input type="tel" data-form-element="gsm" class="form-control" mask="0000000000" value="{{gsm}}" maxlength="10" placeholder="5550000000 ">
+                        </div>
+                    </div>
+                    <p>Rezervasyonunuzun onaylanabilmesi için lütfen kimlik numaranızı belirtiniz.</p>
+                    <div class="form-group">
+                        <label for="tc">TC No: </label>
+                        <input type="number" data-form-element="tc"  mask="00000000000" maxlength="11" class="form-control" placeholder="TC kimlik numarası">
+                    </div>
+                    <div class="form-group">
+                        <p>Rezervasyon talebiniz ile ilgili varsa notunuzu iletebilirsiniz.</p>
+                        <textarea class="form-control" data-form-element="note" rows="5" cols="70" maxlength="300" placeholder="(Maks 300 karakter)"></textarea>
+                    </div>
+                {{/notLogged}}
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-6 disable_padding moffset2 visitor-infor-form">
+                <div class="col-xs-12 borderer">
+                    <div class="form-group">
+                        <h2>Misafir Ekle</h2>
+                        <p>Sizinle birlikte konaklayacak misafirler</p>
+                        <a class="default_btn add-visitor">Yeni Misafir Ekle</a>
+                    </div>
+                    <div data-zone="visitor" class="col-xs-12 disable_padding visitor-list">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 moffset2 disable_padding">
+                <div class="form-group">
+                    <div class="checkbox checkbox-info">
+                        <input data-form-element="accept_policy" name="policy" type="checkbox">
+                        <label for="policy"><a href="/user/policy" target="_blank">
+                            {{#notLogged}} Üyelik Koşullarını</a> ve {{/notLogged}} <a href="/user/policy" target="_blank">Ön Bilgilendirme Formunu</a>  okudum kabul ediyorum.</label>
+                    </div>
+                </div>
+                <a href="javascript:void(0);" class="rezervation-btn default_btn bottomset1">Devam Et</a>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,34 @@
+<div class="col-xs-12 complate">
+<div class="col-xs-12 col-xs-12 disable_padding bottomset2">
+    <h2 class="complate-title">Rezervasyon Talebiniz Alındı</h2>
+    <h2>Rezervasyonunuz Hakkında</h2>
+    <p class="moffset2">Rezervasyon talebiniz ilan sahibine iletilmiştir. Rezervasyon, ilan sahibi tarafından onaylandığında bilgilendirileceksiniz. </p>
+    <p>İlan sahibi en kısa zamanda ilanınızı değerlendirerek durumunu güncelleyecek ve bildirim ayarlarınızda izin verdiğiniz bildirim kanallarından sizi bilgilendireceğiz </p>
+</div>
+<div class="col-xs-12 disable_padding bottomset2">
+    <div class="col-xs-12 disable_padding bottomset3">
+        <h2>Rezervasyon Bilgileri</h2>
+        <p>Bu aşamadan sonra rezervasyon bilgilerinizde bir değişiklik gerçekleştiremezsiniz. Rezervasyon bilgileri veya rezervasyon talebiniz hakkında direkt olarak ilan sahibi ile iletişime geçebilirsiniz.
+            İlan sahibi ile iletişime geçmek için rezervasyonunuzun detay sayfasını ziyaret edin.</p>
+    </div>
+    <div class="col-xs-12 col-sm-2 disable_padding bottomset2">
+        {{#each advert.images}}
+            {{#if is_default}}
+                <img class="moffset3 radius-circle" src="{{#image url 150 150 }} {{/image}}"></img>
+            {{/if}}
+        {{/each}}
+    </div>
+    <div class="col-xs-12 col-sm-8 disable_padding col-md-9 bottomset2">
+        <p><b>Giriş / Çıkış :</b> {{rezervation.checkin}} - {{rezervation.checkout}}</p>
+        <p><b>Konaklama :</b> {{rezervation.days}} Gece</p>
+        <p><b>Toplam :</b> {{#currency rezervation.total 2 0 }} {{/currency}} TL</p>
+        <p><b>Misafirler:</b></p>
+        {{#each visitors}}
+            <div class="col-xs-12 disable_padding">
+                <p>{{fullname}} ({{gender}}) ({{tc}})</p>
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+</div>

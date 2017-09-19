@@ -7,6 +7,7 @@ import Contact from '../../app/page/contact';
 import Error from '../../app/page/error';
 import Search from '../../app/page/search';
 import Advert from '../../app/page/advert';
+import Rezervation from '../../app/page/rezervation';
 import Register from '../../app/page/user/register';
 import UserPolicy from '../../app/page/user/policy';
 import UserAccount from '../../app/page/user/account';
@@ -27,6 +28,7 @@ export default [
     ['/contact', Contact],
     ['/search/:state', Search],
     ['/advert/:id', Advert],
+    ['/rezervation/:id', Rezervation],
     ['/logout', () => Menkule.logout().then(() => App.promise(() => window.location.href = "/")), Main],
     ['/user/account', UserAccount],
     ['/user/activate',  UserActivate ],
