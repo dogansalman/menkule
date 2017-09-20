@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="col-xs-12 page-title-container">
+        <a href="/"><i class="fa fa-home" aria-hidden="true"></i></a> <a href="javascript:void(0);">Rezervasyonlar</a>
+    </div>
+    {{#each rezervations}}
+        <div class="list col-xs-12">
+            <a href='/user/advert/detail/{{id}}'>
+                <div class='col-xs-3 col-sm-2 col-md-1 photo'> <img alt='photo' src='{{#image photo 150 150 }} {{/image}}' /> </div>
+            </a>
+            <div class='col-xs-9 col-sm-10 col-md-11 detail'>
+                <a href='/user/advert/detail/{{id}}'>
+                    <div class='col-xs-12 col-sm-12 col-md-12 text'>
+                        <h2 class='title'> {{title}}</h2>
+                        <span class="block moffset1"><b>Tutar: {{#currency total_price 2 0 }} {{/currency}} TL </b></span>
+                        <span class="block moffset1">{{date enter_date "DD-MM-YYYY" }} / {{date exit_date "DD-MM-YYYY" }} {{days}} Gece</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-md-2 text state-container">
+                        {{#if state}}
+                            <div class="approved">Onaylandı</div>
+                        {{else}}
+                            <div class="wait">Onay Bekleniyor</div>
+                        {{/if}}
+                        {{#if is_cancel}}
+                            <div class="cancel">İptal Edildi</div>
+                        {{/if}}
+                    </div>
+                </a>
+            </div>
+        </div>
+    {{/each}}
+</div>
