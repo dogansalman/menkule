@@ -2,7 +2,7 @@ import Header from '../../page/header';
 import Footer from '../../page/footer';
 import Visitors from './visitors.handlebars';
 import Complate from './complate.handlebars';
-import Activation from '../user/activate';
+import Activation from '../user/activate/activate.handlebars';
 import Rezervation from './rezervation.handlebars';
 import Visitor from '../../popup/visitor';
 import _Rezervation from '../rezervation';
@@ -74,12 +74,7 @@ function getActivationForm() {
                                             'checkout': rezervation.checkout,
                                             'note': user.note
                                         }))
-                                        .then(() => App.renderTemplate(templateRez.find('#complate').html(), {
-                                            advert: advert,
-                                            rezervation: rezervation,
-                                            visitors: visitors
-                                        }))
-                                        .then((data) => templateRez.zone('rezervation').setContentAsync(data))
+                                        .then(() => templateRez.zone('rezervation').setContentAsync(Complate({ advert: advert, rezervation: rezervation, visitors: visitors })))
                                         .then(() => App.promise(() => templateRez.find('.rezervation-container').scrollView()))
                                         .then(() => App.hidePreloader())
                                         .catch((err) => {

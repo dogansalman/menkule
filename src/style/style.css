@@ -3154,27 +3154,14 @@ Rezervation
     margin:0px;
 }
 .complate .complate-title{
-    background: #45b5f4;
-    padding: 5px;
-    color: #fff;
+    color: #45b5f4;
     width: initial;
     display: block;
-    max-width: 285px;
-    font-size: 15px;
+    font-size: 30px;
+    margin: 0px;
+    padding: 0px;
 }
 
-.complate .complate-title:before {
-    content: "\f00c";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: 400;
-    text-decoration: inherit;
-    color: #fff;
-    font-size: 15px;
-    padding-right: .5em;
-    top: 0;
-    left: 0;
-}
 /*
 Advert calendar
  */
