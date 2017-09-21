@@ -58,7 +58,6 @@ export default (params) => {
       .then(() => $("body").zone('content').setContentAsync(templatee({advert: advert})).do(t => template = t))
       .then(() => template.find("#map").createMap({scroll:true}))
       .then(() => {
-
        /*
         Notify advert state
         */
@@ -67,9 +66,11 @@ export default (params) => {
         /*
         Advert avaiable date add to list
          */
-        advert.available_date.forEach(function(date, index) {
-          dateList.push(new DateRange(moment(date.from_date), moment(date.to_date)));
-        });
+        if(advert.available_date) {
+            advert.available_date.forEach(function(date, index) {
+                dateList.push(new DateRange(moment(date.from_date), moment(date.to_date)));
+            });
+        }
 
         /*
         Add avaiable dates

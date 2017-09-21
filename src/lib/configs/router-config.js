@@ -41,6 +41,7 @@ export default [
     ['/user/adverts', UserAdverts],
     ['/user/advert/calendar', UserAdvertCalendar],
     ['/user/advert/:id', UserAdvert],
+    ['/user/advert', UserAdvert],
     ['/user/alerts', UserAlerts],
     ['/user/rezervations/:type', UserRezervation],
     ['/user/messages', UserMessages],

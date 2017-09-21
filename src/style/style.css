@@ -17,6 +17,11 @@ input[type="tel"],
 input[type="email"] {
   -webkit-appearance: none
 }
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: underline;
+}
 h2, .h2, h3, .h3 {
   font-size:18px;
   font-weight:300;
@@ -2562,6 +2567,11 @@ Filter Popup
 /*
 Advert Detail
  */
+.advert-detail .search-cordi-container .search-cordi-btn {
+    bottom: 25px;
+    right: 20px;
+    top: inherit;
+}
 .rezervation-form{
     border: 10px solid #f9f9f9;
 }
@@ -3070,6 +3080,8 @@ Flatpicker Custom Style
 /*
 Rezervation
  */
+
+
 .rezervation-container .detail-container{
     padding: 10px;
 }
@@ -3160,6 +3172,33 @@ Rezervation
     font-size: 30px;
     margin: 0px;
     padding: 0px;
+}
+/*
+User Rezervation
+ */
+
+.list .approved {
+    background: #44ca6d;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px;
+    margin: 5px 0px 0px 0px;
+    width: 100%;
+}
+.list .rezervation-state {
+    background: #65c3f9;
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+}
+.list .rezervation-state.wait:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    font-size: 10px;
+    color: #fff;
 }
 
 /*
