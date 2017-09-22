@@ -64,7 +64,7 @@ const uploader2 = new uploader();
 
 
         });
-        var imageContainer = $('<div data-id="' + data.image_id + '"class="col-xs-12 col-sm-3 col-md-3 disable_padding" style=" width:140px; margin:10px 10px 10px 0px; max-height: 120px; overflow: hidden; display: inline-block; position: relative;"></div>');
+        var imageContainer = $('<div data-id="' + data.image_id + '"class="col-xs-6 col-sm-3 col-md-3 disable_padding" style=" width:125px; margin:10px 10px 10px 0px; max-height: 100px; overflow: hidden; display: inline-block; position: relative;"></div>');
         var image = $('<img style="width:100%; max-height: 150px !important; overflow: hidden; cursor:pointer;" src=' + Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" +  data.url + ' id="' + data.image_id  + '"/>');
 
         $(image).on('click', (e) => {

@@ -409,27 +409,27 @@ textarea {
   transform: scale(1)
 }
 .cancelbtn {
-  display: inline-block;
-  padding: 5px 10px;
-  margin-bottom: 0;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.42857143;
-  color: #fff !important;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 0;
-  background: #EC7070 !important;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #fff !important;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    background: #EC7070!important;
 }
 .cancelbtn:hover,
 .cancelbtn:focus,
@@ -2328,36 +2328,7 @@ App Home
     border-bottom: 1px solid #d8d8d8;
     padding-bottom: 5px
 }
-.city1 {
-    position: relative;
-    height: 250px;
-    background: url(../img/tekirdag.jpg);
-    background-size: cover;
-    background-position: center;
-    border-right: 10px solid #fff
-}
-.city2 {
-    position: relative;
-    height: 250px;
-    background: url(../img/izmir.jpg);
-    background-size: cover;
-    background-position: center
-}
-.city3 {
-    position: relative;
-    height: 250px;
-    background: url(../img/antalya.jpg);
-    background-size: cover;
-    background-position: center;
-    border-right: 10px solid #fff
-}
-.city4 {
-    position: relative;
-    height: 250px;
-    background: url(../img/istanbul.jpg);
-    background-size: cover;
-    background-position: center
-}
+
 .home-searchbox-container{
     position: absolute;
     z-index: 1;
@@ -2442,6 +2413,7 @@ App Home
 .homeownership {
     background: url(../img/ev_sahipligi_yap.jpg);
     width: 100%;
+    height: 400px;
     background-attachment: relative;
     background-position: center center!important;
     -webkit-background-size: 100%;
@@ -2457,6 +2429,7 @@ App Home
     transition: all 1s ease-in-out;
     background-repeat: no-repeat!important
 }
+
 .select-type {
     border-radius: 0;
     background-color: #fff;
@@ -3176,17 +3149,7 @@ Rezervation
 /*
 User Rezervation
  */
-
-.list .approved {
-    background: #44ca6d;
-    color: #fff;
-    font-size: 12px;
-    padding: 5px;
-    margin: 5px 0px 0px 0px;
-    width: 100%;
-}
 .list .rezervation-state {
-    background: #65c3f9;
     height: 15px;
     width: 15px;
     display: inline-block;
@@ -3194,10 +3157,25 @@ User Rezervation
     border-radius: 50%;
     text-align: center;
 }
-.list .rezervation-state.wait:before {
-    font-family: FontAwesome;
-    content: "\f00c";
+.list .rezervation-state.approved
+{
+    background: #65c3f9;
+}
+.list .rezervation-state.cancel
+{
+    background: #e74c3c;
+    padding: 2px;
+}
+
+.list .rezervation-state.approved:before {
+    font-family: 'icomoon';
+    content: "\ea10";
     font-size: 10px;
+    color: #fff;
+}.list .rezervation-state.cancel:before {
+    font-family: 'icomoon';
+    content: "\ea0f";
+    font-size: 8px;
     color: #fff;
 }
 
@@ -4418,6 +4396,7 @@ a:hover {
   overflow: hidden;
   left: 0px;
   overflow-y: scroll;
+    padding:0px;
 }
 #advert-list::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
@@ -5060,13 +5039,10 @@ advert-select:focus:active {
   }
   .acceptbtn,
   .cancelbtn {
-    margin: 0 !important;
-    text-align: center;
-    margin-bottom: 10px !important;
-    margin-top: 10px !important;
-    height: 35px;
-    padding: 5px 10px 0;
-    font-size: 14px;
+      margin: 0!important;
+      text-align: center;
+      margin-bottom: 10px!important;
+      font-size: 14px
   }
 }
 /*
@@ -5075,9 +5051,9 @@ Uploader
 
 .uploader-btn{
     bottom: 0px;
-    width: 140px;
+    width: 125px;
     margin: 10px 10px 10px 0px;
-    max-height: 120px;
+    max-height: 100px;
     overflow: hidden;
     display: inline-block;
     position: relative;
