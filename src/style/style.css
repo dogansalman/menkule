@@ -3147,6 +3147,229 @@ Rezervation
     padding: 0px;
 }
 /*
+Rezervation Detail
+ */
+.changestate {
+    margin-top: 10px;
+    padding: 0
+}
+.rezervation-state {
+    padding: 15px!important
+}
+.rezervation-owner-detail {
+    text-align: center;
+    padding: 5px;
+    min-height: 1355px!important;
+    margin-right: 20px;
+    border: 1px solid #F3F3F3
+}
+.rezervation-detail-photo {
+    max-height: 90px;
+    border-radius: 50%;
+    width: initial!important
+}
+.rezervation-detail-name {
+    display: block;
+    font-size: 19px;
+    padding: 5px;
+    text-transform: uppercase
+}
+.rezervation-detail-mail {
+    display: block;
+    font-size: 14px;
+    padding: 5px
+}
+.rezervation-detail-phone {
+    display: block;
+    font-size: 14px;
+    padding: 5px
+}
+.rezervation-detail-sendmessage {
+    width: 100%;
+    margin-top: 20px;
+    background: #49bafb;
+    display: block;
+    color: #fff;
+    padding: 10px;
+    font-size: 14px
+}
+.rezervation-detail-sendmessage:hover,
+.rezervation-detail-sendmessage:active,
+.rezervation-detail-sendmessage:active:focus,
+.rezervation-detail-sendmessage:focus {
+    color: #fff;
+    background: #3caae8;
+    text-decoration: initial
+}
+.rezervation-detial-date {
+    display: block;
+    font-size: 18px;
+    margin-top: 15px
+}
+.rezervation-detial-date-state {
+    display: block;
+    font-size: 11px
+}
+.rezervation-detail-city {
+    font-size: 15px;
+    font-weight: 600
+}
+.rezervation-detail-city-container {
+    margin-top: 15px
+}
+.rezervation-detail-icon {
+    font-size: 30px;
+    color: #49BAFB;
+    display: block
+}
+.rezervation-detail-box {
+    min-height: 100px;
+    border: 1px solid #F3F3F3;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 0 0 1px
+}
+.rezervation-home-images,
+.rezervation-home-map {
+    margin-top: 15px;
+    padding: 10px!important;
+    border: 1px solid #F3F3F3;
+    background: #fff
+}
+.rezervation-home-images .bx-wrapper {
+    border: none;
+    padding: 10px;
+    box-shadow: none!important
+}
+.rezervation-home-slide img {
+    max-height: 350px;
+    display: initial;
+    width: initial!important
+}
+.rezervation-detail-cancel-title {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    display: block;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: #EAEAEA;
+    padding: 5px
+}
+.rezervation-cancel-date {
+    font-size: 13px;
+    padding: 3px;
+    margin-bottom: 11px;
+    display: block
+}
+.rezervation-cancel {
+    margin-top: 0;
+    background: #d86666;
+    display: block;
+    color: #fff;
+    padding: 10px;
+    font-size: 16px
+}
+.rezervation-cancel:hover,
+.rezervation-cancel:focus,
+.rezervation-cancel:active,
+.rezervation-cancel:active:focus {
+    text-decoration: initial;
+    color: #fff;
+    background: #ef7575
+}
+.rezervation-detail-cancel {
+    margin-top: 15px
+}
+.rezervation-advert-posiblies .advert-possibility {
+    cursor: auto;
+    border: none;
+    padding: 0;
+    color: #737373
+}
+.rezervation-advert-posiblies .advert-possibility label {
+    cursor: auto
+}
+.rezervation-advert-properties {
+    border: 1px solid #F3F3F3;
+    background: #fff;
+    margin-top: 15px
+}
+.rezervation-advert-properties .advert-possibility::before {
+    color: #49BAFB
+}
+.rezervationcancel-desc {
+    background: #D66882;
+    color: #fff;
+    padding: 10px;
+    font-size: 12px;
+    margin-bottom: 10px
+}
+.rezervationcancel-desc i {
+    font-size: 32px;
+    color: #fff;
+    padding: 5px
+}
+.property {
+    font-size: 14px;
+    padding: 2px;
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #737373
+}
+.property_value {
+    font-weight: 100;
+    font-size: 14px
+}
+.properties i {
+    color: #49BAFB;
+    font-size: 26px;
+    margin-right: 20px;
+    width: 30px
+}
+.status-changebox {
+    border: 1px solid #CECECE!important;
+    font-size: 13px!important;
+    height: 50px!important;
+    color: #9A9A9A!important
+}
+.rezervation-accept-acceptbtn {
+    font-size: 14px;
+    text-align: center;
+    background: #2ecc71;
+    color: #fff;
+    padding: 5px;
+    display: inline-block;
+    width: auto;
+    min-width: 90px
+}
+.rezervation-accept-acceptbtn:active,
+.rezervation-accept-acceptbtn:focus,
+.rezervation-accept-acceptbtn:active:focus,
+.rezervation-accept-acceptbtn:hover {
+    color: #fff;
+    background: #20CE6A
+}
+.rezervation-accept-cancelbtn {
+    font-size: 14px;
+    text-align: center;
+    background: #3498db;
+    color: #fff;
+    padding: 5px;
+    width: auto;
+    display: inline-block;
+    min-width: 90px
+}
+.rezervation-accept-cancelbtn:active,
+.rezervation-accept-cancelbtn:focus,
+.rezervation-accept-cancelbtn:active:focus,
+.rezervation-accept-cancelbtn:hover {
+    color: #fff;
+    background: #258ACE
+}
+/*
 User Rezervation
  */
 .list .rezervation-state {

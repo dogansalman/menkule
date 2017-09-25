@@ -15,7 +15,8 @@ import UserActivate from '../../app/page/user/activate';
 import UserAdverts from '../../app/page/user/adverts';
 import UserAlerts from '../../app/page/user/alerts';
 import UserAdvert from '../../app/page/user/advert';
-import UserRezervation from '../../app/page/user/rezervations';
+import UserRezervation from '../../app/page/user/rezervation';
+import UserRezervations from '../../app/page/user/rezervations';
 import UserAdvertCalendar from '../../app/page/user/advert-calendar';
 import UserMessages from '../../app/page/user/messages';
 import UserMessage from '../../app/page/user/message';
@@ -43,7 +44,8 @@ export default [
     ['/user/advert/:id', UserAdvert],
     ['/user/advert', UserAdvert],
     ['/user/alerts', UserAlerts],
-    ['/user/rezervations/:type', UserRezervation],
+    ['/user/rezervations/:type', UserRezervations],
+    ['/user/rezervation/:id', UserRezervation],
     ['/user/messages', UserMessages],
     ['/user/messages/:id', UserMessage]
 ];
