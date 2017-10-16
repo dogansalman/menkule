@@ -1,37 +1,43 @@
-import template from './footer.handlebars';
+import footerTemp from './footer.handlebars';
 
-function valide(email) {
-  if ($(".list_mail").val().trim() == "" || !validateEmail(email)) {$(".list_mail").addClass("required"); return false;}
-  return true;
-}
 
-function addEmailList(email) {
-  if(!valide(email)) return false;
-  $(".sendmail_btn").parent().parent().append("<div class='loading-process'></div>");
-  Menkule.post("/other/mail-list", {"email": email })
-    .then(result => {
-      notifyshow_success("E-posta adresiniz listemize kayıt edildi.");
-      $(".list_mail").val("");
-    })
-    .catch(err => {
-      notifyshow("E-posta adresiniz listemize zaten kayıtlıdır.");
-      new Error("eposta adresi kullanilmakta.");
-    });
-  $(".list_mail").removeClass("required");
-}
+var suggestionsForm = {
+    email: [App.validate.REQUIRED, App.validate.EMAIL],
+};
 
-export default () => $("body").zone('footer').setContentAsync(template())
-  .then(footer => new Promise(resolve => {
+export default () => $("body").zone('footer').setContentAsync(footerTemp())
+  .then(template => new Promise(resolve => {
 
-    footer.find('.list_mail').on('keyup', (e) =>{
-      e.preventDefault();
-      if (e.keyCode == 13)  addEmailList($(".list_mail").val().substring(0, 90));
-    });
+      template.formFields().on('keyup', (e) => {
+          var keyCode = e.which || e.keyCode;
+          if (keyCode == 13) template.find('.sendmail_btn').triggerHandler('click');
+      });
 
-    footer.find('.sendmail_btn').on("click", (e) => {
-      e.preventDefault();
-      addEmailList($(".list_mail").val().substring(0, 90));
-    });
+      template.find('.sendmail_btn').on('click', (e) => {
+          $(e.target).disable();
+          template.formFields().disable();
+          App.showPreloader(.7)
+              .then(() =>  template.find(".footer-email-suggestions").validateFormAsync(suggestionsForm))
+              .then((suggestions) => Menkule.post('/suggestions', suggestions))
+              .then(() => App.hidePreloader())
+              .then(() => App.notifySuccess('E-posta adresiniz listemize ekledi.', ''))
+              .catch((err) => {
+
+                  App.hidePreloader()
+                      .then(() => App.notifyDanger('E-posta adresiniz zaten kayıtlı.', ''))
+                      .then(() => template.formFields().enable() && template.formFields().select() && $(e.target).enable())
+                      .then(() => {
+                          /*
+                            If Validate Error
+                         */
+                          if (err instanceof ValidateError) {
+                              template.formFields().enable();
+                              $(e.target).enable();
+                              return ($(err.fields[0]).select());
+                          }
+                      })
+              });
+      });
 
     resolve();
   }));

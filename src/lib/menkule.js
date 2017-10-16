@@ -58,6 +58,8 @@ Menkule.prototype.request = function(method, url, data) {
 };
 Menkule.prototype.post = function(url, data){ return this.request("POST", url, data); };
 Menkule.prototype.get = function(url, data){ return this.request("GET", url, data); };
+Menkule.prototype.put = function(url, data){ return this.request("PUT", url, data); };
+Menkule.prototype.delete = function(url, data){ return this.request("DELETE", url, data); };
 
 /*
 Token
