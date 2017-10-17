@@ -24,22 +24,19 @@ function Menkule(){
 EventEmitter(Menkule.prototype);
 
 //Request
-Menkule.prototype.request = function(method, url, data) {
-
+Menkule.prototype.request = function(method, url, data, contentType) {
   return new Promise((resolve, reject) => {
-    var ajaxOptions = {url: apiAddress + url, method: method, dataType: "json"};
-
+    var ajaxOptions = {url: apiAddress + url, method: method};
     if (["POST", "PUT"].indexOf(method) > -1) {
       if (!(data instanceof File)) {
-        ajaxOptions["data"] = JSON.stringify(data ? data : {});
-        ajaxOptions["contentType"] = "application/json;charset=utf-8";
+        ajaxOptions["data"] = contentType == 'application/x-www-form-urlencoded' ?  (data ? data : {}) : (JSON.stringify(data ? data : {}));
+        ajaxOptions["contentType"] = contentType;
       }
       else {
         ajaxOptions["contentType"] = false;
         ajaxOptions["processData"] = false;
         ajaxOptions["data"] = data;
       }
-
     } else {
       var queryString = [];
       if (typeof data == "object") Object.keys(data).map(key => queryString.push(key + "=" + encodeURIComponent(data[key])));
@@ -52,15 +49,13 @@ Menkule.prototype.request = function(method, url, data) {
       .fail(err => {
         if (err && err.statusText == 'timeout') window.location = "/error/timeout";
         reject(err);
-        return this.emit("error.login");
       });
   });
 };
-Menkule.prototype.post = function(url, data){ return this.request("POST", url, data); };
+Menkule.prototype.post = function(url, data, contentType = 'application/json;charset=utf-8'){ return this.request("POST", url, data, contentType); };
+Menkule.prototype.put = function(url, data, contentType = 'application/json;charset=utf-8'){ return this.request("PUT", url, data, contentType); };
 Menkule.prototype.get = function(url, data){ return this.request("GET", url, data); };
-Menkule.prototype.put = function(url, data){ return this.request("PUT", url, data); };
-Menkule.prototype.delete = function(url, data){ return this.request("DELETE", url, data); };
-
+Menkule.prototype.delete = function(url){ return this.request("DELETE", url); };
 /*
 Token
  */
@@ -138,7 +133,7 @@ Menkule.prototype.user = function(force) {
   force = force || false;
   return new Promise((resolve) => {
     if (!this.hasToken() || (loggedUser && force !== true)) return resolve(loggedUser);
-    this.get("/user/detail")
+    this.get("/users")
       .then(user => {
         resolve(loggedUser = user);
       })

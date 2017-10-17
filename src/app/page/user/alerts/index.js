@@ -2,20 +2,20 @@ import appMessages from '../../../../lib/appMessages';
 import template from './alerts.handlebars';
 import Header from '../../header';
 import Footer from '../../footer';
+import alerts from '../alerts';
+
 
 export default() => {
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
-      .then(() => Menkule.get('/alert/list'))
+      .then(() => Menkule.get('/notifications'))
       .then((alertList) => $("body").zone('content').setContentAsync(template({alerts: alertList})))
       .then((template) => {
-
         //select click
         template.find(".alert-check").on("click", (e) => {
           $(e.target).parents('a').toggleClass("alert-selected");
         });
-
         //select all click
         template.find(".selectall").on("click", (e) => {
           if(!$(e.target).hasClass('selected')) {
@@ -26,24 +26,21 @@ export default() => {
           }
           $(e.target).toggleClass('selected');
         });
-
         //delete selected
         template.find("button.deleteall").off().on("click", (e) => {
           App.showPreloader(.7)
             .then(() => {
-              templatedata.find('.alert-selected').each(function (index) {
-                Menkule.post("/alert/delete", {"alertId": $(this).attr("rel")})
+              template.find('.alert-selected').each(function (index) {
+                Menkule.delete("/notifications/" + $(this).attr("rel"))
                   .then(result => resolve())
                   .catch(err =>  reject(err))
               });
             })
-            .then(() => module.exports())
             .then(() => App.hidePreloader())
-            .then(() =>  App.notifySuccess('Seçtiğiniz bildirim kayıtları silindi', 'Tamam'));
+            .then(() =>  App.notifySuccess('Seçtiğiniz bildirim kayıtları silindi', 'Tamam'))
+            .then(() => alerts())
         });
-
         resolve();
-
       })
       .catch((err) => {
         $("body").zone('content').setContentAsync(appMessages('error_alert_list'));

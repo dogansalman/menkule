@@ -5,7 +5,7 @@ import forgotModal from '../forgot';
 
 export default () => {
 
-    let loginFormRules = {
+    const loginFormRules = {
         username: [App.validate.REQUIRED, App.validate.EMAIL],
         password: [App.validate.REQUIRED]
     };
@@ -25,8 +25,8 @@ export default () => {
                     Content.showPreloader(.7)
                         .then(() => {
                             Content.validateFormAsync(loginFormRules)
-                                .then((loginForm) => Menkule.post('/auth/login', Object.assign(loginForm, {grant_type: 'password'} ) ))
-                                .then((result) => App.promise(() => Menkule.saveToken(result.result)))
+                                .then((loginForm) => Menkule.post('/auth/login', Object.assign(loginForm, {grant_type: 'password'} ), 'application/x-www-form-urlencoded' ))
+                                .then((result) => App.promise(() => Menkule.saveToken(result.access_token)))
                                 .then(() => Menkule.user())
                                 .then((user) => Content.parents('.modal').modal('hide').promise().done(() => resolve(user)))
                                 .catch(err => {
