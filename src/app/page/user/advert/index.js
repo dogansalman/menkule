@@ -52,9 +52,7 @@ export default (params) => {
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
-      .if((params), () => Menkule.post("/advert/detail", {
-        'advertId': params ? params.id : null
-      }).do(a => advert = a))
+      .if((params), () => Menkule.get("/adverts/" + params.id).do(a => advert = a))
       .then(() => $("body").zone('content').setContentAsync(templatee({advert: advert})).do(t => template = t))
       .then(() => template.find("#map").createMap({scroll:true}))
       .then(() => {
@@ -183,7 +181,7 @@ export default (params) => {
           template.formFields('town_id')
           .disable()
           .on('rendered.template', (e) => $(e.target).enable().trigger("change", e))
-          .applyRemote('/other/state', {
+          .applyRemote('/cities', {
             resolve: "towns",
             wait: true,
             loadingText: "<option>İl seçiniz</option>",
@@ -196,9 +194,9 @@ export default (params) => {
           .on("change", (e, firstLoad) => {
             if (e.target.value)
               template.formFields('town_id').disable().applyRemote("refresh", {
-                post: {
-                  stateId: e.target.value
-                },
+                get: {},
+                urlPar: e.target.value,
+                url: '/cities/' + e.target.value,
                 loadingText: "<option>Lütfen bekleyin</option>"
               });
             else
@@ -207,7 +205,7 @@ export default (params) => {
               });
           })
           .on('rendered.template', (e) => $(e.target).trigger("change", e))
-          .applyRemote('/other/city', {
+          .applyRemote('/cities', {
             resolve: "cities",
             extraData: {
               cityId: advert.city_id || 0
@@ -236,7 +234,8 @@ export default (params) => {
             .then((advert) => App.showPreloader(advert, .7))
             .then((advert) => {
 
-
+                console.log(advert);
+                return;
               Menkule.post(advert.id ? '/advert/update' : '/advert/create', uploader.getImages() == null ? _.omit(Object.assign(advert, advert.map[0], {
                 'available_date': dateList
               }), ['map', 'marker', 'toVal']) : Object.assign(_.omit(Object.assign(advert, advert.map[0]), ['map', 'marker', 'toVal']), {

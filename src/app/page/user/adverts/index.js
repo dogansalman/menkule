@@ -8,12 +8,12 @@ export default () => {
   new Promise((resolve) => {
     Header()
       .then(() => Footer())
-      .then(() => Menkule.get("/advert/list"))
-      .then((adverts) => $("body").zone('content').setContentAsync(template({adverts})))
+      .then(() => Menkule.get("/adverts"))
+      .then((adverts) =>  adverts.length == 0 ?  $("body").zone('content').setContentAsync(appMessages('advert_not_found')) : $("body").zone('content').setContentAsync(template({adverts})))
       .catch(err => {
-        $("body").zone('content').setContentAsync(appMessages('error_advert_list'));
-        resolve();
+          $("body").zone('content').setContentAsync(appMessages('error_adverts'));
       });
+      resolve();
   })
 
 }

@@ -100,7 +100,7 @@ $.fn.applyRemote = function (url, options) {
           .html($(el).data("options").loadingText);
     }
     if ($(el).data("options").wait === true) return this;
-    Menkule[options.post ? 'post' : 'get']($(el).data("url"), $(el).data("options").post || undefined).then(data => {
+    Menkule[options.post ? 'post' : 'get']($(el).data("url") + ( $(el).data("options").urlPar ? '/' + $(el).data("options").urlPar : '' ) , $(el).data("options").post || undefined).then(data => {
         var templateData = {};
         templateData[$(el).data("options").resolve] = data;
         $(el)

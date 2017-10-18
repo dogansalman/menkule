@@ -12,7 +12,8 @@ export default (key) => {
         'advert_no_result': "<div class='col-xs-12'> <h2>Sonuç bulunamadı</h2> <p> Üzgünüz aradığınız bölge için bir ilan kaydı bulunmamakta. </p> </div>",
 
         //adverts
-        'error_advert_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz bir kayıt bulunamamakta!</h2> <p>Henüz bir ilan kaydınız bulunmamaktadır. </p> </div></div>",
+        'advert_not_found': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz bir kayıt bulunamamakta!</h2> <p>Henüz bir ilan kaydınız bulunmamaktadır. </p> </div></div>",
+        'error_adverts': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Bir sorun oldu!</h2> <p>İlanlarınız listelenemedi. Daha sonra tekrar deneyin. </p> </div></div>",
         'error_advert_detail': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Üzgünüz. Bir sorun oluştu !</h2> <p>İlan detaylarına erişim sağlanmamaktadır. Bunun nedeni ilan size ait olmayabilir veya ilan kaydı silinmiş olabilir. </p> </div></div>",
         'feedback_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> bildiriminiz iletilemedi. Lütfen tekrar deneyin. </div>",
 
@@ -21,7 +22,8 @@ export default (key) => {
         'error_message_detail': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Üzgünüz. Bir sorun oluştu !</h2> <p>Mesaj detaylarına erişim sağlanmamaktadır. Bunun nedeni mesaj size ait olmayabilir veya mesaj kaydı silinmiş olabilir. </p> </div></div>",
         'message_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Mesajınız iletilemedi. </div>",
         //alerts
-        'error_alert_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz Yeni bildiriminiz bulunamamakta!</h2> <p>Henüz bir bildirim kaydınız bulunmamaktadır. </p> </div></div>",
+        'alert_not_found': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz Yeni bildiriminiz bulunamamakta!</h2> <p>Henüz bir bildirim kaydınız bulunmamaktadır. </p> </div></div>",
+        'error_alert_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Bir sorun oldu!</h2> <p>Bildirimleriniz listelenemedi. Daha sonra tekrar deneyin. </p> </div></div>",
 
         //comments
         'no_comments': "<div class='col-xs-12 disable_padding'> <h2>Henüz bir yorum bulunmamakta!</h2> <p>İlk yorum yapan siz olun!</p> </div>",

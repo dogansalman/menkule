@@ -7,10 +7,12 @@ import alerts from '../alerts';
 
 export default() => {
   return new Promise((resolve) => {
+    let alertList = [];
     Header()
       .then(() => Footer())
       .then(() => Menkule.get('/notifications'))
-      .then((alertList) => $("body").zone('content').setContentAsync(template({alerts: alertList})))
+        .do(a => alertList = a)
+      .then((alertList) => alertList.length > 0 ?  $("body").zone('content').setContentAsync(template({alerts: alertList})) : $("body").zone('content').setContentAsync(appMessages('alert_not_found')) )
       .then((template) => {
         //select click
         template.find(".alert-check").on("click", (e) => {
