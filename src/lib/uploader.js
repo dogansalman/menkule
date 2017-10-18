@@ -131,7 +131,7 @@ const uploader2 = new uploader();
         if (!checkImage(image)) return false;
         //add to image list
         App.showPreloader(0.8)
-            .then(() => Menkule.post("/users/photo", image))
+            .then(() => Menkule.post("/user/photo/upload", image))
             .then((data) => {
                 $("#uploader").val('');
                 //create events and fire
