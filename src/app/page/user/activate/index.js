@@ -19,7 +19,7 @@ export default (params) => Header()
                 .then(activationForm => {
                     App.showPreloader(.7)
                         .then(() => {
-                            Menkule.post("/user/active/gsm", {"code": activationForm.code })
+                            Menkule.post("/users/approve/gsm", {"code": activationForm.code })
                                 .then(() => App.hidePreloader())
                                 .then(() => App.notifySuccess('Üyeliğiniz aktif edildi.', 'Teşekkürler'))
                                 .then(() => App.wait(3000))
@@ -37,12 +37,12 @@ export default (params) => Header()
         template.find('button.resend').on('click', (e) => {
             App.showPreloader()
                 .then(() => {
-                    Menkule.get("/user/gsm/resend", {})
+                    Menkule.get("/users/validate/gsm/send", {})
                         .then(() =>  App.hidePreloader())
                         .then(() => App.notifySuccess('Aktivasyon kodu tekrar iletilmiştir.', 'Tamam'))
-                        .catch((err) =>{
-                            App.hidePreloader();
-                            App.notifyDanger(JSON.parse(err.responseText)['message'], 'Üzgünüz')
+                        .catch((err) => {
+                            App.hidePreloader()
+                                .then(o => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'));
                         });
                 });
         });

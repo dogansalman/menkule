@@ -28,7 +28,7 @@ export default () => {
           template.formFields().disable();
             template.showPreloader(.7)
             .then(() =>  template.validateFormAsync(forgotFormsRules))
-            .then((forgotForm) => Menkule.post('/user/forgot', { 'email': forgotForm.email }))
+            .then((forgotForm) => Menkule.post('/users/password/forgot', { 'email': forgotForm.email }))
             .then(() => template.hidePreloader())
             .then(() => openedModal.modal('hide'))
             .then(() => App.notifySuccess('Şifreniz eposta adresinize iletilmiştir.', ''))

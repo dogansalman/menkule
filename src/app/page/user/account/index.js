@@ -22,7 +22,7 @@ export default () => Header()
 
         //photo upload
         template.find(".photoadd").on('change.photo', function (e) {
-            template.find(".profile_photo").attr("src", Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" + e.photo['result']);
+            template.find(".profile_photo").attr("src", Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" + e.photo.url);
         });
 
         //change password
@@ -40,7 +40,7 @@ export default () => Header()
 
             template.find(".account-container").validateFormAsync(userFormRules)
                 .then((userData) => App.showPreloader(userData, .7))
-                .then((userData) => Menkule.post('/user/update', userData))
+                .then((userData) => Menkule.put('/users', userData))
                 .then(() => App.hidePreloader())
                 .then(() => App.notifySuccess('Profiliniz güncellendi', 'Tamam'))
                 .then(() => {
@@ -49,14 +49,12 @@ export default () => Header()
                   $(e.target).enable().text('Tamam');
                 })
                 .catch((response) => {
+                    console.log(response);
                     $(e.target).enable().text('Tamam');
                     template.find(".account-container").formFields().enable();
                     if (response instanceof ValidateError) return $(response.fields[0]).select();
                     App.hidePreloader()
-                        .then(() => App.parseJSON(response.responseText))
-                        .then(result => App.notifyDanger(result.message, 'Üzgünüz'))
-                        .catch(err => App.notifyDanger(response.responseText, 'Üzgünüz'));
-
+                        .then(() => App.notifyDanger(response.responseJSON.Message, 'Üzgünüz'));
                 });
         });
       resolve();

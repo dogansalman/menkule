@@ -26,12 +26,12 @@ export default () => {
                     .validateFormAsync(contactFormRules)
                     .then(contactForm => {
                         App.showPreloader(.7)
-                            .then(() => Menkule.post('/other/contact', contactForm))
+                            .then(() => Menkule.post('/contact', contactForm))
                             .then(() => App.hidePreloader())
                             .then(() => App.notifySuccess('Mesajınız iletildi', 'Teşekkürler'))
                             .then(() => App.promise(() => $(".contactpage-container").clearForm()))
                             .catch((err) => {
-                                App.hidePreloader().then(() => App.notifyDanger(JSON.parse(err.responseText)['message'], 'Uzgünüz'));
+                                App.hidePreloader().then(() => App.notifyDanger(err.responseJSON.Nessage, 'Uzgünüz'));
                             });
                     })
             });

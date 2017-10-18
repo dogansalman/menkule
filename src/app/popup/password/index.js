@@ -28,7 +28,7 @@ import appMessages from '../../../lib/appMessages';
 
             template.showPreloader(.7)
               .then((data) => $(".changepassword-container").validateFormAsync(passwordFormRules))
-              .then((formData) => Menkule.post('/user/password', formData))
+              .then((formData) => Menkule.put('/users/password/reset', formData))
               .then(() => {
                 openedModal.modal('hide');
                 App.showNotify({ type: 'success', message: 'Şifreniz güncellendi', title: 'Tamam', icon: 'fa fa-bell-o' });

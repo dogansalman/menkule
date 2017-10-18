@@ -37,22 +37,19 @@ export default () => Header(false)
                   e.preventDefault();
                   $(e.target).disable();
                   $(".registercontainer").formFields().disable();
-
                   $(".registercontainer").validateFormAsync(registerFormRules)
                       .then(() => App.showPreloader(.7))
                       .then(() => $(".registercontainer").validateFormAsync(registerFormRules))
-                      .then((registerForm) => Menkule.post('/user/register', registerForm))
-                      .then(() => Menkule.post('/user/login', {email: $(".registercontainer").fieldValue('email'), password: $(".registercontainer").fieldValue('password')}))
-                      .then((result) => App.promise(() => Menkule.saveToken(result.result)))
+                      .then((registerForm) => Menkule.post('/users', registerForm))
+                      .then(() => Menkule.post('/auth/login', {username: $(".registercontainer").fieldValue('email'), password: $(".registercontainer").fieldValue('password'), grant_type: 'password'}, 'application/x-www-form-urlencoded'))
+                      .then((result) => App.promise(() => Menkule.saveToken(result.access_token)))
                       .then(() => App.navigate('/user/activate'))
                       .catch(err => {
                           $(e.target).enable();
                           $(".registercontainer").formFields().enable();
                           if (err instanceof ValidateError) return App.hidePreloader().then(() => $(err.fields[0]).select());
                           App.hidePreloader()
-                              .then(() => App.parseJSON(err.responseText))
-                              .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
-                              .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
+                              .then(o => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'));
                       });
               });
 

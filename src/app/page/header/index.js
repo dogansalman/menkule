@@ -137,7 +137,7 @@ export default (isOpen) => Menkule.user()
       e.preventDefault();
       let modal;
       Confirm({title: appMessages('ownership_confirm'), title: appMessages('ownership_title')}).do(m => modal = m)
-        .then(() => Menkule.post('/user/ownership'))
+        .then(() => Menkule.post('/users/approve/ownership'))
         .then(() => Menkule.user(true))
         .then(() => App.promise(() => modal.modal('hide')))
         .then(() => App.promise(() => App.emit('changed.header', true)))
