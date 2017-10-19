@@ -794,13 +794,20 @@ Search
     right: 10px;
     border-radius: 50%;
 }
+.search-cordi-btn:active,
+.search-cordi-btn:focus,
+.search-cordi-btn:focus:active,
+.search-cordi-btn:hover
+{
+    background: rgb(42, 161, 230);
+}
+
 .search-cordi-btn:before {
     content: "\e947";
     font-family: icomoon;
     z-index: -1;
     top: 0;
 }
-
 
 .advert-detail-map {} .search-result-icon i {
                         font-size: 18px;
