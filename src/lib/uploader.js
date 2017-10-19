@@ -34,10 +34,10 @@ const uploader2 = new uploader();
         for (var i in arr) {
             arr[i].is_default = false;
         }
-        var index = _.indexOf(arr, _.find(arr, {image_id: parseInt(id)}));
+        var index = _.indexOf(arr, _.find(arr, {id: parseInt(id)}));
         Object.assign(arr[index],{'is_default':true});
         $(container).find("div i").parent().remove();
-        $("div[data-id='" + arr[index].image_id  + "']").append($(default_icon));
+        $("div[data-id='" + arr[index].id  + "']").append($(default_icon));
     }
     function checkImageLimit() {
         return _.filter(uploader2.getImages(), function(i) { return i.hasOwnProperty('deleted')} ).length > maxImage ? false : true
@@ -47,9 +47,10 @@ const uploader2 = new uploader();
         //is deleted
         if(_.has(data, 'deleted')) return false;
 
-        var deleteImageBtn = $('<a href="#" id="' + data.image_id + '" class="delete-img-btn"></a>');
+        var deleteImageBtn = $('<a href="#" id="' + data.id + '" class="delete-img-btn"></a>');
 
         $(deleteImageBtn).on('click', (e) => {
+            console.log(e);
             e.preventDefault();
             let modal;
              Confirm({
@@ -57,15 +58,15 @@ const uploader2 = new uploader();
                 title: 'Emin misiniz ?'
              }).do(m => modal = m)
              .then(() => {
-                 findAndRemove('image_id', $(e.target).attr('id'));
+                 findAndRemove('id', $(e.target).attr('id'));
                  modal.modal('hide');
              })
-             .catch(() => console.log(''))
+             .catch((err) => console.log(err))
 
 
         });
-        var imageContainer = $('<div data-id="' + data.image_id + '"class="col-xs-6 col-sm-3 col-md-3 disable_padding" style=" width:125px; margin:10px 10px 10px 0px; max-height: 100px; overflow: hidden; display: inline-block; position: relative;"></div>');
-        var image = $('<img style="width:100%; max-height: 150px !important; overflow: hidden; cursor:pointer;" src=' + Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" +  data.url + ' id="' + data.image_id  + '"/>');
+        var imageContainer = $('<div data-id="' + data.id + '"class="col-xs-6 col-sm-3 col-md-3 disable_padding" style=" width:125px; margin:10px 10px 10px 0px; max-height: 100px; overflow: hidden; display: inline-block; position: relative;"></div>');
+        var image = $('<img style="width:100%; max-height: 150px !important; overflow: hidden; cursor:pointer;" src=' + Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" +  data.url + ' id="' + data.id  + '"/>');
 
         $(image).on('click', (e) => {
             e.preventDefault();
@@ -110,7 +111,7 @@ const uploader2 = new uploader();
         if (!checkImage(image)) return false;
         //add to image list
         App.showPreloader(0.8)
-            .then(() => Menkule.post("/photo/upload", image))
+            .then(() => Menkule.post("/adverts/photo", image))
             .then((data) => {
                 appendFile(data);
                 renderImages();
@@ -198,7 +199,7 @@ const uploader2 = new uploader();
     };
     //Add Images
     function appendFile(image) {
-      imageList.push(Object.assign(image, {'new':true}));
+      imageList.push(Object.assign(image, {'is_new':true}));
     };
     //add empty message
     function setEmptyMessage () {
@@ -212,7 +213,7 @@ const uploader2 = new uploader();
       array.forEach(function (result, index) {
         if (result[property] === parseInt(value)) {
           $("div[data-id='" + value + "']").remove();
-          if(array[index].hasOwnProperty('is_default')) changeDefault(array[0].image_id);
+          if(array[index].hasOwnProperty('is_default')) changeDefault(array[0].id);
           //Remove from array
           Object.assign(array[index],{'deleted':true,'is_default': false})
         }

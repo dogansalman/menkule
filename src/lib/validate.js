@@ -23,8 +23,6 @@ $.fn.fieldValue = function (key) {
           case 'checkbox':
             return value = this.checked ? (this.value == 'on' || this.value == true ? true : false) : false
           case 'radio':
-          //$('body').find("input[name=adverttype]:checked").val()
-          //return value = this.checked ? (this.value == 'on' || this.value == true ? true : false) : false
           default:
             return value = this.value;
         }
@@ -41,7 +39,6 @@ $.fn.formFields = function (key){
 
 $.fn.validateFormAsync = function(rules) {
   return (function (target, rules) {
-
     return new Promise((resolve, reject) => {
       var formElements = {};
       $(target).find('[data-form-element]').each(function () {
@@ -51,6 +48,8 @@ $.fn.validateFormAsync = function(rules) {
       });
       var formValues = {};
       var errorFields = [];
+
+
       Object.keys(formElements).forEach(name => {
         var value = formValues[name] = $(formElements[name]).fieldValue();
         if (!rules.hasOwnProperty(name)) return;
@@ -66,6 +65,20 @@ $.fn.validateFormAsync = function(rules) {
       });
 
       if (errorFields.length > 0) return reject(new ValidateError(errorFields));
+
+      if (rules.hasOwnProperty('group') && rules.group instanceof Array) {
+          rules.group.forEach((g) => {
+              var group = {};
+              group[g.name] = {};
+              g.elements.forEach((e) => {
+                  var elmnt = {};
+                  elmnt[e] = formValues[e];
+                  Object.assign(group[g.name],elmnt);
+                  delete formValues[e];
+              });
+              Object.assign(formValues, group);
+          });
+      }
       resolve(formValues)
     });
 

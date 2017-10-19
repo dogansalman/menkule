@@ -6,7 +6,6 @@ import templatee from './advert.handlebars';
 import avaiableDates from './availableDate.handlebars';
 import calendar from '../../../popup/calendar';
 
-
 /*
 Validate
  */
@@ -26,11 +25,21 @@ var advertRules = {
   'room': [App.validate.REQUIRED, App.validate.NUMBER],
   'price': [App.validate.REQUIRED, App.validate.PRICE],
   'hall': [App.validate.REQUIRED, App.validate.NUMBER],
+  'group': [
+      {
+          name: 'properties',
+          elements: ['visitor', 'bathroom', 'm2', 'beds', 'bedroom', 'build_age', 'floor', 'room', 'hall']
+      },
+      {
+          name: 'possibility',
+          elements: ['internet', 'air', 'tv', 'requiments', 'heat', 'kitchen', 'gym', 'elevator', 'jacuzzi', 'smoke', 'pet']
+      }
+  ],
   'map': function(value) {
     return (value != null);
   },
   'photos': function(value) {
-    return (value != null && value.filter(i => !i.deleted).length > 5 );
+    return (value != null && value.filter(i => !i.deleted).length > 0 );
   }
 };
 
@@ -53,13 +62,14 @@ export default (params) => {
     Header()
       .then(() => Footer())
       .if((params), () => Menkule.get("/adverts/" + params.id).do(a => advert = a))
-      .then(() => $("body").zone('content').setContentAsync(templatee({advert: advert})).do(t => template = t))
+      .then(() => $("body").zone('content').setContentAsync(templatee(advert)).do(t => template = t))
       .then(() => template.find("#map").createMap({scroll:true}))
       .then(() => {
+
        /*
         Notify advert state
         */
-        if (advert.id && !advert.state) App.notifyDanger('İlanınız onay için incelenmektedir.', 'Onay Bekleniyor');
+        if (advert.advert.id && !advert.advert.state) App.notifyDanger('İlanınız onay için incelenmektedir.', 'Onay Bekleniyor');
 
         /*
         Advert avaiable date add to list
@@ -80,10 +90,10 @@ export default (params) => {
                 .then(() => App.promise(() => $("body").zone('dateselect-container')[0].dispatchEvent((new CustomEvent('selected.date', { detail: dateList})))))
         });
 
-          /*
+        /*
          Render avaiable dates
           */
-          $("body").zone('dateselect-container')[0].addEventListener("selected.date", function(e) {
+        $("body").zone('dateselect-container')[0].addEventListener("selected.date", function(e) {
 
               $("body").zone('dateselect-container').setContentAsync( avaiableDates({dates: e.detail}))
                   .then((listTemplate) => {
@@ -99,7 +109,7 @@ export default (params) => {
                   });
           });
 
-          /*
+        /*
           Get my location select city and town
            */
         template.find("button.search-cordi-btn").on('click', (e) => {
@@ -138,12 +148,12 @@ export default (params) => {
         /*
         Set center latitude longitude
          */
-        if (advert.id) template.find("#map").centerTo({
-          'lat': advert.latitude,
-          'lng': advert.longitude
-        }).zoom(advert.zoom).addMarker({
-          'lat': advert.latitude,
-          'lng': advert.longitude
+        if (advert.advert.id) template.find("#map").centerTo({
+          'lat': advert.advert.latitude,
+          'lng': advert.advert.longitude
+        }).zoom(advert.advert.zoom).addMarker({
+          'lat': advert.advert.latitude,
+          'lng': advert.advert.longitude
         });
 
         //check marker location
@@ -159,34 +169,32 @@ export default (params) => {
               }
             })
         });
-
-
+          
         /*
         Advert types
          */
-
-          $("body").zone('adverttypes')
-          .applyRemote('/advert/types', {
+        $("body").zone('adverttypes')
+         .applyRemote('/advert/types', {
             resolve: "types",
             wait: false,
             loadingText: "Lütfen bekleyin.",
             extraData: {
-              advert_type_id: advert.advert_type_id || 0
+              advert_type_id: advert.advert.advert_type_id || 0
             }
           });
 
-         /*
+        /*
            City & town selector
           */
-          template.formFields('town_id')
-          .disable()
-          .on('rendered.template', (e) => $(e.target).enable().trigger("change", e))
-          .applyRemote('/cities', {
+        template.formFields('town_id')
+         .disable()
+         .on('rendered.template', (e) => $(e.target).enable().trigger("change", e))
+         .applyRemote('/cities', {
             resolve: "towns",
             wait: true,
             loadingText: "<option>İl seçiniz</option>",
             extraData: {
-              townId: advert.town_id || 0
+              townId: advert.advert.town_id || 0
             }
           });
 
@@ -208,7 +216,7 @@ export default (params) => {
           .applyRemote('/cities', {
             resolve: "cities",
             extraData: {
-              cityId: advert.city_id || 0
+              cityId: advert.advert.city_id || 0
             }
           });
 
@@ -216,14 +224,14 @@ export default (params) => {
         Change map on town select
         */
         template.formFields('town_id').on("change", (e, a) => {
-          if (a && advert.id) return;
+          if (a && advert.advert.id) return;
           var city = template.formFields('city_id')[0].value ? template.formFields('city_id')[0].selectedOptions.item(0).text : "Türkiye";
           if (city != "Türkiye" && e.target.value) city = city + " " + e.target.selectedOptions.item(0).text;
           var zoom = (city == "Türkiye") ? 6 : (e.target.value ? 15 : 10);
           Gmap.getLatLgn(city).then(coords => template.find("#map").centerTo(coords).zoom(zoom));
         });
 
-       /*
+        /*
        Update or Create
         */
         template.find('button.update').on('click', (e) => {
@@ -233,41 +241,40 @@ export default (params) => {
           template.find(".advert-detail").validateFormAsync(advertRules)
             .then((advert) => App.showPreloader(advert, .7))
             .then((advert) => {
-
-                console.log(advert);
-                return;
-              Menkule.post(advert.id ? '/advert/update' : '/advert/create', uploader.getImages() == null ? _.omit(Object.assign(advert, advert.map[0], {
-                'available_date': dateList
+              const advertData = uploader.getImages() == null ? _.omit(Object.assign(advert, advert.map[0], {
+                    'available_date': dateList
               }), ['map', 'marker', 'toVal']) : Object.assign(_.omit(Object.assign(advert, advert.map[0]), ['map', 'marker', 'toVal']), {
-                'images': uploader.getImages()
+                    'images': uploader.getImages()
               }, {
-                'available_date': dateList
-              }))
+                    'available_date': dateList
+              });
+
+              Menkule.request((advert.id ? 'PUT' : 'POST'), '/adverts' + (advert.id ? '/' + advert.id : ''), advertData, 'application/json;charset=utf-8')
                 .then(() => App.hidePreloader())
                 .then(() => {
                   App.notifySuccess('İlanınız kaydedildi.', 'Tamam');
                   $(e.target).enable();
                   $(".advert-detail").formFields().enable();
-                  if (!advert.id) App.wait(2000).then(() => App.navigate('/user/advert/list'));
+                  if (!advert.id) App.wait(2000).then(() => App.navigate('/user/adverts'));
                 });
-            }).catch((err) => {
-
-            $(e.target).enable();
-            $(".advert-detail").formFields().enable();
-            if (err instanceof ValidateError) {
-              if (err.fields[0].id == "map") return App.notifyDanger('lütfen ilanınızın konumunu işaretleyin.', 'Üzgünüz');
-              if(err.fields[0].hasAttribute('data-form-element')) return App.notifyDanger('İlanınızın yayınlanabilmesi için lütfen en az <b>6</b> görsel yükleyin.', 'Üzgünüz');
-              return App.hidePreloader().then(() => $(err.fields[0]).focus());
-            }
-            if (err instanceof Error) return App.hidePreloader().then(() => App.notifyDanger(err.message));
-            App.hidePreloader()
-              .then(() => App.parseJSON(err.responseText))
-              .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
-              .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
+            })
+            .catch((err) => {
+                $(e.target).enable();
+                $(".advert-detail").formFields().enable();
+                if (err instanceof ValidateError) {
+                  if (err.fields[0].id == "map") return App.notifyDanger('lütfen ilanınızın konumunu işaretleyin.', 'Üzgünüz');
+                  if(err.fields[0].hasAttribute('data-form-element')) return App.notifyDanger('İlanınızın yayınlanabilmesi için lütfen en az <b>6</b> görsel yükleyin.', 'Üzgünüz');
+                  return App.hidePreloader().then(() => $(err.fields[0]).focus());
+                }
+                if (err instanceof Error) return App.hidePreloader().then(() => App.notifyDanger(err.message));
+                App.hidePreloader()
+                  .then(() => App.parseJSON(err.responseText))
+                  .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
+                  .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
           });
         });
 
-       /*
+        /*
        Delete
         */
         template.find('button.delete').on('click', (e) => {
@@ -277,13 +284,11 @@ export default (params) => {
           })
             .then(() => {
               App.showPreloader(.7)
-                .then(() => Menkule.post('/advert/delete', {
-                  advertId: params.id
-                }))
+                .then(() => Menkule.delete('/adverts/' + advert.advert.id))
                 .then(() => App.hidePreloader())
                 .then(() => App.notifySuccess('İlan kaydınız silindi.', 'Tamam'))
                 .then(() => App.wait(1500))
-                .then(() => App.navigate('/user/advert/list'))
+                .then(() => App.navigate('/user/adverts'))
                 .catch((err) => {
                   App.parseJSON(err.responseText)
                     .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))

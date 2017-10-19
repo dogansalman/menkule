@@ -60,47 +60,47 @@
                         <h2>Olanaklar</h2>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="internet" id="internet" {{#if advert.possibility.internet}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="internet" id="internet" {{#if possibilities.internet}} checked {{/if}} type="checkbox" />
                         <label for="internet">İnternet</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="air" id="air" {{#if advert.possibility.air}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="air" id="air" {{#if possibilities.air}} checked {{/if}} type="checkbox" />
                         <label for="air">Klima</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="tv" id="tv" {{#if advert.possibility.tv}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="tv" id="tv" {{#if possibilities.tv}} checked {{/if}} type="checkbox" />
                         <label for="tv">Tv</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="requiments" id="requiments" {{#if advert.possibility.requiments}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="requiments" id="requiments" {{#if possibilities.requiments}} checked {{/if}} type="checkbox" />
                         <label for="requiments">Temel İhtiyaçlar</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="heat" id="heat" {{#if advert.possibility.heat}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="heat" id="heat" {{#if possibilities.heat}} checked {{/if}} type="checkbox" />
                         <label for="heat">Isınma</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="kitchen" id="kitchen" {{#if advert.possibility.kitchen}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="kitchen" id="kitchen" {{#if possibilities.kitchen}} checked {{/if}} type="checkbox" />
                         <label for="kitchen">Mutfak</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="gym" id="gym" {{#if advert.possibility.gym}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="gym" id="gym" {{#if possibilities.gym}} checked {{/if}} type="checkbox" />
                         <label for="gym">Spor Salonu</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="elevator" id="elevator" {{#if advert.possibility.elevator}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="elevator" id="elevator" {{#if possibilities.elevator}} checked {{/if}} type="checkbox" />
                         <label for="elevator">Asansör</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="jacuzzi" id="jacuzzi" {{#if advert.possibility.jacuzzi}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="jacuzzi" id="jacuzzi" {{#if possibilities.jacuzzi}} checked {{/if}} type="checkbox" />
                         <label for="jacuzzi">Jakuzi</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="smoke" id="smoke" {{#if advert.possibility.smoke}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="smoke" id="smoke" {{#if possibilities.smoke}} checked {{/if}} type="checkbox" />
                         <label for="smoke">Sigara İçilebilir</label>
                     </div>
                     <div class="checkbox checkbox-info">
-                        <input data-form-element="pet" id="pet" {{#if advert.possibility.pet}} checked {{/if}} type="checkbox" />
+                        <input data-form-element="pet" id="pet" {{#if possibilities.pet}} checked {{/if}} type="checkbox" />
                         <label for="pet">Evcil Hayvan Kabul Edilebilir.</label>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <h3>Misafir Kapasitesi (Maks)</h3>
-                {{#select advert.properties.visitor}}
+                {{#select properties.visitor}}
                 <select data-form-element="visitor" class="form-control">
                     {{#times 15}}
                     <option value="{{this}}">{{this}} Kişi</option>
@@ -127,7 +127,7 @@
             </div>
             <div class=" col-xs-12 col-sm-12 col-md-6">
                 <h3>Banyo Sayısı</h3>
-                {{#select advert.properties.bathroom}}
+                {{#select properties.bathroom}}
                 <select data-form-element="bathroom" class="form-control">
                     {{#times 5}}
                     <option value="{{this}}">{{this}} Banyo</option>
@@ -138,13 +138,13 @@
             <div class=" col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                     <h3>Metrekare</h3>
-                    <input data-form-element="m2" type="text" value="{{advert.properties.m2}}" class="form-control" placeholder="Menkul kaydı kaç metrekare" />
+                    <input data-form-element="m2" type="text" value="{{properties.m2}}" class="form-control" placeholder="Menkul kaydı kaç metrekare" />
                 </div>
             </div>
             <div class=" col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                     <h3>Yatak Sayısı</h3>
-                    {{#select advert.properties.beds}}
+                    {{#select properties.beds}}
                     <select data-form-element="beds" class="form-control">
                         {{#times 7}}
                         <option value="{{this}}">{{this}} Yatak</option>
@@ -157,7 +157,7 @@
                 <div class="form-group">
                     <h3>Yatak Odası</h3>
                     <select data-form-element="bedroom" class="form-control">
-                        {{#select advert.properties.bedroom}}
+                        {{#select properties.bedroom}}
                         {{#times 7}}
                         <option value="{{this}}">{{this}} Yatak Odası</option>
                         {{/times}}
@@ -168,7 +168,7 @@
             <div class=" col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group">
                     <h3>Bina Yaşı</h3>
-                    {{#select advert.properties.build_age}}
+                    {{#select properties.build_age}}
                     <select data-form-element="build_age" class="form-control">
                         {{#times 9}}
                         <option value="{{this}}">{{this}}</option>
@@ -182,7 +182,7 @@
                 <div class="form-group">
                     <h3>Bulunduğu Kat</h3>
                     <select data-form-element="floor" class="form-control">
-                        {{#select advert.properties.floor}}
+                        {{#select properties.floor}}
                         <option value="0">Zemin Kat</option>
                         {{#times 20}}
                         <option value="{{this}}">{{this}}. Kat</option>
@@ -196,7 +196,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-5 disable_padding">
                     <div class="form-group">
                         <label class="advert_title_label">Oda Sayısı</label>
-                        {{#select advert.properties.room}}
+                        {{#select properties.room}}
                         <select data-form-element="room" class="form-control">
                             {{#times 7}}
                             <option value="{{this}}">{{this}} Oda</option>
@@ -209,7 +209,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-6 disable_padding">
                     <div class="form-group">
                         <label class="advert_title_label">Salon</label>
-                        {{#select advert.properties.hall}}
+                        {{#select properties.hall}}
                         <select data-form-element="hall" class="form-control">
                             {{#times 7}}
                             <option value="{{this}}">{{this}} Salon</option>
