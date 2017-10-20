@@ -64,6 +64,8 @@ export default (params,  query = location.href) => {
 
                 Menkule.post('/search', latlng)
                     .then((adverts) => {
+
+
                         /*
                         Set default filtered_data
                          */
@@ -144,6 +146,8 @@ export default (params,  query = location.href) => {
                             .then(() => App.promise(() =>  new $.Event('re.slide', {adverts: adverts})))
                             .then((_e) => template.trigger(_e))
                     })
+                    .then(() => App.promise(() => globalAdverts.length === 0 ? false : true))
+                    .then((has_adverts) => !has_adverts ? reject(): null )
                     .catch(err => {
                         template.zone('advert-list').setContentAsync(appMessages('advert_no_result'))
                             .then(() => App.notifyDanger(appMessages('advert_no_result').clearHtml()))
@@ -353,6 +357,7 @@ export default (params,  query = location.href) => {
             });
         })
         .catch(err => {
+            console.log(err);
             template.zone('advert-list').setContentAsync(appMessages('advert_no_result'))
                 .then((data) => App.notifyDanger(data.clearHtml()))
                 .then(() => template.zone('adverts-slidelist').setContentAsync(''))

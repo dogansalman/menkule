@@ -2091,8 +2091,8 @@ newalerts-all:focus,
 }
 .head_logo img {
     float: left;
-    width: 80px;
-    margin: 5px 0px 0px 10px;
+    width: 32px;
+    margin: 3px 0px 0px 10px;
 }
 .head_menu {
     float: right
