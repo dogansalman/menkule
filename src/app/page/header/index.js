@@ -5,12 +5,16 @@ import Header from '../header';
 import Confirm from '../../popup/confirm';
 import appMessages from '../../../lib/appMessages';
 
-export default (isOpen) => Menkule.user()
-  .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen: isOpen || false })).then(header => new Promise(resolve => {
+let notifications = [];
 
-    // User is Logged
+export default (isOpen) => Menkule.user()
+  .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen: isOpen || false }))
+      .then(header => new Promise(resolve => {
+
+    // User Logged
     if (user) {
-      // TODO render
+
+      //TODO render not api support yet.
       // On new message
       Menkule.on('new.message', (message) => {
         App.promise(() => user.messages.findIndex(ms => ms.message_id == message.message_id))
@@ -24,7 +28,8 @@ export default (isOpen) => Menkule.user()
           }))
           .then((msg_temp) => $("body").zone('messages').setContentAsync(msg_temp));
       });
-      //TODO render
+
+
       // On new notification
       Menkule.on('new.notification', (notification) => {
             App.promise(() => user.notifications.push(notification))
@@ -62,12 +67,14 @@ export default (isOpen) => Menkule.user()
           .then(() => header.find('.alertlists').addClass('open'))
       });
 
-
+      //TODO render not api support yet.
       //render messages
       $("body").zone('messages').setContentAsync( messages({message: user.messages}));
 
-      //render notification
-      $("body").zone('alert').setContentAsync( alerts({alert: user.notifications}))
+      // Notifications
+      Menkule.get('/notifications/last/10').do(n => Object.assign(user, {notifications: n}))
+          .then((notifications) => $("body").zone('alert').setContentAsync( alerts({alert: notifications})));
+
 
       //On clicked notification
       header.find('.alertmessage-alert-title').on('click', (e) => {
@@ -84,6 +91,7 @@ export default (isOpen) => Menkule.user()
             .then(() => App.promise(() => Menkule.emit('change.notification')))
         }
       })
+
       //On clicked alert button
       header.find('.newalert-alert-btn').click(e => {
         App.isMobile()
