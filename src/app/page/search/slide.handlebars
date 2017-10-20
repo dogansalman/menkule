@@ -6,7 +6,7 @@
                 <a href="/advert/{{id}}">
                     <div class="col-xs-12 col-sm-12 col-md-12 map-result-image">
                         <div class="map-advertphoto">
-                            <img class="photoadvert" src="{{#image photo 400 250 }} {{/image}}"/>
+                            <img class="photoadvert" src="{{#image images.image.url 400 250 }} {{/image}}"/>
                         </div>
                         <div class="col-md-4 map-result-price">{{price}} TL</div>
                         <div class="map-result-profilecontainer hidden-xs hidden-sm text-center">
@@ -16,10 +16,10 @@
                     </div>
                     <div class="col-xs-12 advert-slide-footer">
                         <div class="col-xs-4 text-left">
-                            {{room}} + {{hall}} {{type}}
+                            {{properties.room}} + {{properties.hall}} {{advert_type.name}}
                         </div>
                         <div class="col-xs-8 text-right">
-                            <i class="fa fa-bed"></i> {{beds}} Yatak  / <i class="fa fa-users"></i> {{visitor}} Misafir
+                            <i class="fa fa-bed"></i> {{properties.beds}} Yatak  / <i class="fa fa-users"></i> {{properties.visitor}} Misafir
                         </div>
                     </div>
                 </a>

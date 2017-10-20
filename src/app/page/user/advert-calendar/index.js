@@ -13,7 +13,7 @@ export default () => {
 
         Header()
             .then(() => Footer())
-            .then(() => Menkule.get("/advert/list").do(a => adverts = a))
+            .then(() => Menkule.get("/adverts").do(a => adverts = a))
             .then(() => $("body").zone('content').setContentAsync(advertCalendar))
             .then((template) => {
 
@@ -41,12 +41,8 @@ export default () => {
                     });
                     if (typeof selectedAdvert == "undefined") selectedAdvert = adverts[0];
 
-                    template.zone('advert-selected').setContentAsync(_selectedAdvert({
-                        adverts: selectedAdvert
-                    }))
-                        .then((advert) => Menkule.post("/advert/detail", {
-                            'advertId': selectedAdvert.id
-                        }))
+                    template.zone('advert-selected').setContentAsync(_selectedAdvert(selectedAdvert))
+                        .then((advert) => Menkule.get("/adverts/" + selectedAdvert.advert.id))
                         .then((advert) => {
 
                             //get reserved date
@@ -77,14 +73,9 @@ export default () => {
                                 }
                             });
 
+
                             //render advert detail
-                            template.zone('selected-advert-detail').setContentAsync(advertDetail({
-                                advert: Object.assign(selectedAdvert, {
-                                    'total_reserved': reserved_dates.length
-                                }, {
-                                    'total_unavailable': unavailable_dates.length
-                                })
-                            }))
+                            template.zone('selected-advert-detail').setContentAsync(advertDetail(Object.assign(selectedAdvert, { 'total_reserved': reserved_dates.length }, { 'total_unavailable': unavailable_dates.length })))
                                 .then(() => {
                                     //upload event
                                     template.find('button.update').off('click').on('click', (e) => {
@@ -101,9 +92,7 @@ export default () => {
                                         }) : [];
                                         //post upload advert
                                         App.showPreloader(.7)
-                                            .then(() => Menkule.post('/advert/update', Object.assign(advert, {
-                                                'unavailable_date': unavailable_dates
-                                            })))
+                                            .then(() => Menkule.put('/dates/unavailable/' + advert.advert.id, unavailable_dates))
                                             .then(() => App.hidePreloader())
                                             .then(() => App.notifySuccess('İlanınız güncellendi.', 'Tamam'));
                                     })

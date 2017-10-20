@@ -62,7 +62,7 @@ export default (params,  query = location.href) => {
                     if (e['setcenter']) Gmap.getLatLgn(latlng.name).then(coords => template.find("#map").centerTo(coords).zoom(typeof e['zoom'] != typeof undefined ? parseInt(e['zoom']) : 12));
                 }
 
-                Menkule.post('/search/advert', latlng)
+                Menkule.post('/search', latlng)
                     .then((adverts) => {
                         /*
                         Set default filtered_data
@@ -80,6 +80,7 @@ export default (params,  query = location.href) => {
                             checkout: query.getParameterByName('checkout')
 
                         }, filtered_data || {});
+
                         adverts._advertFilter(filtered_data);
 
                         /*

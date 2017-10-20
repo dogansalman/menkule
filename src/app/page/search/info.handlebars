@@ -2,7 +2,7 @@
     <div id="{{id}}" class="advert-detail-map col-md-12 moffset2">
     <div class="col-xs-12 col-sm-12 col-md-12 disable_padding map-result-image">
         <div class="map-advertphoto">
-            <img class="photoadvert" src="{{#image photo 250 200 }} {{/image}}"/>
+            <img class="photoadvert" src="{{#image images.image.url 250 200 }} {{/image}}"/>
         </div>
         <div class="col-md-12 map-result-price">{{price}} TL</div>
     </div>
@@ -17,9 +17,9 @@
     <div class="col-xs-12  advert-detail-map-footer">
         <div class="col-xs-12 disable_padding advertbig-icons moffset1">
             <div>
-                <span class="badcount"><i class="fa fa-bed"></i><span>{{beds}} Yatak</span></span>
-                <span class="visitorcount"><i class="fa fa-users"></i> <span>{{visitor}} Misafir</span></span>
-                <span class="adverttype"><i class="fa fa-home"></i> <span>{{type}}</span></span>
+                <span class="badcount"><i class="fa fa-bed"></i><span>{{properties.beds}} Yatak</span></span>
+                <span class="visitorcount"><i class="fa fa-users"></i> <span>{{properties.visitor}} Misafir</span></span>
+                <span class="adverttype"><i class="fa fa-home"></i> <span>{{advert_type.name}}</span></span>
             </div>
         </div>
     </div>

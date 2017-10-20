@@ -3419,6 +3419,7 @@ Advert calendar
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
+    width: 100%;
 }
 #advert-list .list, .advert-selected{
   border: 1px solid #f9f9f9;

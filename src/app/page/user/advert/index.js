@@ -183,7 +183,7 @@ export default (params) => {
             wait: false,
             loadingText: "Lütfen bekleyin.",
             extraData: {
-              advert_type_id: advert ? advert.advert.advert_type_id : 0
+              advert_type_id: advert ? advert.advert_type.id : 0
             }
           });
 
@@ -198,7 +198,7 @@ export default (params) => {
             wait: true,
             loadingText: "<option>İl seçiniz</option>",
             extraData: {
-              townId: advert ? advert.advert.town_id : 0
+              townId: advert ? advert.town.id : 0
             }
           });
 
@@ -220,7 +220,7 @@ export default (params) => {
           .applyRemote('/cities', {
             resolve: "cities",
             extraData: {
-              cityId: advert ? advert.advert.city_id : 0
+              cityId: advert ? advert.city.id : 0
             }
           });
 

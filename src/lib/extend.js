@@ -204,17 +204,17 @@ Array.prototype._advertFilter = function(filter_option) {
   _.each(advertlist, function(advert, key) {
 
     //visitor
-    if (filter_option.hasOwnProperty('visitor')) { if (parseInt(advert.visitor) < parseInt(filter_option.visitor)) Object.assign(advert, {deleted : true});}
+    if (filter_option.hasOwnProperty('visitor')) { if (parseInt(advert.properties.visitor) < parseInt(filter_option.visitor)) Object.assign(advert, {deleted : true});}
 
     //beds
-    if (filter_option.hasOwnProperty('beds')) { if (parseInt(advert.beds) < parseInt(filter_option.beds)) Object.assign(advert, {deleted : true});}
+    if (filter_option.hasOwnProperty('beds')) { if (parseInt(advert.properties.beds) < parseInt(filter_option.beds)) Object.assign(advert, {deleted : true});}
 
     //room
-    if (filter_option.hasOwnProperty('room')) { if (parseInt(advert.room) < parseInt(filter_option.room)) Object.assign(advert, {deleted : true});}
+    if (filter_option.hasOwnProperty('room')) { if (parseInt(advert.properties.room) < parseInt(filter_option.room)) Object.assign(advert, {deleted : true});}
 
     //advert type
     if(filter_option.hasOwnProperty('advert_type_id') && filter_option.advert_type_id > 0 ) {
-     if (parseInt(advert.advert_type_id) !=  parseInt(filter_option.advert_type_id)) Object.assign(advert, {deleted : true});
+     if (parseInt(advert.advert_type.id) !=  parseInt(filter_option.advert_type_id)) Object.assign(advert, {deleted : true});
     }
     //price
     if(filter_option.hasOwnProperty('price') && filter_option.hasOwnProperty('price_type') && filter_option.price > 0 ) {
@@ -230,11 +230,11 @@ Array.prototype._advertFilter = function(filter_option) {
        if ( parseInt(advert.min_layover) > parseInt(moment(filter_option.checkout).diff(moment(filter_option.checkin),'day') + 1)  ) Object.assign(advert, {deleted : true});
      }
     //available date
-    if ((filter_option.hasOwnProperty('checkin') && filter_option.hasOwnProperty('checkout')) && advert.avaiabledate.length > 0) {
-        _.each(advert.avaiabledate, function(avaiabledate, key) {
+    if ((filter_option.hasOwnProperty('checkin') && filter_option.hasOwnProperty('checkout')) && advert.available_date.length > 0) {
+        _.each(advert.available_date, function(available_date, key) {
           if(!datem) {
-            var startDate = new Date(moment(avaiabledate.from_date)),
-            endDate   = new Date(moment(avaiabledate.to_date)),
+            var startDate = new Date(moment(available_date.from_date)),
+            endDate   = new Date(moment(available_date.to_date)),
             range = moment().range(startDate, endDate);
               for (var m = moment(filter_option.checkin); m.diff(moment(filter_option.checkout), 'days') <= 0; m.add(1, 'days')) {
                   var date = new Date(m);

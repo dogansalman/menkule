@@ -34,12 +34,12 @@
     {{{{raw-helper}}}}
         {{#each adverts}}
         <div data-index="{{@index}}" class="advert list col-xs-12">
-            <div class='col-xs-3 col-sm-2 col-md-2 photo'> <img alt='photo' src='{{#image photo 150 150 }} {{/image}}' /> </div>
+            <div class='col-xs-3 col-sm-2 col-md-2 photo'> <img alt='photo' src='{{#image image 150 150 }} {{/image}}' /> </div>
             <div class='col-xs-9 col-sm-10 col-md-10 detail'>
-                <a href='/user/advert/detail/{{id}}'>
+                <a href='/user/advert/{{advert.id}}'>
                     <div class='col-xs-12 col-sm-12 col-md-12 text'>
-                        <h2 class='title'> {{title}} </h2>
-                        <span class='location'> {{typename}}  {{city}} / {{town}} </span>
+                        <h2 class='title'> {{advert.title}} </h2>
+                        <span class='location'> {{advert_type.name}}  {{city.name}} / {{town.name}} </span>
                     </div>
                 </a>
             </div>
