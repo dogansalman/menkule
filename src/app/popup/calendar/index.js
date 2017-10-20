@@ -29,12 +29,11 @@ export default () => {
                  */
                 template.find('.acceptbtn').on('click', (e) => {
                     e.preventDefault();
-                    resolve( new DateRange(moment($('#calendar').val().split(" to ")[0].trim()), moment($('#calendar').val().split(" to ")[1].trim())));
+                    const selectedRange = $('#calendar').val().split(" to ");
+                    if(selectedRange.length < 2) return
+                    resolve( new DateRange(moment(selectedRange[0].trim()), moment(selectedRange[1].trim())));
                     openedModal.modal('hide');
                 }).button('loading');
             })
-
-
     })
-
 }

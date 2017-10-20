@@ -46,7 +46,7 @@ var advertRules = {
 /*
   Advert detail
  */
-let advert = {};
+let advert;
 /*
  Template
  */
@@ -66,35 +66,10 @@ export default (params) => {
       .then(() => template.find("#map").createMap({scroll:true}))
       .then(() => {
 
-       /*
-        Notify advert state
-        */
-        if (advert.advert.id && !advert.advert.state) App.notifyDanger('İlanınız onay için incelenmektedir.', 'Onay Bekleniyor');
-
-        /*
-        Advert avaiable date add to list
-         */
-        if(advert.available_date) {
-            advert.available_date.forEach(function(date, index) {
-                dateList.push(new DateRange(moment(date.from_date), moment(date.to_date)));
-            });
-        }
-
-        /*
-        Add avaiable dates
-         */
-        template.find('.daterangebtn').on('click', (e) => {
-            calendar()
-                .then((dateRange) => App.promise(() =>  dateList.push(dateRange)))
-                //TODO fix dispatchEvent console error.
-                .then(() => App.promise(() => $("body").zone('dateselect-container')[0].dispatchEvent((new CustomEvent('selected.date', { detail: dateList})))))
-        });
-
-        /*
-         Render avaiable dates
-          */
-        $("body").zone('dateselect-container')[0].addEventListener("selected.date", function(e) {
-
+          /*
+     Render avaiable dates
+      */
+          $("body").zone('dateselect-container')[0].addEventListener("selected.date", function(e) {
               $("body").zone('dateselect-container').setContentAsync( avaiableDates({dates: e.detail}))
                   .then((listTemplate) => {
                       /*
@@ -108,6 +83,46 @@ export default (params) => {
                       });
                   });
           });
+
+          /*
+           Advert exists
+           */
+          if(advert) {
+              /*
+               Notify advert state
+              */
+              if (advert.advert.state) App.notifyDanger('İlanınız onay için incelenmektedir.', 'Onay Bekleniyor');
+
+
+              /*
+               Advert avaiable date add to list
+              */
+              advert.available_date.forEach(function(date, index) {
+                  dateList.push(new DateRange(moment(date.from_date), moment(date.to_date)));
+              });
+              $("body").zone('dateselect-container')[0].dispatchEvent((new CustomEvent('selected.date', { detail: dateList})));
+
+              /*
+               Set center latitude longitude
+              */
+              template.find("#map").centerTo({
+                  'lat': advert.advert.latitude,
+                  'lng': advert.advert.longitude
+              }).zoom(advert.advert.zoom).addMarker({
+                  'lat': advert.advert.latitude,
+                  'lng': advert.advert.longitude
+              });
+          }
+
+        /*
+        Add avaiable dates
+         */
+        template.find('.daterangebtn').on('click', (e) => {
+            calendar()
+                .then((dateRange) => App.promise(() =>  dateList.push(dateRange)))
+                //TODO fix dispatchEvent console error.
+                .then(() => App.promise(() => $("body").zone('dateselect-container')[0].dispatchEvent((new CustomEvent('selected.date', { detail: dateList})))))
+        });
 
         /*
           Get my location select city and town
@@ -143,18 +158,7 @@ export default (params) => {
         /*
         Create uploader
          */
-        template.find('.uploader').createUploader(advert.images != null ? advert.images : null);
-
-        /*
-        Set center latitude longitude
-         */
-        if (advert.advert.id) template.find("#map").centerTo({
-          'lat': advert.advert.latitude,
-          'lng': advert.advert.longitude
-        }).zoom(advert.advert.zoom).addMarker({
-          'lat': advert.advert.latitude,
-          'lng': advert.advert.longitude
-        });
+        template.find('.uploader').createUploader(advert && advert.images != null ? advert.images : null);
 
         //check marker location
         template.find("#map").on('pin.map', function(e) {
@@ -179,7 +183,7 @@ export default (params) => {
             wait: false,
             loadingText: "Lütfen bekleyin.",
             extraData: {
-              advert_type_id: advert.advert.advert_type_id || 0
+              advert_type_id: advert ? advert.advert.advert_type_id : 0
             }
           });
 
@@ -194,7 +198,7 @@ export default (params) => {
             wait: true,
             loadingText: "<option>İl seçiniz</option>",
             extraData: {
-              townId: advert.advert.town_id || 0
+              townId: advert ? advert.advert.town_id : 0
             }
           });
 
@@ -216,7 +220,7 @@ export default (params) => {
           .applyRemote('/cities', {
             resolve: "cities",
             extraData: {
-              cityId: advert.advert.city_id || 0
+              cityId: advert ? advert.advert.city_id : 0
             }
           });
 
@@ -224,7 +228,7 @@ export default (params) => {
         Change map on town select
         */
         template.formFields('town_id').on("change", (e, a) => {
-          if (a && advert.advert.id) return;
+          if (a && advert) return;
           var city = template.formFields('city_id')[0].value ? template.formFields('city_id')[0].selectedOptions.item(0).text : "Türkiye";
           if (city != "Türkiye" && e.target.value) city = city + " " + e.target.selectedOptions.item(0).text;
           var zoom = (city == "Türkiye") ? 6 : (e.target.value ? 15 : 10);
