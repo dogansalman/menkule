@@ -63,7 +63,6 @@ export default (isOpen) => Menkule.user()
       });
 
 
-
       //render messages
       $("body").zone('messages').setContentAsync( messages({message: user.messages}));
 
@@ -115,7 +114,6 @@ export default (isOpen) => Menkule.user()
           })
       });
 
-
     }
 
     //Focusout close nav menu
@@ -133,6 +131,7 @@ export default (isOpen) => Menkule.user()
       e.preventDefault();
       App.Login().then((user) => App.emit('logged.user', user));
     });
+
     header.find('.ownerstart').click(e => {
       e.preventDefault();
       let modal;
@@ -148,13 +147,13 @@ export default (isOpen) => Menkule.user()
         })
     });
 
-
     header.find('.bigmenu_btn').click(e => {
       e.preventDefault();
       header.find('.rightbigmenu').toggleClass('bigmenu-open');
       $('body').toggleClass('open-bar');
 
     });
+
     header.find('.closebigmenu').click(e => {
       e.preventDefault();
       header.find(".rightbigmenu").removeClass("bigmenu-open");
@@ -164,7 +163,6 @@ export default (isOpen) => Menkule.user()
     resolve();
 
   })));
-
 
 App.on('logged.user', (user) => {
     App.emit('changed.header');

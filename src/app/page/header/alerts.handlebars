@@ -7,9 +7,7 @@
 <div class="alertlists hidden-xs hidden-sm">
     <div class="alertlist-maintitle">Bildirimler</div>
     <i class="alert-upper-arrow fa fa-caret-up"></i>
-    {{#zif alert.length '==' '0'}}
-    <p class="emptymsg">Yeni bir bildiriminiz bulunmamaktadır.</p>
-    {{else}}
+
     <ul>
         {{#each alert}}
         <li>
@@ -18,8 +16,9 @@
                 <div class='alertlist-title'> {{title}} <span class='alertlist-date'>{{date date "D MMMM YYYY, dddd"}} </span></div>
             </a>
         </li>
+        {{else}}
+            <p class="emptymsg">Yeni bir bildiriminiz bulunmamaktadır.</p>
         {{/each}}
     </ul>
-    {{/zif}}
     <a class="newalerts-all" href="/user/alerts">Tümü</a>
 </div>
