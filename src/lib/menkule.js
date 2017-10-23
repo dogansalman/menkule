@@ -1,15 +1,19 @@
 import io from 'socket.io-client';
 import EventEmitter from 'event-emitter';
+import * as jwt from 'jwt-simple';
 import config from './configs/config';
+
 
 // Private properties
 let socket = null;
 let token = window.localStorage.getItem("menkule_token") || null;
+let wsToken = window.localStorage.getItem("menkule_ws_token") || null;
 let loggedUser = null;
 let apiAddress = config().apiAdress;
 let socketAddress = config().socketAddress;
 let cloudinaryBaseUrl = config().cloudinaryBaseUrl;
 let nullImageUrl = config().nullImageUrl;
+let secretKey = config().secretKey;
 
 
 // Menkule Constructor
@@ -18,6 +22,7 @@ function Menkule(){
     this.socketAddress = config().socketAddress;
     this.cloudinaryBaseUrl = config().cloudinaryBaseUrl;
     this.nullImageUrl = config().nullImageUrl;
+    this.secretKey = config().secretKey;
 }
 
 //Extend from eventemmiter
@@ -64,23 +69,29 @@ Menkule.prototype.hasToken = function(){
 };
 Menkule.prototype.saveToken = function(t){
   window.localStorage.setItem("menkule_token", token = t);
-  this.startSocket();
+};
+Menkule.prototype.saveWsToken = function(user){
+    window.localStorage.setItem("menkule_ws_token", wsToken = jwt.encode(user, secretKey));
+    this.startSocket();
 };
 Menkule.prototype.removeToken = function(){
   this.stopSocket();
   window.localStorage.removeItem("menkule_token");
+  window.localStorage.removeItem("menkule_ws_token");
 };
 Menkule.prototype.getToken = function(){
     return token;
 };
-
+Menkule.prototype.getWsToken = function(){
+    return wsToken;
+};
 /*
 Sockets
  */
 
 Menkule.prototype.startSocket = function (){
   if (socket) return;
-  socket = io(socketAddress, {'query': 'token=' + token});
+  socket = io(socketAddress, {'query': 'token=' + wsToken});
   socket.on('notification', (notification) => this.emit('new.notification', notification));
   socket.on('message', (message) => this.emit('new.message', message));
 };

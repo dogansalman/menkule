@@ -2621,7 +2621,7 @@ Advert Detail
 }
 .details_container .detail_content_title {
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     color: #666;
     text-transform: uppercase;
     padding: 0px;
@@ -2725,7 +2725,8 @@ Advert Detail
 
 }
 .details_container .map {
-    margin-top: 20px
+    margin-top: 20px;
+    padding:0px;
 }
 .advert_owner_profile {
     margin-top: 10px
@@ -2794,8 +2795,12 @@ Advert Detail
     padding: 0!important
 }
 .details_container label {
-    font-weight: 300;
+    font-weight: 400;
     font-size: 13px;
+    background: #f1f1f1;
+    margin: 0px 5px 5px 0px;
+    padding: 1px;
+    color:#868686;
 }
 .details_container .detail_content_list span {
     font-weight: 300;
@@ -2809,7 +2814,6 @@ Advert Detail
     text-align: center;
     padding: 5px;
     font-size: 14px;
-    border-radius: 50%;
 }
 .detail_image {
     padding: 0px;
@@ -2887,9 +2891,9 @@ Advert Detail
 }
 .property-container {
     border-bottom: 1px solid #ececec;
-    font-size: 13px;
+    font-size: 14px;
     color: #666;
-    font-weight: 300;
+    font-weight: 400;
     margin: 5px 0px 0px 0px;
     padding: 0px 0px 5px 0px !important;
 }

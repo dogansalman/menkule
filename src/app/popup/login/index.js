@@ -27,7 +27,7 @@ export default () => {
                             Content.validateFormAsync(loginFormRules)
                                 .then((loginForm) => Menkule.post('/auth/login', Object.assign(loginForm, {grant_type: 'password'} ), 'application/x-www-form-urlencoded' ))
                                 .then((result) => App.promise(() => Menkule.saveToken(result.access_token)))
-                                .then(() => Menkule.user())
+                                .then(() => Menkule.user()).do((usr) => Menkule.saveWsToken(usr))
                                 .then((user) => Content.parents('.modal').modal('hide').promise().done(() => resolve(user)))
                                 .catch(err => {
                                     // If Validate Error
