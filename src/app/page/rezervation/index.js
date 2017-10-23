@@ -143,7 +143,7 @@ export default (params) => {
     return new Promise((resolve) => {
         Header()
             .then(() => Footer())
-            .then(() => Menkule.post('/search/advert/detail', {'advertId': params ? params.id : null}))
+            .then(() => Menkule.get('/adverts/find/' + params.id))
             .do(a => advert = a)
             .do(() => Object.assign(rezervation, {
                 checkin: location.href.getParameterByName('checkin'),

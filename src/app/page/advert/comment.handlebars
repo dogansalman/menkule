@@ -2,13 +2,13 @@
     <div class='col-xs-12 commentcontainer disable_padding moffset1'>
         <div class='col-xs-3 col-sm-3 col-md-2 disable_padding advert_comment_photo'>
             <div class='col-xs-12 disable_padding'>
-                <img class='comment-profileimg img-circle'  src='{{#image photo 150 150 }} {{/image}}'> <br/>
-                <span class='comment_profile_name'>{{fullname}}</span>
-                <span class='hidden-xs hidden-sm comment_date'>{{date date "D MMMM YYYY, dddd"}}</span></div>
+                <img class='comment-profileimg img-circle'  src='{{#image user.photo 150 150 }} {{/image}}'> <br/>
+                <span class='comment_profile_name'>{{user.fullname}}</span>
+                <span class='hidden-xs hidden-sm comment_date'>{{date comment.created_date "D MMMM YYYY, dddd"}}</span></div>
         </div>
         <div class='col-xs-9 col-sm-9 col-md-10 advert_comment'>
-            <p>{{comments}}</p>
-            <span>{{date date "D MMMM YYYY, dddd"}}</span>
+            <p>{{comment.comment}}</p>
+            <span>{{date comment.created_date "D MMMM YYYY, dddd"}}</span>
         </div>
     </div>
     <div style='clear: both;'></div>

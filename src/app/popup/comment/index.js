@@ -3,7 +3,7 @@ import appMessage from '../../../lib/appMessages';
 import comment from './comment.handlebars'
 
 const commentFormRules = {
-  comments: [App.validate.REQUIRED, App.validate.STRING]
+  comment: [App.validate.REQUIRED, App.validate.STRING]
 };
 
 export default (params) => {
@@ -24,7 +24,7 @@ export default (params) => {
           template.showPreloader(.7)
             .then(() => {
               template.validateFormAsync(commentFormRules)
-                .then((cmt) => Menkule.post("/comments/add", Object.assign(cmt, {advert_id: params.id})))
+                .then((cmt) => Menkule.post("/comments", Object.assign(cmt, {advert_id: params.id})))
                 .then(() => App.promise(() => openedModal.modal('hide')))
                 .then(() => App.notifySuccess('Yorumunuz için teşekkürler.', ''))
                 .catch(err => {

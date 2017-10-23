@@ -91,8 +91,7 @@ export default (params) => {
               /*
                Notify advert state
               */
-              if (advert.advert.state) App.notifyDanger('İlanınız onay için incelenmektedir.', 'Onay Bekleniyor');
-
+              if (!advert.advert.state) App.notifyDanger('İlanınız onay için incelenmektedir.', 'Onay Bekleniyor');
 
               /*
                Advert avaiable date add to list

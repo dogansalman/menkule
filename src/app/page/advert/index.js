@@ -32,22 +32,23 @@ export default (params) => {
 
         Header()
             .then(() => Footer())
-            .then(() => Menkule.post('/search/advert/detail', { 'advertId': params ? params.id : null }))
+            .then(() => Menkule.get('/adverts/find/' + params.id))
             .do(a => advert = a)
             .do(() =>  Object.assign(advert, {loggin: Menkule.hasToken()}))
             .then((advert) => $("body").zone('content').setContentAsync(Advert(advert)))
             .then((template) => {
+
 
                 /*
                 Inıt Gmap
                  */
                 template.find("#map").createMap({scroll: true});
                 template.find("#map").centerTo({
-                    'lat': advert.latitude,
-                    'lng': advert.longitude
+                    'lat': advert.advert.latitude,
+                    'lng': advert.advert.longitude
                 }).zoom(15).addMarker({
-                    lat: advert.latitude,
-                    lng: advert.longitude
+                    lat: advert.advert.latitude,
+                    lng: advert.advert.longitude
                 })
 
                 /*
@@ -87,18 +88,18 @@ export default (params) => {
                         if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event unavailable'></span>";
                     },
                     onChange: function(selectedDates, dateStr, instance) {
-                        template.zone('total_price').setContentAsync(Price({ total: selectedDates.length == 2 ? ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1) * advert.price) : advert.price, day: selectedDates.length, day_price: advert.price }));
+                        template.zone('total_price').setContentAsync(Price({ total: selectedDates.length == 2 ? ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1) * advert.advert.price) : advert.advert.price, day: selectedDates.length, day_price: advert.advert.price }));
                     },
                     onReady: function(dateObj, dateStr, instance) {
                         //render price detail default
-                        template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.price}))
+                        template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price}))
 
                         //add document clear date event
                         $('.flatpickr-calendar').each(function() {
                             var $this = $(this);
                             document.addEventListener("onDateChange", function(e) {
                                 App.promise(() => instance.clear() && instance.close())
-                                    .then((data) => template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.price})))
+                                    .then((data) => template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price})))
                             });
                         });
                     }
@@ -121,7 +122,7 @@ export default (params) => {
                             var checkin = d.date.split(' to ')[0].trim();
                             var checkout =  d.date.split(' to ')[1].trim();
                             var days =  moment(checkout).diff(moment(checkin),'days')+1
-                            var total = advert.price * days
+                            var total = advert.advert.price * days
                             App.navigate('/rezervation/' + params.id, {'checkin':checkin, 'checkout':checkout, 'days':days, 'total': total});
                         })
                         .catch((e) =>
@@ -171,7 +172,7 @@ export default (params) => {
                             score: dataScore
                         }))
                         .then(() => App.notifySuccess('Değerlendirme puanınız uygulandı.', 'Teşekkürler.'))
-                        .then(() => App.promise(() => template.zone('currentscore').setContentAsync('(' + String(parseInt(_score) + parseInt(advert.score)) + ')')))
+                        .then(() => App.promise(() => template.zone('currentscore').setContentAsync('(' + String(parseInt(_score) + parseInt(advert.advert.score)) + ')')))
                         .catch((err) => {
                             if (err.status == 401) App.notifyDanger('Lütfen oturum açın.', 'Teşekkürler.');
                             else App.notifyDanger('Değerlendirme sadece bir kere uygulanabilir.', 'Üzgünüz.');
@@ -184,7 +185,7 @@ export default (params) => {
                  */
                 template.find('.feedback-btn').on('click', function(e) {
                   e.preventDefault();
-                  Feedback({id: advert.id});
+                  Feedback({id: advert.advert.id});
                 });
 
                 /*
@@ -192,7 +193,7 @@ export default (params) => {
                  */
                 template.find('.comment-btn').on('click', function(e) {
                   e.preventDefault();
-                  Comment({id: advert.id});
+                  Comment({id: advert.advert.id});
                   });
 
                 /*
@@ -201,8 +202,8 @@ export default (params) => {
                 template.find('.message-btn').on('click', function(e) {
                   e.preventDefault();
                   Message({
-                    fullname: advert.user_name + " " + advert.user_lastname,
-                    Id: advert.user_id
+                    fullname: advert.user.fullname,
+                    Id: advert.user.id
                   });
                 });
             })
@@ -212,7 +213,7 @@ export default (params) => {
        When user logged
         */
         App.on('logged.user', (user) => {
-            _Advert({id: advert.id});
+            _Advert({id: advert.advert.id});
         });
     })
 }

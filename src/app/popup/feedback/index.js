@@ -25,7 +25,7 @@ export default(params) => {
           template.showPreloader(.7)
             .then(() => {
               template.validateFormAsync(feedbackFormRules)
-                .then((fdbck) => Menkule.post("/advert/feedback", Object.assign(fdbck, {id: params.id})))
+                .then((fdbck) => Menkule.post("/feedbacks", Object.assign(fdbck, {id: params.id})))
                 .then(() => App.promise(() => template.modal('hide')))
                 .then(() => App.notifySuccess('Geri bildiriminiz iletilmiştir.', 'Teşekkürler.'))
                 .catch(err => {
