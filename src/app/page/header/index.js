@@ -33,11 +33,8 @@ export default (isOpen) => Menkule.user()
       // On new notification
       Menkule.on('new.notification', (notification) => {
             App.promise(() => user.notifications.push(notification))
-                .then(() => App.promise(() => user.alert_count = +1))
-                .then(() => App.renderTemplate(header.find('#alert-template').html(), {
-                    alert: user.notifications
-                }))
-                .then((msg_temp) => $("body").zone('alert').setContentAsync(msg_temp));
+                .then(() => App.promise(() => user.notification_size = +1))
+                .then(() => $("body").zone('alert').setContentAsync( alerts({alert: user.notifications})))
         });
 
       //On change notification
