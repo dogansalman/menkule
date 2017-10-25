@@ -213,7 +213,7 @@ export default (params) => {
        When user logged
         */
         App.on('logged.user', (user) => {
-            _Advert({id: advert.advert.id});
+            if(advert.advert.id) _Advert({id: advert.advert.id});
         });
     })
 }
