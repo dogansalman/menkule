@@ -249,7 +249,7 @@ export default (params) => {
 
 //Logged User
 App.on('logged.user', (usr) => {
-    if (!usr.new) {
+    if (!usr.new && advert.id) {
         _Rezervation({id: advert.id});
     }
 });
