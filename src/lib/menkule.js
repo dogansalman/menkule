@@ -72,7 +72,7 @@ Menkule.prototype.saveToken = function(t){
 };
 Menkule.prototype.saveWsToken = function(user){
     window.localStorage.setItem("menkule_ws_token", wsToken = jwt.encode(user, secretKey));
-    this.startSocket(user.id);
+    this.startSocket(user);
 };
 Menkule.prototype.removeToken = function(){
   this.stopSocket();
@@ -91,7 +91,7 @@ Sockets
 
 Menkule.prototype.startSocket = function (user){
   if (socket) return;
-  socket = io(socketAddress, {'query': 'user=' + user});
+  socket = io(socketAddress, {'query': 'user=' + user.id});
   socket.on('notification', (notification) => this.emit('new.notification', notification));
   socket.on('message', (message) => this.emit('new.message', message));
 };
