@@ -15,8 +15,6 @@ export default (options) => {
         modal({ template: confirmTemplate({message: options.message, title: options.title}), title: options.title, width: options.width})
             .then((template) => {
 
-
-
             //get opened modal
             const openedModal = template.parents('.modal');
 

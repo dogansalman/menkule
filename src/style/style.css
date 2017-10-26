@@ -2820,7 +2820,7 @@ Advert Detail
     height: 350px;
     overflow: hidden;
     background-size: 100% !important;
-    background-position: center;
+    background-position: left 50% !important;
     background-repeat: no-repeat !important;
 }
 .detail_image img {
@@ -3000,7 +3000,7 @@ Advert Detail
     }
     .detail_image {
         height: 185px;
-        background-position: initial;
+        background-position: initial !important;
     }
     .detail_image_container {
         min-height: 180px;

@@ -50,7 +50,6 @@ const uploader2 = new uploader();
         var deleteImageBtn = $('<a href="#" id="' + data.id + '" class="delete-img-btn"></a>');
 
         $(deleteImageBtn).on('click', (e) => {
-            console.log(e);
             e.preventDefault();
             let modal;
              Confirm({
@@ -62,8 +61,6 @@ const uploader2 = new uploader();
                  modal.modal('hide');
              })
              .catch((err) => console.log(err))
-
-
         });
         var imageContainer = $('<div data-id="' + data.id + '"class="col-xs-6 col-sm-3 col-md-3 disable_padding" style=" width:125px; margin:10px 10px 10px 0px; max-height: 100px; overflow: hidden; display: inline-block; position: relative;"></div>');
         var image = $('<img style="width:100%; max-height: 150px !important; overflow: hidden; cursor:pointer;" src=' + Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" +  data.url + ' id="' + data.id  + '"/>');

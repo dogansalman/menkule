@@ -12,6 +12,10 @@ export default(params) => {
   return new Promise((resolve) => {
     modal({template: feedback, title: 'Gerş bildirim', width: 450})
       .then((template) => {
+      //get opened modal
+      const openedModal = template.parents('.modal');
+
+
         /*
         Disable enter key
          */
@@ -25,11 +29,10 @@ export default(params) => {
           template.showPreloader(.7)
             .then(() => {
               template.validateFormAsync(feedbackFormRules)
-                .then((fdbck) => Menkule.post("/feedbacks", Object.assign(fdbck, {id: params.id})))
-                .then(() => App.promise(() => template.modal('hide')))
+                .then((fdbck) => Menkule.post("/feedbacks", Object.assign(fdbck, {advert_id: params.id})))
+                .then(() => App.promise(() => openedModal.modal('hide')))
                 .then(() => App.notifySuccess('Geri bildiriminiz iletilmiştir.', 'Teşekkürler.'))
                 .catch(err => {
-                  console.log(err);
                   // If Validate Error
                   if (err instanceof ValidateError) {
                     template.hidePreloader()
