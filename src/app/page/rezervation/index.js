@@ -63,11 +63,11 @@ function getActivationForm() {
                                         .then(() => App.wait(1000))
                                         .then(() => addVisitor({
                                             fullname: user.name + ' ' + user.lastname,
-                                            tc: user.tc,
+                                            tc: Number(user.tc),
                                             gender: user.gender,
                                             is_user: true
                                         }))
-                                        .then((visitor) => Menkule.post('/rezervation/create', {
+                                        .then((visitor) => Menkule.post('/rezervation', {
                                             'advert_id': advert.id,
                                             'visitors': visitor,
                                             'checkin': rezervation.checkin,
@@ -155,6 +155,7 @@ export default (params) => {
             .do(t => templateRez = t)
             .then((template) => {
 
+
                 /*
                   add new visitor
                  */
@@ -178,6 +179,7 @@ export default (params) => {
                 Rezervation
                  */
                 template.find('.rezervation-btn').on('click', e => {
+
                     App.promise(() => App.showPreloader(.8))
                         .then(() => $(".rezervation-form-container").validateFormAsync(rezervationFormRules))
                         .then((u) => App.promise(() => user = u))
@@ -190,7 +192,6 @@ export default (params) => {
                             //If not exist logged user to register, login and send activation code and get activation form
                             if (user && user.new === true) {
                                 Menkule.post("/user/register", Object.assign(user, {
-                                    // password: $.md5(Math.floor((Math.random() * 100000) + 1)),
                                     password: '132456789',
                                     gender: 'Bay'
                                 }))
@@ -215,12 +216,12 @@ export default (params) => {
                             //If user exist and state is true create rezervation
                             if (user && user.state === true) addVisitor({
                                 fullname: user.name + ' ' + user.lastname,
-                                tc: user.tc,
+                                tc: Number(user.tc),
                                 gender: user.gender,
                                 is_user: true
                             })
-                                .then((visitor) => Menkule.post('/rezervation/create', {
-                                    'advert_id': advert.id,
+                                .then((visitor) => Menkule.post('/rezervation', {
+                                    'advert_id': params.id,
                                     'visitors': visitor,
                                     'checkin': rezervation.checkin,
                                     'checkout': rezervation.checkout,
@@ -235,7 +236,6 @@ export default (params) => {
                                 .then(() => App.hidePreloader());
                         })
                         .catch((e) => {
-                            console.log(e);
                             App.hidePreloader()
                                 .then(() => App.parseJSON(e.responseText))
                                 .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
