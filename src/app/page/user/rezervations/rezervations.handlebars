@@ -4,21 +4,21 @@
     </div>
     {{#each rezervations}}
         <div class="list col-xs-12">
-            <a href='/user/advert/detail/{{id}}'>
-                <div class='col-xs-3 col-sm-2 col-md-1 photo'> <img alt='photo' src='{{#image photo 150 150 }} {{/image}}' /> </div>
+            <a href='/user/rezervation/{{rezervation.id}}'>
+                <div class='col-xs-3 col-sm-2 col-md-1 photo'> <img alt='photo' src='{{#image advert.photo 150 150 }} {{/image}}' /> </div>
             </a>
             <div class='col-xs-9 col-sm-10 col-md-11 detail'>
-                <a href='/user/advert/detail/{{id}}'>
+                <a href='/user/rezervation/{{rezervation.id}}'>
                     <div class='col-xs-12 col-sm-12 col-md-12 text'>
-                        {{#if state}}
+                        {{#if rezervation.state}}
                             <div class="rezervation-state approved"></div>
                         {{/if}}
-                        {{#if is_cancel}}
+                        {{#if rezervation.is_cancel}}
                             <div class="rezervation-state cancel"></div>
                         {{/if}}
-                        <h2 class='title'> {{title}}</h2>
-                        <span class="block moffset1"><b>Tutar: {{#currency total_price 2 0 }} {{/currency}} TL </b></span>
-                        <span class="block moffset1">{{date enter_date "DD-MM-YYYY" }} / {{date exit_date "DD-MM-YYYY" }} {{days}} Gece</span>
+                        <h2 class='title'> {{advert.title}}</h2>
+                        <span class="block moffset1"><b>Tutar: {{#currency rezervation.total_price 2 0 }} {{/currency}} TL </b></span>
+                        <span class="block moffset1">{{date rezervation.checkin "DD-MM-YYYY" }} / {{date rezervation.checkout "DD-MM-YYYY" }} {{rezervation.days}} Gece</span>
                     </div>
 
                 </a>

@@ -1,21 +1,22 @@
 <a href="#">
     <i class="fa fa-bell-o"></i>
     {{#zif alert.length '>' '0'}}
-    <span class="alertsize">{{alert.length}}</span>
+        <span class="alertsize">{{alert.length}}</span>
     {{/zif}}
 </a>
 <div class="alertlists hidden-xs hidden-sm">
     <div class="alertlist-maintitle">Bildirimler</div>
     <i class="alert-upper-arrow fa fa-caret-up"></i>
-
     <ul>
         {{#each alert}}
-        <li>
-            <a class='alertmessage-alert-title' bind-data="{{id}}">
-                <div class='alertlist-icon'><i class='fa fa-bell'></i></div>
-                <div class='alertlist-title'> {{title}} <span class='alertlist-date'>{{date created_date "D MMMM YYYY, dddd"}} </span></div>
-            </a>
-        </li>
+            <li>
+                <a class='alertmessage-alert-title' bind-data="{{id}}">
+                    <div class='alertlist-title'>
+                        <div class='alertlist-icon'><i class='fa fa-bell'></i></div>
+                        {{title}} <span class='alertlist-date'>{{date created_date "D MMMM YYYY, dddd"}} </span>
+                    </div>
+                </a>
+            </li>
         {{else}}
             <p class="emptymsg">Yeni bir bildiriminiz bulunmamaktadır.</p>
         {{/each}}

@@ -1,73 +1,72 @@
 <div class="heads">
-   {{#unless user}}
-   <div class="headmenu">
-      <div class="head_menu_index2">
-         <ul class="head_menu_list_index">
-            <li class="helpbtn_menu" >
-               <a href="javascript:void(0);">Yardım</a>
-               <div class="help_menu">
-                  <span class="arrow_menu"><i class="fa fa-caret-up"></i></span>
-                  <ul class="helpmenu_list">
-                     <li>
-                        <ul>
-                           <li><a href="/help/ev_sahipligi_nasil_yapabilirim">
-                              <i class="fa fa-question"></i> Ev Sahipliği Nasıl Yapabilirim
-                              </a>
-                           </li>
-                           <li><a href="/help/menkule_nedir">
-                              <i class="fa fa-question"></i> Menkule Nedir
-                              </a>
-                           </li>
-                           <li><a href="/help/nasil_uye_olabilirim">
-                              <i class="fa fa-question"></i>  Nasıl Üye Olabilirim
-                              </a>
-                           </li>
-                           <li><a href="/help/nasil_ilan_eklerim">
-                              <i class="fa fa-question"></i> İlan Nasıl Oluşturabilirim
-                              </a>
-                           </li>
-                           <li><a href="/help/rezervasyon_kontrolu">
-                              <i class="fa fa-question"></i> Rezervasyon Taleplerini Nerden Kontrol Edebilirim
-                              </a>
-                           </li>
-                           <li><a href="/help/uyelik_iptali">
-                              <i class="fa fa-question"></i> Üyeliğimi Nasıl Silebilirim
-                              </a>
-                           </li>
-                           <li class="helpcenter"><a href="/help"><i class="fa fa-info-circle"></i> Yardım Merkezi</a></li>
-                        </ul>
-                     </li>
-                  </ul>
-               </div>
-            </li>
-            <li class="loginbtn_menu">
-               <a href="#">Girişi</a>
-            </li>
-         </ul>
-      </div>
-      <div class="head_logo"><a href="/">
-         <img alt="logo" src="/assets/logo_white.png" class="logo" /></a>
-      </div>
-   </div>
-   {{else}}
-   <div class="headmenu">
-      <div class="head_menu">
-         <ul class="head_menu_list">
-            <li data-zone="alert" class="alert_user newalert-alert-btn"></li>
-            <li data-zone="messages" tabindex="-1" class="newmessage-alert-btn"></li>
-            <li><a href="javascript:void(0)" class="bigmenu_btn"><i class="fa fa-bars"></i></a></li>
-         </ul>
-      </div>
-      <div class="head_logo"> <a href="/"><img src="/assets/logo_white.png" class="logo" /></a> </div>
-   </div>
-   {{/unless}}
+    {{#unless user}}
+        <div class="headmenu">
+            <div class="head_menu_index2">
+                <ul class="head_menu_list_index">
+                    <li class="helpbtn_menu" >
+                        <a href="javascript:void(0);">Yardım</a>
+                        <div class="help_menu">
+                            <span class="arrow_menu"><i class="fa fa-caret-up"></i></span>
+                            <ul class="helpmenu_list">
+                                <li>
+                                    <ul>
+                                        <li><a href="/help/ev_sahipligi_nasil_yapabilirim">
+                                            <i class="fa fa-question"></i> Ev Sahipliği Nasıl Yapabilirim
+                                        </a>
+                                        </li>
+                                        <li><a href="/help/menkule_nedir">
+                                            <i class="fa fa-question"></i> Menkule Nedir
+                                        </a>
+                                        </li>
+                                        <li><a href="/help/nasil_uye_olabilirim">
+                                            <i class="fa fa-question"></i>  Nasıl Üye Olabilirim
+                                        </a>
+                                        </li>
+                                        <li><a href="/help/nasil_ilan_eklerim">
+                                            <i class="fa fa-question"></i> İlan Nasıl Oluşturabilirim
+                                        </a>
+                                        </li>
+                                        <li><a href="/help/rezervasyon_kontrolu">
+                                            <i class="fa fa-question"></i> Rezervasyon Taleplerini Nerden Kontrol Edebilirim
+                                        </a>
+                                        </li>
+                                        <li><a href="/help/uyelik_iptali">
+                                            <i class="fa fa-question"></i> Üyeliğimi Nasıl Silebilirim
+                                        </a>
+                                        </li>
+                                        <li class="helpcenter"><a href="/help"><i class="fa fa-info-circle"></i> Yardım Merkezi</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="loginbtn_menu">
+                        <a href="#">Girişi</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="head_logo"><a href="/">
+                <img alt="logo" src="/assets/logo_white.png" class="logo" /></a>
+            </div>
+        </div>
+    {{else}}
+        <div class="headmenu">
+            <div class="head_menu">
+                <ul class="head_menu_list">
+                    <li data-zone="alert" class="alert_user newalert-alert-btn"></li>
+                    <li data-zone="messages" tabindex="-1" class="newmessage-alert-btn"></li>
+                    <li><a href="javascript:void(0)" class="bigmenu_btn"><i class="fa fa-bars"></i></a></li>
+                </ul>
+            </div>
+            <div class="head_logo"> <a href="/"><img src="/assets/logo_white.png" class="logo" /></a> </div>
+        </div>
+    {{/unless}}
 </div>
-
 {{#if user}}
     <div class='rightbigmenu{{#isOpen}} bigmenu-open{{/isOpen}}' >
         <div class="col-xs-12 text-center">
             <a href="javascript:void(0)" class="closebigmenu">X</a>
-        <div class="bigmenu-profile-img"> <a href="/user/account/"><img src="{{#image user.photo 150 150 }} {{/image}}" onerror="this.onerror=null;this.src='/assets/no-photo.png';" alt="profile photos"/></a></div>
+            <div class="bigmenu-profile-img"> <a href="/user/account/"><img src="{{#image user.photo 150 150 }} {{/image}}" onerror="this.onerror=null;this.src='/assets/no-photo.png';" alt="profile photos"/></a></div>
             <div class="bigmenu-profile-detail">
                 <div class="bigmenu-name">
                     {{#if user.state}}
@@ -113,11 +112,11 @@
                 <div class="drop">
                     <div class="bigmenu-icon"><i class="fa fa-ticket"></i></div>
                     <div class="bigmenu-text">Rezervasyon</div>
-                    <a class="drop-link" href="/user/rezervations/inbound">
+                    <a class="drop-link" href="/user/rezervations/in">
                         <div class="bigmenu-icon"><i class="fa fa-angle-right"></i></div>
                         <div class="bigmenu-text">Gelen Rezervasyonlar</div>
                     </a>
-                    <a class="drop-link" href="/user/rezervations/outbound">
+                    <a class="drop-link" href="/user/rezervations/out">
                         <div class="bigmenu-icon"><i class="fa fa-angle-right"></i></div>
                         <div class="bigmenu-text">Rezervasyon Taleplerim</div>
                     </a>
@@ -143,7 +142,3 @@
         </div>
     </div>
 {{/if}}
-
-
-
-

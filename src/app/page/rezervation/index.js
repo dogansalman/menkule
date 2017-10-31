@@ -44,7 +44,7 @@ let templateRez = null;
 /*
 Activation form
  */
-function getActivationForm() {
+function getActivationForm(params) {
     return new Promise((resolve) => {
             $("body").zone('rezervation').setContentAsync(Activation({onRezervation: true}))
             .then((template) => {
@@ -57,7 +57,7 @@ function getActivationForm() {
                         .then(activationForm => {
                             App.showPreloader(.7)
                                 .then(() => {
-                                    Menkule.post("/user/active/gsm", {
+                                    Menkule.post("/users/approve/gsm", {
                                         "code": activationForm.code
                                     })
                                         .then(() => App.wait(1000))
@@ -67,8 +67,8 @@ function getActivationForm() {
                                             gender: user.gender,
                                             is_user: true
                                         }))
-                                        .then((visitor) => Menkule.post('/rezervation', {
-                                            'advert_id': advert.id,
+                                        .then((visitor) => Menkule.post('/rezervations', {
+                                            'advert_id': params.id,
                                             'visitors': visitor,
                                             'checkin': rezervation.checkin,
                                             'checkout': rezervation.checkout,
@@ -78,6 +78,7 @@ function getActivationForm() {
                                         .then(() => App.promise(() => templateRez.find('.rezervation-container').scrollView()))
                                         .then(() => App.hidePreloader())
                                         .catch((err) => {
+                                            console.log(err);
                                             App.hidePreloader()
                                                 .then(() => App.notifyDanger('Aktivasyon kodu hatalı. Lütfen tekrar deneyin.', 'Üzgünüz'))
                                         })
@@ -89,7 +90,7 @@ function getActivationForm() {
                 template.find('button.resend').on('click', (e) => {
                     App.showPreloader()
                         .then(() => {
-                            Menkule.get("/user/gsm/resend", {})
+                            Menkule.get("/users/validate/gsm/send", {})
                                 .then(() => App.hidePreloader())
                                 .then(() => App.notifySuccess('Aktivasyon kodu tekrar iletilmiştir.', 'Tamam'))
                                 .catch((err) => {
@@ -191,19 +192,16 @@ export default (params) => {
 
                             //If not exist logged user to register, login and send activation code and get activation form
                             if (user && user.new === true) {
-                                Menkule.post("/user/register", Object.assign(user, {
-                                    password: '132456789',
+                                Menkule.post("/users", Object.assign(user, {
+                                    password: Math.random() * 10,
                                     gender: 'Bay'
                                 }))
-                                    .then(() => Menkule.post('/user/login', {email: user.email, password: user.password}))
-                                    .then((result) => App.promise(() => Menkule.saveToken(result.result)))
+                                    .then(() => Menkule.post('/auth/login', {username: user.email, password: user.password, grant_type: 'password'}, 'application/x-www-form-urlencoded'))
+                                    .then((result) => App.promise(() => App.promise(() => Menkule.saveToken(result.access_token))))
                                     .then(() => Menkule.user())
                                     .then((usr) => Object.assign(user, usr))
                                     .then(() => App.emit('logged.user', user))
-                                    .then(() => {
-                                        Menkule.post("/user/gsm/resend")
-                                    })
-                                    .then(() => getActivationForm()
+                                    .then(() => getActivationForm(params)
                                         .then(() => App.hidePreloader()))
                                     .catch(e => {
                                         App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
@@ -211,7 +209,7 @@ export default (params) => {
                             }
 
                             //If user exist and state is false resend gsm activation code and get activation form
-                            if (user && user.state === false) Menkule.post("/user/gsm/resend").then(() => getActivationForm()).then(() => App.hidePreloader());
+                            if (user && user.state === false) Menkule.get("/users/validate/gsm/send").then(() => getActivationForm(params)).then(() => App.hidePreloader());
 
                             //If user exist and state is true create rezervation
                             if (user && user.state === true) addVisitor({
@@ -220,7 +218,7 @@ export default (params) => {
                                 gender: user.gender,
                                 is_user: true
                             })
-                                .then((visitor) => Menkule.post('/rezervation', {
+                                .then((visitor) => Menkule.post('/rezervations', {
                                     'advert_id': params.id,
                                     'visitors': visitor,
                                     'checkin': rezervation.checkin,
@@ -236,6 +234,7 @@ export default (params) => {
                                 .then(() => App.hidePreloader());
                         })
                         .catch((e) => {
+                        console.log(e);
                             App.hidePreloader()
                                 .then(() => App.parseJSON(e.responseText))
                                 .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))

@@ -1879,11 +1879,9 @@ newmessage-all:focus,
     background: #f3f3f3;
     width: 25px;
     height: 25px;
-    margin-top: 5px;
     text-align: center;
     border-radius: 50%;
     padding: 5px 0px 0px 2px;
-    vertical-align: top;
 }
 .alertlist-maintitle {
     background: #efefef;
@@ -2633,6 +2631,10 @@ Advert Detail
     color: #444;
     font-size: 13px
 }
+.details_container .detail_content_list span {
+    font-weight: 300;
+}
+
 .details_container .prices {} .details_container .prices span {
     font-size: 16px;
     color:#666;
@@ -2802,9 +2804,7 @@ Advert Detail
     padding: 1px;
     color:#868686;
 }
-.details_container .detail_content_list span {
-    font-weight: 300;
-}
+
 .posibility-circle {
     display: inline-block;
     background: #49bafb;
@@ -2974,7 +2974,7 @@ Advert Detail
         width: 100%;
     }
     .details_container label {
-        font-size: 16px;
+        font-size: 14px;
     }
     .mprice {
         position: absolute;
@@ -3070,7 +3070,22 @@ Flatpicker Custom Style
 /*
 Rezervation
  */
-
+.rezervation-state{
+    height: 35px;
+    color: #fff;
+    padding: 7px 0px 0px 0px;
+    font-size: 15px;
+    display: block;
+}
+.rezervation-state.wait{
+    background: #65c3fa;
+}
+.rezervation-state.approved{
+    background: #2ecc71;
+}
+.rezervation-state.cancel{
+    background: #d96566;
+}
 
 .rezervation-container .detail-container{
     padding: 10px;
@@ -3170,14 +3185,9 @@ Rezervation Detail
     margin-top: 10px;
     padding: 0
 }
-.rezervation-state {
-    padding: 15px!important
-}
 .rezervation-owner-detail {
     text-align: center;
     padding: 5px;
-    min-height: 1355px!important;
-    margin-right: 20px;
     border: 1px solid #F3F3F3
 }
 .rezervation-detail-photo {
@@ -3220,7 +3230,7 @@ Rezervation Detail
 }
 .rezervation-detial-date {
     display: block;
-    font-size: 18px;
+    font-size: 15px;
     margin-top: 15px
 }
 .rezervation-detial-date-state {
@@ -3235,16 +3245,17 @@ Rezervation Detail
     margin-top: 15px
 }
 .rezervation-detail-icon {
-    font-size: 30px;
-    color: #49BAFB;
+    font-size: 25px;
+    color: #9a9a9a;
     display: block
 }
 .rezervation-detail-box {
     min-height: 100px;
-    border: 1px solid #F3F3F3;
+    border: 3px solid #ffffff;
     text-align: center;
     vertical-align: middle;
-    padding: 10px 0 0 1px
+    padding: 15px 0 0 1px;
+    background: #fbfbfb;
 }
 .rezervation-home-images,
 .rezervation-home-map {
@@ -3253,6 +3264,21 @@ Rezervation Detail
     border: 1px solid #F3F3F3;
     background: #fff
 }
+.rezervation-home-images .image{
+    height: 100px;
+    padding: 0px;
+    overflow: hidden;
+    background-size: 100% !important;
+    background-position: left 50% !important;
+    background-repeat: no-repeat !important;
+    margin-right: 10px;
+    cursor:pointer;
+    opacity: 0.9;
+}
+.rezervation-home-images .image:hover, .rezervation-home-images .image:focus, .rezervation-home-images .image:focus:active{
+    opacity: 1;
+}
+
 .rezervation-home-images .bx-wrapper {
     border: none;
     padding: 10px;
@@ -3267,11 +3293,9 @@ Rezervation Detail
     margin-top: 10px;
     margin-bottom: 15px;
     font-size: 16px;
-    display: block;
     font-weight: 600;
     text-transform: uppercase;
-    background: #EAEAEA;
-    padding: 5px
+    padding: 5px;
 }
 .rezervation-cancel-date {
     font-size: 13px;

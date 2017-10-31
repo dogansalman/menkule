@@ -7,7 +7,7 @@ export default (params) => {
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
-      .then(() => Menkule.get("/rezervation/list/" + params.type ))
+      .then(() => Menkule.get("/rezervations/" + params.type ))
       .then((rezevations) => $("body").zone('content').setContentAsync(Rezervations({rezervations: rezevations})))
       .catch((e) => {
       console.log(e);
