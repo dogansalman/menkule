@@ -37,11 +37,11 @@
                 <span class="rezervation-detail-city">{{rezervation_advert.cities.name}} / {{rezervation_advert.towns.name}}</span>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
-                <a href="javascript:void(0);"  class="default_btn fullwidth message">Mesaj Gönder</a>
+                <a href="javascript:void(0);"  class="default_btn fullwidth message moffset2">Mesaj Gönder</a>
             </div>
         </div>
-        <div class="col-md-1 hidden-xs hidden-sm"></div>
-        <div class="col-xs-12 col-sm-12 col-md-8 disable_padding">
+
+        <div  class="col-xs-12 col-sm-12 col-md-9 rezervation-detail-container">
             {{#if advert_owner}}
                 {{#zif updated_date '==' 'false' }}
                 <div class="col-xs-12 rezervation-confirm-box">
@@ -140,10 +140,12 @@
             </div>
             <div data-zone="images" class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-images">
             </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-map">
+                <div id="map" style="width: 100%; height: 400px;"></div>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-map">
-            <div id="map" style="width: 100%; height: 400px;"></div>
-        </div>
+
         {{#zif advert_owner '==' 'false'}}
             {{#zif is_cancel '==' 'false'}}
             <div class="col-xs-12 col-sm-12  disable_padding rezervation-detail-cancel">

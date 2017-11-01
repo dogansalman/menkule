@@ -3225,6 +3225,9 @@ Rezervation Detail
     padding: 5px;
     border: 1px solid #F3F3F3
 }
+.rezervation-detail-container{
+    padding: 0px 0px 0px 15px;
+}
 .rezervation-detail-photo {
     max-height: 90px;
     border-radius: 50%;
