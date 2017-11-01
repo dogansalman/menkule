@@ -33,6 +33,11 @@ export default (key) => {
         //confirms
         'ownership_title': 'EV SAHİPLİĞİ YAPMAK ÜZERESİNİZ!',
         'ownership_confirm': 'Ev sahipliği ile ile ek kazanç elde edebilir ve kullanmadığınız evinizi odanızı veya yazlığınızı değerlendirebilirsiniz. Ev sahipliği ile üyelik sözleşmesinde ki ev sahipliği şartlarını kabul etmiş olursunuz.',
+        'rezervation_approved_title': 'REZERVASYONU ONAYLAMAK ÜZERESİNİZ!',
+        'rezervation_approved_confirm': 'Rezervasyon talebini onaylamak istediğinize emin misiniz ? Onaylanan rezervasyon talebi anlık olarak misafirinize bildirilecektir.',
+        'rezervation_cancel_title': 'REZERVASYONU İPTAL ETMEK ÜZERESİNİZ!',
+        'rezervation_cancel_confirm': 'Rezervasyon talebini iptal etmek istediğinize emin misiniz ? İptal edilen rezervasyon bir daha onaylanmamaktadır!',
+
         //error
         'timeout': 'Sunucularımız yük altında. Lütfen daha sonra tekrar deneyiniz.',
         'error_title': 'Üzgünüz bir problem var !'

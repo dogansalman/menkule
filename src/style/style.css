@@ -412,7 +412,7 @@ textarea {
     display: inline-block;
     padding: 5px 10px;
     margin-bottom: 0;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 1.42857143;
     color: #fff !important;
@@ -458,7 +458,7 @@ textarea {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 0;
-  background: #4ebcfb !important
+  background: #2ecc71 !important
 }
 .acceptbtn:hover,
 .acceptbtn:focus,
@@ -3073,19 +3073,54 @@ Rezervation
 .rezervation-state{
     height: 35px;
     color: #fff;
-    padding: 7px 0px 0px 0px;
+    padding: 2px 0px 0px 0px;
     font-size: 15px;
     display: block;
 }
-.rezervation-state.wait{
-    background: #65c3fa;
+.rezervation-detail-state{
+    font-size: 15px;
+    display: block;
 }
-.rezervation-state.approved{
+.rezervation-detail-state.approved:before{
+    content: "\F00C";
+    font-family: FontAwesome;
+    color: #ffffff;
+    font-size: 14px;
+    margin-right: 5px;
     background: #2ecc71;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: middle;
 }
-.rezervation-state.cancel{
-    background: #d96566;
+.rezervation-detail-state.wait:before{
+    content: "\e952";
+    font-family: icomoon;
+    color: #ffffff;
+    font-size: 14px;
+    margin-right: 5px;
+    background: #65c3fa;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: middle;
 }
+.rezervation-detail-state.cancel:before{
+    content: "\f12a";
+    font-family: FontAwesome;
+    color: #ffffff;
+    font-size: 14px;
+    margin-right: 5px;
+    background: #e74c3c;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
 
 .rezervation-container .detail-container{
     padding: 10px;
@@ -3248,6 +3283,14 @@ Rezervation Detail
     font-size: 25px;
     color: #9a9a9a;
     display: block
+}
+.rezervation-confirm-box{
+    min-height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 15px;
+    background: #fbfbfb;
+    border: 3px solid #ffffff;
 }
 .rezervation-detail-box {
     min-height: 100px;

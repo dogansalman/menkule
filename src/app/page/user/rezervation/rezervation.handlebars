@@ -8,14 +8,14 @@
             <span class="rezervation-detail-name">{{user_information.fullname}}</span>
             <span class="rezervation-detail-phone"><i class="fa fa-mobile"></i> {{user_information.gsm}}</span>
             <div style="clear: both"></div>
-            <div class="col-xs-12 col-sm-12 col-md-12  text-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding text-center">
                 {{#if state}}
-                    <span class="rezervation-state approved">Onaylandı.</span>
+                    <span class="rezervation-detail-state approved">Onaylandı.</span>
                 {{else}}
                     {{#if is_cancel}}
-                        {{#if is_cancel}}<span class="rezervation-state cancel"> İptal Edildi.</span> {{/if}}
+                        {{#if is_cancel}}<span class="rezervation-detail-state cancel">İptal Edildi.</span> {{/if}}
                     {{else}}
-                        <span class="rezervation-state wait"> Onay Bekleniyor.</span>
+                        <span class="rezervation-detail-state wait">Onay Bekleniyor.</span>
                     {{/if}}
                 {{/if}}
             </div>
@@ -37,11 +37,21 @@
                 <span class="rezervation-detail-city">{{rezervation_advert.cities.name}} / {{rezervation_advert.towns.name}}</span>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
-                <a href="javascript:void(0);"  class="rezervation-detail-sendmessage">İlan Sahinine Mesaj Gönder</a>
+                <a href="javascript:void(0);"  class="default_btn fullwidth message">Mesaj Gönder</a>
             </div>
         </div>
         <div class="col-md-1 hidden-xs hidden-sm"></div>
-        <div class="col-xs-12 col-sm-12 col-md-8 disable_padding rezervation-detail-rightbox">
+        <div class="col-xs-12 col-sm-12 col-md-8 disable_padding">
+            {{#if advert_owner}}
+                {{#zif updated_date '==' 'false' }}
+                <div class="col-xs-12 rezervation-confirm-box">
+                    <p>Rezervasyon hemen onaylamak için <strong>Onayla</strong> seçeneğini kullanabilirsiniz. Unutmayın ! İptal edilen rezervasyon onaylanmamaktadır.</p>
+                    <p>Rezervasyonu talebini onaylıyor musunuz ? </p>
+                    <button class="acceptbtn" href="#">Onayla</button>
+                    <button class="cancelbtn" href="#">İptal</button>
+                </div>
+                {{/zif}}
+            {{/if}}
             <div class="col-xs-12 col-sm-4 col-md-4 rezervation-detail-box">
                 <span class="rezervation-detail-icon">{{#currency total_price 2 0 }} {{/currency}} TL<i class="fa fa-try "></i> </span>
                 Toplam tutar
@@ -134,12 +144,16 @@
         <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-map">
             <div id="map" style="width: 100%; height: 400px;"></div>
         </div>
-        <div class="col-xs-12 col-sm-12  disable_padding rezervation-detail-cancel">
-            <span class="rezervation-detail-cancel-title">Rezervasyon İptal</span>
-            <span class="rezervation-cancel-date"> Rezervasyonunuzu <b> 12.10.2017</b> tarihine kadar ücretsiz iptal edebilirsiniz.
+        {{#zif advert_owner '==' 'false'}}
+            {{#zif is_cancel '==' 'false'}}
+            <div class="col-xs-12 col-sm-12  disable_padding rezervation-detail-cancel">
+                <span class="rezervation-detail-cancel-title">Rezervasyon İptal</span>
+                <span class="rezervation-cancel-date"> Rezervasyonunuzu <b> 12.10.2017</b> tarihine kadar ücretsiz iptal edebilirsiniz.
          <br/> Rezervasyonu iptal edebilmeniz için  <b>2</b>  gün süreniz bulunmaktadır.
          </span>
-            <a class="cancelbtn" href="javascript:void(0);"><i class="fa fa-exclamation-circle"></i> Rezervasyonunuzun İptal Et </a>
-        </div>
+                <a class="cancelbtn" href="javascript:void(0);"><i class="fa fa-exclamation-circle"></i> Rezervasyonunuzun İptal Et </a>
+            </div>
+            {{/zif}}
+        {{/zif}}
     </div>
 </div>
