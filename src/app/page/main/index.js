@@ -4,6 +4,7 @@ import Footer from '../footer';
 import swiper from 'swiper';
 import geocomplate from 'geocomplete';
 import flatpickr from 'flatpickr';
+import Turkish from  'flatpickr/dist/l10n/tr';
 
 let location = null;
 // Validate config
@@ -78,6 +79,7 @@ export default () => Header(false)
      */
     template.find('.calendar').flatpickr(
       {
+        locale: Turkish,
         mode: 'range',
         minDate: 'today',
         maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD')
