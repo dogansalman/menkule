@@ -233,7 +233,8 @@ textarea {
   box-shadow: none!important;
   -webkit-transition: none!important;
   -o-transition: none!important;
-  font-weight: 200!important
+  font-weight: 200!important;
+    height:40px;
 }
 .form-control::-webkit-input-placeholder,
 .form-control:-moz-placeholder,
@@ -412,7 +413,7 @@ textarea {
     display: inline-block;
     padding: 5px 10px;
     margin-bottom: 0;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 400;
     line-height: 1.42857143;
     color: #fff !important;
@@ -430,6 +431,7 @@ textarea {
     border: 1px solid transparent;
     border-radius: 0;
     background: #EC7070!important;
+    border-bottom: 5px solid #cc5a5a;
 }
 .cancelbtn:hover,
 .cancelbtn:focus,
@@ -458,7 +460,8 @@ textarea {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 0;
-  background: #2ecc71 !important
+  background: #2ecc71 !important;
+  border-bottom: 5px solid #29a25c;
 }
 .acceptbtn:hover,
 .acceptbtn:focus,
@@ -745,7 +748,12 @@ Search
     outline: none;
     box-shadow: none;
     border: none;
-    height: 40px;
+    height: 42px;
+    border-bottom: 5px solid #25a55b;
+}
+.location-searchbox .advert-search-btn:hover, .location-searchbox .advert-search-btn:focus, .location-searchbox .advert-search-btn:focus:active{
+    background: #3edc81;
+    border-bottom: 5px solid #2bb164;
 }
 
 @media all and (max-width: 768px) {
@@ -1147,9 +1155,9 @@ Footer
     position: relative;
     padding-top: 0;
     color: #949191;
-    margin-top: 0;
-    background: #fff;
+    background: #fdfdfd;
     margin-top: 35px;
+    border-top: 2px solid #fbfbfb;
 }
 .footer .container {
     padding-top: 20px
@@ -1203,10 +1211,21 @@ Footer
     color: #45b5f4!important
 }
 .footer .icon {
-    color: #45b5f4!important;
-    font-size: 16px;
+    color: #ffffff!important;
+    font-size: 18px;
     margin-right: 5px;
-    width: 12px
+    background: #44b5f4;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px 0px 0px 0px;
+    border-bottom: 5px solid #4da2d5;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 .footer ul {
     -webkit-padding-start: 0;
@@ -1221,7 +1240,7 @@ Footer
     color: #444!important
 }
 .footer ul li a:hover {
-    color: #0FA2F5!important
+    border-bottom: 10px solid #4da2d5;
 }
 .registermaillist_btn {
     font-size: 18px;
@@ -1280,12 +1299,14 @@ Header
     margin: auto;
     padding: 0;
     position: inherit;
-    background: #65C3F9
+    background: #65C3F9;
+    border-bottom: 9px solid #58b0e4
 }
 .home .heads {
     background: transparent;
     position: relative;
     z-index: 2;
+    border-bottom: none !important;
 }
 .closebigmenu {
     position: absolute;
@@ -2844,22 +2865,16 @@ Advert Detail
 }
 .image-counter {
     position: absolute;
-    bottom: 20%;
-    background: rgb(255, 255, 255);
+    bottom: 10%;
+    background: rgba(0, 0, 0, 0.32);
     padding: 10px;
     font-size: 13px;
-    color: #666;
-    width: 165px;
-    right: 10px;
-    display: inline-block;
-    margin-bottom: 0;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    border: 1px solid;
+    color: #fff;
+    right: 20px;
+    width: 200px;
     text-align: center;
     vertical-align: middle;
-    font-weight: bold;
+    font-weight: 600;
     line-height: 1.43;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -3269,11 +3284,13 @@ Rezervation Detail
 .rezervation-detial-date {
     display: block;
     font-size: 15px;
-    margin-top: 15px
+    margin-top: 15px;
+    text-align: center;
 }
 .rezervation-detial-date-state {
     display: block;
-    font-size: 11px
+    font-size: 11px;
+    text-align:center;
 }
 .rezervation-detail-city {
     font-size: 15px;
@@ -3532,7 +3549,7 @@ Modal
   padding:5px;
 }
 .modaltitle {
-  color: #49BAFB!important;
+  color: #666!important;
   font-size: 14px!important;
   font-weight: 400!important;
   font-family: 'Open Sans', sans-serif;
@@ -3551,9 +3568,9 @@ Modal
   min-height: 300px;
 }
 .page-title-container {
-  background: #fbfbfb;
-  padding: 8px 0 5px 10px !important;
-  margin-bottom: 15px
+    background: #58b0e4;
+    padding: 0px 0 10px 10px !important;
+    margin-bottom: 30px;
 }
 .page-title-container > a > i {
   font-size: 15px
@@ -3621,22 +3638,17 @@ Modal
   padding: 0px 0px 0px 5px;
 }
 .handle-counter > button {
-  display: inline!important;
-  background: #eee!important;
-  color: #666!important;
-  border: 1px solid #d2d2d2;
-  margin: 0!important;
-  height: 30px!important;
-  width: 30px!important;
-  padding: 0px;
+    display: inline!important;
+    width: 35px;
+    font-weight: 600;
 }
 .handle-counter > input {
-  display: inline;
-  width: 40px;
-  text-align: center;
-  height: 30px!important;
-  vertical-align: top;
-  padding: 0!important;
+    display: inline;
+    width: 40px;
+    text-align: center;
+    height: 35px!important;
+    vertical-align: top;
+    padding: 0!important;
 }
 .page-title-container a:last-child:after {
   display: none!important
@@ -3714,7 +3726,8 @@ Modal
   user-select: none;
   background-image: none;
   border-radius: 0;
-  background: #1972A5!important;
+background: #1972A5!important;
+border-bottom: 5px solid #155d86;
 }
 label {
   font-family: 'Open Sans', sans-serif!important;
@@ -3857,9 +3870,9 @@ alert-selected i:focus {
 User Messages
  */
 .message-recipient {
-  height: 35px;
+  height: 40px;
   border: 1px solid #e0e0e0;
-  padding: 7px;
+  padding: 8px;
 }
 .message-text {
   font-size: 13px;
@@ -3870,12 +3883,13 @@ User Messages
   padding: 0px;
 }
 .message-recipient > div {
-  background: #49bafb;
-  display: initial;
-  padding: 3px;
-  border-radius: 5px;
-  color: #fff;
-  font-size: 13px;
+    background: #49bafb;
+    display: initial;
+    padding: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 2px solid #4da2d5;
 }
 .message-recipient > label {
   border-right: 1px solid #e8e8e8;
@@ -4286,14 +4300,15 @@ a:hover {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 0;
-  background: #2ecc71 !important;
+    background: #2ecc71 !important;
+    border-bottom: 5px solid #25ad5f;
 }
 .success_btn:hover,
 .success_btn:active,
 .success_btn:active:focus,
 .success_btn:focus {
-  background: #27ae60 !important;
-  color: #fff !important;
+    background: #38d47a !important;
+    border-bottom: 5px solid #30b96a;
 }
 .default_btn {
   display: inline-block;
@@ -4317,6 +4332,7 @@ a:hover {
   border: 1px solid transparent;
   border-radius: 0;
   background: #45b5f4 !important;
+    border-bottom: 5px solid #4da2d4;
 }
 .default_btn.alert {
   background: #ff7364!important;
@@ -4331,8 +4347,9 @@ a:hover {
 .default_btn:active,
 .default_btn:active:focus,
 .default_btn:focus {
-  background: #65C3F9 !important;
-  color: #fff !important;
+    background: #65C3F9 !important;
+    color: #fff !important;
+    border-bottom: 5px solid #5eb4e6;
 }
 .banner {
   min-width: 100%;
@@ -4423,18 +4440,19 @@ a:hover {
   margin-top: 5px
 }
 .index-registerbtn {
-  width: 200px;
-  margin: auto;
-  margin-top: 10px;
-  color: #fff;
-  font-family: 'Open Sans', sans-serif!important;
-  text-transform: uppercase;
-  padding: 10px;
-  display: block;
-  font-size: 14px;
-  background: #45b5f4;
-  border-radius: 0;
-  text-align: center;
+    width: 200px;
+    margin: auto;
+    margin-top: 10px;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif!important;
+    text-transform: uppercase;
+    padding: 10px;
+    display: block;
+    font-size: 14px;
+    background: #45b5f4;
+    border-radius: 0;
+    border-bottom: 5px solid #4da2d4;
+    text-align: center;
 }
 .index-registerbtn:hover,
 .index-registerbtn:active,
@@ -4509,9 +4527,10 @@ a:hover {
   border-radius: 0;
   font-size: 26px;
   width: 34px;
-  height: 34px;
+  height: 40px;
   text-align: center;
-  padding: 2px 0 0
+  padding: 2px 0 0;
+    border-bottom: 5px solid #4da2d4;
 }
 .sendmail_btn:hover {
   color: #fff;
@@ -5343,7 +5362,6 @@ advert-select:focus:active {
     right: 10px
   }
   .default_btn {
-    margin: 0!important;
     text-align: center;
     margin-bottom: 10px!important;
     font-size: 14px;

@@ -36,9 +36,9 @@
         <div class="head_message text-center">
             <span class="indextitle">KEŞFEDİLMEYİ BEKLEYEN HERYERDE EVİNİZ VAR.</span>
             <span class="index-desc">Hemen ücretsiz ve kolayca kayıt olun! </span>
-            {{#unless user}}
+            {{#notLogged}}
                 <a class="index-registerbtn" href="/user/register">Bize Katıl!</a>
-            {{/unless}}
+            {{/notLogged}}
         </div>
 
         <div class="col-xs-12 searchengine">
