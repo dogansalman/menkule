@@ -68,10 +68,12 @@ export default (params) => {
                 Render Images
                  */
                 template.zone('images').setContentAsync(Images({images: advert.images, price: '250'}))
-                .then(() => App.promise(() => template.find("[data-fancybox]").fancybox({})))
+                .then(() => App.promise(() => template.find("[data-fancybox]").fancybox({ buttons : ['close']})))
                 .then(() => {
-                    template.find('.image-counter').on('click', e => $.fancybox.open($("[data-fancybox]")))
+                    template.find('.image-counter').on('click', e => $.fancybox.open($("[data-fancybox]"), { buttons : ['close']}));
                 });
+
+
 
                 /*
                 Inıt Calendar

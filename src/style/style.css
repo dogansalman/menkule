@@ -415,6 +415,7 @@ textarea {
     margin-bottom: 0;
     font-size: 13px;
     font-weight: 400;
+    height:40px;
     line-height: 1.42857143;
     color: #fff !important;
     text-align: center;
@@ -445,6 +446,7 @@ textarea {
   margin-bottom: 0;
   font-size: 13px;
   font-weight: 400;
+    height:40px;
   line-height: 1.42857143;
   color: #fff !important;
   text-align: center;
@@ -758,8 +760,15 @@ Search
 
 @media all and (max-width: 768px) {
     .location-searchbox .advert-search-btn{
-        color: #45b5f4;
-        background: #ffffff;
+        color: #666;
+        background: #f7f7f7;
+        border: none;
+        border-left: 1px solid #eaeaea;
+    }
+    .location-searchbox .advert-search-btn:hover, .location-searchbox .advert-search-btn:focus, .location-searchbox .advert-search-btn:focus:active{
+        background: #f1f1f1;
+        border-bottom: 5px solid #44b5f4;
+        padding-top: 10px;
     }
 }
 .btn-loading-ico:before {
@@ -3535,7 +3544,14 @@ Advert calendar
   {
     margin-top:30px;
   }
-
+  [data-zone~="content"] > .container {
+    width: 100%;
+  }
+}
+@media all and (max-width: 960px) {
+    [data-zone~="content"] > .container {
+        width: 100%;
+    }
 }
 /*
 Modal
@@ -3566,7 +3582,7 @@ Modal
   color: #666
 }
 .modal-buttoncontainer {
-  margin: 10px 0px 5px 0px;
+    margin: 15px 0px 15px 0px;
   text-align: left;
 }
 [data-zone~="content"] > .container {
