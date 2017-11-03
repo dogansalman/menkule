@@ -30,13 +30,14 @@ export  default () => {
                         .then(() => App.promise(() => template.formFields().enable() && template.formFields().select() && $(e.target).enable()))
                         .catch((err) => {
                             App.hidePreloader()
-                                .then(() => App.notifyDanger('E-posta adresiniz zaten kayıtlı.', ''))
                                 .then(() => App.promise(() => template.formFields().enable() && template.formFields().select() && $(e.target).enable()))
                                 .then(() => {
                                     if (err instanceof ValidateError) {
                                         template.formFields().enable();
                                         $(e.target).enable();
                                         return ($(err.fields[0]).select());
+                                    } else {
+                                        App.notifyDanger('E-posta adresiniz zaten kayıtlı.', '')
                                     }
                                 })
 

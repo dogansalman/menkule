@@ -5,6 +5,8 @@ import _selectedAdvert from './selected.handlebars';
 import advertCalendar from './advert-calendar.handlebars';
 import advertDetail from './advert-detail.handlebars';
 import advertList from './advert-list.handlebars';
+import flatpickr from 'flatpickr';
+import Turkish from 'flatpickr/dist/l10n/tr';
 
 export default () => {
     return new Promise((resolve) => {
@@ -61,18 +63,15 @@ export default () => {
 
                             //create calendar
                             template.find('.flatpickr-calendar').remove();
-                            template.find('#calendar').flatpickr({
-                                inline: true,
-                                mode: "multiple",
+                            flatpickr.localize(flatpickr.l10ns.tr);
+                            flatpickr(template.find('#calendar')[0], {
+                                inline: true, mode: "multiple",
                                 minDate: moment(new Date()).format('DD-MM-YYYY'),
                                 maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
                                 disable: reserved_dates,
                                 defaultDate: unavailable_dates,
-                                onDayCreate: function (dObj, dStr, fp, dayElem) {
-                                    if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event reserved'>Rez</span>";
-                                }
+                                onDayCreate: function (dObj, dStr, fp, dayElem) { if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event reserved'>Rez</span>"; }
                             });
-
 
                             //render advert detail
                             template.zone('selected-advert-detail').setContentAsync(advertDetail(Object.assign(selectedAdvert, { 'total_reserved': reserved_dates.length }, { 'total_unavailable': unavailable_dates.length })))

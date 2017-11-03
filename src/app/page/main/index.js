@@ -3,8 +3,8 @@ import Header from '../header';
 import Footer from '../footer';
 import swiper from 'swiper';
 import geocomplate from 'geocomplete';
-import flatpickr from 'flatpickr';
-import Turkish from  'flatpickr/dist/l10n/tr';
+import flatpickr from "flatpickr"
+import Turkish from 'flatpickr/dist/l10n/tr.js';
 
 let location = null;
 // Validate config
@@ -72,19 +72,14 @@ export default () => Header(false)
           height: 250
       });
 
+      /*
+      Inıt calendar
+       */
+      const calendars = template.find('.calendar');
+      flatpickr.localize(flatpickr.l10ns.tr);
+      flatpickr(calendars[1],  { mode: 'range', minDate: 'today', maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD') });
+      flatpickr(calendars[0],  { mode: 'range', minDate: 'today', maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD') });
 
-
-    /*
-    Inıt calendar
-     */
-    template.find('.calendar').flatpickr(
-      {
-        locale: Turkish,
-        mode: 'range',
-        minDate: 'today',
-        maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD')
-      }
-    );
 
     //Initalize background video
     //player.onYouTubePlayerAPIReady();

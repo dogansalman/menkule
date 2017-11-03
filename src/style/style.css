@@ -443,7 +443,7 @@ textarea {
   display: inline-block;
   padding: 5px 10px;
   margin-bottom: 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 1.42857143;
   color: #fff !important;
@@ -1222,10 +1222,10 @@ Footer
     vertical-align: middle;
     padding: 5px 0px 0px 0px;
     border-bottom: 5px solid #4da2d5;
-    -webkit-transition: all .1s ease-in-out;
-    -moz-transition: all .1s ease-in-out;
-    -o-transition: all .1s ease-in-out;
-    transition: all .1s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 .footer ul {
     -webkit-padding-start: 0;
@@ -1239,8 +1239,11 @@ Footer
     font-size: 12px;
     color: #444!important
 }
-.footer ul li a:hover {
+.footer .footer-social-icons  li a:hover {
     border-bottom: 10px solid #4da2d5;
+}
+.footer ul li a:hover {
+    border-bottom: 1px solid #4da2d5;
 }
 .registermaillist_btn {
     font-size: 18px;
@@ -2787,11 +2790,14 @@ Advert Detail
     color: #666;
     font-weight: 300;
 }
-.advert_owner_container .activeaccount {
+.advert_owner_container .activeaccount > i {
     background: #2ecc71;
     color: #fff;
-    padding: 5px;
-    display: block
+    width: 18px;
+    height: 18px;
+    font-size: 13px;
+    text-align: center;
+    padding: 2px 0px 0px 0px;
 }
 .comment_date {
     font-size: 12px
@@ -3646,7 +3652,6 @@ Modal
     display: inline;
     width: 40px;
     text-align: center;
-    height: 35px!important;
     vertical-align: top;
     padding: 0!important;
 }
@@ -3707,27 +3712,28 @@ Modal
   padding-left: 0!important
 }
 .login-page-withfacebook {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.42857143;
-  color: #fff !important;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-image: none;
-  border-radius: 0;
-background: #1972A5!important;
-border-bottom: 5px solid #155d86;
+    display: inline-block;
+    padding: 10px 12px;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: 400;
+    height: 40px;
+    line-height: 1.42857143;
+    color: #fff !important;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border-radius: 0;
+    background: #1972A5!important;
+    border-bottom: 5px solid #155d86;
 }
 label {
   font-family: 'Open Sans', sans-serif!important;
@@ -4198,6 +4204,7 @@ User Messages
   font-size: 16px;
   line-height: inherit;
   font-weight: 300;
+  text-transform: capitalize;
 }
 .activemembericon {
   background: #45b5f4;
@@ -4312,7 +4319,7 @@ a:hover {
 }
 .default_btn {
   display: inline-block;
-  padding: 5px 10px;
+  padding: 8px 10px;
   margin-bottom: 0;
   font-size: 13px;
   font-weight: 400;
@@ -4324,6 +4331,7 @@ a:hover {
   -ms-touch-action: manipulation;
   touch-action: manipulation;
   cursor: pointer;
+    height: 40px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

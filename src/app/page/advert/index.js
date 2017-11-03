@@ -1,7 +1,6 @@
 import Footer from '../footer';
 import Header from '../header';
 import Fancybox from  '@fancyapps/fancybox';
-import Datetime from 'flatpickr';
 import appMessage from '../../../lib/appMessages';
 import Advert from './advert.handlebars';
 import Comments from './comment.handlebars';
@@ -11,6 +10,8 @@ import Feedback from '../../popup/feedback';
 import Message from '../../popup/message';
 import Comment from '../../popup/comment';
 import _Advert from '../advert';
+import flatpickr from 'flatpickr';
+import Turkish from 'flatpickr/dist/l10n/tr';
 
 export default (params) => {
     /*
@@ -75,7 +76,8 @@ export default (params) => {
                 /*
                 Inıt Calendar
                  */
-                template.find('#calendar').flatpickr({
+                flatpickr.localize(flatpickr.l10ns.tr);
+                flatpickr(template.find('#calendar')[0], {
                     inline: true,
                     fullwidth: true,
                     mode: "range",
@@ -104,6 +106,8 @@ export default (params) => {
                         });
                     }
                 });
+
+
 
                 /*
                 Rezervation
