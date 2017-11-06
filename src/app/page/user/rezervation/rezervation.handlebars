@@ -145,13 +145,16 @@
 
         {{#zif advert_owner '==' 'false'}}
             {{#zif is_cancel '==' 'false'}}
-            <div class="col-xs-12 col-sm-12  disable_padding rezervation-detail-cancel">
-                <span class="rezervation-detail-cancel-title">Rezervasyon İptal</span>
-                <span class="rezervation-cancel-date"> Rezervasyonunuzu <b> 12.10.2017</b> tarihine kadar ücretsiz iptal edebilirsiniz.
-         <br/> Rezervasyonu iptal edebilmeniz için  <b>2</b>  gün süreniz bulunmaktadır.
-         </span>
-                <a class="cancelbtn" href="javascript:void(0);"><i class="fa fa-exclamation-circle"></i> Rezervasyonunuzun İptal Et </a>
-            </div>
+            {{#if is_cancelable}}
+                <div class="col-xs-12 col-sm-12  disable_padding rezervation-detail-cancel">
+                    <span class="rezervation-detail-cancel-title">Rezervasyon İptal</span>
+                    <span class="rezervation-cancel-date"> Rezervasyonunuzu <b> 12.10.2017</b> tarihine kadar ücretsiz iptal edebilirsiniz.
+                <br/> Rezervasyonu iptal edebilmeniz için  <b>2</b>  gün süreniz bulunmaktadır.
+                </span>
+                    <a class="cancelbtn" href="javascript:void(0);"><i class="fa fa-exclamation-circle"></i> Rezervasyonu İptal Et! </a>
+                </div>
+            {{/if}}
+
             {{/zif}}
         {{/zif}}
     </div>
