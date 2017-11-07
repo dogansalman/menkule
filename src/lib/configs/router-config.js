@@ -20,6 +20,7 @@ import UserRezervations from '../../app/page/user/rezervations';
 import UserAdvertCalendar from '../../app/page/user/advert-calendar';
 import UserMessages from '../../app/page/user/messages';
 import UserMessage from '../../app/page/user/message';
+import UserResetPassword from '../../app/page/user/reset-password';
 /**
  * Define routes
  * @type {[*]}
@@ -36,6 +37,7 @@ export default [
     ['/user/activate',  UserActivate ],
     ['/help/:subject', Help],
     ['/error/:error', Error],
+    ['/password/reset', UserResetPassword],
     [ /^\/$/, Main ],
     ['/user/register', Register],
     ['/user/policy', UserPolicy],

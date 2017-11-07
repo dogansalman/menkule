@@ -3,6 +3,8 @@ export default (key) => {
     const messages = {
         //User
         'register_success': "<h2>Kayıt olduğunuz için teşekkür ederiz.</h2><p>Sizleri üye giriş sayfasına yönlendiriyoruz. Üye girişi gerçekleştirdikten sonra cep telefonunuza gelen onay kodu ile üyeliğinizi onaylamayı unutmayın.</p><p><i class='fa fa-clock-o'></i> <span class='sure'>kısa bir süre sonra</span> üye girişi sayfasına yönlendirileceksiniz.</p>",
+        'token_fail': "<div class='container' <h2=''><h2>Geçersiz istek. Lütfen tekrar deneyin </h2><p>Her şifre yenileme talebi 2 saat için geçerlidir.</p><p> Eğer hesabınızın erişimi ile ilgili bizimile iletişime geçebilirsiniz.</p> </div>",
+        'password_changed': "<div class='col-xs-12 col-sm-12 col-md-12 moffset2 bottomset2'> <h2>Şifreniz Güncellendi !</h2> <p>Şifreniz güncellendi yeni şifrenizi kullanarak hemen oturum açabilirsiniz...</p> </div>",
         'login_fail': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> E-posta adresiniz veya şifreniz hatalı. </div>",
         'forgot_fail': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> E-posta adresiniz hatalı. Lütfen tekrar deneyin. </div>",
         'changepass_fail': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Şifreniz hatalı. Lütfen tekrar deneyin. </div>",
