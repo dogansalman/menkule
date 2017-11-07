@@ -36,6 +36,20 @@
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
                 <a href="javascript:void(0);"  class="default_btn fullwidth message moffset2">Mesaj Gönder</a>
             </div>
+
+            {{#zif advert_owner '==' 'false'}}
+                {{#zif is_cancel '==' 'false'}}
+                    {{#if is_cancelable}}
+                        <div class="col-xs-12 col-sm-12  disable_padding moffset2">
+                            <h2 class="bold textupper">Rezervasyon İptal</h2>
+                            <p> Rezervasyonu check-in tarihinizden  <b>{{rezervation_advert.advert.cancel_time}}</b>  gün veya daha önce iptal edebilirsiniz.
+                </p>
+                            <a class="cancelbtn fullwidth" href="javascript:void(0);"><i class="fa fa-exclamation-circle"></i> Rezervasyonu İptal Et! </a>
+                        </div>
+                    {{/if}}
+
+                {{/zif}}
+            {{/zif}}
         </div>
 
         <div  class="col-xs-12 col-sm-12 col-md-9 rezervation-detail-container">
@@ -143,19 +157,6 @@
             </div>
         </div>
 
-        {{#zif advert_owner '==' 'false'}}
-            {{#zif is_cancel '==' 'false'}}
-            {{#if is_cancelable}}
-                <div class="col-xs-12 col-sm-12  disable_padding rezervation-detail-cancel">
-                    <span class="rezervation-detail-cancel-title">Rezervasyon İptal</span>
-                    <span class="rezervation-cancel-date"> Rezervasyonunuzu <b> 12.10.2017</b> tarihine kadar ücretsiz iptal edebilirsiniz.
-                <br/> Rezervasyonu iptal edebilmeniz için  <b>2</b>  gün süreniz bulunmaktadır.
-                </span>
-                    <a class="cancelbtn" href="javascript:void(0);"><i class="fa fa-exclamation-circle"></i> Rezervasyonu İptal Et! </a>
-                </div>
-            {{/if}}
 
-            {{/zif}}
-        {{/zif}}
     </div>
 </div>

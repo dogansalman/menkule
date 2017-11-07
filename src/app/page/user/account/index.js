@@ -26,7 +26,7 @@ export default () => Header()
         });
 
         //change password
-        template.find('.changepas-btn').off().on('click', (e) => {
+        template.find('.pass-btn').off().on('click', (e) => {
             e.preventDefault();
             changePasswordModal();
         });

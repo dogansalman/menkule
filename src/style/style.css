@@ -118,7 +118,12 @@ textarea {
 }
 .fright {
   float: right;
-;
+}
+.bold{
+    font-weight:400;
+}
+.textupper{
+    text-transform: uppercase;
 }
 .fleft {
   float: left;
@@ -249,17 +254,6 @@ textarea {
   box-shadow: none;
   -webkit-box-shadow: none!important;
   box-shadow: none!important
-}
-.iconmenu {
-  font-size: 20px;
-  color: #fff;
-  padding: 10px 0 0 10px
-}
-.whatsmenkule {
-  color: #5A5A5A;
-  box-shadow: 0 1px #E8E8E8;
-  padding: 10px;
-  font-weight: 300
 }
 .blurred {
   -webkit-filter: blur(2px);
@@ -472,27 +466,7 @@ textarea {
   background: #42b0ef;
 }
 
-/*
-Notify
- */
-.alert-danger{
-  color: #fff;
-  background-color: #e26764;
-  border-color: #e26764;
-  font-size: 12px;
-  width: auto;
-  border-radius: 0px;
-  min-width: 300px;
-}
-.alert-success{
-  border-color: #2ecc71;
-  background: #2ecc71;
-  color: #fff;
-  font-size: 12px;
-  width: auto;
-  border-radius: 0px;
-  min-width: 300px;
-}
+
 /*
 Message
  */
@@ -542,7 +516,6 @@ Message
 .messagelistcontainer::-webkit-scrollbar-thumb {
   background-color: #d2d2d2
 }
-
 .messageprofiledate {
   font-size: 11px;
   color: #666;
@@ -573,7 +546,6 @@ Message
   display: inline-block;
   vertical-align: top
 }
-
 .messageprofilephotocontainer {
   display: inline-block;
   vertical-align: top
@@ -601,7 +573,6 @@ Message
   outline: none!important;
   border-bottom-color: #49bafb
 }
-
 .messagereplycontainer {
   bottom: 0;
   width: 95%;
@@ -665,10 +636,10 @@ Message
 .messagefulltextcontainer .send-messagebtn.writing:before{
   color: #45b5f4;
 }
+
 /*
 Search
  */
-
 .advert-info-window {
   width: 250px;
   height: 260px;
@@ -742,7 +713,6 @@ Search
 .location-searchbox .searchbox-container {
   border: 1px solid #f9f9f9 !important;
 }
-
 .location-searchbox .advert-search-btn {
     color: #fff;
     padding: 5px;
@@ -820,11 +790,9 @@ Search
 .search-cordi-btn:active,
 .search-cordi-btn:focus,
 .search-cordi-btn:focus:active,
-.search-cordi-btn:hover
-{
+.search-cordi-btn:hover {
     background: rgb(42, 161, 230);
 }
-
 .search-cordi-btn:before {
     content: "\e947";
     font-family: icomoon;
@@ -1616,53 +1584,6 @@ Header
     left: 15px;
     padding: 3px
 }
-.rightmenusearch_container {
-    padding-right: 0;
-    margin-top: 10px
-}
-.rightmenusearch_btn_container {
-    color: #49BAFB;
-    margin-top: 10px;
-    background: #fff;
-    display: block;
-    height: 35px;
-    text-align: center;
-    font-size: 19px;
-    padding: 0;
-    border-top: 1px solid #E2E2E2;
-    border-bottom: 1px solid #E2E2E2;
-    border-right: 1px solid #E2E2E2
-}
-.rightmenusearch_btn_container a {
-    padding-top: 9px;
-    color: #49BAFB;
-    display: block;
-    height: 100%;
-    width: 100%;
-    font-size: 16px;
-}
-.rightmenusearch_btn_container:hover,
-.rightmenusearch_btn_container:focus,
-.rightmenusearch_btn_container:focus:active {
-    background: #49BAFB;
-    color: #fff
-}
-.rightmenusearch_btn_container:hover a {
-    color: #fff
-}
-.rightmenusearchtype_container {
-    font-size: 13px;
-    margin-top: 10px
-}
-.rightmenusearchtype_container .radio-inline {
-    padding-left: 0
-}
-.rightmenusearchtitle {
-    font-size: 13px;
-    color: #49BAFB;
-    text-transform: uppercase;
-    margin: 15px 0 0
-}
 .radiobtn-type {
     width: 12px;
     height: 12px;
@@ -1819,12 +1740,8 @@ Header
 .messagelist > ul::-webkit-scrollbar-thumb {
     background-color: #d2d2d2
 }
-.nomessagelist {
-    padding: 10px;
-}
-.noalert {
-    padding: 10px;
-}
+
+
 .newmessage-alert {
     display: inline-block;
     background: #3dd37c;
@@ -2193,25 +2110,7 @@ Account
     font-size: 12px;
     text-transform: capitalize
 }
-.changepassword {
-    font-size: 12px;
-    display: inline-block !important;
-    background: #16a085;
-    padding: 8px;
-    border-radius: 0px;
-    color: #fff !important;
-}
-.changepassword:hover,
-.changepassword:focus,
-.changepassword:focus:active,
-.changepassword:active {
-    color: #fff;
-    background: #26bda0;
-}
-.accontbtnoptn {
-    display: inline-block;
-    text-align: right
-}
+
 .activestate{
     color:#49bafb !important;
     background:transparent !important;
@@ -2299,32 +2198,7 @@ App Home
     margin-right: 10px;
     font-size: 18px
 }
-.select-type {
-    border-radius: 0;
-    background-color: #fff;
-    display: inline;
-    font-size: 14px!important;
-    color: #444!important;
-    padding: 10px;
-    margin-right: 1px;
-    font-family: 'FontAwesome', 'Open Sans', sans-serif
-}
-.select-type option {
-    display: block;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: 0;
-    z-index: 999;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2)
-}
+
 .circle_iconcontainer {
     width: 60px;
     height: 60px;
@@ -2372,7 +2246,6 @@ App Home
     border-bottom: 1px solid #d8d8d8;
     padding-bottom: 5px
 }
-
 .home-searchbox-container{
     position: absolute;
     z-index: 1;
@@ -2402,25 +2275,8 @@ App Home
     outline-offset: -10px;
     opacity: .8
 }
-.mappin {
-    display: inline-block;
-    height: 50px;
-    width: 50px;
-    background: #45B5F4;
-    text-align: center;
-    font-size: 30px;
-    padding-top: 10px;
-    border-radius: 50%
-}
-.statename {
-    display: inline-block;
-    height: 50px;
-    padding-top: 5px;
-    font-size: 35px
-}
-.slide_faq .bx-wrapper {
-    border: inherit
-}
+
+
 .slide_faq > h2 {
     text-transform: uppercase;
     font-size: 30px;
@@ -2454,6 +2310,7 @@ App Home
 .easy-autocomplete-container ul {
     text-align: left
 }
+
 .homeownership {
     background: url(../img/ev_sahipligi_yap.jpg);
     width: 100%;
@@ -2474,44 +2331,7 @@ App Home
     background-repeat: no-repeat!important
 }
 
-.select-type {
-    border-radius: 0;
-    background-color: #fff;
-    display: inline;
-    font-size: 14px!important;
-    color: #969696!important;
-    padding: 10px;
-    font-family: 'FontAwesome', 'Open Sans', sans-serif;
-    height: 46px
-}
-.lovestate i {
-    color: #45b5f4;
-    background: #fff;
-    border: 1px solid #45b5f4;
-    padding: 4px;
-    width: 30px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
-    padding-top: 5px
-}
-.lovestate a {
-    font-size: 24px;
-    font-weight: 300;
-    color: #666;
-    margin: 20px 0 0 20px;
-    border-right: 1px solid silver;
-    padding-right: 20px;
-    display: inline-block
-}
-.lovestate a:hover i {
-    -webkit-transition: all .5s ease-in-out;
-    -moz-transition: all .5s ease-in-out;
-    -o-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
-    color: #fff;
-    background: #45b5f4
-}
+
 .video-container {
     position: relative;
     bottom: 0;
@@ -2568,7 +2388,7 @@ App Home
         top: 0
     }
     .home-message {
-        margin-bottom: 10;
+        margin-bottom: 10px;
         margin-top: 10px;
     }
 }
@@ -2580,6 +2400,27 @@ Filter Popup
     font-size:14px;
     font-weight:300;
     font-family: 'Open Sans', sans-serif;
+}
+/*
+Notify
+ */
+.alert-danger{
+    color: #fff;
+    background-color: #e26764;
+    border-color: #e26764;
+    font-size: 12px;
+    width: auto;
+    border-radius: 0px;
+    min-width: 300px;
+}
+.alert-success{
+    border-color: #2ecc71;
+    background: #2ecc71;
+    color: #fff;
+    font-size: 12px;
+    width: auto;
+    border-radius: 0px;
+    min-width: 300px;
 }
 /*
 Advert Detail
@@ -3357,58 +3198,6 @@ Rezervation Detail
     opacity: 1;
 }
 
-.rezervation-home-images .bx-wrapper {
-    border: none;
-    padding: 10px;
-    box-shadow: none!important
-}
-.rezervation-home-slide img {
-    max-height: 350px;
-    display: initial;
-    width: initial!important
-}
-.rezervation-detail-cancel-title {
-    margin-top: 10px;
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding: 5px;
-}
-.rezervation-cancel-date {
-    font-size: 13px;
-    padding: 3px;
-    margin-bottom: 11px;
-    display: block
-}
-.rezervation-cancel {
-    margin-top: 0;
-    background: #d86666;
-    display: block;
-    color: #fff;
-    padding: 10px;
-    font-size: 16px
-}
-.rezervation-cancel:hover,
-.rezervation-cancel:focus,
-.rezervation-cancel:active,
-.rezervation-cancel:active:focus {
-    text-decoration: initial;
-    color: #fff;
-    background: #ef7575
-}
-.rezervation-detail-cancel {
-    margin-top: 15px
-}
-.rezervation-advert-posiblies .advert-possibility {
-    cursor: auto;
-    border: none;
-    padding: 0;
-    color: #737373
-}
-.rezervation-advert-posiblies .advert-possibility label {
-    cursor: auto
-}
 .rezervation-advert-properties {
     border: 1px solid #F3F3F3;
     background: #fff;
@@ -3417,77 +3206,7 @@ Rezervation Detail
 .rezervation-advert-properties .advert-possibility::before {
     color: #49BAFB
 }
-.rezervationcancel-desc {
-    background: #D66882;
-    color: #fff;
-    padding: 10px;
-    font-size: 12px;
-    margin-bottom: 10px
-}
-.rezervationcancel-desc i {
-    font-size: 32px;
-    color: #fff;
-    padding: 5px
-}
-.property {
-    font-size: 14px;
-    padding: 2px;
-    position: relative;
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: #737373
-}
-.property_value {
-    font-weight: 100;
-    font-size: 14px
-}
-.properties i {
-    color: #49BAFB;
-    font-size: 26px;
-    margin-right: 20px;
-    width: 30px
-}
-.status-changebox {
-    border: 1px solid #CECECE!important;
-    font-size: 13px!important;
-    height: 50px!important;
-    color: #9A9A9A!important
-}
-.rezervation-accept-acceptbtn {
-    font-size: 14px;
-    text-align: center;
-    background: #2ecc71;
-    color: #fff;
-    padding: 5px;
-    display: inline-block;
-    width: auto;
-    min-width: 90px
-}
-.rezervation-accept-acceptbtn:active,
-.rezervation-accept-acceptbtn:focus,
-.rezervation-accept-acceptbtn:active:focus,
-.rezervation-accept-acceptbtn:hover {
-    color: #fff;
-    background: #20CE6A
-}
-.rezervation-accept-cancelbtn {
-    font-size: 14px;
-    text-align: center;
-    background: #3498db;
-    color: #fff;
-    padding: 5px;
-    width: auto;
-    display: inline-block;
-    min-width: 90px
-}
-.rezervation-accept-cancelbtn:active,
-.rezervation-accept-cancelbtn:focus,
-.rezervation-accept-cancelbtn:active:focus,
-.rezervation-accept-cancelbtn:hover {
-    color: #fff;
-    background: #258ACE
-}
+
 /*
 User Rezervation
  */

@@ -141,6 +141,14 @@ function renderVisitor() {
 }
 
 export default (params) => {
+
+    //Logged User
+    App.on('logged.user', (usr) => {
+        if(location.pathname.indexOf('/rezervation/') >= 0 && !usr.new) {
+            _Rezervation(params);
+        }
+    });
+
     return new Promise((resolve) => {
         Header()
             .then(() => Footer())
@@ -231,24 +239,25 @@ export default (params) => {
                                     visitors: visitors
                                 })))
                                 .then(() => App.promise(() => template.find('.rezervation-container').scrollView()))
-                                .then(() => App.hidePreloader());
+                                .then(() => App.hidePreloader())
+                                .catch((err) => {
+                                    App.hidePreloader()
+                                        .then(() => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'))
+                                });
                         })
-                        .catch((e) => {
-                        console.log(e);
+                        .catch((err) => {
                             App.hidePreloader()
-                                .then(() => App.parseJSON(e.responseText))
-                                .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
+                                .then(() => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'))
                         });
 
                 })
             })
             .then(() => resolve());
-    })
+    });
+
+
+
 }
 
-//Logged User
-App.on('logged.user', (usr) => {
-    if (!usr.new && advert.id) {
-        _Rezervation({id: advert.id});
-    }
-});
+
+
