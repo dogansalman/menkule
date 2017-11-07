@@ -16,7 +16,7 @@ export default (params) => {
         Header()
             .then(() => Footer())
             .then(() => Menkule.logout())
-            .then(() => Menkule.get('/users/password/token/' + location.href.getParameterByName('token')))
+            .then(() => Menkule.get('/users/password/validate?token=' + location.href.getParameterByName('token')))
             .then(() => $('body').zone('content').setContentAsync(ResetPassword()))
             .then((template) => {
 
