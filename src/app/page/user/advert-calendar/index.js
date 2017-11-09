@@ -125,5 +125,9 @@ export default () => {
                     });
             })
             .then(() => resolve())
+            .catch((err) => {
+                App.hidePreloader()
+                    .then(() => $("body").zone('content').setContentAsync(appMessage('error_adverts')))
+            })
     });
 }

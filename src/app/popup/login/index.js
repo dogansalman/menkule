@@ -26,8 +26,8 @@ export default () => {
                         .then(() => {
                             template.validateFormAsync(loginFormRules)
                                 .then((loginForm) => Menkule.post('/auth/login', Object.assign(loginForm, {grant_type: 'password'} ), 'application/x-www-form-urlencoded' ))
-                                .then((result) => App.promise(() => Menkule.saveToken(result.access_token)))
-                                .then(() => Menkule.user()).do((usr) => Menkule.saveWsToken(usr))
+                                .then((result) => App.promise(() => Menkule.saveToken(result)))
+                                .then(() => Menkule.user())
                                 .then((user) => template.parents('.modal').modal('hide').promise().done(() => resolve(user)))
                                 .catch(err => {
                                     // If Validate Error
@@ -42,8 +42,8 @@ export default () => {
                                     // If User not found
                                     template.hidePreloader()
                                         .then(() => App.promise(() => Messages('login_fail')))
-                                        .then(template => template.zone('notification').setContentAsync(template))
-                                        .then(() => template.formFields().enable() && template.formFields().select() && $(e.target).enable());
+                                        .then(message => template.zone('notification').setContentAsync(message))
+                                        .then(() => template.formFields().enable() && $(e.target).enable());
                                 })
                         })
                 });

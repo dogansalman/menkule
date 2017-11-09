@@ -182,8 +182,10 @@
                 {{#if user.state}}
                     <a href="javascript:void(0);" class="activeaccount"><i class="fa fa-check"></i> Onaylanmış Kimlik</a>
                 {{/if}}
-                <a href="#" class="default_btn moffset3 fullwidth feedback-btn">Geri Bildirim</a>
-            </div>
+        {{#isLogin}}
+            <a href="#" class="default_btn moffset3 fullwidth feedback-btn">Geri Bildirim</a>
+        {{/isLogin}}
+        </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-10 advert_owner_desc moffset3">
             <h2>İlan Sahibi Hakkında</h2>
@@ -193,7 +195,7 @@
         <!-- ADVERT OWNER DETAIL END-->
         <!-- ADVERT COMMENT START-->
         <div id="comments-container" class="col-xs-12  advert_detail_comment_container moffset3">
-            <h2 class="detail_content_title bottomset2">Değerlendirmeler ({{advert.comments.lengh}})</h2>
+            <h2 class="detail_content_title bottomset2">Değerlendirmeler {{get_length comments}})</h2>
             <div data-zone="comments" class="col-xs-12 disable_padding"></div>
         </div>
         {{#isLogin}}

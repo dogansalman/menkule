@@ -6,14 +6,27 @@ import config from './configs/config';
 
 // Private properties
 let socket = null;
-let token = window.localStorage.getItem("menkule_token") || null;
-let wsToken = window.localStorage.getItem("menkule_ws_token") || null;
+const tokenData = ['access_token','expires_in','refresh_token','token_type'];
+let token = function(){
+    let x = {};
+    tokenData.forEach(key => x[key] = window.localStorage.getItem(key) ? window.localStorage.getItem(key) : null);
+    for(let i = 0; i < Object.keys(x).length; i++){
+        if(!x[Object.keys(x)[i]]) {
+            x = null;
+            break;
+        }
+    }
+    return x;
+}();
+
+
+
 let loggedUser = null;
 let apiAddress = config().apiAdress;
 let socketAddress = config().socketAddress;
 let cloudinaryBaseUrl = config().cloudinaryBaseUrl;
 let nullImageUrl = config().nullImageUrl;
-let secretKey = config().secretKey;
+
 
 
 // Menkule Constructor
@@ -47,7 +60,7 @@ Menkule.prototype.request = function(method, url, data, contentType) {
       if (typeof data == "object") Object.keys(data).map(key => queryString.push(key + "=" + encodeURIComponent(data[key])));
       if (queryString.length > 0) ajaxOptions["url"] = ajaxOptions["url"] + "?" + queryString.join("&");
     }
-    if (this.hasToken()) ajaxOptions["beforeSend"] = (xhr => xhr.setRequestHeader('Authorization', 'Bearer ' + token));
+    if (this.hasToken()) ajaxOptions["beforeSend"] = (xhr => xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token));
     ajaxOptions.timeout = 20000;
     $.ajax(ajaxOptions)
       .done(result => resolve(result))
@@ -68,23 +81,27 @@ Menkule.prototype.hasToken = function(){
   return token !== null;
 };
 Menkule.prototype.saveToken = function(t){
-  window.localStorage.setItem("menkule_token", token = t);
+    token = t;
+    Object.keys(t).forEach(key => {
+        window.localStorage.setItem(key, t[key]);
+    });
 };
-Menkule.prototype.saveWsToken = function(user){
-    window.localStorage.setItem("menkule_ws_token", wsToken = jwt.encode(user, secretKey));
-    this.startSocket(user);
-};
+
 Menkule.prototype.removeToken = function(){
-  this.stopSocket();
-  window.localStorage.removeItem("menkule_token");
-  window.localStorage.removeItem("menkule_ws_token");
+    this.stopSocket();
+    if(!token) return;
+    tokenData.forEach(key => window.localStorage.removeItem(key));
 };
-Menkule.prototype.getToken = function(){
+Menkule.prototype.getToken = function(force){
+    if(!token) return null;
+    let property = null;
+    tokenData.forEach(key => {
+        property = key;
+        Object.assign(token, { property: 'data'});
+    })
     return token;
 };
-Menkule.prototype.getWsToken = function(){
-    return wsToken;
-};
+
 /*
 Sockets
  */
@@ -151,6 +168,7 @@ Menkule.prototype.user = function(force) {
       .catch(err => this.logout().then(() => resolve(null)));
   });
 };
+
 
 export default Menkule
 

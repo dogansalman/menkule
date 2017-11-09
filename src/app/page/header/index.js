@@ -7,12 +7,18 @@ import appMessages from '../../../lib/appMessages';
 
 let notifications = [];
 
-export default (isOpen) => Menkule.user()
+export default (isOpen) => Menkule.user(true)
   .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen: isOpen || false }))
       .then(header => new Promise(resolve => {
 
     // User Logged
     if (user) {
+
+        // set new access token
+        Menkule.on('refresh.token', () => {
+            Menkule.post('/auth/login', {refresh_token: Menkule.getRefreshToken(), grant_type: 'refresh_token'}, 'application/x-www-form-urlencoded')
+                .then((token) => App.promise(() => Menkule.saveToken(token)));
+        });
 
       //TODO render not api support yet.
       // On new message
@@ -145,6 +151,7 @@ export default (isOpen) => Menkule.user()
         .then(() => Menkule.user(true))
         .then(() => App.promise(() => modal.modal('hide')))
         .then(() => App.promise(() => App.emit('changed.header', true)))
+        .then(() => App.promise(() => Menkule.emit('refresh.token', true)))
         .then(() => App.showNotify({type:'success',message:' Artık ev sahipliği yapabilir ve ilan oluşturabilirsiniz.',title:'Tebrikler',icon:'fa fa-bell-o'}))
         .catch(() => {
           modal.modal('hide');
@@ -176,3 +183,4 @@ App.on('logged.user', (user) => {
 App.on('changed.header', (user) => {
     Header(false);
 });
+

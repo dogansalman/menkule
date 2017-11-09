@@ -15,7 +15,7 @@ export default (key) => {
 
         //adverts
         'advert_not_found': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz bir kayıt bulunamamakta!</h2> <p>Henüz bir ilan kaydınız bulunmamaktadır. </p> </div></div>",
-        'error_adverts': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Bir sorun oldu!</h2> <p>İlanlarınız listelenemedi. Daha sonra tekrar deneyin. </p> </div></div>",
+        'error_adverts': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Hesabınızı Doğrulayın !</h2> <p>İlanlarınızı yönetmek için lütfen hesabınızı doğrulayın.</p> </div></div>",
         'error_advert_detail': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Üzgünüz. Bir sorun oluştu !</h2> <p>İlan detaylarına erişim sağlanmamaktadır. Bunun nedeni ilan size ait olmayabilir veya ilan kaydı silinmiş olabilir. </p> </div></div>",
         'feedback_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> bildiriminiz iletilemedi. Lütfen tekrar deneyin. </div>",
 

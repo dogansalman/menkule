@@ -42,7 +42,7 @@ export default () => Header(false)
                       .then(() => $(".registercontainer").validateFormAsync(registerFormRules))
                       .then((registerForm) => Menkule.post('/users', registerForm))
                       .then(() => Menkule.post('/auth/login', {username: $(".registercontainer").fieldValue('email'), password: $(".registercontainer").fieldValue('password'), grant_type: 'password'}, 'application/x-www-form-urlencoded'))
-                      .then((result) => App.promise(() => Menkule.saveToken(result.access_token)))
+                      .then((result) => App.promise(() => Menkule.saveToken(result)))
                       .then(() => App.navigate('/user/activate'))
                       .catch(err => {
                           $(e.target).enable();

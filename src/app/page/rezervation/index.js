@@ -205,7 +205,7 @@ export default (params) => {
                                     gender: 'Bay'
                                 }))
                                     .then(() => Menkule.post('/auth/login', {username: user.email, password: user.password, grant_type: 'password'}, 'application/x-www-form-urlencoded'))
-                                    .then((result) => App.promise(() => App.promise(() => Menkule.saveToken(result.access_token))))
+                                    .then((result) => App.promise(() => App.promise(() => Menkule.saveToken(result))))
                                     .then(() => Menkule.user())
                                     .then((usr) => Object.assign(user, usr))
                                     .then(() => App.emit('logged.user', user))

@@ -2777,6 +2777,9 @@ Advert Detail
 .flatpickr-rContainer {
     margin: auto;
 }
+.flatpickr-prev-month:hover svg, .flatpickr-next-month:hover svg {
+    fill: #49bafb;
+}
 @media all and (max-width: 768px) {
     .details_container .details_logo {
         font-size: 18px!important

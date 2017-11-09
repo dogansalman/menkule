@@ -217,5 +217,4 @@ App.prototype.validate = {
   }
 };
 
-
 export default App;
