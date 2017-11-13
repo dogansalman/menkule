@@ -1,5 +1,8 @@
 import modal from '../modal';
 import calendar from './calendar.handlebars';
+import flatpickr from 'flatpickr';
+import Turkish from 'flatpickr/dist/l10n/tr';
+
 export default () => {
     return new Promise((resolve) => {
         modal({template: calendar, width:320, title: 'Takvim'})
@@ -10,19 +13,18 @@ export default () => {
                 /*
                 Inıt calendar
                  */
-                template.find('#calendar').flatpickr(
-                    {
-                        inline: true,
-                        mode: 'range',
-                        minDate: 'today',
-                        maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
-                        fullwidth: false,
-                        center: true,
-                        onChange: function(selectedDates, dateStr, instance) {
-                            template.find('.acceptbtn').button('reset');
-                        }
+                flatpickr.localize(flatpickr.l10ns.tr);
+                flatpickr(template.find('#calendar')[0], {
+                    inline: true,
+                    mode: 'range',
+                    minDate: 'today',
+                    maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
+                    fullwidth: false,
+                    center: true,
+                    onChange: function(selectedDates, dateStr, instance) {
+                        template.find('.acceptbtn').button('reset');
                     }
-                );
+                });
 
                 /*
                 Select date

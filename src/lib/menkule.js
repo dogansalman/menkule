@@ -6,7 +6,7 @@ import config from './configs/config';
 
 // Private properties
 let socket = null;
-const tokenData = ['access_token','expires_in','refresh_token','token_type'];
+const tokenData = ['access_token','expires_in','refresh_token','token_type', 'date'];
 let token = function(){
     let x = {};
     tokenData.forEach(key => x[key] = window.localStorage.getItem(key) ? window.localStorage.getItem(key) : null);
@@ -60,7 +60,10 @@ Menkule.prototype.request = function(method, url, data, contentType) {
       if (typeof data == "object") Object.keys(data).map(key => queryString.push(key + "=" + encodeURIComponent(data[key])));
       if (queryString.length > 0) ajaxOptions["url"] = ajaxOptions["url"] + "?" + queryString.join("&");
     }
-    if (this.hasToken()) ajaxOptions["beforeSend"] = (xhr => xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token));
+    if (this.hasToken()) {
+        if(this.tokenExpire()) this.refreshToken();
+        ajaxOptions["beforeSend"] = (xhr => xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token));
+    }
     ajaxOptions.timeout = 20000;
     $.ajax(ajaxOptions)
       .done(result => resolve(result))
@@ -74,6 +77,7 @@ Menkule.prototype.post = function(url, data, contentType = 'application/json;cha
 Menkule.prototype.put = function(url, data, contentType = 'application/json;charset=utf-8'){ return this.request("PUT", url, data, contentType); };
 Menkule.prototype.get = function(url, data){ return this.request("GET", url, data); };
 Menkule.prototype.delete = function(url){ return this.request("DELETE", url); };
+
 /*
 Token
  */
@@ -81,12 +85,13 @@ Menkule.prototype.hasToken = function(){
   return token !== null;
 };
 Menkule.prototype.saveToken = function(t){
+    Object.assign(t, {date: Date()});
     token = t;
+
     Object.keys(t).forEach(key => {
         window.localStorage.setItem(key, t[key]);
     });
 };
-
 Menkule.prototype.removeToken = function(){
     this.stopSocket();
     if(!token) return;
@@ -101,7 +106,20 @@ Menkule.prototype.getToken = function(force){
     })
     return token;
 };
-
+Menkule.prototype.refreshToken = function() {
+    return new Promise((resolve, reject) => {
+        if(!token) reject();
+        this.request('POST', '/auth/login', {grant_type: 'refresh_token', refresh_token: this.getToken().refresh_token}, 'application/x-www-form-urlencoded')
+            .then((token) => App.promise(() => this.saveToken(token)))
+            .then(() => resolve())
+            .catch((err) => reject(err));
+    })
+};
+Menkule.prototype.tokenExpire = function () {
+    let expire_date = new Date(this.getToken().date);
+    expire_date.setSeconds(expire_date.getSeconds() + this.getToken().expires_in);
+    if(new Date() > expire_date) return true;
+};
 /*
 Sockets
  */

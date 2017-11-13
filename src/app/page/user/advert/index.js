@@ -266,13 +266,12 @@ export default (params) => {
                 $(".advert-detail").formFields().enable();
                 if (err instanceof ValidateError) {
                   if (err.fields[0].id == "map") return App.notifyDanger('lütfen ilanınızın konumunu işaretleyin.', 'Üzgünüz');
-                  if(err.fields[0].hasAttribute('data-form-element')) return App.notifyDanger('İlanınızın yayınlanabilmesi için lütfen en az <b>6</b> görsel yükleyin.', 'Üzgünüz');
                   return App.hidePreloader().then(() => $(err.fields[0]).focus());
                 }
                 if (err instanceof Error) return App.hidePreloader().then(() => App.notifyDanger(err.message));
                 App.hidePreloader()
                   .then(() => App.parseJSON(err.responseText))
-                  .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
+                  .then(o => App.notifyDanger(o.result || o.Message, 'Üzgünüz'))
                   .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
           });
         });
