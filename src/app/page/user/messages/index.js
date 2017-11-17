@@ -7,7 +7,7 @@ export default() => {
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
-      .then(() => Menkule.get("/message/list"))
+      .then(() => Menkule.get("/message"))
       .then((messageList) => $('body').zone('content').setContentAsync(Messages({messages: messageList})))
       .then(() => resolve())
       .catch((err) => {

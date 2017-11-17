@@ -3,6 +3,7 @@ import Footer from '../../footer';
 import message from './message.handlebars';
 import appMessage from '../../../../lib/appMessages';
 import Message from '../message';
+import messageslist from './messages.handlebars';
 
 export default (params) => {
 
@@ -10,19 +11,25 @@ export default (params) => {
     message: [App.validate.REQUIRED, App.validate.STRING],
   };
 
+  let messages = [];
+  let template;
+
+    App.on('new.message', (messages) => {
+        template.zone('messages').setContentAsync(messageslist({message: messages.message}))
+            .then(() => template.find(".messagelistcontainer").scrollTop(template.find(".messagelistcontainer")[0].scrollHeight))
+    });
+
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
-      .then(() => Menkule.post("/message/detail", { 'uniqId': params.id }))
-      .then((messages) => $("body").zone('content').setContentAsync(message({message: messages})))
+      .then(() => Menkule.get("/message/" + params.id)).do((msg) => messages = msg)
+      .then(() => $("body").zone('content').setContentAsync(message(messages))).do((t) => template = t)
       .then((template) => {
 
         /*
-        Message autoscroll
-        */
-        if (template.find(".messagelistcontainer")) template.find(".messagelistcontainer").scrollTop(template.find(".messagelistcontainer")[0].scrollHeight);
-
-
+        Render messages
+         */
+        App.emit('new.message', messages);
 
        /*
        Enter repy message
@@ -39,9 +46,12 @@ export default (params) => {
         template.find('.send-messagebtn').on('click', e => {
           template.find(".messagereplycontainer").validateFormAsync(replyFormRules)
             .then((replyMessage) => App.showPreloader(replyMessage, .7))
-            .then((replyMessage) => Menkule.post('/message/reply', Object.assign(replyMessage, { 'id': params.id })))
+            .then((replyMessage) => Menkule.put('/message/' + params.id, replyMessage))
+            .then((reply) => App.promise(() => messages.message.push(reply)))
             .then(() => App.hidePreloader())
-            .then(() => App.emit('new.message', params.id))
+            .then(() => App.emit('new.message', messages))
+            .then(() => App.promise(() => template.find(".messagereplycontainer").clearForm()))
+            .then(() => App.promise(() => template.find('.send-messagebtn').removeClass('writing')))
             .catch((err) => {
               if (err instanceof ValidateError) return App.hidePreloader().then(() => $(err.fields[0]).select());
               App.hidePreloader()
@@ -54,11 +64,9 @@ export default (params) => {
       })
       .then(() => resolve())
       .catch((err) => {
+        console.log(err);
         $("body").zone('content').setContentAsync(appMessage('error_message_detail'))
           .then(() => resolve())
       });
   })
 }
-App.on('new.message', (id) => {
-  Message({id: id});
-});

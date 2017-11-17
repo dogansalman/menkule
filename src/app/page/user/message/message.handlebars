@@ -3,31 +3,20 @@
         <div class="hidden-xs hidden-sm col-md-3 messageprofilecontainer">
             <div class="messagecontainer-leftside">
                 <div class="messageprofilephotocontainer">
-                    <img class="messageprofilephoto" src='{{#image message.user_from.user_photo 150 150 }} {{/image}}'/>
+                    <img class="messageprofilephoto" src='{{#image user.photo 150 150 }} {{/image}}'/>
                 </div>
                 <div class="messageprofiledetail">
-                    <span class="messageprofilename">{{message.user_from.name}} </span>
-                    <span class="messageprofiledate"> {{date message.user_from.created "D MMMM YYYY, dddd"}} </span>
+                    <span class="messageprofilename">{{user.fullname}} </span>
+                    <span class="messageprofiledate"> {{date user.last_view "D MMMM YYYY, dddd"}} </span>
                 </div>
             </div>
-
             <div class="messagecontainer-bottomside">
                 <p style="font-size:12px;">Bu mesaj hakaret vb içerik barındırıyorsa veya mesaj içeriği ile ilgili bir şikayetiniz bulunuyorsa lütfen <a href="/contact">Bildirin.</a> </p>
-
             </div>
-
-
         </div>
         <div class="col-md-9 messagefulltextcontainer">
-            <div class="messagelistcontainer">
-                {{#each message.message}}
-                    <div class='messagefullText'>
-                        <span class='messagefulltext-message'>
-                            <p><strong>{{fullname}}:</strong> {{message}}</p>
-                            <span class='hiden-xs hidden-sm message-time'> {{fromNow date}} </span>
-                        </span>
-                    </div>
-                {{/each}}
+            <div data-zone="messages" class="messagelistcontainer">
+
             </div>
             <div class="messagereplycontainer disable_padding">
                 <input type="text" data-form-element="message" style="border-left: none !important;" placeholder="Yanıtınız." maxlength="190" class="form-control messagereplytext"/>
