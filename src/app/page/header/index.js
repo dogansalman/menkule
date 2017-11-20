@@ -13,28 +13,21 @@ export default (isOpen) => Menkule.user(true)
 
     // User Logged
     if (user) {
-
         // set new access token
         Menkule.on('refresh.token', () => {
             Menkule.post('/auth/login', {refresh_token: Menkule.getRefreshToken(), grant_type: 'refresh_token'}, 'application/x-www-form-urlencoded')
                 .then((token) => App.promise(() => Menkule.saveToken(token)));
         });
 
-      //TODO render not api support yet.
       // On new message
       Menkule.on('new.message', (message) => {
-        App.promise(() => user.messages.findIndex(ms => ms.message_id == message.message_id))
+        App.promise(() => user.messages.findIndex(ms => ms.id === message.id))
           .then((msgIndex) => App.promise(() => {
             if (msgIndex > -1) user.messages.splice(msgIndex, 1)
           }))
           .then(() => App.promise(() => user.messages.unshift(message)))
-          .then(() => App.promise(() => user.message_count = +1))
-          .then(() => App.renderTemplate(header.find('#message-template').html(), {
-            message: user.messages
-          }))
-          .then((msg_temp) => $("body").zone('messages').setContentAsync(msg_temp));
+          .then(() => $("body").zone('messages').setContentAsync( messages({message: user.messages})))
       });
-
 
       // On new notification
       Menkule.on('new.notification', (notification) => {
@@ -70,14 +63,13 @@ export default (isOpen) => Menkule.user(true)
           .then(() => header.find('.alertlists').addClass('open'))
       });
 
-      //TODO render not api support yet.
-      //render messages
-      $("body").zone('messages').setContentAsync( messages({message: user.messages}));
-
       // Notifications
       Menkule.get('/notifications/last/10').do(n => Object.assign(user, {notifications: n}))
           .then((notifications) => $("body").zone('alert').setContentAsync( alerts({alert: notifications})));
 
+     // Messages
+      Menkule.get('/message/last/10').do(m => Object.assign(user, {messages: m}))
+          .then((message) => $("body").zone('messages').setContentAsync( messages({message: message})))
 
       //On clicked notification
       header.find('.alertmessage-alert-title').on('click', (e) => {

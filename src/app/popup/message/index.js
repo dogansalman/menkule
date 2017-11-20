@@ -31,7 +31,7 @@ export default (recipientDetail) => {
           template.showPreloader(.7)
             .then(() => {
               template.validateFormAsync(messageFormRules)
-                .then((msg) => Menkule.post("/message/new", {message: msg.message, user:recipientDetail.Id}))
+                .then((msg) => Menkule.post("/message", {message: msg.message, user_id:recipientDetail.Id}))
                 .then(() => App.promise(() => openedModal.modal('hide')))
                 .then(() => App.notifySuccess('Mesajınız iletildi.', 'Teşekkürler.'))
                 .catch(err => {

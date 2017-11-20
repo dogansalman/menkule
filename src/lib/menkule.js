@@ -125,8 +125,17 @@ Sockets
  */
 
 Menkule.prototype.startSocket = function (user){
-  if (socket) return;
-  socket = io(socketAddress, {'query': 'user=' + user.id});
+
+  //if (socket) return;
+  socket = io(socketAddress, {
+      'query': 'user=' + user.id,
+      'reconnection': true,
+      'reconnectionDelay': 500,
+      'reconnectionDelayMax' : 1000,
+      secure: false,
+      transports: ['websocket']
+
+  });
   socket.on('notification', (notification) => this.emit('new.notification', notification));
   socket.on('message', (message) => this.emit('new.message', message));
 };

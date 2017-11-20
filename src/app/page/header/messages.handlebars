@@ -12,8 +12,8 @@
     <ul>
         {{#each message}}
         <li class='newmessagelist'>
-            <a href='/user/messages/{{message_id}}'> <span class='newmessagelist-photo hidden-xs hidden-sm'>
-            <img src='{{#image sender_photo 250 200 }} {{/image}}'></img> </span> <span class='newmessagelist-message'>{{last_message.message}} {{message}} <br/> <span class='messagelist-dateicon'>{{date}} </span> </span>
+            <a href='/user/messages/{{id}}'> <span class='newmessagelist-photo hidden-xs hidden-sm'>
+            <img src='{{#image user.photo 150 150 }} {{/image}}'> </img> </span> <span class='newmessagelist-message'>{{message.message}}  <br/> <span class='messagelist-dateicon'> {{fromNow message.date}} </span> </span>
             </a>
         </li>
         {{else}}
