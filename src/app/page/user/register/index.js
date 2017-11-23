@@ -41,7 +41,7 @@ export default () => Header(false)
                       .then(() => App.showPreloader(.7))
                       .then(() => $(".registercontainer").validateFormAsync(registerFormRules))
                       .then((registerForm) => Menkule.post('/users', registerForm))
-                      .then(() => Menkule.post('/auth/login', {username: $(".registercontainer").fieldValue('email'), password: $(".registercontainer").fieldValue('password'), grant_type: 'password'}, 'application/x-www-form-urlencoded'))
+                      .then(() => Menkule.post('/auth', {username: $(".registercontainer").fieldValue('email'), password: $(".registercontainer").fieldValue('password'), grant_type: 'password'}, 'application/x-www-form-urlencoded'))
                       .then((result) => App.promise(() => Menkule.saveToken(result)))
                       .then(() => App.navigate('/user/activate'))
                       .catch(err => {

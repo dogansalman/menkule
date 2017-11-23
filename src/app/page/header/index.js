@@ -15,7 +15,7 @@ export default (isOpen) => Menkule.user(true)
     if (user) {
         // set new access token
         Menkule.on('refresh.token', () => {
-            Menkule.post('/auth/login', {refresh_token: Menkule.getRefreshToken(), grant_type: 'refresh_token'}, 'application/x-www-form-urlencoded')
+            Menkule.post('/auth', {refresh_token: Menkule.getRefreshToken(), grant_type: 'refresh_token'}, 'application/x-www-form-urlencoded')
                 .then((token) => App.promise(() => Menkule.saveToken(token)));
         });
 

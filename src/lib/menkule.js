@@ -109,7 +109,7 @@ Menkule.prototype.getToken = function(force){
 Menkule.prototype.refreshToken = function() {
     return new Promise((resolve, reject) => {
         if(!token) reject();
-        this.request('POST', '/auth/login', {grant_type: 'refresh_token', refresh_token: this.getToken().refresh_token}, 'application/x-www-form-urlencoded')
+        this.request('POST', '/auth', {grant_type: 'refresh_token', refresh_token: this.getToken().refresh_token}, 'application/x-www-form-urlencoded')
             .then((token) => App.promise(() => this.saveToken(token)))
             .then(() => resolve())
             .catch((err) => reject(err));
