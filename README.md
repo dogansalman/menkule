@@ -12,4 +12,13 @@ npm run dev
 # Build Production
 npm run build
 
+# Google Api Keys
+npm run build
+JS WEB APİ 
+AIzaSyBse8vucXs246MUgYmnmg_bUEaBffCIcfo
 
+Android Api
+AIzaSyCvZ_rend0Mo3cBMmy4po3_TfsiKxB9nmE
+
+IOS Api
+AIzaSyBN8Rnz_WFo5x4cSKd279_phOWYqBWJZnY
