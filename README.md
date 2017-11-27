@@ -13,12 +13,11 @@ npm run dev
 npm run build
 
 # Google Api Keys
-npm run build
-JS WEB APİ 
+### JS WEB APİ 
 AIzaSyBse8vucXs246MUgYmnmg_bUEaBffCIcfo
 
-Android Api
+### Android Api
 AIzaSyCvZ_rend0Mo3cBMmy4po3_TfsiKxB9nmE
 
-IOS Api
+### IOS Api
 AIzaSyBN8Rnz_WFo5x4cSKd279_phOWYqBWJZnY
