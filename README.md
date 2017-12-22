@@ -13,11 +13,11 @@ npm run dev
 npm run build
 
 # Google Api Keys
-### JS WEB APİ 
-AIzaSyBse8vucXs246MUgYmnmg_bUEaBffCIcfo
+**HTTP yönlendirenleri**
+> AIzaSyB1mXGdC6m5I01wGIAFNGlSy0OXc0n1QH4	 
+ 
+**Places - Android**
+> AIzaSyBWsnpeDue8z9EevJ74Aj7uo5cJFv0p9K0	 
 
-### Android Api
-AIzaSyCvZ_rend0Mo3cBMmy4po3_TfsiKxB9nmE
-
-### IOS Api
-AIzaSyBN8Rnz_WFo5x4cSKd279_phOWYqBWJZnY
+**Map - Android**
+> AIzaSyBN8Rnz_WFo5x4cSKd279_phOWYqBWJZnY	
