@@ -91,7 +91,7 @@ export default (params) => {
               /*
                Notify advert state
               */
-              if (!advert.advert.state) App.notifyDanger('İlanınız onay için incelenmektedir.', 'Onay Bekleniyor');
+              if (!advert.state) App.notifyDanger('İlanınız onay için incelenmektedir.', 'Onay Bekleniyor');
 
               /*
                Advert avaiable date add to list
@@ -105,11 +105,11 @@ export default (params) => {
                Set center latitude longitude
               */
               template.find("#map").centerTo({
-                  'lat': advert.advert.latitude,
-                  'lng': advert.advert.longitude
-              }).zoom(advert.advert.zoom).addMarker({
-                  'lat': advert.advert.latitude,
-                  'lng': advert.advert.longitude
+                  'lat': advert.latitude,
+                  'lng': advert.longitude
+              }).zoom(advert.zoom).addMarker({
+                  'lat': advert.latitude,
+                  'lng': advert.longitude
               });
           }
 
@@ -286,7 +286,7 @@ export default (params) => {
           })
             .then(() => {
               App.showPreloader(.7)
-                .then(() => Menkule.delete('/adverts/' + advert.advert.id))
+                .then(() => Menkule.delete('/adverts/' + advert.id))
                 .then(() => App.hidePreloader())
                 .then(() => App.notifySuccess('İlan kaydınız silindi.', 'Tamam'))
                 .then(() => App.wait(1500))

@@ -1,7 +1,7 @@
     <div class="container">
     <div class="advert-detail">
-    {{#if advert.id}}
-        <input type="hidden" data-form-element="id" value="{{advert.id}}" />
+    {{#if id}}
+        <input type="hidden" data-form-element="id" value="{{id}}" />
     {{/if}}
     <div class="col-xs-12 disable_padding">
     <div class="col-xs-12 disable_padding">
@@ -35,7 +35,7 @@
         </select>
         </div>
          <div class="col-xs-12 col-sm-8 col-md-8 moffset1">
-                <input type="text" name="street_address" data-form-element="adress" class="form-control adress" maxlength="150" placeholder="Açık adresi yazınız. (Maks 120 Karakter)" value="{{advert.adress}}"></input>
+                <input type="text" name="street_address" data-form-element="adress" class="form-control adress" maxlength="150" placeholder="Açık adresi yazınız. (Maks 120 Karakter)" value="{{adress}}"></input>
          </div>
         </div>
             <div class="col-xs-12 disable_padding map-container">
@@ -218,7 +218,7 @@
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group ">
                     <h3>Min. Konaklama Süresi</h3>
-                    {{#select advert.min_layover}}
+                    {{#select min_layover}}
                     <select data-form-element="min_layover" class="form-control">
                         {{#times 9}}
                         <option value="{{this}}">{{this}} Gün</option>
@@ -231,7 +231,7 @@
             <div class="col-xs-12 col-sm-12 col-md-6">
                 <div class="form-group ">
                     <h3>Rezervasyon İptal Süresi</h3>
-                    {{#select advert.cancel_time}}
+                    {{#select cancel_time}}
                     <select data-form-element="cancel_time" class="form-control">
                         {{#times 14}}
                         <option value="{{this}}">{{this}} Gün önce</option>
@@ -243,7 +243,7 @@
             <div class="col-xs-12 col-sm-5 col-md-6">
                 <div class="form-group">
                     <h3>Giriş Saat</h3>
-                    {{#select advert.entry_time}}
+                    {{#select entry_time}}
                     <select data-form-element="entry_time" class="form-control">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -277,7 +277,7 @@
             <div class="col-xs-12 col-sm-5 col-md-6">
                 <div class="form-group">
                     <h3>Çıkış Saat</h3>
-                    {{#select advert.exit_time}}
+                    {{#select exit_time}}
                     <select data-form-element="exit_time" class="form-control">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -330,7 +330,7 @@
                     <h3>Gecelik Ücret</h3>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-try"></i></div>
-                        <input data-form-element="price" type="text" class="form-control price" value="{{advert.price}}" placeholder="00">
+                        <input data-form-element="price" type="text" class="form-control price" value="{{price}}" placeholder="00">
                     </div>
                 </div>
             </div>
@@ -339,14 +339,14 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
                     <div class="form-group ">
                         <h3>Başlık</h3>
-                        <input data-form-element="title" type="text" class="form-control" value="{{advert.title}}" maxlength="90" placeholder="Başlık">
+                        <input data-form-element="title" type="text" class="form-control" value="{{title}}" maxlength="90" placeholder="Başlık">
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
                 <div class="form-group">
                     <h3>Açıklama</h3>
-                    <textarea style="min-height:200px"  data-form-element="description" maxlength="500" placeholder="İlanınızın açıklamasını yazınız. (Maks 1200 karakter)" class="form-control">{{advert.description}}</textarea>
+                    <textarea style="min-height:200px"  data-form-element="description" maxlength="500" placeholder="İlanınızın açıklamasını yazınız. (Maks 1200 karakter)" class="form-control">{{description}}</textarea>
                 </div>
             </div>
             <div class="col-xs-12 disable_padding">
@@ -357,18 +357,18 @@
             </div>
             <div class="col-xs-12 moffset4 disable_padding">
                 <div class="text-left col-xs-12 col-sm-6 col-md-6" style="float:left">
-                    <button href="javascript:void(0)" class="default_btn update">{{#if advert.id}} Değişiklikleri Kaydet {{else}} Kaydet {{/if}}</button>
-                    {{#if advert.id}}<button href="javascript:void(0)" class="cancelbtn delete">İlanı Sil</button>{{/if}}
+                    <button href="javascript:void(0)" class="default_btn update">{{#if id}} Değişiklikleri Kaydet {{else}} Kaydet {{/if}}</button>
+                    {{#if id}}<button href="javascript:void(0)" class="cancelbtn delete">İlanı Sil</button>{{/if}}
                 </div>
-                {{#if advert.id}}
+                {{#if id}}
                 <div class="text-right col-xs-12 col-sm-6 col-md-6">
                     <div class="col-xs-12 col-sm-6 col-md-12">
-                        <div class="advert-state"> {{#if advert.state}}
+                        <div class="advert-state"> {{#if state}}
                             <b>Onaylandı</b> <i class="fa fa-check"></i> {{else}}  <b>Onay Bekleniyor</b> <i class="fa fa-clock-o"></i> {{/if}}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-12 moffset2">
-                        {{date advert.date "D MMMM YYYY, dddd"}} - {{fromNow advert.date}} - {{advert.views}} Görüntülenme
+                        {{date date "D MMMM YYYY, dddd"}} - {{fromNow date}} - {{views}} Görüntülenme
                     </div>
                 </div>
                 {{/if}}
