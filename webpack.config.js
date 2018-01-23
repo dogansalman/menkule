@@ -81,7 +81,6 @@ module.exports = {
         moment: 'moment'
       }),
         new CopyWebpackPlugin([{ from: 'assets/', to: 'assets' }]),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ]
 };

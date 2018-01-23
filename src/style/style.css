@@ -1274,6 +1274,13 @@ Footer
 /*
 Header
  */
+.head_logo > a > span {
+  color: #fff;
+  padding: 10px 0px 0px 5px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+}
 .heads {
     margin: auto;
     padding: 0;
@@ -2390,6 +2397,14 @@ App Home
         margin-bottom: 10px;
         margin-top: 10px;
     }
+}
+
+/* Login Popup */
+.popuplogin-container .required_alert {
+  background: #e74c3c;
+  color: #fff;
+  padding: 3px 3px 3px 5px;
+  font-size: 12px;
 }
 
 /*
@@ -4207,10 +4222,10 @@ a:hover {
 .indextitle {
   font-family: 'Open Sans', sans-serif!important;
   color: #fff;
-  font-size: 36px;
+  font-size: 28px;
   display: block;
   margin-top: 20px;
-  font-weight: 300
+  font-weight: 400;
 }
 .index-desc {
   font-size: 19px;

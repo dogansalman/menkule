@@ -30,7 +30,6 @@
     "moment": "^2.18.1",
     "moment-range": "^3.0.3",
     "navigo": "^5.2.0",
-    "open-sans-all": "^0.1.2",
     "socket.io": "^2.0.3",
     "swiper": "^3.4.2"
   },

@@ -6,6 +6,7 @@ import geocomplate from 'geocomplete';
 import flatpickr from "flatpickr"
 import Turkish from 'flatpickr/dist/l10n/tr.js';
 
+
 let location = null;
 // Validate config
 var searchRules = {
@@ -23,6 +24,8 @@ export default () => Header(false)
   .then(() => Footer())
   .then(() => $("body").zone("content").setContentAsync(template()))
   .then(template => new Promise(resolve => {
+
+      template.find('.loadingvideo').fadeOut(2000);
 
     /*
     Inıt geocomplate

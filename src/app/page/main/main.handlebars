@@ -28,7 +28,13 @@
 
 <div class="banner video-container hidden-xs hidden-sm">
     <div class="tv">
-        <div class="screen mute" id="tv"></div>
+        <div class="screen mute" id="tv">
+            <video autoplay loop class="fillWidth">
+                <source src="/assets/background-video/video.mp4" type="video/mp4"/>
+                <source src="/assets/background-video/video.ogv" type="video/ogg"/>
+                <source src="/assets/background-video/video.webm" type="video/webm"/>
+            </video>
+        </div>
         <div class="loadingvideo"></div>
     </div>
     <div class="container disable_padding  home-searchbox-container">
@@ -37,7 +43,7 @@
             <span class="indextitle">KEŞFEDİLMEYİ BEKLEYEN HERYERDE EVİNİZ VAR.</span>
             <span class="index-desc">Hemen ücretsiz ve kolayca kayıt olun! </span>
             {{#notLogged}}
-                <a class="index-registerbtn" href="/user/register">Bize Katıl!</a>
+                <a class="index-registerbtn" href="/user/register">Hemen Kayıt Ol!</a>
             {{/notLogged}}
         </div>
 
