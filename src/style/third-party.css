@@ -12,5 +12,5 @@
 @import "~flatpickr/dist/flatpickr.css";
 /* Awesome Checkbox*/
 @import "~awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css";
-/* Icomoon Fonts */
-@import "icons.css";
+/* Uplaoder */
+@import "third-party/uploader/jquery.uploader.css";
