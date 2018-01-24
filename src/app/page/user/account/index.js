@@ -54,7 +54,6 @@ export default () => {
                         $(e.target).enable().text('Tamam');
                     })
                     .catch((response) => {
-                        console.log(response);
                         $(e.target).enable().text('Tamam');
                         template.find(".account-container").formFields().enable();
                         if (response instanceof ValidateError) return $(response.fields[0]).select();

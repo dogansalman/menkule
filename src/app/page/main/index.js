@@ -35,7 +35,7 @@ export default () => Header(false)
         country: ['tr'],
         types: ['(cities)']
       })
-      .bind("geocode:result", function(event, result){
+      .bind("geocode:result", function(event, result) {
         Gmap.getLocationViewport(result.name).then((locationDetail) => {
           location = Object.assign(locationDetail,{'name':result.name});
         })
@@ -54,6 +54,8 @@ export default () => Header(false)
         .then((mobile) => App.promise(() => mobile ? template.find(".search-form-mobile") : template.find(".search-form") )   )
         .then((searchForm) => $(searchForm).validateFormAsync(searchRules))
         .then((formData) =>  {
+            console.log(formData);
+
           App.generateAdvertSearchUrl({
             'checkin': formData.date.split(' to ')[0].trim(),
             'checkout': formData.date.split(' to ')[1].trim(),
@@ -62,7 +64,7 @@ export default () => Header(false)
             'guest' : formData.guest,
             'name': location.name.turkishToLower()
           })
-            .then((searchUrl) => App.navigate(searchUrl.url, searchUrl.query));
+          //  .then((searchUrl) => App.navigate(searchUrl.url, searchUrl.query));
         });
     });
 

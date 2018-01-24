@@ -9,6 +9,9 @@ input[type=email] {
   font-family: 'Roboto', sans-serif;
   font-size: 14px
 }
+.flatpickr-input[readonly]{
+  background:#fff !important;
+}
 input[type="text"],
 input[type="button"],
 input[type="submit"],
@@ -2170,6 +2173,9 @@ App Home
 .searchengine .searchcity {
     width: 350px;
 }
+.searchengine .calendar {
+  width: 200px;
+}
 .loadingvideo {
     background: url(../img/cover.png);
     width: 100%;
@@ -2255,7 +2261,7 @@ App Home
 .home-searchbox-container{
     position: absolute;
     z-index: 1;
-    top: 0px;
+    top: 20%;
     left: 0;
     width: 100%;
 }
@@ -4246,11 +4252,9 @@ a:hover {
 }
 .head_message {
   color: #FFF;
-  margin-top: 90px;
   font-family: 'Roboto', sans-serif!important;
   font-size: 27px;
   font-weight: 400;
-  padding-top: 50px
 }
 .head_message p {
   font-size: 13px;

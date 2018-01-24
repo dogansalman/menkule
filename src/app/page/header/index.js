@@ -13,11 +13,6 @@ export default (isOpen) => Menkule.user(true)
 
     // User Logged
     if (user) {
-        // set new access token
-        Menkule.on('refresh.token', () => {
-            Menkule.post('/auth', {refresh_token: Menkule.getRefreshToken(), grant_type: 'refresh_token'}, 'application/x-www-form-urlencoded')
-                .then((token) => App.promise(() => Menkule.saveToken(token)));
-        });
 
       // On new message
       Menkule.on('new.message', (message) => {
@@ -143,10 +138,10 @@ export default (isOpen) => Menkule.user(true)
         .then(() => Menkule.user(true))
         .then(() => App.promise(() => modal.modal('hide')))
         .then(() => App.promise(() => App.emit('changed.header', true)))
-        .then(() => App.promise(() => Menkule.emit('refresh.token', true)))
         .then(() => App.showNotify({type:'success',message:' Artık ev sahipliği yapabilir ve ilan oluşturabilirsiniz.',title:'Tebrikler',icon:'fa fa-bell-o'}))
-        .catch(() => {
+        .catch((err) => {
           modal.modal('hide');
+          console.log(err);
           App.showNotify({type:'danger',message:' Bir hata oluştu. Lütfen tekrar deneyin.',title:'Üzgünüz',icon:'fa fa-bell-o'});
         })
     });

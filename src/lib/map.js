@@ -308,7 +308,7 @@ Gmap.prototype.getLocationViewport = function (city) {
   return new Promise(function (resolve, reject) {
     var request = new XMLHttpRequest();
     var method = 'GET';
-    var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(city);
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyB1aHTBVGeBLG20XKvpQiwa4MOnn_ZRCCw&address=' + encodeURIComponent(city);
     var async = true;
     request.open(method, url, async);
     request.onreadystatechange = function () {
