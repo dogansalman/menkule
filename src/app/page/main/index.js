@@ -64,7 +64,7 @@ export default () => Header(false)
             'guest' : formData.guest,
             'name': location.name.turkishToLower()
           })
-          //  .then((searchUrl) => App.navigate(searchUrl.url, searchUrl.query));
+          .then((searchUrl) => App.navigate(searchUrl.url, searchUrl.query));
         });
     });
 
