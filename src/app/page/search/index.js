@@ -1,5 +1,4 @@
 import Header from '../header';
-import Footer from '../footer';
 import Search from './search.handlebars';
 import Swiper from 'swiper';
 import appMessages from '../../../lib/appMessages';
@@ -19,10 +18,9 @@ export default (params,  query = location.href) => {
 
     return new Promise((resolve) => {
     Header()
-        .then(() => Footer())
         .then(() => $("body").zone('content').setContentAsync(Search))
         .then((template) => {
-
+            document.body.classList.add("search-pg");
             /*
             Disable new mark pin.
              */

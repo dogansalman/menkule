@@ -69,3 +69,12 @@
     border:1px solid #f9f9f9;
     padding: 10px;
 }
+.medium-editor-element h2{
+    font-size:18px !important;
+}
+.medium-editor-element h3{
+    font-size:22px !important;
+}
+.medium-editor-element b{
+    font-weight: 600 !important;
+}
