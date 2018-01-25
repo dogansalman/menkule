@@ -715,7 +715,7 @@ Search
   content: "\f077";
 }
 .mapsearch {
-  height: calc(100vh - 85px);
+  height: calc(100vh - 50px);
   width: 100%;
 }
 
@@ -928,7 +928,7 @@ Search
   border-bottom: 1px solid #f1f1f1;
   padding: 3px 0px 3px 0px;
 }
-.advert-detail-map:first-child,
+
 .search-advert-results {
   padding: 0;
   margin: 0;
