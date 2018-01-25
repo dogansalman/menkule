@@ -3,375 +3,374 @@
     {{#if id}}
         <input type="hidden" data-form-element="id" value="{{id}}" />
     {{/if}}
+        <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+            <div class="form-group ">
+                <h3>Başlık</h3>
+                <input data-form-element="title" type="text" class="form-control" value="{{title}}" maxlength="90" placeholder="Başlık">
+            </div>
+        </div>
     <div class="col-xs-12 disable_padding">
-    <div class="col-xs-12 disable_padding">
-    <div class="col-xs-12" style="padding:10px;position: absolute; top: 9%; z-index: 1; background: rgba(255, 255, 255, 0.81);">
+        <div class="col-xs-12 disable_padding">
+        <div class="col-xs-12" style="padding:10px;position: absolute; top: 9%; z-index: 1; background: rgba(255, 255, 255, 0.81);">
+            <div class="col-xs-12 col-sm-2 col-md-2">
+                <select data-form-element="city_id" class="form-control moffset1 cities">
+                    {{{{raw-helper}}}}
+                        <option value="">Seçiniz</option>
+                        {{#each cities}}
+                        {{#zif ../cityId "==" id}}
+                        <option value="{{id}}" selected="selected">{{name}}</option>
+                        {{else}}
+                        <option value="{{id}}">{{name}}</option>
+                        {{/zif}}
+                        {{/each}}
+                    {{{{/raw-helper}}}}
+                </select>
+            </div>
         <div class="col-xs-12 col-sm-2 col-md-2">
-            <select data-form-element="city_id" class="form-control moffset1 cities">
-                {{{{raw-helper}}}}
-                    <option value="">Seçiniz</option>
-                    {{#each cities}}
-                    {{#zif ../cityId "==" id}}
-                    <option value="{{id}}" selected="selected">{{name}}</option>
-                    {{else}}
-                    <option value="{{id}}">{{name}}</option>
-                    {{/zif}}
-                    {{/each}}
-                {{{{/raw-helper}}}}
-            </select>
-        </div>
-    <div class="col-xs-12 col-sm-2 col-md-2">
-    <select data-form-element="town_id" class="form-control towns moffset1">
-        {{{{raw-helper}}}}
-        <option value="">Seçiniz</option>
-        {{#each towns}}
-        {{#zif ../townId "==" id}}
-        <option value="{{id}}" selected="selected">{{name}}</option>
-        {{else}}
-        <option value="{{id}}">{{name}}</option>
-        {{/zif}}
-        {{/each}}
-        {{{{/raw-helper}}}}
-        </select>
-        </div>
-         <div class="col-xs-12 col-sm-8 col-md-8 moffset1">
-                <input type="text" name="street_address" data-form-element="adress" class="form-control adress" maxlength="150" placeholder="Açık adresi yazınız. (Maks 120 Karakter)" value="{{adress}}"></input>
-         </div>
-        </div>
-            <div class="col-xs-12 disable_padding map-container">
-                <div class="search-cordi-container"> <button href="#" class="search-cordi-btn"></button></div>
-                <div class="form-group">
-                    <h2>Konum</h2>
-                </div>
-                <div id="map" data-form-element="map" style="width:100%;height:500px">
-                </div>
-            </div>
-        </div>
-        </div>
-            <div style="clear:both"></div>
-            <div class="col-xs-12 col-sm-6 col-md-6 disable_padding">
-                <div class="advert-properties">
-                    <div class="form-group">
-                        <h2>Olanaklar</h2>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="internet" id="internet" {{#if possibilities.internet}} checked {{/if}} type="checkbox" />
-                        <label for="internet">İnternet</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="air" id="air" {{#if possibilities.air}} checked {{/if}} type="checkbox" />
-                        <label for="air">Klima</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="tv" id="tv" {{#if possibilities.tv}} checked {{/if}} type="checkbox" />
-                        <label for="tv">Tv</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="requiments" id="requiments" {{#if possibilities.requiments}} checked {{/if}} type="checkbox" />
-                        <label for="requiments">Temel İhtiyaçlar</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="heat" id="heat" {{#if possibilities.heat}} checked {{/if}} type="checkbox" />
-                        <label for="heat">Isınma</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="kitchen" id="kitchen" {{#if possibilities.kitchen}} checked {{/if}} type="checkbox" />
-                        <label for="kitchen">Mutfak</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="gym" id="gym" {{#if possibilities.gym}} checked {{/if}} type="checkbox" />
-                        <label for="gym">Spor Salonu</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="elevator" id="elevator" {{#if possibilities.elevator}} checked {{/if}} type="checkbox" />
-                        <label for="elevator">Asansör</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="jacuzzi" id="jacuzzi" {{#if possibilities.jacuzzi}} checked {{/if}} type="checkbox" />
-                        <label for="jacuzzi">Jakuzi</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="smoke" id="smoke" {{#if possibilities.smoke}} checked {{/if}} type="checkbox" />
-                        <label for="smoke">Sigara İçilebilir</label>
-                    </div>
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="pet" id="pet" {{#if possibilities.pet}} checked {{/if}} type="checkbox" />
-                        <label for="pet">Evcil Hayvan Kabul Edilebilir.</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 disable_padding">
-                    <h3>Uygunluk Tarihi</h3>
-                    <p>İlanınızın belli tarih aralığında yayınlanmasını istiyorsanız </p>
-                    <button class="default_btn daterangebtn"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Özel yayın tarihi ekle</button>
-                    <div data-zone="dateselect-container"></div>
-                </div>
-            </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 disable_padding">
-            <div class="col-xs-12">
-                <h2>Özellikler</h2>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6">
-                <h3>Misafir Kapasitesi (Maks)</h3>
-                {{#select properties.visitor}}
-                <select data-form-element="visitor" class="form-control">
-                    {{#times 15}}
-                    <option value="{{this}}">{{this}} Kişi</option>
-                    {{/times}}
-                </select>
-                {{/select}}
-            </div>
-            <div class=" col-xs-12 col-sm-12 col-md-6">
-                <h3>Banyo Sayısı</h3>
-                {{#select properties.bathroom}}
-                <select data-form-element="bathroom" class="form-control">
-                    {{#times 5}}
-                    <option value="{{this}}">{{this}} Banyo</option>
-                    {{/times}}
-                </select>
-                {{/select}}
-            </div>
-            <div class=" col-xs-12 col-sm-12 col-md-6">
-                <div class="form-group">
-                    <h3>Metrekare</h3>
-                    <input data-form-element="m2" type="text" value="{{properties.m2}}" class="form-control" placeholder="Menkul kaydı kaç metrekare" />
-                </div>
-            </div>
-            <div class=" col-xs-12 col-sm-12 col-md-6">
-                <div class="form-group">
-                    <h3>Yatak Sayısı</h3>
-                    {{#select properties.beds}}
-                    <select data-form-element="beds" class="form-control">
-                        {{#times 7}}
-                        <option value="{{this}}">{{this}} Yatak</option>
-                        {{/times}}
-                    </select>
-                    {{/select}}
-                </div>
-            </div>
-            <div class=" col-xs-12 col-sm-12 col-md-6">
-                <div class="form-group">
-                    <h3>Yatak Odası</h3>
-                    <select data-form-element="bedroom" class="form-control">
-                        {{#select properties.bedroom}}
-                        {{#times 7}}
-                        <option value="{{this}}">{{this}} Yatak Odası</option>
-                        {{/times}}
-                    </select>
-                    {{/select}}
-                </div>
-            </div>
-            <div class=" col-xs-12 col-sm-12 col-md-6">
-                <div class="form-group">
-                    <h3>Bina Yaşı</h3>
-                    {{#select properties.build_age}}
-                    <select data-form-element="build_age" class="form-control">
-                        {{#times 9}}
-                        <option value="{{this}}">{{this}}</option>
-                        {{/times}}
-                        <option value="10">10 ve üzeri</option>
-                    </select>
-                    {{/select}}
-                </div>
-            </div>
-            <div class=" col-xs-12 col-sm-12 col-md-6">
-                <div class="form-group">
-                    <h3>Bulunduğu Kat</h3>
-                    <select data-form-element="floor" class="form-control">
-                        {{#select properties.floor}}
-                        <option value="0">Zemin Kat</option>
-                        {{#times 20}}
-                        <option value="{{this}}">{{this}}. Kat</option>
-                        {{/times}}
-                    </select>
-                    {{/select}}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6">
-                <h3></h3>
-                <div class="col-xs-12 col-sm-12 col-md-5 disable_padding">
-                    <div class="form-group">
-                        <label class="advert_title_label">Oda Sayısı</label>
-                        {{#select properties.room}}
-                        <select data-form-element="room" class="form-control">
-                            {{#times 7}}
-                            <option value="{{this}}">{{this}} Oda</option>
-                            {{/times}}
-                        </select>
-                        {{/select}}
-                    </div>
-                </div>
-                <div class="hidden-xs hidden-sm col-md-1 disable_padding"></div>
-                <div class="col-xs-12 col-sm-12 col-md-6 disable_padding">
-                    <div class="form-group">
-                        <label class="advert_title_label">Salon</label>
-                        {{#select properties.hall}}
-                        <select data-form-element="hall" class="form-control">
-                            {{#times 7}}
-                            <option value="{{this}}">{{this}} Salon</option>
-                            {{/times}}
-                        </select>
-                        {{/select}}
-                    </div>
-                </div>
-            </div>
-            <div style="clear:both"></div>
-            <div class="col-xs-12 col-sm-12 col-md-6">
-                <div class="form-group ">
-                    <h3>Min. Konaklama Süresi</h3>
-                    {{#select min_layover}}
-                    <select data-form-element="min_layover" class="form-control">
-                        {{#times 9}}
-                        <option value="{{this}}">{{this}} Gün</option>
-                        {{/times}}
-                        <option value="50">10 Gün ve Üzeri</option>
-                    </select>
-                    {{/select}}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6">
-                <div class="form-group ">
-                    <h3>Rezervasyon İptal Süresi</h3>
-                    {{#select cancel_time}}
-                    <select data-form-element="cancel_time" class="form-control">
-                        {{#times 14}}
-                        <option value="{{this}}">{{this}} Gün önce</option>
-                        {{/times}}
-                    </select>
-                    {{/select}}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-5 col-md-6">
-                <div class="form-group">
-                    <h3>Giriş Saat</h3>
-                    {{#select entry_time}}
-                    <select data-form-element="entry_time" class="form-control">
-                        <option value="00:00">00:00</option>
-                        <option value="01:00">01:00</option>
-                        <option value="01:00">01:00</option>
-                        <option value="02:00">02:00</option>
-                        <option value="03:00">03:00</option>
-                        <option value="04:00">04:00</option>
-                        <option value="05:00">05:00</option>
-                        <option value="06:00">06:00</option>
-                        <option value="07:00">07:00</option>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                        <option value="22:00">22:00</option>
-                        <option value="23:00">23:00</option>
-                    </select>
-                    {{/select}}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-5 col-md-6">
-                <div class="form-group">
-                    <h3>Çıkış Saat</h3>
-                    {{#select exit_time}}
-                    <select data-form-element="exit_time" class="form-control">
-                        <option value="00:00">00:00</option>
-                        <option value="01:00">01:00</option>
-                        <option value="01:00">01:00</option>
-                        <option value="02:00">02:00</option>
-                        <option value="03:00">03:00</option>
-                        <option value="04:00">04:00</option>
-                        <option value="05:00">05:00</option>
-                        <option value="06:00">06:00</option>
-                        <option value="07:00">07:00</option>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                        <option value="22:00">22:00</option>
-                        <option value="23:00">23:00</option>
-                    </select>
-                    {{/select}}
-                </div>
-            </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
-        <div data-zone="adverttypes" class="form-group">
-            <h3>Menkul Tipi</h3>
-        <select data-form-element="advert_type_id" class="form-control moffset1">
+        <select data-form-element="town_id" class="form-control towns moffset1">
             {{{{raw-helper}}}}
             <option value="">Seçiniz</option>
-            {{#each types}}
-            {{#zif ../advert_type_id "==" id}}
+            {{#each towns}}
+            {{#zif ../townId "==" id}}
             <option value="{{id}}" selected="selected">{{name}}</option>
             {{else}}
             <option value="{{id}}">{{name}}</option>
             {{/zif}}
             {{/each}}
-        {{{{/raw-helper}}}}
-        </select>
-        </div>
-        </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group ">
-                    <h3>Gecelik Ücret</h3>
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-try"></i></div>
-                        <input data-form-element="price" type="text" class="form-control price" value="{{price}}" placeholder="00">
+            {{{{/raw-helper}}}}
+            </select>
+            </div>
+             <div class="col-xs-12 col-sm-8 col-md-8 moffset1">
+                    <input type="text" name="street_address" data-form-element="adress" class="form-control adress" maxlength="150" placeholder="Açık adresi yazınız. (Maks 120 Karakter)" value="{{adress}}"></input>
+             </div>
+            </div>
+
+                <div class="col-xs-12 disable_padding map-container">
+                    <div class="search-cordi-container"> <button href="#" class="search-cordi-btn"></button></div>
+                    <div class="form-group">
+                        <h2>Konum</h2>
+                    </div>
+                    <div id="map" data-form-element="map" style="width:100%;height:500px">
                     </div>
                 </div>
             </div>
         </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
-                <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
-                    <div class="form-group ">
-                        <h3>Başlık</h3>
-                        <input data-form-element="title" type="text" class="form-control" value="{{title}}" maxlength="90" placeholder="Başlık">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+        <div style="clear:both"></div>
+        <div class="col-xs-12 col-sm-6 col-md-6 disable_padding">
+            <div class="advert-properties">
                 <div class="form-group">
-                    <h3>Açıklama</h3>
-                    <textarea style="min-height:200px"  data-form-element="description" maxlength="500" placeholder="İlanınızın açıklamasını yazınız. (Maks 1200 karakter)" class="form-control">{{description}}</textarea>
+                    <h2>Olanaklar</h2>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="internet" id="internet" {{#if possibilities.internet}} checked {{/if}} type="checkbox" />
+                    <label for="internet">İnternet</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="air" id="air" {{#if possibilities.air}} checked {{/if}} type="checkbox" />
+                    <label for="air">Klima</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="tv" id="tv" {{#if possibilities.tv}} checked {{/if}} type="checkbox" />
+                    <label for="tv">Tv</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="requiments" id="requiments" {{#if possibilities.requiments}} checked {{/if}} type="checkbox" />
+                    <label for="requiments">Temel İhtiyaçlar</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="heat" id="heat" {{#if possibilities.heat}} checked {{/if}} type="checkbox" />
+                    <label for="heat">Isınma</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="kitchen" id="kitchen" {{#if possibilities.kitchen}} checked {{/if}} type="checkbox" />
+                    <label for="kitchen">Mutfak</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="gym" id="gym" {{#if possibilities.gym}} checked {{/if}} type="checkbox" />
+                    <label for="gym">Spor Salonu</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="elevator" id="elevator" {{#if possibilities.elevator}} checked {{/if}} type="checkbox" />
+                    <label for="elevator">Asansör</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="jacuzzi" id="jacuzzi" {{#if possibilities.jacuzzi}} checked {{/if}} type="checkbox" />
+                    <label for="jacuzzi">Jakuzi</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="smoke" id="smoke" {{#if possibilities.smoke}} checked {{/if}} type="checkbox" />
+                    <label for="smoke">Sigara İçilebilir</label>
+                </div>
+                <div class="checkbox checkbox-info">
+                    <input data-form-element="pet" id="pet" {{#if possibilities.pet}} checked {{/if}} type="checkbox" />
+                    <label for="pet">Evcil Hayvan Kabul Edilebilir.</label>
                 </div>
             </div>
             <div class="col-xs-12 disable_padding">
+                <h3>Uygunluk Tarihi</h3>
+                <p>İlanınızın belli tarih aralığında yayınlanmasını istiyorsanız </p>
+                <button class="default_btn daterangebtn"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Özel yayın tarihi ekle</button>
+                <div data-zone="dateselect-container"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 disable_padding">
+        <div class="col-xs-12">
+            <h2>Özellikler</h2>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <h3>Misafir Kapasitesi (Maks)</h3>
+            {{#select properties.visitor}}
+            <select data-form-element="visitor" class="form-control">
+                {{#times 15}}
+                <option value="{{this}}">{{this}} Kişi</option>
+                {{/times}}
+            </select>
+            {{/select}}
+        </div>
+        <div class=" col-xs-12 col-sm-12 col-md-6">
+            <h3>Banyo Sayısı</h3>
+            {{#select properties.bathroom}}
+            <select data-form-element="bathroom" class="form-control">
+                {{#times 5}}
+                <option value="{{this}}">{{this}} Banyo</option>
+                {{/times}}
+            </select>
+            {{/select}}
+        </div>
+        <div class=" col-xs-12 col-sm-12 col-md-6">
+            <div class="form-group">
+                <h3>Metrekare</h3>
+                <input data-form-element="m2" type="text" value="{{properties.m2}}" class="form-control" placeholder="Menkul kaydı kaç metrekare" />
+            </div>
+        </div>
+        <div class=" col-xs-12 col-sm-12 col-md-6">
+            <div class="form-group">
+                <h3>Yatak Sayısı</h3>
+                {{#select properties.beds}}
+                <select data-form-element="beds" class="form-control">
+                    {{#times 7}}
+                    <option value="{{this}}">{{this}} Yatak</option>
+                    {{/times}}
+                </select>
+                {{/select}}
+            </div>
+        </div>
+        <div class=" col-xs-12 col-sm-12 col-md-6">
+            <div class="form-group">
+                <h3>Yatak Odası</h3>
+                <select data-form-element="bedroom" class="form-control">
+                    {{#select properties.bedroom}}
+                    {{#times 7}}
+                    <option value="{{this}}">{{this}} Yatak Odası</option>
+                    {{/times}}
+                </select>
+                {{/select}}
+            </div>
+        </div>
+        <div class=" col-xs-12 col-sm-12 col-md-6">
+            <div class="form-group">
+                <h3>Bina Yaşı</h3>
+                {{#select properties.build_age}}
+                <select data-form-element="build_age" class="form-control">
+                    {{#times 9}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/times}}
+                    <option value="10">10 ve üzeri</option>
+                </select>
+                {{/select}}
+            </div>
+        </div>
+        <div class=" col-xs-12 col-sm-12 col-md-6">
+            <div class="form-group">
+                <h3>Bulunduğu Kat</h3>
+                <select data-form-element="floor" class="form-control">
+                    {{#select properties.floor}}
+                    <option value="0">Zemin Kat</option>
+                    {{#times 20}}
+                    <option value="{{this}}">{{this}}. Kat</option>
+                    {{/times}}
+                </select>
+                {{/select}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <h3></h3>
+            <div class="col-xs-12 col-sm-12 col-md-5 disable_padding">
                 <div class="form-group">
-                    <h2>Fotoğraflar (Maks 20)</h2>
+                    <label class="advert_title_label">Oda Sayısı</label>
+                    {{#select properties.room}}
+                    <select data-form-element="room" class="form-control">
+                        {{#times 7}}
+                        <option value="{{this}}">{{this}} Oda</option>
+                        {{/times}}
+                    </select>
+                    {{/select}}
                 </div>
-                <div data-form-element="photos" class='col-xs-12 uploader'></div>
             </div>
-            <div class="col-xs-12 moffset4 disable_padding">
-                <div class="text-left col-xs-12 col-sm-6 col-md-6" style="float:left">
-                    <button href="javascript:void(0)" class="default_btn update">{{#if id}} Değişiklikleri Kaydet {{else}} Kaydet {{/if}}</button>
-                    {{#if id}}<button href="javascript:void(0)" class="cancelbtn delete">İlanı Sil</button>{{/if}}
+            <div class="hidden-xs hidden-sm col-md-1 disable_padding"></div>
+            <div class="col-xs-12 col-sm-12 col-md-6 disable_padding">
+                <div class="form-group">
+                    <label class="advert_title_label">Salon</label>
+                    {{#select properties.hall}}
+                    <select data-form-element="hall" class="form-control">
+                        {{#times 7}}
+                        <option value="{{this}}">{{this}} Salon</option>
+                        {{/times}}
+                    </select>
+                    {{/select}}
                 </div>
-                {{#if id}}
-                <div class="text-right col-xs-12 col-sm-6 col-md-6">
-                    <div class="col-xs-12 col-sm-6 col-md-12">
-                        <div class="advert-state"> {{#if state}}
-                            <b>Onaylandı</b> <i class="fa fa-check"></i> {{else}}  <b>Onay Bekleniyor</b> <i class="fa fa-clock-o"></i> {{/if}}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-12 moffset2">
-                        {{date date "D MMMM YYYY, dddd"}} - {{fromNow date}} - {{views}} Görüntülenme
-                    </div>
-                </div>
-                {{/if}}
             </div>
         </div>
+        <div style="clear:both"></div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="form-group ">
+                <h3>Min. Konaklama Süresi</h3>
+                {{#select min_layover}}
+                <select data-form-element="min_layover" class="form-control">
+                    {{#times 9}}
+                    <option value="{{this}}">{{this}} Gün</option>
+                    {{/times}}
+                    <option value="50">10 Gün ve Üzeri</option>
+                </select>
+                {{/select}}
+            </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
+            <div class="form-group ">
+                <h3>Rezervasyon İptal Süresi</h3>
+                {{#select cancel_time}}
+                <select data-form-element="cancel_time" class="form-control">
+                    {{#times 14}}
+                    <option value="{{this}}">{{this}} Gün önce</option>
+                    {{/times}}
+                </select>
+                {{/select}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-6">
+            <div class="form-group">
+                <h3>Giriş Saat</h3>
+                {{#select entry_time}}
+                <select data-form-element="entry_time" class="form-control">
+                    <option value="00:00">00:00</option>
+                    <option value="01:00">01:00</option>
+                    <option value="01:00">01:00</option>
+                    <option value="02:00">02:00</option>
+                    <option value="03:00">03:00</option>
+                    <option value="04:00">04:00</option>
+                    <option value="05:00">05:00</option>
+                    <option value="06:00">06:00</option>
+                    <option value="07:00">07:00</option>
+                    <option value="08:00">08:00</option>
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="21:00">21:00</option>
+                    <option value="22:00">22:00</option>
+                    <option value="23:00">23:00</option>
+                </select>
+                {{/select}}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-6">
+            <div class="form-group">
+                <h3>Çıkış Saat</h3>
+                {{#select exit_time}}
+                <select data-form-element="exit_time" class="form-control">
+                    <option value="00:00">00:00</option>
+                    <option value="01:00">01:00</option>
+                    <option value="01:00">01:00</option>
+                    <option value="02:00">02:00</option>
+                    <option value="03:00">03:00</option>
+                    <option value="04:00">04:00</option>
+                    <option value="05:00">05:00</option>
+                    <option value="06:00">06:00</option>
+                    <option value="07:00">07:00</option>
+                    <option value="08:00">08:00</option>
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="21:00">21:00</option>
+                    <option value="22:00">22:00</option>
+                    <option value="23:00">23:00</option>
+                </select>
+                {{/select}}
+            </div>
+        </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+    <div data-zone="adverttypes" class="form-group">
+        <h3>Menkul Tipi</h3>
+    <select data-form-element="advert_type_id" class="form-control moffset1">
+        {{{{raw-helper}}}}
+        <option value="">Seçiniz</option>
+        {{#each types}}
+        {{#zif ../advert_type_id "==" id}}
+        <option value="{{id}}" selected="selected">{{name}}</option>
+        {{else}}
+        <option value="{{id}}">{{name}}</option>
+        {{/zif}}
+        {{/each}}
+    {{{{/raw-helper}}}}
+    </select>
+    </div>
+    </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group ">
+                <h3>Gecelik Ücret</h3>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-try"></i></div>
+                    <input data-form-element="price" type="text" class="form-control price" value="{{price}}" placeholder="00">
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+            <div class="form-group">
+                <h3>Açıklama</h3>
+                <textarea data-form-element="description" style="height: 200px;" class="description" placeholder="İlan açıklaması">{{description}}</textarea>
+            </div>
+        </div>
+        <div class="col-xs-12 disable_padding">
+            <div class="form-group">
+                <h2>Fotoğraflar (Maks 20)</h2>
+            </div>
+            <div data-form-element="photos" class='col-xs-12 uploader'></div>
+        </div>
+        <div class="col-xs-12 moffset4 disable_padding">
+            <div class="text-left col-xs-12 col-sm-6 col-md-6" style="float:left">
+                <button href="javascript:void(0)" class="default_btn update">{{#if id}} Değişiklikleri Kaydet {{else}} Kaydet {{/if}}</button>
+                {{#if id}}<button href="javascript:void(0)" class="cancelbtn delete">İlanı Sil</button>{{/if}}
+            </div>
+            {{#if id}}
+            <div class="text-right col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-sm-6 col-md-12">
+                    <div class="advert-state"> {{#if state}}
+                        <b>Onaylandı</b> <i class="fa fa-check"></i> {{else}}  <b>Onay Bekleniyor</b> <i class="fa fa-clock-o"></i> {{/if}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-12 moffset2">
+                    {{date date "D MMMM YYYY, dddd"}} - {{fromNow date}} - {{views}} Görüntülenme
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    </div>

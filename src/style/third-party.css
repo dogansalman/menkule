@@ -14,3 +14,6 @@
 @import "~awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css";
 /* Uplaoder */
 @import "third-party/uploader/jquery.uploader.css";
+/* Medium Editor*/
+@import "~medium-editor/dist/css/medium-editor.css";
+@import "third-party/medium-editor/medium-editor-theme.css";

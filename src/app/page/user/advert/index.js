@@ -5,6 +5,8 @@ import Confirm from '../../../popup/confirm';
 import templatee from './advert.handlebars';
 import avaiableDates from './availableDate.handlebars';
 import calendar from '../../../popup/calendar';
+import MediumEditor from 'medium-editor';
+
 
 /*
 Validate
@@ -12,7 +14,6 @@ Validate
 var advertRules = {
   'advert_type_id': [App.validate.REQUIRED, App.validate.NUMBER],
   'adress': [App.validate.REQUIRED, App.validate.STRING],
-  'description': [App.validate.REQUIRED, App.validate.STRING],
   'title': [App.validate.REQUIRED, App.validate.STRING],
   'city_id': [App.validate.REQUIRED, App.validate.NUMBER],
   'town_id': [App.validate.REQUIRED, App.validate.NUMBER],
@@ -40,7 +41,17 @@ var advertRules = {
   },
   'photos': function(value) {
     return (value != null && value.filter(i => !i.deleted).length > 0 );
-  }
+  },
+  'description': function(value) {
+      //add required class has not valid
+      if(value.clearHtml().length === 0) {
+          document.getElementsByClassName("description")[0].classList.add("required");
+          return false;
+      }
+        document.getElementsByClassName("description")[0].classList.remove("required");
+        return true;
+  },
+
 };
 
 /*
@@ -58,6 +69,7 @@ let dateList = [];
 
 export default (params) => {
 
+
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
@@ -65,6 +77,30 @@ export default (params) => {
       .then(() => $("body").zone('content').setContentAsync(templatee(advert)).do(t => template = t))
       .then(() => template.find("#map").createMap({scroll:true}))
       .then(() => {
+
+          /* Init description editor*/
+          new MediumEditor(template.find(".description"), {
+              toolbar: {
+                  allowMultiParagraphSelection: true,
+                  buttons: ['bold', 'italic', 'underline', 'h2', 'h3', 'quote'],
+                  diffLeft: 0,
+                  diffTop: -10,
+                  firstButtonClass: 'medium-editor-button-first',
+                  lastButtonClass: 'medium-editor-button-last',
+                  relativeContainer: null,
+                  standardizeSelectionStart: false,
+                  static: false,
+                  /* options which only apply when static is true */
+                  align: 'center',
+                  sticky: false,
+                  updateOnEmptySelection: false,
+              },
+              imageDragging: false,
+              placeholder: {
+                  text: 'İlanınızın açıklamasını yazınız. (Maks 1200 karakter)',
+                  hideOnClick: false
+              }
+          });
 
           /*
      Render avaiable dates
@@ -274,6 +310,7 @@ export default (params) => {
                   .then(o => App.notifyDanger(o.result || o.Message, 'Üzgünüz'))
                   .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
           });
+
         });
 
         /*

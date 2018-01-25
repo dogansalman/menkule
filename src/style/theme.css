@@ -25,9 +25,10 @@ a:focus {
     color: inherit;
     text-decoration: underline;
 }
-h2, .h2, h3, .h3 {
-  font-size:18px;
-  font-weight:300;
+h1, h2, h3, h4, h5 {
+  font-family: 'Roboto', sans-serif;
+  font-size:14px;
+  font-weight:500;
 }
 b, strong {
     font-weight: 400;
@@ -242,7 +243,7 @@ textarea {
   -webkit-transition: none!important;
   -o-transition: none!important;
   font-weight: 200!important;
-    height:40px;
+  height:35px;
 }
 .form-control::-webkit-input-placeholder,
 .form-control:-moz-placeholder,
@@ -411,11 +412,12 @@ textarea {
 }
 .cancelbtn {
     display: inline-block;
-    padding: 8px 10px;
+    padding: 6px 10px;
     margin-bottom: 0;
     font-size: 13px;
-    font-weight: 400;
-    height:40px;
+    font-weight: 500;
+    height:35px;
+    font-family: 'Roboto', sans-serif;
     line-height: 1.42857143;
     color: #fff !important;
     text-align: center;
@@ -442,12 +444,13 @@ textarea {
 }
 .acceptbtn {
   display: inline-block;
-  padding: 8px 10px;
+  padding: 6px 10px;
   margin-bottom: 0;
   font-size: 13px;
-  font-weight: 400;
-    height:40px;
+  font-weight: 500;
+  height:35px;
   line-height: 1.42857143;
+  font-family: 'Roboto', sans-serif;
   color: #fff !important;
   text-align: center;
   white-space: nowrap;
@@ -618,7 +621,7 @@ overflow-y: scroll
     position: fixed;
     bottom: 0;
     right: 0;
-    height: 40px!important;
+    height: 35px!important;
   }
 
 }
@@ -1401,11 +1404,11 @@ Header
 }
 .bigmenu-name {
     color: #737373;
-    font-size: 14px;
+    font-size: 17px;
     font-family: 'Roboto', sans-serif;
-    margin-top: 10px;
     display: block;
-    text-transform: uppercase
+  font-weight: 300;
+    text-transform: capitalize;
 }
 .bigmenu-eposta {
     color: #737373;
@@ -2642,9 +2645,12 @@ Advert Detail
     margin-bottom: 20px
 }
 .advert_owner_container .profile_name h2 {
-    font-size: 14px;
-    color: #444;
-    text-transform: uppercase
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    text-transform: capitalize;
+    margin: 10px 0px 10px 0px;
+    display: block;
 }
 .advert_owner_container .profile_name span {
     font-size: 12px;
@@ -2654,8 +2660,8 @@ Advert Detail
     margin-top: 0
 }
 .advert_owner_desc h2 {
-    font-size: 18px;
-    color: #444
+  font-size: 14px;
+  color: #666;
 }
 .advert_owner_desc p {
     font-size: 13px;
@@ -3967,8 +3973,8 @@ text-align: center;
 }
 .activemembericon {
   background: #45b5f4;
-  height: 15px;
-  width: 15px;
+  height: 17px;
+  width: 17px;
   display: inline-block;
   text-align: center;
   color: #fff;
@@ -3982,7 +3988,7 @@ text-align: center;
   font-weight: normal;
   text-decoration: inherit;
   color: #fff;
-  font-size: 10px;
+  font-size: 13px;
   padding: 0px;
   display: inline-block;
 }
@@ -4078,10 +4084,10 @@ a:hover {
 }
 .default_btn {
   display: inline-block;
-  padding: 8px 10px;
+  padding: 6px 10px;
   margin-bottom: 0;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.42857143;
   color: #fff !important;
   text-align: center;
@@ -4090,7 +4096,7 @@ a:hover {
   -ms-touch-action: manipulation;
   touch-action: manipulation;
   cursor: pointer;
-    height: 40px;
+    height: 35px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -4099,7 +4105,8 @@ a:hover {
   border: 1px solid transparent;
   border-radius: 0;
   background: #45b5f4 !important;
-    border-bottom: 5px solid #4da2d4;
+  border-bottom: 5px solid #4da2d4;
+  font-family: 'Roboto', sans-serif;
 }
 .default_btn.alert {
   background: #ff7364!important;
@@ -4292,7 +4299,7 @@ a:hover {
   border-radius: 0;
   font-size: 26px;
   width: 34px;
-  height: 40px;
+  height: 35px;
   text-align: center;
   padding: 2px 0 0;
     border-bottom: 5px solid #4da2d4;
@@ -4739,6 +4746,14 @@ types:focus {
   width: 75px;
   border-radius: 50%
 }
+.detail_profile_image > .advertdetail-fullname {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  text-transform: capitalize;
+  margin: 10px 0px 0px 0px;
+  display: block;
+}
 .sendmessage-advert {
   border: none;
   font-family: inherit;
@@ -5043,7 +5058,7 @@ advert-select:focus:active {
     margin-top: 10px!important
   }
   .form-control {
-    height: 40px!important
+    height: 35px!important
   }
   .logincontainer {
     border-left: none!important

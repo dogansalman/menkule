@@ -64,12 +64,12 @@ Menkule.prototype.request = function(method, url, data, contentType) {
         if(this.tokenExpire()) this.refreshToken();
         ajaxOptions["beforeSend"] = (xhr => xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token));
     }
-    ajaxOptions.timeout = 20000;
+    ajaxOptions.timeout = 60000;
     $.ajax(ajaxOptions)
       .done(result => resolve(result))
       .fail(err => {
-        if (err && err.statusText == 'timeout') window.location = "/error/timeout";
-        reject(err);
+        if (err && err.statusText == 'timeout') App.notifyDanger('Üzgünüz istek zaman aşımına uğradı. Lütfen tekrar deneyin.', '')
+          reject(err);
       });
   });
 };
