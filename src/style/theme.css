@@ -848,7 +848,6 @@ Search
 }
 .map-result-price {
   font-size: 16px;
-  font-weight: 300;
   color: #fff;
   display: block;
   padding: 0;
@@ -858,6 +857,8 @@ Search
   width: 90px;
   text-align: center;
   left: 0px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
 }
 .map-advertphoto {
   height: auto;
@@ -928,9 +929,6 @@ Search
   padding: 3px 0px 3px 0px;
 }
 .advert-detail-map:first-child,
-.advert-detail-map:nth-child(2) {
-  margin-top: 0px;
-}
 .search-advert-results {
   padding: 0;
   margin: 0;
@@ -1012,6 +1010,8 @@ Search
   color: rgb(255, 255, 255);
   background: rgb(46, 204, 113);
   font-size: 12px;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
 }
 .advert-marker:hover,
 .advert-marker:focus,
@@ -3457,7 +3457,7 @@ Modal
 .visitorcount i,
 .adverttype i,
 .advertprice i {
-  color: #4db4f8;
+  color: #2d9adc;
   font-size: 12px;
 }
 .badcount span,
@@ -3465,8 +3465,10 @@ Modal
 .adverttype span,
 .advertprice span {
   font-size: 12px;
-  font-weight: 400;
   padding: 0px 0px 0px 5px;
+  font-weight: 500;
+  font-family: 'roboto', sans-serif !important;
+  color: #888;
 }
 .handle-counter > button {
     display: inline!important;
