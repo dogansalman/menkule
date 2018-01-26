@@ -19,7 +19,7 @@ export default (params) => {
      */
     const rezervationRules = {
         'date': function (value) {
-            if(!value || value.split(' to ').length < 2) return false;
+            if(!value || value.split(' - ').length < 2) return false;
             return true;
         }
     };
@@ -118,15 +118,15 @@ export default (params) => {
                     App.isMobile()
                         .then((mbl) => {
                             var dateValue = template.find('#calendar').val();
-                            if(mbl && !dateValue || dateValue.split(' to ').length < 2){
+                            if(mbl && !dateValue || dateValue.split(' - ').length < 2){
                                 template.find('.rezervation-form').addClass('open');
                                 $('body').addClass("open-calendar");
                             }
                         })
                     template.find('.rezervation-form').validateFormAsync(rezervationRules)
                         .then((d) =>  {
-                            var checkin = d.date.split(' to ')[0].trim();
-                            var checkout =  d.date.split(' to ')[1].trim();
+                            var checkin = d.date.split(' - ')[0].trim();
+                            var checkout =  d.date.split(' - ')[1].trim();
                             var days =  moment(checkout).diff(moment(checkin),'days')+1
                             var total = advert.advert.price * days
                             App.navigate('/rezervation/' + params.id, {'checkin':checkin, 'checkout':checkout, 'days':days, 'total': total});

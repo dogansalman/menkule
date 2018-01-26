@@ -7,6 +7,8 @@ import infoWindowTemplate from './info.handlebars';
 import advertListTemplate from './list.handlebars';
 import advertSlideTemplate from './slide.handlebars';
 import filter from '../../popup/filter';
+import resultFooter from './footer.handlebars';
+
 
 let advertSlider = null;
 let filtered_data = null;
@@ -20,6 +22,9 @@ export default (params,  query = location.href) => {
     Header()
         .then(() => $("body").zone('content').setContentAsync(Search))
         .then((template) => {
+            /*
+            Add class to body theme
+             */
             document.body.classList.add("search-pg");
             /*
             Disable new mark pin.
@@ -46,7 +51,6 @@ export default (params,  query = location.href) => {
             template.on('re.advrt', function(e) {
                 e.preventDefault();
                 template.find('#map').clearMarkers();
-
                 /*
                 Set default cordi
                  */
@@ -102,7 +106,7 @@ export default (params,  query = location.href) => {
                         globalAdverts = adverts;
 
                         /*
-                        Render advert list
+                        Render advert list & Render result footer
                          */
                         template.zone('advert-list').setContentAsync(advertListTemplate({adverts: adverts}))
                             .then((advertTemple) => {
@@ -143,6 +147,8 @@ export default (params,  query = location.href) => {
                             })
                             .then(() => App.promise(() =>  new $.Event('re.slide', {adverts: adverts})))
                             .then((_e) => template.trigger(_e))
+                            .then(() => Gmap.getLocationLevelTree(latlng.name || params.state))
+                            .then((locations) => template.zone('advert-result-footer').setContentAsync(resultFooter({count: globalAdverts.length, locations: locations})))
                     })
                     .then(() => App.promise(() => globalAdverts.length === 0 ? false : true))
                     .then((has_adverts) => !has_adverts ? reject(): null )
@@ -167,7 +173,7 @@ export default (params,  query = location.href) => {
                          */
                         template.find(".advert-slide-down").on('click', (e) => {
                             e.preventDefault();
-                            template.find("#map").toggleClass('fullheight');
+                            //template.find("#map").toggleClass('fullheight');
                             $(e.target).toggleClass('up');
                             $(e.target).parents('.advert-slide-container').toggleClass("down");
                         });
@@ -202,6 +208,7 @@ export default (params,  query = location.href) => {
             */
             var _e = new $.Event('re.advrt');
             template.trigger(_e);
+
             template.find('.searchtxt_searchmap')
                 .geocomplete({
                     country: ['tr'],
@@ -281,12 +288,11 @@ export default (params,  query = location.href) => {
                 if(!mobile) return;
                 template.find(".searchtxt_searchmap").on('click', (e) => {
                     e.preventDefault();
-                    template.find("#map").addClass('fullheight');
+                    //template.find("#map").addClass('fullheight');
                     template.find(".advert-slide-down").addClass('up');
                     template.find('.advert-slide-container').addClass("down");
                 });
             })
-
             /*
                 Refresh search
              */

@@ -301,6 +301,40 @@ Gmap.prototype.getLatLgn = function (city) {
     request.send();
   });
 }
+
+/*
+ get city levels name
+ */
+Gmap.prototype.getLocationLevelTree = function (params) {
+
+    return new Promise(function (resolve, reject) {
+        var urlParams = (typeof params == 'string' ? ('address=' + encodeURIComponent(params)) : ('latlng=' + params.lat + ',' + params.lng));
+        var request = new XMLHttpRequest();
+        var method = 'GET';
+        var url = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyB1aHTBVGeBLG20XKvpQiwa4MOnn_ZRCCw&' + urlParams;
+        var async = true;
+        request.open(method, url, async);
+        request.onreadystatechange = function () {
+            if (request.readyState == 4) {
+                if (request.status == 200) {
+                  console.log(request);
+                  var data = JSON.parse(request.responseText);
+                    let names = [];
+                    data.results[0].address_components.forEach((c) => {
+                      if(c.types.find(t => (t === 'administrative_area_level_1' || t === 'locality' || t === 'country') && !names.find(n => n === c.long_name) )) names.push(c.long_name);
+                    })
+                    resolve(names.reverse());
+
+                }
+                else {
+                    reject(request.status);
+                }
+            }
+        };
+        request.send();
+    });
+}
+
 /*/
  get city location detail
  */

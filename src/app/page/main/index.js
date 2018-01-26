@@ -54,11 +54,10 @@ export default () => Header(false)
         .then((mobile) => App.promise(() => mobile ? template.find(".search-form-mobile") : template.find(".search-form") )   )
         .then((searchForm) => $(searchForm).validateFormAsync(searchRules))
         .then((formData) =>  {
-            console.log(formData);
 
           App.generateAdvertSearchUrl({
-            'checkin': formData.date.split(' to ')[0].trim(),
-            'checkout': formData.date.split(' to ')[1].trim(),
+            'checkin': formData.date.split(' - ')[0].trim(),
+            'checkout': formData.date.split(' - ')[1].trim(),
             'lat' : location.lat,
             'lng' : location.lng,
             'guest' : formData.guest,

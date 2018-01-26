@@ -73,7 +73,7 @@ export default(filtered_data) => {
                     e.preventDefault();
                     template.find(".filter-container").validateFormAsync(filterFormRules)
                         .then((filters) => {
-                            Object.assign(filters, {'checkin': filters.date.split(' to ')[0].trim(),'checkout': filters.date.split(' to ')[1].trim() } )
+                            Object.assign(filters, {'checkin': filters.date.split(' - ')[0].trim(),'checkout': filters.date.split(' - ')[1].trim() } )
                             openedModal.modal('hide');
                             resolve(filters);
                         });
