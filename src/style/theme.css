@@ -763,6 +763,9 @@ Search
   padding-right: 5px;
 }
 @media all and (max-width: 768px) {
+    .search-pg{
+        position:fixed;
+    }
     .location-searchbox .advert-search-btn{
         color: #666;
         background: #f7f7f7;
