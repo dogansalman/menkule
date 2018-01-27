@@ -43,7 +43,7 @@
                     <div class="col-xs-12 text-center disable_padding">
                         <img alt="photo" class="img-responsive photo bottomset2" src="{{#image photo 150 150 }} {{/image}}"/>
                         <span class="activemembericon"></span>
-                        <h3 class="inline disable_margin"> {{name}} {{lastname}}</h3>
+                        <h3 class="inline disable_margin"> <span class="capitalize">{{name}}</span> <span class="uppercase">{{lastname}}</span></h3>
                     </div>
                     <div class="form-group">
                         <label for="ad">E-Posta: </label>
@@ -53,14 +53,10 @@
                         <label for="ad">Gsm: </label>
                         <h3 class="disable_margin">{{gsm}}</h3>
                     </div>
-                    <p>SN. {{name}} {{lastname}} rezervasyonunuzun onaylanabilmesi için lütfen kimlik numaranızı belirtiniz.</p>
+                    <p>SN. <span class="capitalize">{{name}}</span> <span class="uppercase">{{lastname}}</span> rezervasyonunuzun onaylanabilmesi için lütfen kimlik numaranızı belirtiniz.</p>
                     <div class="form-group">
                         <label for="ad">TC No: </label>
                         <input type="number" data-form-element="tc" class="form-control"  mask="00000000000" maxlength="11" value="{{tc}}" placeholder="TC kimlik numarası">
-                    </div>
-                    <div class="form-group">
-                        <p>Rezervasyon talebiniz ile ilgili varsa notunuzu iletebilirsiniz.</p>
-                        <textarea class="form-control" data-form-element="note" rows="5" cols="70" maxlength="300" placeholder="(Maks 300 karakter)"></textarea>
                     </div>
                 {{/isLogin}}
                 {{#notLogged}}
@@ -89,22 +85,26 @@
                         <label for="tc">TC No: </label>
                         <input type="number" data-form-element="tc"  mask="00000000000" maxlength="11" class="form-control" placeholder="TC kimlik numarası">
                     </div>
-                    <div class="form-group">
-                        <p>Rezervasyon talebiniz ile ilgili varsa notunuzu iletebilirsiniz.</p>
-                        <textarea class="form-control" data-form-element="note" rows="5" cols="70" maxlength="300" placeholder="(Maks 300 karakter)"></textarea>
-                    </div>
+
                 {{/notLogged}}
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-6 disable_padding moffset2 visitor-infor-form">
-                <div class="col-xs-12 borderer">
+
+                <div class="col-xs-12 bottomset3 visitor-infor-form">
                     <div class="form-group">
                         <h2>Misafir Ekle</h2>
                         <p>Sizinle birlikte konaklayacak misafirler</p>
-                        <a class="default_btn add-visitor">Yeni Misafir Ekle</a>
                     </div>
-                    <div data-zone="visitor" class="col-xs-12 disable_padding visitor-list">
-                    </div>
+                    <div data-zone="visitor" class="col-xs-12 disable_padding visitor-list"></div>
+                    <a class="fright default_btn add-visitor moffset3">Misafir Ekle</a>
                 </div>
+
+                <div class="form-group">
+                    <p>Rezervasyon talebiniz ile ilgili varsa notunuzu iletebilirsiniz.</p>
+                    <textarea class="form-control" data-form-element="note" rows="5" cols="70" maxlength="300" placeholder="(Maks 300 karakter)"></textarea>
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-6 disable_padding moffset2">
+                rezervasyon detayı
             </div>
             <div class="col-xs-12 moffset2 disable_padding">
                 <div class="form-group">

@@ -20,6 +20,14 @@ input[type="tel"],
 input[type="email"] {
   -webkit-appearance: none
 }
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 a:hover,
 a:focus {
     color: inherit;
@@ -52,6 +60,12 @@ textarea {
     display:none !important;
     visibility: hidden !important;
     opacity:0 !important;
+}
+.capitalize {
+    text-transform: capitalize !important;
+}
+.uppercase {
+    text-transform: uppercase;
 }
 .voffset {
   margin-top: -2px
@@ -742,22 +756,24 @@ Search
   border: 1px solid #f9f9f9 !important;
 }
 .location-searchbox .advert-search-btn {
-  color: #8a8a8a;
+  color: #a0a0a0;
   padding: 5px;
-  background: #efefef;
+  background: #fbfbfb;
   outline: none;
   box-shadow: none;
   height: auto;
-  border: 1px solid #f7f7f7;
-  font-family: 'Roboto', sans-serif;
+  border: none;
+  font-family: Roboto,sans-serif;
   font-weight: 400;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 180px !important;
+  width: 180px!important;
+  border-left: 1px solid #f3f3f3;
 }
 .location-searchbox .advert-search-btn:hover, .location-searchbox .advert-search-btn:focus, .location-searchbox .advert-search-btn:focus:active{
   background: #f5f5f5;
+  border-left: 1px solid #f3f3f3;
 }
 .location-searchbox .advert-search-btn > i {
   padding-right: 5px;
@@ -1404,7 +1420,8 @@ Header
     padding: 0;
     position: inherit;
     background: #65C3F9;
-    border-bottom: 9px solid #58b0e4
+    border-bottom: 9px solid #58b0e4;
+    height: 50px;
 }
 .home .heads {
     background: transparent;
@@ -2464,7 +2481,7 @@ App Home
     left: 0;
     overflow: hidden;
     background: #000;
-    top: -45px
+    top: -50px
 }
 .video-container video {
     position: absolute;
@@ -3161,11 +3178,12 @@ Rezervation
 .visitor-infor-form{
 }
 .visitor-infor-form .visitor-list .visitor{
-    background: #65c3f9;
-    color: #fff;
-    padding:10px;
-    margin-top:5px;
+    background: #ececec;
+    color: #7d7d7d;
+    padding: 10px;
+    margin-top: 5px;
 }
+
 .visitor-infor-form .visitor-list .visitor .remove-visitor > a{
     background: #56b2e6;
     height: 20px;
@@ -3178,11 +3196,12 @@ Rezervation
 
 .visitor-infor-form .visitor-list h3{
     margin:0px;
+    font-weight: 400;
 }
 .visitor-infor-form .visitor-list h3:before{
     content: "\f2c0";
     font-family: FontAwesome;
-    color: #fff;
+    color: #666;
     font-size: 15px;
     margin-right: 5px;
 }
