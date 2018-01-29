@@ -43,7 +43,7 @@ export default () => {
 
                             // Hide preloader
                             App.hidePreloader()
-                                .then(() => App.promise(() => Messages('forgot_fail')))
+                                .then(() => App.promise(() => appMessage('visitor_error')))
                                 .then((template) => template.zone('notification').setContentAsync(template))
                                 .then(() => template.formFields().enable() && template.formFields().select() && $(e.target).enable());
 

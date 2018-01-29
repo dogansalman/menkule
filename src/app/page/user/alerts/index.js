@@ -30,6 +30,8 @@ export default() => {
         });
         //delete selected
         template.find("button.deleteall").off().on("click", (e) => {
+
+        if(template.find('.alert-selected').length === 0) return;
           App.showPreloader(.7)
             .then(() => {
               template.find('.alert-selected').each(function (index) {
@@ -39,7 +41,7 @@ export default() => {
               });
             })
             .then(() => App.hidePreloader())
-            .then(() =>  App.notifySuccess('Seçtiğiniz bildirim kayıtları silindi', 'Tamam'))
+            .then(() =>  App.notifySuccess('Seçtiğiniz bildirim kayıtları silindi', ''))
             .then(() => alerts())
         });
         resolve();

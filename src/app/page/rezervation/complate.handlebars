@@ -11,13 +11,6 @@
         <p>Bu aşamadan sonra rezervasyon bilgilerinizde bir değişiklik gerçekleştiremezsiniz. Rezervasyon bilgileri veya rezervasyon talebiniz hakkında direkt olarak ilan sahibi ile iletişime geçebilirsiniz.
             İlan sahibi ile iletişime geçmek için rezervasyonunuzun detay sayfasını ziyaret edin.</p>
     </div>
-    <div class="col-xs-12 col-sm-2 disable_padding bottomset2">
-        {{#each advert.images}}
-            {{#if is_default}}
-                <img class="moffset3 radius-circle" src="{{#image url 150 150 }} {{/image}}"></img>
-            {{/if}}
-        {{/each}}
-    </div>
     <div class="col-xs-12 col-sm-8 disable_padding col-md-9 bottomset2">
         <p><b>Giriş / Çıkış :</b> {{rezervation.checkin}} - {{rezervation.checkout}}</p>
         <p><b>Konaklama :</b> {{rezervation.days}} Gece</p>

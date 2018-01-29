@@ -26,12 +26,16 @@ export default (key) => {
         //alerts
         'alert_not_found': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz Yeni bildiriminiz bulunamamakta!</h2> <p>Henüz bir bildirim kaydınız bulunmamaktadır. </p> </div></div>",
         'error_alert_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Bir sorun oldu!</h2> <p>Bildirimleriniz listelenemedi. Daha sonra tekrar deneyin. </p> </div></div>",
-
+        //visitors
+        'visitor_error': "<div class='container'><div class='col-xs-12 disable_padding'> <p> Yeni misafir kaydı oluşturulamadı. Tekrar deneyin.</p> </div></div>",
         //comments
         'no_comments': "<div class='col-xs-12 disable_padding'> <h2>Henüz bir yorum bulunmamakta!</h2> <p>İlk yorum yapan siz olun!</p> </div>",
         'comments_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Yorumunuz iletilemedi. </div>",
         //rezervations
         'no_rezervation': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Rezevasyon bulunamadı!</h2> <p>Henüz bir rezervasyon kaydınız bulunmamaktadır.</p> </div></div>",
+        'rezervation_error': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Bir sorun oluştu!</h2> <p>İlana erişim sağlanılamadı. Bu ilan yayından kaldırılmış olabilir. </p> </div></div>",
+        'rezervation_title': 'REZERVASYONU ONAYLIYOR MUSUNUZ ?',
+        'rezervation_confirm': 'Rezervasyon talebini onaylamak istediğiniz emin misiniz ? Onaylanan rezervasyon talebi üzerinde daha sonra değişiklik gerçekleştirilemez.',
         //confirms
         'ownership_title': 'EV SAHİPLİĞİ YAPMAK ÜZERESİNİZ!',
         'ownership_confirm': 'Ev sahipliği ile ile ek kazanç elde edebilir ve kullanmadığınız evinizi odanızı veya yazlığınızı değerlendirebilirsiniz. Ev sahipliği ile üyelik sözleşmesinde ki ev sahipliği şartlarını kabul etmiş olursunuz.',

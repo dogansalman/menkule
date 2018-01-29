@@ -6,6 +6,10 @@ import Activation from '../user/activate/activate.handlebars';
 import Rezervation from './rezervation.handlebars';
 import Visitor from '../../popup/visitor';
 import _Rezervation from '../rezervation';
+import Advert from './advert.handlebars';
+import AppMessage from '../../../lib/appMessages';
+import Confirm from "../../popup/confirm";
+
 
 /*
 Validate rezervation form
@@ -40,6 +44,7 @@ let user = null;
 let advert = {};
 let rezervation = {};
 let templateRez = null;
+let modal = null;
 
 /*
 Activation form
@@ -75,8 +80,9 @@ function getActivationForm(params) {
                                             'note': user.note
                                         }))
                                         .then(() => templateRez.zone('rezervation').setContentAsync(Complate({ advert: advert, rezervation: rezervation, visitors: visitors })))
-                                        .then(() => App.promise(() => templateRez.find('.rezervation-container').scrollView()))
+                                        .then((t) => App.promise(() => t.find('.complate').scrollView()))
                                         .then(() => App.hidePreloader())
+                                        .then(() => modal.modal('hide'))
                                         .catch((err) => {
                                             console.log(err);
                                             App.hidePreloader()
@@ -101,7 +107,6 @@ function getActivationForm(params) {
                 });
             })
             .then(() => resolve())
-
     });
 }
 
@@ -111,22 +116,20 @@ Add new visitor
 function addVisitor(visitor) {
     return new Promise((resolve) => {
         App.promise(() => visitors.filter(item => JSON.stringify(item) == JSON.stringify(visitor)).length == 0 ? false : true)
-            .then((isExist) => {
-                if (!isExist) visitors.push(visitor)
-            })
+            .then((isExist) => { if (!isExist) visitors.push(visitor) })
             .then(() => resolve(visitors))
-
     });
 }
+
 /*
 Render visitor
  */
 function renderVisitor() {
     return new Promise((resolve) => {
-        templateRez.zone('visitor').setContentAsync(Visitors({visitor: visitors}))
+            templateRez.zone('visitor').setContentAsync(Visitors({visitor: visitors}))
             .then((visitorTemplate) => {
                 //remove visitor
-                visitorTemplate.find('.remove-visitor').on('click', (e) => {
+                 visitorTemplate.find('.remove-visitor').on('click', (e) => {
                     e.preventDefault();
                     App.promise(() => App.showPreloader(.7))
                         .then(() => App.promise(() => $(e.target).closest('.visitor').attr('data-index')))
@@ -136,11 +139,17 @@ function renderVisitor() {
                         .catch(() => App.hidePreloader())
                 })
             })
-            .then(() => resolve());
+            .then(() => resolve(true));
     });
 }
 
+
+
+
 export default (params) => {
+
+
+    if(!params.id || !Number.isInteger(Number(params.id))) return;
 
     //Logged User
     App.on('logged.user', (usr) => {
@@ -163,39 +172,45 @@ export default (params) => {
             .then(() => $("body").zone('content').setContentAsync(Rezervation(Object.assign(Menkule.getUser() || {}, { advert: advert, rezervation: rezervation }))))
             .do(t => templateRez = t)
             .then((template) => {
-
-
-                /*
-                  add new visitor
-                 */
-                template.find('.add-visitor').on('click', (e) => {
-                    Visitor()
-                        .then((visitor) => addVisitor(Object.assign(visitor, {
-                            'is_visitor': true
-                        })))
-                        .then((visitors) => renderVisitor(visitors))
+                /* Advert detail */
+                template.zone('advert').setContentAsync(Advert( { advert: advert, rezervation: rezervation, visitor: visitors.length })).then((advertDetailTemplate) =>{
+                    advertDetailTemplate.find("[data-fancybox]").fancybox( { buttons : ['close']});
+                    /* Create map and center */
+                    advertDetailTemplate.find("#map").createMap({scroll:true});
+                    advertDetailTemplate.find("#map").centerTo({
+                        'lat': advert.advert.latitude,
+                        'lng': advert.advert.longitude
+                    }).zoom(18).addMarker({
+                        'lat': advert.advert.latitude,
+                        'lng': advert.advert.longitude
+                    });
+                    /* Disable new mark pin. */
+                    advertDetailTemplate.find("#map").on('pin.map', function(e) {
+                        e.preventDefault()
+                    });
                 });
 
-                /*
-                Login
-                 */
+                /* Add new visitor */
+                template.find('.add-visitor').on('click', (e) => {
+                    Visitor()
+                        .then((visitor) => addVisitor(Object.assign(visitor, { 'is_visitor': true })))
+                        .then(() => renderVisitor())
+                });
+
+                /* Login */
                 template.find('.login-btn').click(e => {
                     e.preventDefault();
                     App.Login().then((user) => App.emit('logged.user', user))
                 });
 
-                /*
-                Rezervation
-                 */
+                /* Rezervation */
                 template.find('.rezervation-btn').on('click', e => {
-
-                    App.promise(() => App.showPreloader(.8))
-                        .then(() => $(".rezervation-form-container").validateFormAsync(rezervationFormRules))
+                   $(".rezervation-form-container").validateFormAsync(rezervationFormRules)
                         .then((u) => App.promise(() => user = u))
+                        .then(() => Confirm({title: AppMessage('rezervation_confirm'), title: AppMessage('rezervation_title')}).do(m => modal = m))
+                        .then(() => App.showPreloader(.8))
                         .then(() => Menkule.user())
-                        .then((loggedUser) => App.promise(() => loggedUser ? Object.assign(user, loggedUser) : Object.assign(user, {
-                            'new': true
-                        })))
+                        .then((loggedUser) => App.promise(() => loggedUser ? Object.assign(user, loggedUser) : Object.assign(user, { 'new': true })))
                         .then(() => {
 
                             //If not exist logged user to register, login and send activation code and get activation form
@@ -210,10 +225,12 @@ export default (params) => {
                                     .then((usr) => Object.assign(user, usr))
                                     .then(() => App.emit('logged.user', user))
                                     .then(() => getActivationForm(params)
-                                        .then(() => App.hidePreloader()))
+                                    .then(() => App.hidePreloader()))
+                                    .then(() => modal.modal('hide'))
                                     .catch(e => {
-                                        App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
-                                    });
+                                        modal.modal('hide');
+                                        App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, 'Üzgünüz'))
+                                    })
                             }
 
                             //If user exist and state is false resend gsm activation code and get activation form
@@ -238,26 +255,23 @@ export default (params) => {
                                     rezervation: rezervation,
                                     visitors: visitors
                                 })))
-                                .then(() => App.promise(() => template.find('.rezervation-container').scrollView()))
+                                .then((t) => App.promise(() => t.find('.complate').scrollView()))
                                 .then(() => App.hidePreloader())
-                                .catch((err) => {
-                                    App.hidePreloader()
-                                        .then(() => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'))
+                                .then(() => modal.modal('hide'))
+                                .catch((e) => {
+                                    modal.modal('hide');
+                                    App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, 'Üzgünüz'))
                                 });
                         })
-                        .catch((err) => {
-                            App.hidePreloader()
-                                .then(() => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'))
+                        .catch((e) => {
+                            modal.modal('hide');
+                            App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, 'Üzgünüz'))
                         });
-
                 })
             })
-            .then(() => resolve());
-    });
-
-
-
+            .catch((err) => {
+                App.promise(() => AppMessage('rezervation_error')).then((template) => $("body").zone('content').setContentAsync(template));
+            })
+            .then(() => resolve())
+    })
 }
-
-
-

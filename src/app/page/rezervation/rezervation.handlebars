@@ -1,32 +1,5 @@
 <div data-zone="rezervation"  class="container">
     <div class="rezervation-container">
-        <div class="col-xs-12 detail-container borderer">
-            <div class="col-xs-4 col-sm-4 col-md-1 disable_padding">
-                {{#each advert.images}}
-                    {{#if is_default}}
-                        <img src="{{#image url 90 90 }} {{/image}}"></img>
-                    {{/if}}
-                {{/each}}
-            </div>
-            <div class="col-xs-8 col-sm-8 col-md-11 adress">
-                <p><strong>#{{advert.advert.id}}</strong> {{advert.advert.title}}</p>
-                <div class="col-xs-12  disable_padding">
-                    <label>Giriş: {{rezervation.checkin}}</label>
-                </div>
-                <div class="col-xs-12  disable_padding">
-                    <label>Çıkış: {{rezervation.checkout}}</label>
-                </div>
-                <div class="col-xs-12  disable_padding">
-                    <label>Konaklama: {{rezervation.days}} Gün</label>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 disable_padding">
-                    <label>Toplam: {{#currency rezervation.total 2 0 }} {{/currency}} TL</label>
-                </div>
-                <div class="hidden-xs col-sm-6 col-md-6 disable_padding text-right price">
-                    <span class="total">Toplam {{#currency rezervation.total 2 0 }} {{/currency}} TL</span>
-                </div>
-            </div>
-        </div>
         {{#notLogged}}
             <div class="col-xs-12 borderer moffset2 information-container">
                 <div class="col-xs-12 login">
@@ -87,7 +60,6 @@
                     </div>
 
                 {{/notLogged}}
-
                 <div class="col-xs-12 bottomset3 visitor-infor-form">
                     <div class="form-group">
                         <h2>Misafir Ekle</h2>
@@ -96,26 +68,23 @@
                     <div data-zone="visitor" class="col-xs-12 disable_padding visitor-list"></div>
                     <a class="fright default_btn add-visitor moffset3">Misafir Ekle</a>
                 </div>
-
                 <div class="form-group">
                     <p>Rezervasyon talebiniz ile ilgili varsa notunuzu iletebilirsiniz.</p>
-                    <textarea class="form-control" data-form-element="note" rows="5" cols="70" maxlength="300" placeholder="(Maks 300 karakter)"></textarea>
+                    <textarea class="form-control" data-form-element="note" rows="5" cols="70" maxlength="255" placeholder="(Maks 255 karakter)"></textarea>
                 </div>
-
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-6 disable_padding moffset2">
-                rezervasyon detayı
-            </div>
-            <div class="col-xs-12 moffset2 disable_padding">
-                <div class="form-group">
-                    <div class="checkbox checkbox-info">
-                        <input data-form-element="accept_policy" name="policy" type="checkbox">
-                        <label for="policy"><a href="/user/policy" target="_blank">
-                            {{#notLogged}} Üyelik Koşullarını</a> ve {{/notLogged}} <a href="/user/policy" target="_blank">Ön Bilgilendirme Formunu</a>  okudum kabul ediyorum.</label>
+                <div class="col-xs-12 moffset2 disable_padding">
+                    <div class="form-group">
+                        <div class="checkbox checkbox-info">
+                            <input data-form-element="accept_policy" name="policy" type="checkbox">
+                            <label for="policy"><a href="/user/policy" target="_blank">
+                                {{#notLogged}} Üyelik Koşullarını</a> ve {{/notLogged}} <a href="/user/policy" target="_blank">Ön Bilgilendirme Formunu</a>  okudum kabul ediyorum.</label>
+                        </div>
                     </div>
+                    <a href="javascript:void(0);" class="rezervation-btn default_btn bottomset1">Devam Et</a>
                 </div>
-                <a href="javascript:void(0);" class="rezervation-btn default_btn bottomset1">Devam Et</a>
             </div>
+            <div data-zone="advert" class="col-xs-12 col-sm-12 col-md-offset-1 col-md-6 disable_padding moffset2"></div>
+
         </div>
     </div>
 </div>

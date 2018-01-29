@@ -1,0 +1,98 @@
+<div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-detail-container">
+    <div class="col-xs-12 col-sm-4 col-md-4 rezervation-detail-box">
+        <span class="rezervation-detail-icon">{{#currency rezervation.total 2 0 }} {{/currency}} <i class="fa fa-try "></i> </span>
+        Toplam tutar
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4 rezervation-detail-box">
+        <span class="rezervation-detail-icon">{{rezervation.days}} Gün <i class="fa fa-calendar"></i> </span>
+        Toplam Gün
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4 rezervation-detail-box">
+        <span class="rezervation-detail-icon">{{visitor}} Misafir <i class="fa fa-bed"></i> </span>
+        Toplam Misafir
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-advert-properties">
+        <div class="col-xs-12">
+            <div class="col-xs-12 detail_content_list form-inline">
+                <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Oda Sayısı</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.properties.room}}</div>
+                </div>
+                <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Misafir Kapasitesi:</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.properties.visitor}}</div>
+                </div>
+                <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Banyo Sayısı:</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.properties.bathroom}}</div>
+                </div>
+                <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Metrekare:</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.properties.m2}}</div>
+                </div>
+                <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Yatak Sayısı:</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.properties.beds}}</div>
+                </div>
+                <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Yatak Odası:</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.properties.bedroom}}</div>
+                </div>
+                <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Giriş Saati:</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.advert.entry_time}}</div>
+                </div>
+                <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Çıkış Saati:</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.advert.exit_time}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 moffset2">
+            <div class="col-xs-12 detail_content_list posibility form-inline">
+                {{#if advert.possibilities.jacuzzi}}
+                    <label><span class="posibility-circle"><i class="fa fa-bath"></i></span> Jakuzi</label>
+                {{/if}}
+                {{#if advert.possibilities.internet}}
+                    <label><span class="posibility-circle"><i class="fa fa-wifi"></i></span> İnternet</label>
+                {{/if}}
+                {{#if advert.possibilities.air}}
+                {{/if}}
+                {{#if advert.possibilities.tv}}
+                    <label><span class="posibility-circle"><i class="fa fa-television"></i></span> TV</label>
+                {{/if}}
+                {{#if advert.possibilities.requiments}}
+                    <label><span class="posibility-circle"><i class="fa fa-check"></i></span> Temel İhtiyaç(havlu,sabun vb)</label>
+                {{/if}}
+                {{#if advert.possibilities.heat}}
+                    <label><span class="posibility-circle"><i class="fa fa-fire"></i></span> Isıtma</label>
+                {{/if}}
+                {{#if advert.possibilities.kitchen}}
+                    <label><span class="posibility-circle"><i class="fa fa-spoon"></i></span> Özel Mutfak</label>
+                {{/if}}
+                {{#if advert.possibilities.gym}}
+                    <label><span class="posibility-circle"><i class="fa fa-futbol-o"></i></span> Spor Salonu</label>
+                {{/if}}
+                {{#if advert.possibilities.elevator}}
+                    <label><span class="posibility-circle"><i class="fa fa-check"></i></span> Asansör</label>
+                {{/if}}
+                {{#if smoke}}
+                    <label><span class="posibility-circle"><i class="fa fa-check"></i></span> Sigara İçilebilir</label>
+                {{/if}}
+                {{#if advert.possibilities.pet}}
+                    <label><span class="posibility-circle"><i class="fa fa-paw"></i></span> Evcil Hayvan Kabul Edilebilir.</label>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-images">
+        {{#each advert.images}}
+            <div data-fancybox="gallery" class="col-xs-5 col-sm-3 col-md-2 image" href="{{#image url 0 0 }} {{/image}}" style="background:url('{{#image url 150 150 }} {{/image}}');height: 100px;"></div>
+        {{/each}}
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-map">
+        <p><strong>Adress:</strong>  {{advert.advert.adress}}</p>
+        <div id="map" style="width: 100%; height: 200px;"></div>
+    </div>
+</div>

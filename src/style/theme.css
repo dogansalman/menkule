@@ -3242,6 +3242,7 @@ Rezervation
     font-size: 30px;
     margin: 0px;
     padding: 0px;
+    font-weight: 300;
 }
 /*
 Rezervation Detail
@@ -3701,15 +3702,29 @@ User Alerts
   width: 17px;
   text-align: center;
 }
+.alert-check i:before{
+  content: "\F00C";
+  opacity: 0;
+}
+.alert-selected i:before{
+  content:'\f00c';
+  opacity: 1;
+}
 .alert-check i:hover {
   color: #ffffff!important;
   background: #1dc7ea !important;
   border: 1px solid #1dc7ea;
+
+}
+.alert-check i:hover:before{
+  content:'\f00c';
+  opacity: 1;
 }
 .alert-selected i {
   color: #ffffff!important;
   background: #1dc7ea !important;
   border: 1px solid #1dc7ea;
+  content:'\f00c';
 }
 .alert-selected i:hover,
 .alert-selected i:active,
@@ -3717,6 +3732,7 @@ alert-selected i:focus {
   color: #fff!important;
   background: #5eddf7 !important;
   border: 1px solid #5eddf7;
+  content:'\f00c';
 }
 .alertlisting {
   margin-bottom: 0px;
