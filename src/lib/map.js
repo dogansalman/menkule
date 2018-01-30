@@ -13,7 +13,7 @@ let peopleMarker = null;
  */
 const image = {
   url: '/assets/mappin.png',
-  size: new google.maps.Size(32, 32),
+  size: new google.maps.Size(64, 64),
   origin: new google.maps.Point(0, 0),
   anchor: new google.maps.Point(0, 32)
 };

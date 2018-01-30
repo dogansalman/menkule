@@ -241,7 +241,7 @@ export default (params,  query = location.href) => {
             */
             template.find("button.search-cordi-btn").on('click', (e) => {
                 App.showPreloader(.7)
-                    .then((latlng) => Gmap.getMyLocation())
+                    .then(() => Gmap.getMyLocation())
                     .then((latlng) => {
                         Gmap.getCityName(latlng.latitude, latlng.longitude)
                             .then((cities) => {

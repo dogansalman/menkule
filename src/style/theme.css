@@ -1084,11 +1084,7 @@ Search
   position: absolute;
 }
 .people-marker:before {
-  content: "\f041";
-  font-family: FontAwesome;
-  z-index: 1;
-  color: #49bafb;
-  font-size: 30px;
+  content: url('../assets/my-poi.png');
 }
 .advert-marker:hover:after {
   border-color: #3ade7f transparent transparent transparent;
