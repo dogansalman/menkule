@@ -4188,9 +4188,7 @@ text-align: center;
 .required {
   background: rgba(255, 0, 0, 0.07)!important
 }
-.search-form > .required {
-  background: rgba(69, 181, 244, 0.12)!important
-}
+
 .money {
   display: inline-block!important;
   width: 100px!important;

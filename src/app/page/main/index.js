@@ -54,7 +54,6 @@ export default () => Header(false)
         .then((mobile) => App.promise(() => mobile ? template.find(".search-form-mobile") : template.find(".search-form") )   )
         .then((searchForm) => $(searchForm).validateFormAsync(searchRules))
         .then((formData) =>  {
-
           App.generateAdvertSearchUrl({
             'checkin': formData.date.split(' - ')[0].trim(),
             'checkout': formData.date.split(' - ')[1].trim(),
@@ -64,11 +63,12 @@ export default () => Header(false)
             'name': location.name.turkishToLower()
           })
           .then((searchUrl) => App.navigate(searchUrl.url, searchUrl.query));
+
         });
     });
 
     //Initalize Swiper FAQ
-      const swiper = new Swiper('.swiper-container', {
+      new Swiper('.swiper-container', {
           pagination: '.swiper-pagination',
           mousewheelControl: false,
           spaceBetween: 50,
@@ -81,13 +81,8 @@ export default () => Header(false)
        */
       const calendars = template.find('.calendar');
       flatpickr.localize(flatpickr.l10ns.tr);
-      flatpickr(calendars[1],  { mode: 'range', minDate: 'today', maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD') });
-      flatpickr(calendars[0],  { mode: 'range', minDate: 'today', maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD') });
-
-
-    //Initalize background video
-    //player.onYouTubePlayerAPIReady();
-
-    $('body').addClass('home');
+      flatpickr(calendars[1],  { mode: 'range', minDate: 'today', dateFormat: 'd/m/Y', maxDate: moment(new Date()).add(1, 'year').format('DD-MM-YYYY') });
+      flatpickr(calendars[0],  { mode: 'range', minDate: 'today', dateFormat: 'd/m/Y', maxDate: moment(new Date()).add(1, 'year').format('DD-MM-YYYY') });
+      $('body').addClass('home');
     resolve();
   }));

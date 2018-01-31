@@ -79,7 +79,7 @@ export default (params,  query = location.href) => {
                             price: 0,
                             price_type: 0,
                             min_layover: query.getParameterByName('day'),
-                            date: moment(query.getParameterByName('checkin')).format('YYYY-MM-DD') + ' to ' + moment(query.getParameterByName('checkout')).format('YYYY-MM-DD'),
+                            date: moment(query.getParameterByName('checkin')).format('YYYY-MM-DD') + ' - ' + moment(query.getParameterByName('checkout')).format('YYYY-MM-DD'),
                             checkin: query.getParameterByName('checkin'),
                             checkout: query.getParameterByName('checkout')
 

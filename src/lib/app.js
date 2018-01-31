@@ -115,13 +115,15 @@ App.prototype.navigate = function(path, queryString) {
 };
 App.prototype.generateAdvertSearchUrl = function(searchParameters) {
   return new Promise(resolve => {
+    const _inDate = searchParameters.checkin.split('/')[2] + '-' + searchParameters.checkin.split('/')[1] + '-' + searchParameters.checkin.split('/')[0];
+    const _outDate = searchParameters.checkout.split('/')[2] + '-' + searchParameters.checkout.split('/')[1] + '-' + searchParameters.checkout.split('/')[0];
     searchParameters = Object.assign({
       'guest': '1'
     }, searchParameters || {});
     var query = {
-      'checkin': moment(searchParameters.checkin).format('YYYY-MM-DD'),
-      'checkout': moment(searchParameters.checkout).format('YYYY-MM-DD'),
-      'day' : moment(searchParameters.checkout).diff(moment(searchParameters.checkin),'days')+1,
+      'checkin': moment(new Date(_inDate).toISOString()).format('YYYY-MM-DD'),
+      'checkout': moment(new Date(_outDate).toISOString()).format('YYYY-MM-DD'),
+      'day' : moment(_outDate).diff(moment(_inDate),'days'),
       'lat' : searchParameters.lat,
       'lng' : searchParameters.lng,
       'guest': searchParameters.guest,

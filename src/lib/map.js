@@ -317,7 +317,6 @@ Gmap.prototype.getLocationLevelTree = function (params) {
         request.onreadystatechange = function () {
             if (request.readyState == 4) {
                 if (request.status == 200) {
-                  console.log(request);
                   var data = JSON.parse(request.responseText);
                     let names = [];
                     data.results[0].address_components.forEach((c) => {

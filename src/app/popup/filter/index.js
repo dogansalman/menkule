@@ -1,7 +1,5 @@
 import modal from '../modal';
 import filter from './filter.handlebars';
-///import flatpickr from 'flatpickr';
-
 
 /*
 Filter form validate
@@ -70,9 +68,12 @@ export default(filtered_data) => {
                         mode: 'range',
                         minDate: 'today',
                         static: true,
+                        dateFormat: 'd/m/Y',
                         maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
-                        defaultDate: [filtered_data.checkin, filtered_data.checkout]
+                        defaultDate: [moment(new Date(filtered_data.checkin).toISOString()).format('DD-MM-YYYY'), moment(new Date(filtered_data.checkout).toISOString()).format('DD-MM-YYYY')]
                     });
+
+
                 /*
                 Filter
                  */
@@ -80,7 +81,9 @@ export default(filtered_data) => {
                     e.preventDefault();
                     template.find(".filter-container").validateFormAsync(filterFormRules)
                         .then((filters) => {
-                            Object.assign(filters, {'checkin': filters.date.split(' - ')[0].trim(),'checkout': filters.date.split(' - ')[1].trim() } )
+                            const _inDate = filters.date.split(' - ')[0].trim().split('/')[2] + '-' + filters.date.split(' - ')[0].trim().split('/')[1] + '-' + filters.date.split(' - ')[0].trim().split('/')[0];
+                            const _outDate = filters.date.split(' - ')[1].trim().split('/')[2] + '-' + filters.date.split(' - ')[1].trim().split('/')[1] + '-' + filters.date.split(' - ')[1].trim().split('/')[0];
+                            Object.assign(filters, {'checkin': _inDate,'checkout': _outDate } )
                             openedModal.modal('hide');
                             resolve(filters);
                         });
