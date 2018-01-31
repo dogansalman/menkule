@@ -1,7 +1,6 @@
 import modal from '../modal';
 import calendar from './calendar.handlebars';
 import flatpickr from 'flatpickr';
-import Turkish from 'flatpickr/dist/l10n/tr';
 
 export default () => {
     return new Promise((resolve) => {
@@ -31,7 +30,7 @@ export default () => {
                  */
                 template.find('.acceptbtn').on('click', (e) => {
                     e.preventDefault();
-                    const selectedRange = $('#calendar').val().split(" to ");
+                    const selectedRange = $('#calendar').val().split(" - ");
                     if(selectedRange.length < 2) return
                     resolve( new DateRange(moment(selectedRange[0].trim()), moment(selectedRange[1].trim())));
                     openedModal.modal('hide');

@@ -916,8 +916,11 @@ Search
 }
 .map-result-shortdesc {
   font-size: 12px;
-  height: 30px;
-  max-height: 60px
+  height: 20px;
+  font-weight: 500;
+  max-height: 60px;
+  font-family: 'Roboto', sans-serif;
+  color: #666;
 }
 .advert-detail-map {
   padding: 0px 10px;
@@ -1123,9 +1126,7 @@ img[src="https://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png"] {
 img[src="https://maps.gstatic.com/mapfiles/transparent.png"] {
   display: none !important;
 }
-.gm-style div {
-  text-align: center !important;
-}
+
 @media all and (max-width: 768px) {
   .map-container {
     position: initial;
@@ -2548,6 +2549,15 @@ Filter Popup
     font-weight:300;
     font-family: 'Roboto', sans-serif;
 }
+.filter-container input[type=radio] {
+  margin-left: -20px !important;
+}
+.filter-container .radio {
+  padding-left: 15px;
+}
+.filter-container .flatpickr-wrapper {
+  width: 100%;
+}
 /*
 Notify
  */
@@ -3097,7 +3107,7 @@ Rezervation
 .rezervation-state{
     height: 35px;
     color: #fff;
-    padding: 2px 0px 0px 0px;
+    padding: 1px 0px 0px 0px;
     font-size: 15px;
     display: block;
 }
@@ -3414,6 +3424,26 @@ Advert calendar
 .calendar-container{
   border: 1px solid #f9f9f9;
 }
+.calendar-container .rez-point{
+  font-weight: 500;
+  font-size: 19px;
+  color: #68da98;
+  padding: 0px 5px 0px 5px;
+}
+.calender-detail div {
+    display: block;
+    clear: both;
+    padding: 5px 0px 25px 0px;
+    border-bottom: 1px solid #f7f7f7;
+}
+.calender-detail div > h3 {
+    float:left;
+    margin:0px;
+}
+.calender-detail div > label {
+    float: right !important;
+}
+
 @media all and (max-width: 768px) {
   .calendar-container
   {

@@ -5,8 +5,8 @@ import _selectedAdvert from './selected.handlebars';
 import advertCalendar from './advert-calendar.handlebars';
 import advertDetail from './advert-detail.handlebars';
 import advertList from './advert-list.handlebars';
+import calendarDetail from './calendar-detail.handlebars';
 import flatpickr from 'flatpickr';
-import Turkish from 'flatpickr/dist/l10n/tr';
 
 export default () => {
     return new Promise((resolve) => {
@@ -52,14 +52,13 @@ export default () => {
 
                             //get reserved date
                             var reserved_dates = _.map(_.map(_.filter(advert.unavailable_date, function (o) {
-                                return o.is_reserved;
+                                return o.rezervation_id > 0;
                             }), 'fulldate')).map(function (x) {
                                 return moment(new Date(moment(x)._d)).format('YYYY/MM/DD');
                             });
-
                             //get unavailable date
                             var unavailable_dates = _.map(_.map(_.filter(advert.unavailable_date, function (o) {
-                                return !o.is_reserved;
+                                return o.rezervation_id === 0;
                             }), 'fulldate')).map(function (x) {
                                 return moment(new Date(moment(x)._d)).format('YYYY/MM/DD');
                             });
@@ -68,23 +67,26 @@ export default () => {
                             template.find('.flatpickr-calendar').remove();
                             flatpickr.localize(flatpickr.l10ns.tr);
                             flatpickr(template.find('#calendar')[0], {
-                                inline: true, mode: "multiple",
+                                inline: true,
+                                mode: "multiple",
                                 minDate: moment(new Date()).format('DD-MM-YYYY'),
                                 maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
                                 disable: reserved_dates,
                                 defaultDate: unavailable_dates,
-                                onDayCreate: function (dObj, dStr, fp, dayElem) { if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event reserved'>Rez</span>"; }
+                                onDayCreate: function (dObj, dStr, fp, dayElem) {
+                                    if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event reserved'>Rez</span>";
+                                }
                             });
-
                             //render advert detail
                             template.zone('selected-advert-detail').setContentAsync(advertDetail(Object.assign(selectedAdvert, { 'total_reserved': reserved_dates.length }, { 'total_unavailable': unavailable_dates.length })))
+                                .then(() => template.zone('calendar-footer').setContentAsync(calendarDetail({reserved: reserved_dates.length, unavaiable: unavailable_dates.length, percent: (reserved_dates.length / 365 * 100).toFixed(2)})))
                                 .then(() => {
                                     //upload event
                                     template.find('button.update').off('click').on('click', (e) => {
                                         e.preventDefault();
                                         delete advert["user_id"];
                                         //get unavaiable date
-                                        unavailable_dates = template.find('#calendar').val() != "" ? _.map(template.find('#calendar').val().split(';')).map(function (x) {
+                                        unavailable_dates = template.find('#calendar').val() != "" ? _.map(template.find('#calendar').val().split(',')).map(function (x) {
                                             return {
                                                 'day': moment(x)._d.getDate(),
                                                 'month': moment(x)._d.getMonth() + 1,
@@ -94,14 +96,13 @@ export default () => {
                                         }) : [];
                                         //post upload advert
                                         App.showPreloader(.7)
-                                            .then(() => Menkule.put('/dates/unavailable/' + advert.advert.id, unavailable_dates))
+                                            .then(() => Menkule.put('/dates/unavailable/' + advert.id, unavailable_dates))
                                             .then(() => App.hidePreloader())
-                                            .then(() => App.notifySuccess('İlanınız güncellendi.', 'Tamam'));
+                                            .then(() => App.notifySuccess('İlanınızın takvini güncellendi.', ''));
                                     })
                                 });
                         })
-                })
-
+                });
 
                 /*
                 Fire render template

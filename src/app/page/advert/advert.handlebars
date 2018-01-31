@@ -81,7 +81,7 @@
         <div class="col-xs-12 col-sm-12 col-md-8 content_detail_desc">
             <div class="col-xs-12">
                 <h2 class="detail_content_title bottomset2 moffset2">Açıklama</h2>
-                <p class="detaildesc">{{advert.description}}</p>
+                <p class="detaildesc">{{{advert.description}}}</p>
             </div>
             <div class="col-xs-12 disable_padding">
                 <div class="col-xs-12">
@@ -157,6 +157,9 @@
                         {{/if}}
                     </div>
                 </div>
+                <div class="col-xs-12 moffset1">
+                    <p>{{advert.adress}}</p>
+                </div>
             </div>
         </div>
         <!-- ADVERT DESC END-->
@@ -189,13 +192,13 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-10 advert_owner_desc moffset3">
             <h2>İlan Sahibi Hakkında</h2>
-            <p>İlan sahibi <b> {{user.created_date}} </b> tarihinde menkule.com.tr üye olmuştur.  menkule.com.tr da yayinlanmış  <b class="profilenamedesc" style="text-transform: uppercase">{{user.fullname}} </b>'ın üyeliği aktif ve onaylanmış profildir. </p>
+            <p>İlan sahibi <b> {{date user.created_date "D MMMM YYYY, dddd"}}  </b> tarihinde menkule.com.tr üye olmuştur.  menkule.com.tr da yayinlanmış  <b class="profilenamedesc" style="text-transform: uppercase">{{user.fullname}} </b>'ın üyeliği aktif ve onaylanmış profildir. </p>
             {{#isLogin}} <button class="default_btn message-btn moffset2">Mesaj Gönder</button>{{/isLogin}}
         </div>
         <!-- ADVERT OWNER DETAIL END-->
         <!-- ADVERT COMMENT START-->
         <div id="comments-container" class="col-xs-12  advert_detail_comment_container moffset3">
-            <h2 class="detail_content_title bottomset2">Değerlendirmeler {{get_length comments}})</h2>
+            <h2 class="detail_content_title bottomset2">Değerlendirmeler ({{get_length comments}})</h2>
             <div data-zone="comments" class="col-xs-12 disable_padding"></div>
         </div>
         {{#isLogin}}

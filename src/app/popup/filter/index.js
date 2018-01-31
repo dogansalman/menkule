@@ -1,7 +1,7 @@
 import modal from '../modal';
 import filter from './filter.handlebars';
-import flatpickr from 'flatpickr';
-import Turkish from 'flatpickr/dist/l10n/tr';
+///import flatpickr from 'flatpickr';
+
 
 /*
 Filter form validate
@@ -65,7 +65,14 @@ export default(filtered_data) => {
                 Inıt calendar
                  */
                 flatpickr.localize(flatpickr.l10ns.tr);
-                flatpickr(template.find('.calendar')[0],  { mode: 'range', minDate: 'today', maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'), defaultDate: [filtered_data.checkin, filtered_data.checkout] });
+                flatpickr(template.find('.calendar')[0],
+                    {
+                        mode: 'range',
+                        minDate: 'today',
+                        static: true,
+                        maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
+                        defaultDate: [filtered_data.checkin, filtered_data.checkout]
+                    });
                 /*
                 Filter
                  */
