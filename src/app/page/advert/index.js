@@ -83,9 +83,11 @@ export default (params) => {
                     template.find('.image-counter').on('click', e => $.fancybox.open($("[data-fancybox]"), { buttons : ['close']}));
                 });
 
+
                 /*
                 Inıt Calendar
                  */
+                   flatpickr.localize(flatpickr.l10ns.tr);
                    flatpickr(template.find('#calendar')[0], {
                     inline: true,
                     fullwidth: true,
@@ -94,10 +96,11 @@ export default (params) => {
                     maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
                     disable: advert.unavailable_date.map(t => moment(new Date(moment(t.fulldate)._d)).format('YYYY-MM-DD')),
                     onDayCreate: function(dObj, dStr, fp, dayElem) {
-                        if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event unavailable'>Dolu</span>";
+                      if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event reserved'>Rez</span>";
                     },
                     onChange: function(selectedDates, dateStr, instance) {
-                        if(selectedDates.length == 2 && moment(selectedDates[1] != moment(selectedDates[0]))) {
+
+                        if(selectedDates.length == 2 && moment(new Date(selectedDates[1])) != moment(new Date(selectedDates[0]))) {
                             template.zone('total_price').setContentAsync(Price({
                                 total: ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1) * advert.advert.price), day: (moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1), day_price: advert.advert.price }));
                         } else {
