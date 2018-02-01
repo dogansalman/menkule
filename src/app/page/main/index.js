@@ -26,25 +26,26 @@ export default () => Header(false)
   .then(template => new Promise(resolve => {
 
       template.find('.loadingvideo').fadeOut(2000);
-
     /*
-    Inıt geocomplate
+    Inıt geocomplates
      */
     template.find('.searchcity')
-      .geocomplete({
-        country: ['tr'],
-        types: ['(cities)']
-      })
+      .geocomplete({  country: ['tr'],types: ['(cities)']})
       .bind("geocode:result", function(event, result) {
-        Gmap.getLocationViewport(result.name).then((locationDetail) => {
-          location = Object.assign(locationDetail,{'name':result.name});
-        })
+          Gmap.getLocationViewport(result.name).then((locationDetail) => { location = Object.assign(locationDetail,{'name':result.name})});
       });
+
+    template.find('.searchcity-xs')
+      .geocomplete({  country: ['tr'],types: ['(cities)']})
+      .bind("geocode:result", function(event, result) {
+          Gmap.getLocationViewport(result.name).then((locationDetail) => { location = Object.assign(locationDetail,{'name':result.name})});
+      });
+
     /*
     Geocomplate set default text
      */
     template.find('.searchcity').defaultText();
-
+    template.find('.searchcity-xs').defaultText();
    /*
    Search
     */
