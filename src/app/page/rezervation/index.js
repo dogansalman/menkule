@@ -1,6 +1,7 @@
 import Header from '../../page/header';
 import Footer from '../../page/footer';
 import Visitors from './visitors.handlebars';
+import VisitorCountBlock from './visitor-count.handlebars';
 import Complate from './complate.handlebars';
 import Activation from '../user/activate/activate.handlebars';
 import Rezervation from './rezervation.handlebars';
@@ -45,6 +46,7 @@ let advert = {};
 let rezervation = {};
 let templateRez = null;
 let modal = null;
+let advertDetailTemplateGlobal;
 
 /*
 Activation form
@@ -128,6 +130,8 @@ function renderVisitor() {
     return new Promise((resolve) => {
             templateRez.zone('visitor').setContentAsync(Visitors({visitor: visitors}))
             .then((visitorTemplate) => {
+                //render visitor count block
+                advertDetailTemplateGlobal.zone('visitor-count').setContentAsync(VisitorCountBlock({visitor: visitors.length +1}));
                 //remove visitor
                  visitorTemplate.find('.remove-visitor').on('click', (e) => {
                     e.preventDefault();
@@ -172,8 +176,15 @@ export default (params) => {
             .then(() => $("body").zone('content').setContentAsync(Rezervation(Object.assign(Menkule.getUser() || {}, { advert: advert, rezervation: rezervation }))))
             .do(t => templateRez = t)
             .then((template) => {
+
+
                 /* Advert detail */
-                template.zone('advert').setContentAsync(Advert( { advert: advert, rezervation: rezervation, visitor: visitors.length })).then((advertDetailTemplate) =>{
+                template.zone('advert').setContentAsync(Advert( { advert: advert, rezervation: rezervation, visitor: visitors.length })).then((advertDetailTemplate) => {
+                    //set global
+                    advertDetailTemplateGlobal = advertDetailTemplate;
+                    /* Render default visitor count */
+                    advertDetailTemplate.zone('visitor-count').setContentAsync(VisitorCountBlock({visitor: 1}));
+
                     advertDetailTemplate.find("[data-fancybox]").fancybox( { buttons : ['close']});
                     /* Create map and center */
                     advertDetailTemplate.find("#map").createMap({scroll:true});
