@@ -2721,6 +2721,23 @@ Advert Detail
     color: #666;
     font-weight: 400;
 }
+.detail_content .advert-detail-bar.sticky {
+  background: #fff;
+  -webkit-animation: expand .5s;
+  position: fixed;
+  top: 0px;
+  left:0px;
+  z-index: 5;
+  width: 100%;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+@-webkit-keyframes expand{
+
+  0%{top:-60px}
+  100%{top:0px}
+}
+
 .detail_content .advert-detail-bar h2 {
     display: inline-block;
     padding: 0px 0px 5px 0px;
@@ -2737,6 +2754,15 @@ Advert Detail
 }
 .detail_content .advert-detail-bar h2.active {
     border-bottom: 1px solid #e0e0e0;
+}
+@media all and (max-width: 768px) {
+  .detail_content .advert-detail-bar h2 {
+    padding: 0px 0px 5px 0px;
+    margin: 10px 0px 5px 5px;
+  }
+  .detail_content .advert-detail-bar > h2 > a {
+    font-size: 13px;
+  }
 }
 .detail_content .advert_location_detail {
     font-size: 14px;
@@ -2880,24 +2906,24 @@ Advert Detail
     min-height: 350px;
 }
 .image-counter {
-    position: absolute;
-    bottom: 10%;
-    background: rgba(0, 0, 0, 0.32);
-    padding: 10px;
-    font-size: 13px;
-    color: #fff;
-    right: 20px;
-    width: 200px;
-    text-align: center;
-    vertical-align: middle;
-    font-weight: 500;
-    line-height: 1.43;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    white-space: nowrap;
-    cursor: pointer;
+  position: absolute;
+  bottom: 5px;
+  background: rgba(0, 0, 0, 0.32);
+  padding: 10px;
+  font-size: 13px;
+  color: #fff;
+  right: 10px;
+  width: 200px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 500;
+  line-height: 1.43;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+  cursor: pointer;
 }
 .detail_profile_image .link {
     font-size: 11px;

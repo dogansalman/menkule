@@ -1,6 +1,5 @@
 import Footer from '../footer';
 import Header from '../header';
-import Fancybox from  '@fancyapps/fancybox';
 import appMessage from '../../../lib/appMessages';
 import Advert from './advert.handlebars';
 import Comments from './comment.handlebars';
@@ -11,7 +10,6 @@ import Message from '../../popup/message';
 import Comment from '../../popup/comment';
 import _Advert from '../advert';
 import flatpickr from 'flatpickr';
-import Turkish from 'flatpickr/dist/l10n/tr';
 
 export default (params) => {
     /*
@@ -31,6 +29,7 @@ export default (params) => {
          */
         let advert = {};
 
+
         Header()
             .then(() => Footer())
             .then(() => Menkule.get('/adverts/find/' + params.id))
@@ -39,6 +38,17 @@ export default (params) => {
             .then((advert) => $("body").zone('content').setContentAsync(Advert(advert)))
             .then((template) => {
 
+                /* Scroll down sticky bar */
+                const scrollTop = $(window).scrollTop();
+                let elementOffset = $('.advert-detail-bar').offset().top;
+                let currentElementOffset = (elementOffset - scrollTop);
+                $(window).on('resize', e => {
+                    elementOffset = $('.advert-detail-bar').offset().top;
+                    currentElementOffset = (elementOffset - scrollTop);
+                });
+                $(document).on('scroll', e => {
+                    $(document).scrollTop() > currentElementOffset ? template.find('.advert-detail-bar').addClass('sticky') : template.find('.advert-detail-bar').removeClass('sticky');
+                });
 
                 /*
                 Inıt Gmap
@@ -67,13 +77,11 @@ export default (params) => {
                 /*
                 Render Images
                  */
-                template.zone('images').setContentAsync(Images({images: advert.images, price: '250'}))
+                template.zone('images').setContentAsync(Images({images: advert.images, price: advert.advert.price}))
                 .then(() => App.promise(() => template.find("[data-fancybox]").fancybox({ buttons : ['close']})))
                 .then(() => {
                     template.find('.image-counter').on('click', e => $.fancybox.open($("[data-fancybox]"), { buttons : ['close']}));
                 });
-
-
 
                 /*
                 Inıt Calendar
@@ -92,20 +100,16 @@ export default (params) => {
                         if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event unavailable'></span>";
                     },
                     onChange: function(selectedDates, dateStr, instance) {
-                        template.zone('total_price').setContentAsync(Price({ total: selectedDates.length == 2 ? ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1) * advert.advert.price) : advert.advert.price, day: selectedDates.length, day_price: advert.advert.price }));
+                        if(selectedDates.length == 2 && moment(selectedDates[1] != moment(selectedDates[0]))) {
+                            template.zone('total_price').setContentAsync(Price({
+                                total: ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1) * advert.advert.price), day: (moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1), day_price: advert.advert.price }));
+                        } else {
+                            template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price}));
+                        }
                     },
                     onReady: function(dateObj, dateStr, instance) {
                         //render price detail default
                         template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price}))
-
-                        //add document clear date event
-                        $('.flatpickr-calendar').each(function() {
-                            var $this = $(this);
-                            document.addEventListener("onDateChange", function(e) {
-                                App.promise(() => instance.clear() && instance.close())
-                                    .then((data) => template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price})))
-                            });
-                        });
                     }
                 });
 
@@ -146,6 +150,7 @@ export default (params) => {
                     document.dispatchEvent(new CustomEvent("onDateChange"))
 
                 });
+
                 /*
                 Mobile rezervation focusout
                  */
