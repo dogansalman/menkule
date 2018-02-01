@@ -86,18 +86,15 @@ export default (params) => {
                 /*
                 Inıt Calendar
                  */
-                flatpickr.localize(flatpickr.l10ns.tr);
-                flatpickr(template.find('#calendar')[0], {
+                   flatpickr(template.find('#calendar')[0], {
                     inline: true,
                     fullwidth: true,
                     mode: "range",
                     minDate: 'today',
                     maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
-                    disable: _.map(advert.unavailable_date, function(t) {
-                        return moment(new Date(moment(t.fulldate))).format('YYYY/MM/DD')
-                    }),
+                    disable: advert.unavailable_date.map(t => moment(new Date(moment(t.fulldate)._d)).format('YYYY-MM-DD')),
                     onDayCreate: function(dObj, dStr, fp, dayElem) {
-                        if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event unavailable'></span>";
+                        if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event unavailable'>Dolu</span>";
                     },
                     onChange: function(selectedDates, dateStr, instance) {
                         if(selectedDates.length == 2 && moment(selectedDates[1] != moment(selectedDates[0]))) {
@@ -112,6 +109,7 @@ export default (params) => {
                         template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price}))
                     }
                 });
+
 
 
 
