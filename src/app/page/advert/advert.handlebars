@@ -191,9 +191,10 @@
             <h2>İlan Sahibi Hakkında</h2>
             <p>İlan sahibi <b> {{date user.created_date "D MMMM YYYY, dddd"}}  </b> tarihinde menkule.com.tr üye olmuştur.  menkule.com.tr da yayinlanmış  <b class="profilenamedesc" style="text-transform: uppercase">{{user.fullname}} </b>'ın üyeliği aktif ve onaylanmış profildir. </p>
             {{#isLogin}} <button class="default_btn message-btn moffset2">Mesaj Gönder</button>{{/isLogin}}
-            {{#notLogged}}
+            {{#notLogged}}npm run dev
+
                 <p>İlan sahibine mesaj göndermek için öncelikle üye girişi yapmalısınız eğer üye değilseniz hemen kayıt olabilirsiniz.</p>
-                <button class="default_btn message-btn moffset2">Hemen kayıt olun.</button>
+                <a href="/user/register" class="default_btn moffset2">Hemen kayıt olun.</a>
             {{/notLogged}}
         </div>
         <!-- ADVERT OWNER DETAIL END-->
