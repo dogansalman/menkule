@@ -36,7 +36,6 @@
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
                 <a href="javascript:void(0);"  class="default_btn fullwidth message moffset2">Mesaj Gönder</a>
             </div>
-
             {{#zif advert_owner '==' 'false'}}
                 {{#zif is_cancel '==' 'false'}}
                     {{#if is_cancelable}}
@@ -51,7 +50,6 @@
                 {{/zif}}
             {{/zif}}
         </div>
-
         <div  class="col-xs-12 col-sm-12 col-md-9 rezervation-detail-container">
             {{#if advert_owner}}
                 {{#zif updated_date '==' 'false' }}
@@ -147,16 +145,28 @@
                             <label><span class="posibility-circle"><i class="fa fa-paw"></i></span> Evcil Hayvan Kabul Edilebilir.</label>
                         {{/if}}
                     </div>
-                </div>
-            </div>
-            <div data-zone="images" class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-images">
-            </div>
+                    <div class="col-xs-12 disable_padding moffset2 bottomset2">
+                        <h2>Rezervasyon Notu</h2>
+                    {{#if note}}
+                        <p>{{note}}</p>
+                    {{else}}
+                       <p>Rezervasyon notu bulunmamaktadır.</p>
+                    {{/if}}
+                        <div class="col-xs-12 disable_padding">
+                            <h2>Misafirler</h2>
+                            <div class="col-xs-12 disable_padding">
+                                {{#each visitors}}
+                                    <span class="capitalize">{{fullname}}</span> <span class="capitalize">({{gender}})</span> - {{tc}}</div></br>
+                                {{/each}}
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            <div data-zone="images" class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-images"> </div>
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-map">
                 <div id="map" style="width: 100%; height: 400px;"></div>
             </div>
         </div>
-
-
     </div>
 </div>

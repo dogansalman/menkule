@@ -17,7 +17,6 @@ export default (params) => {
             .do((rez) => rezervation = rez).do(() => rezervation.updated_date = rezervation.updated_date == null ? false : true)
             .then((rez) => $('body').zone('content').setContentAsync(Rezervation(rez)))
             .then((template) => {
-
                 /*
                     Message
                  */
