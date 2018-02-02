@@ -21,7 +21,7 @@ const rezervationFormRules = {
     'email': [App.validate.REQUIRED, App.validate.EMAIL],
     'note': [App.validate.STRING],
     'gsm': [App.validate.REQUIRED, App.validate.PHONE],
-    'tc': [App.validate.REQUIRED, App.validate.NUMBER, App.validate.BETWEEN(10, 12)],
+    'identity_no': [App.validate.REQUIRED, App.validate.NUMBER, App.validate.BETWEEN(10, 12)],
     'gender': [App.validate.REQUIRED, function (value, fields) {
         return ($(fields['gender']).fieldValue() === 'Bayan' || $(fields['gender']).fieldValue() == 'Bay');
     }],
@@ -80,7 +80,7 @@ function getActivationForm(params) {
                                         .then(() => App.wait(1000))
                                         .then(() => addVisitor({
                                             fullname: user.name + ' ' + user.lastname,
-                                            tc: Number(user.tc),
+                                            tc: Number(user.identity_no),
                                             gender: user.gender,
                                             is_user: true
                                         }))
@@ -184,7 +184,6 @@ export default (params) => {
             .do(t => templateRez = t)
             .then((template) => {
 
-
                 /* Advert detail */
                 template.zone('advert').setContentAsync(Advert( { advert: advert, rezervation: rezervation, visitor: visitors.length })).then((advertDetailTemplate) => {
                     //set global
@@ -251,34 +250,46 @@ export default (params) => {
                             if (user && user.state === false) Menkule.get("/users/validate/gsm/send").then(() => getActivationForm(params)).then(() => App.hidePreloader());
 
                             //If user exist and state is true create rezervation
-                            if (user && user.state === true) addVisitor({
-                                fullname: user.name + ' ' + user.lastname,
-                                tc: Number(user.tc),
-                                gender: user.gender,
-                                is_user: true
-                            })
-                                .then((visitor) => Menkule.post('/rezervations', {
-                                    'advert_id': params.id,
-                                    'visitors': visitor,
-                                    'checkin': rezervation.checkin,
-                                    'checkout': rezervation.checkout,
-                                    'note': user.note
-                                }))
-                                .then(() => template.zone('rezervation').setContentAsync(Complate({
-                                    advert: advert,
-                                    rezervation: rezervation,
-                                    visitors: visitors
-                                })))
-                                .then((t) => App.promise(() => t.find('.complate').scrollView()))
-                                .then(() => App.hidePreloader())
-                                .then(() => modal.modal('hide'))
-                                .catch((e) => {
-                                    modal.modal('hide');
-                                    App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, 'Üzgünüz'))
-                                });
+                            if (user && user.state === true) {
+
+                                /*TODO
+                                 *  kimlik no rezervasyon öncesinde kayıt etmek gerekiyor. */
+                                if(!user.identity_no || user.identity_no === '') {
+                                    $(".rezervation-form-container").validateFormAsync(rezervationFormRules).then((fieldValues) => App.promise(() => Object.assign(user, { identity_no: fieldValues.identity_no})))
+                                        .then(() => Menkule.put('/users', user))
+                                }
+
+                                addVisitor({
+                                    fullname: user.name + ' ' + user.lastname,
+                                    tc: user.identity_no,
+                                    gender: user.gender,
+                                    is_user: true
+                                    })
+                                    .then((a) => console.log(a))
+                                    .then((visitor) => Menkule.post('/rezervations', {
+                                        'advert_id': params.id,
+                                        'visitors': visitor,
+                                        'checkin': rezervation.checkin,
+                                        'checkout': rezervation.checkout,
+                                        'note': user.note
+                                    }))
+                                   .then(() => template.zone('rezervation').setContentAsync(Complate({
+                                        advert: advert,
+                                        rezervation: rezervation,
+                                        visitors: visitors
+                                    })))
+                                    .then((t) => App.promise(() => t.find('.complate').scrollView()))
+                                    .then(() => App.hidePreloader())
+                                    .then(() => modal.modal('hide'))
+                                    .catch((e) => {
+                                        modal.modal('hide');
+                                        App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, 'Üzgünüz'))
+                                    });
+                            }
+
                         })
                         .catch((e) => {
-                            modal.modal('hide');
+                            if(modal) modal.modal('hide');
                             App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, 'Üzgünüz'))
                         });
                 })

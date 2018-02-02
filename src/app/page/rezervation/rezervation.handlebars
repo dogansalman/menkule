@@ -29,7 +29,11 @@
                     <p>SN. <span class="capitalize">{{name}}</span> <span class="uppercase">{{lastname}}</span> rezervasyonunuzun onaylanabilmesi için lütfen kimlik numaranızı belirtiniz.</p>
                     <div class="form-group">
                         <label for="ad">TC No: </label>
-                        <input type="number" data-form-element="tc" class="form-control"  mask="00000000000" maxlength="11" value="{{tc}}" placeholder="TC kimlik numarası">
+                        {{#if identity_no}}
+                        <h3 class="disable_margin">{{identity_no}}</h3>
+                        {{else}}
+                        <input type="number" data-form-element="identity_no" class="form-control"  mask="00000000000" maxlength="11" value="{{identity_no}}" placeholder="TC kimlik numarası">
+                        {{/if}}
                     </div>
                 {{/isLogin}}
                 {{#notLogged}}
@@ -63,7 +67,7 @@
                     <p>Rezervasyonunuzun onaylanabilmesi için lütfen kimlik numaranızı belirtiniz.</p>
                     <div class="form-group">
                         <label for="tc">TC No: </label>
-                        <input type="number" data-form-element="tc"  mask="00000000000" maxlength="11" class="form-control" placeholder="TC kimlik numarası">
+                        <input type="number" data-form-element="identity_no"  mask="00000000000" maxlength="11" class="form-control" placeholder="TC kimlik numarası">
                     </div>
 
                 {{/notLogged}}
