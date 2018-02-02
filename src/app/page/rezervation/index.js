@@ -230,6 +230,7 @@ export default (params) => {
                         .then((loggedUser) => App.promise(() => loggedUser ? Object.assign(user, loggedUser) : Object.assign(user, { 'new': true })))
                         .then(() => {
 
+
                             //If not exist logged user to register, login and send activation code and get activation form
                             if (user && user.new === true) {
                                 Menkule.post("/users", user)
@@ -238,7 +239,7 @@ export default (params) => {
                                     .then((usr) => Object.assign(user, usr))
                                     .then(() => App.emit('logged.user', user))
                                     .then(() => getActivationForm(params)
-                                    .then(() => App.hidePreloader()))
+                                        .then(() => App.hidePreloader()))
                                     .then(() => modal.modal('hide'))
                                     .catch(e => {
                                         modal.modal('hide');
@@ -246,26 +247,26 @@ export default (params) => {
                                     })
                             }
 
+                            //If user exist and identity no is null
+                            if(user && !user.new) {
+                                console.log('userin kimlik nosunu kaydet');
+                                //TODO get value field
+                                //$(".rezervation-form-container").validateFormAsync(rezervationFormRules)
+                                Object.assign(user, {identity_no : '123456789'});
+                            }
+
                             //If user exist and state is false resend gsm activation code and get activation form
                             if (user && user.state === false) Menkule.get("/users/validate/gsm/send").then(() => getActivationForm(params)).then(() => App.hidePreloader());
 
+
                             //If user exist and state is true create rezervation
                             if (user && user.state === true) {
-
-                                /*TODO
-                                 *  kimlik no rezervasyon öncesinde kayıt etmek gerekiyor. */
-                                if(!user.identity_no || user.identity_no === '') {
-                                    $(".rezervation-form-container").validateFormAsync(rezervationFormRules).then((fieldValues) => App.promise(() => Object.assign(user, { identity_no: fieldValues.identity_no})))
-                                        .then(() => Menkule.put('/users', user))
-                                }
-
                                 addVisitor({
                                     fullname: user.name + ' ' + user.lastname,
                                     tc: user.identity_no,
                                     gender: user.gender,
                                     is_user: true
                                     })
-                                    .then((a) => console.log(a))
                                     .then((visitor) => Menkule.post('/rezervations', {
                                         'advert_id': params.id,
                                         'visitors': visitor,
