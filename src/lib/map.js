@@ -156,12 +156,15 @@ $.fn.createMap = function(options) {
   }, options || {});
 
   //fix scroll with css
-  if(options.scroll) {
-    $(el).addClass('map-disable');
-    $(el).parent()
-      .click(function() { $(el).addClass('active') })
-      .mouseleave(function() { $(el).removeClass('active') });
-  }
+    /*
+    * Google fixed
+    * */
+  //if(options.scroll) {
+   // $(el).addClass('map-disable');
+   // $(el).parent()
+   //   .click(function() { $(el).addClass('active') })
+   //   .mouseleave(function() { $(el).removeClass('active') });
+  //}
 
   return new Promise((resolve) => {
     var map = new google.maps.Map(el, options);
