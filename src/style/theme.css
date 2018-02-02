@@ -2579,6 +2579,13 @@ Notify
     border-radius: 0px;
     min-width: 300px;
 }
+.alert-success.clickabled, .alert-danger.clickabled {
+  cursor:pointer;
+}
+.alert-success.clickabled:hover, .alert-success.clickabled:focus, .alert-danger.clickabled:hover, .alert-danger.clickabled:focus {
+  opacity: 0.9;
+}
+
 /*
 Advert Detail
  */

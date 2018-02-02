@@ -12,6 +12,9 @@ var registerFormRules = {
     'password_retype': [App.validate.REQUIRED, function (value, fields) {
         return ($(fields['password']).fieldValue() === value);
     }],
+    'gender': [App.validate.REQUIRED, function (value, fields) {
+        return ($(fields['gender']).fieldValue() === 'Bayan' || $(fields['gender']).fieldValue() == 'Bay');
+    }],
     'accept_user_policy': function (value) {
         if (value !== true) {
             App.notifyDanger('Üyelik kaydı oluşturabilmeniz için lütfen üyelik koşullarını kabul edin.', 'Üzgünüz');

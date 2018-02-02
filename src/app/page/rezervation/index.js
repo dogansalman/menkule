@@ -10,7 +10,7 @@ import _Rezervation from '../rezervation';
 import Advert from './advert.handlebars';
 import AppMessage from '../../../lib/appMessages';
 import Confirm from "../../popup/confirm";
-
+import ChangePass from '../../popup/password';
 
 /*
 Validate rezervation form
@@ -22,6 +22,9 @@ const rezervationFormRules = {
     'note': [App.validate.STRING],
     'gsm': [App.validate.REQUIRED, App.validate.PHONE],
     'tc': [App.validate.REQUIRED, App.validate.NUMBER, App.validate.BETWEEN(10, 12)],
+    'gender': [App.validate.REQUIRED, function (value, fields) {
+        return ($(fields['gender']).fieldValue() === 'Bayan' || $(fields['gender']).fieldValue() == 'Bay');
+    }],
     'accept_policy': function(value) {
         if (value !== true) {
             App.notifyDanger('Devam etmek için Üyelik Koşulları ve Ön Bilgilendirme formunu onaylamanız gerekmektedir.', 'Üzgünüz');
@@ -57,11 +60,18 @@ function getActivationForm(params) {
             .then((template) => {
                 //scroll to top
                 template.find('.activation-container').scrollView();
+
+                //show notify password change
+                App.notifySuccess('Şifrenizi hemen değiştirmek için lütfen buraya tıklayın.', 'Unutmayın !', true).then((notify) => {
+                    notify.on('click', (e) => ChangePass());
+                });
+
                 //send active
                 template.find(".active").on('click', (e) => {
                     template.find(".activation-container")
                         .validateFormAsync(activationFormRules)
                         .then(activationForm => {
+
                             App.showPreloader(.7)
                                 .then(() => {
                                     Menkule.post("/users/approve/gsm", {
@@ -103,7 +113,7 @@ function getActivationForm(params) {
                                 .then(() => App.notifySuccess('Aktivasyon kodu tekrar iletilmiştir.', 'Tamam'))
                                 .catch((err) => {
                                     App.hidePreloader();
-                                    App.notifyDanger(JSON.parse(err.responseText)['message'], 'Üzgünüz')
+                                    App.notifyDanger(JSON.parse(err.responseText.Message), '')
                                 });
                         });
                 });
@@ -147,11 +157,7 @@ function renderVisitor() {
     });
 }
 
-
-
-
 export default (params) => {
-
 
     if(!params.id || !Number.isInteger(Number(params.id))) return;
 
@@ -226,12 +232,8 @@ export default (params) => {
 
                             //If not exist logged user to register, login and send activation code and get activation form
                             if (user && user.new === true) {
-                                Menkule.post("/users", Object.assign(user, {
-                                    password: Math.random() * 10,
-                                    gender: 'Bay'
-                                }))
-                                    .then(() => Menkule.post('/auth', {username: user.email, password: user.password, grant_type: 'password'}, 'application/x-www-form-urlencoded'))
-                                    .then((result) => App.promise(() => App.promise(() => Menkule.saveToken(result))))
+                                Menkule.post("/users", user)
+                                    .then((result) => App.promise(() => Menkule.saveToken(result.token)))
                                     .then(() => Menkule.user())
                                     .then((usr) => Object.assign(user, usr))
                                     .then(() => App.emit('logged.user', user))

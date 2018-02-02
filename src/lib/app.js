@@ -68,8 +68,8 @@ App.prototype.parseJSON = function (value) {
 App.prototype.notifyDanger = function (message, title) {
   return this.showNotify({message, title, type: 'danger'});
 };
-App.prototype.notifySuccess = function (message, title) {
-  return this.showNotify({message, title});
+App.prototype.notifySuccess = function (message, title, clickable = false) {
+  return this.showNotify({message, title, clickable});
 };
 App.prototype.showNotify = function(options) {
   return new Promise(resolve => {
@@ -77,15 +77,16 @@ App.prototype.showNotify = function(options) {
       'icon': 'fa fa-bell-o',
       'title': '',
       'message': '',
-      'type': 'success'
+      'type': 'success',
     }, options || {});
 
-    $.notify({ icon: options.icon, title: options.title, message: options.message
+
+   var x = $.notify({ icon: options.icon, title: options.title, message: options.message
     },{
       element: 'body',
       position: null,
       type: options.type,
-      allow_dismiss: true,
+      allow_dismiss: false,
       newest_on_top: false,
       showProgressbar: false,
       placement: {
@@ -103,7 +104,10 @@ App.prototype.showNotify = function(options) {
         exit: 'animated bounceOutDown'
       },
       icon_type: 'class',
-      onShown: (() => resolve())
+      onShown: (() => {
+        if(options.clickable) $(x.$ele[0]).addClass('clickabled')
+          resolve($(x.$ele[0]));
+      }),
     });
   });
 };

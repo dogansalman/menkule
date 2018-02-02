@@ -23,7 +23,7 @@ export default (params) => Header()
                                 .then(() => App.hidePreloader())
                                 .then(() => App.notifySuccess('Üyeliğiniz aktif edildi.', 'Teşekkürler'))
                                 .then(() => App.wait(3000))
-                                .then(() => App.navigate('/user/account'))
+                                .then(() => App.navigate('/'))
                                 .catch((err) =>{
                                     App.hidePreloader()
                                         .then(() => App.notifyDanger('Aktivasyon kodu hatalı. Lütfen tekrar deneyin.', 'Üzgünüz'))
