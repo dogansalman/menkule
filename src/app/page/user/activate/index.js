@@ -7,6 +7,7 @@ var activationFormRules = {
     'code': [App.validate.REQUIRED, App.validate.NUMBER]
 };
 
+
 export default (params) => Header()
     .then(() => Footer())
     .then(() =>  $('body').zone('content').setContentAsync(template()))
@@ -40,6 +41,7 @@ export default (params) => Header()
                     Menkule.get("/users/validate/gsm/send", {})
                         .then(() =>  App.hidePreloader())
                         .then(() => App.notifySuccess('Aktivasyon kodu tekrar iletilmiştir.', 'Tamam'))
+                        .then(() => template.zone('countdown').countdown(4))
                         .catch((err) => {
                             App.hidePreloader()
                                 .then(o => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'));

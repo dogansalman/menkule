@@ -111,9 +111,10 @@ function getActivationForm(params) {
                             Menkule.get("/users/validate/gsm/send", {})
                                 .then(() => App.hidePreloader())
                                 .then(() => App.notifySuccess('Aktivasyon kodu tekrar iletilmiştir.', 'Tamam'))
+                                .then(() => template.zone('countdown').countdown(4))
                                 .catch((err) => {
                                     App.hidePreloader();
-                                    App.notifyDanger(JSON.parse(err.responseText.Message), '')
+                                    App.notifyDanger(err.responseJSON.Message, '')
                                 });
                         });
                 });

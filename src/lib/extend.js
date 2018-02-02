@@ -11,6 +11,40 @@ Moment Range & Locale
 extendMoment(moment);
 moment.locale('tr');
 
+// countdown timer
+$.fn.countdown = function(minutes) {
+
+    var element = this;
+    var d1 = new Date (),
+        d2 = new Date ( d1 );
+    d2.setMinutes ( d1.getMinutes() + Number(minutes) );
+    var countDownDate = d2.getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+        // Get todays date and time
+        var now = new Date().getTime();
+        // Find the distance between now an the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        element.text( minutes + " Dak. " + seconds + " San.");
+
+        // If the count down is over, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            element.text("");
+            var _e = new $.Event('countdown.finished');
+            element.trigger(_e);
+        }
+    }, 1000);
+
+};
 
 // Disable
 $.fn.disable = function () {
