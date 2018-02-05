@@ -1,18 +1,13 @@
 <div class="swiper-container swiper-container-horizontal">
     <div class="swiper-wrapper" style="transform: translate3d(-2617.5px, 0px, 0px); transition-duration: 0ms;">
             {{#each adverts}}
-
             <div data-index="{{indx}}" class="swiper-slide" style="width: 319px; margin-right: 30px;">
-                <a href="/advert/{{id}}">
+                <a href="/advert/{{id}}{{queryStr}}">
                     <div class="col-xs-12 col-sm-12 col-md-12 map-result-image">
                         <div class="map-advertphoto">
                             <img class="photoadvert" src="{{#image images.image.url 400 250 }} {{/image}}"/>
                         </div>
                         <div class="col-md-4 map-result-price">{{price}} TL</div>
-                        <div class="map-result-profilecontainer hidden-xs hidden-sm text-center">
-                            <img alt="profile-photo" class="map-result-profileimage" src="{{#image user_photo 100 100 }} {{/image}}"/>
-                            <h2 class="map-result-profilename">Doğan SALMAN</h2>
-                        </div>
                     </div>
                     <div class="col-xs-12 advert-slide-footer">
                         <div class="col-xs-4 text-left">
@@ -27,3 +22,4 @@
             {{/each}}
     </div>
 </div>
+

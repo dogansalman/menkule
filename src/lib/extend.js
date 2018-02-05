@@ -4,7 +4,6 @@ import './validate';
 import { extendMoment } from 'moment-range';
 import 'moment/locale/tr';
 
-
 /*
 Moment Range & Locale
  */
@@ -45,7 +44,6 @@ $.fn.countdown = function(minutes) {
     }, 1000);
 
 };
-
 // Disable
 $.fn.disable = function () {
     return this.each(function () {
@@ -59,7 +57,6 @@ $.fn.enable = function () {
         $(this).removeAttr('disabled');
     });
 };
-
 $.fn.defaultText = function () {
   var txtbxt = $(this);
   $(txtbxt).focus(function() {
@@ -69,7 +66,6 @@ $.fn.defaultText = function () {
       if ($(txtbxt).val() == "") $(txtbxt).val($(txtbxt).data("DefaultText"));
   });
 };
-
 // Get zone dom by name
 $.fn.zone = function (name) {
     return $(this).find("[data-zone='" + name + "']");
@@ -97,20 +93,16 @@ $.fn.appenndContentAsync = function(content) {
 $.fn.clearContentAsync = function() {
     return $(this).setContentAsync('');
 };
-
 // Exists
 $.fn.exists = function () {
     return this.length > 0;
 };
-
 // clear form
 $.fn.clearForm = function () {
     $(this).find('input').val('');
     $(this).find('textarea').val('');
     $(this).find('select').selectedIndex = 0
 };
-
-
 $.fn.applyRemote = function (url, options) {
     var el = $(this).toArray().find(e => true);
     if (url == "refresh" && !$(el).data("template")) return this;
@@ -143,151 +135,19 @@ $.fn.applyRemote = function (url, options) {
     });
     return this;
 };
-
-
-// Promise extends
-Promise.prototype.equals = function (value) {
-    return new Promise(resolve => {
-        this.then(r => resolve(r == value));
-    });
-};
-Promise.prototype.do = function (callable) {
-    return new Promise((resolve, reject) => {
-        this.then(r => {
-            try {
-                callable(r);
-                resolve(r);
-            } catch (err) {
-                reject(err);
-            }
-       }).catch(err => reject(err));
-    });
-};
-Promise.prototype.if = function (query, promiseFunc) {
-  if (!query) return this;
-  return new Promise((resolve, reject) => {
-    promiseFunc().then(result => this).then(result => resolve(result)).catch(err => reject(err));
-  });
-};
-
-// Custom Objects
-window.DateRange = function DateRange(from, to) {
-  this.from = from;
-  this.to = to;
-  this.from_day = from.get('date');
-  this.from_month = from.get('month') + 1;
-  this.from_year = from.get('year');
-  this.to_day = to.get('date');
-  this.to_month = to.get('month') + 1;
-  this.to_year = to.get('year');
-  this.from_fulldate = from.format('YYYY.MM.DD');
-  this.to_fulldate = to.format('YYYY.MM.DD');
-  this.uniq = from.format('MMDDYYYY') + to.format('MMDDYYYY');
-  var _uniqKey = "MMDDYYYY";
-  this.toUniqKey = function(){
-    return (this.from.format(_uniqKey).toString() + this.to.format(_uniqKey).toString());
-  }
-};
-
-window.Point = function Point(zoom, m) {
-  this.zoom = zoom;
-  this.latitude = m.getPosition().lat();
-  this.longitude = m.getPosition().lng();
-  this.marker = m;
-  this.toVal = function () {
-    return { zoom: this.zoom, latitude: this.latitude, longitude: this.longitude };
-  };
-};
-
-//Char Converter
-String.prototype.turkishToLower = function(){
-  var string = this;
-
-  var letters = { "İ": "i", "I": "i", "Ş": "s", "Ğ": "g", "Ü": "u", "Ö": "o", "Ç": "c","i": "i","ş": "s","ğ": "g","ü": "u", "ö": "o","ç": "c", "ı": "i" };
-  string = string.replace(/(([İIŞĞÜÇÖiışğüçö]))/g, function(letter){ return letters[letter]; })
-  return string.toLowerCase();
-}
-//get query parameter by name
-String.prototype.getParameterByName = function(name) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-  var results = regex.exec('?' + this);
-  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-}
-String.prototype.clearHtml = function() {
-  return this.replace(/(<([^>]+)>)/ig, "").trim();
-}
-
 $.fn.scrollView = function () {
     return this.each(function () {
         $('html, body').animate({
             scrollTop: $(this).offset().top
         }, 1000);
     });
-}
+};
 $.fn.useRegex = function (regexStr) {
-  var re = new RegExp(regexStr);
-  $(this).keypress(function(e) {
-      if(!re.test(e.key)) e.preventDefault();
-  });
-}
-
-Array.prototype._advertFilter = function(filter_option) {
-    var advertlist = this;
-    var datem = false;
-  _.each(advertlist, function(advert, key) {
-
-    //visitor
-    if (filter_option.hasOwnProperty('visitor')) { if (parseInt(advert.properties.visitor) < parseInt(filter_option.visitor)) Object.assign(advert, {deleted : true});}
-
-    //beds
-    if (filter_option.hasOwnProperty('beds')) { if (parseInt(advert.properties.beds) < parseInt(filter_option.beds)) Object.assign(advert, {deleted : true});}
-
-    //room
-    if (filter_option.hasOwnProperty('room')) { if (parseInt(advert.properties.room) < parseInt(filter_option.room)) Object.assign(advert, {deleted : true});}
-
-    //advert type
-    if(filter_option.hasOwnProperty('advert_type_id') && filter_option.advert_type_id > 0 ) {
-     if (parseInt(advert.advert_type.id) !=  parseInt(filter_option.advert_type_id)) Object.assign(advert, {deleted : true});
-    }
-    //price
-    if(filter_option.hasOwnProperty('price') && filter_option.hasOwnProperty('price_type') && filter_option.price > 0 ) {
-      if(filter_option.price_type == 0)  {
-        if (parseInt(advert.price) <  parseInt(filter_option.price)) Object.assign(advert, {deleted : true});
-      } else {
-        if (parseInt(advert.price) >  parseInt(filter_option.price)) Object.assign(advert, {deleted : true});
-      }
-    }
-
-    //min layover
-    if (filter_option.hasOwnProperty('min_layover')) {
-       if ( parseInt(advert.min_layover) > parseInt(moment(filter_option.checkout).diff(moment(filter_option.checkin),'day') + 1)  ) Object.assign(advert, {deleted : true});
-     }
-    //available date
-    if ((filter_option.hasOwnProperty('checkin') && filter_option.hasOwnProperty('checkout')) && advert.available_date.length > 0) {
-        _.each(advert.available_date, function(available_date, key) {
-          if(!datem) {
-            var startDate = new Date(moment(available_date.from_date)),
-            endDate   = new Date(moment(available_date.to_date)),
-            range = moment().range(startDate, endDate);
-              for (var m = moment(filter_option.checkin); m.diff(moment(filter_option.checkout), 'days') <= 0; m.add(1, 'days')) {
-                  var date = new Date(m);
-                  if(!range.contains(date)) {
-                      datem = false;
-                      return;
-                  }
-                  datem = true;
-              }
-            return;
-          }
-        });
-        if(!datem) Object.assign(advert, {deleted : true})
-    }
-
-  });
-  _.remove(advertlist, {deleted:  true})
-}
-
+    var re = new RegExp(regexStr);
+    $(this).keypress(function(e) {
+        if(!re.test(e.key)) e.preventDefault();
+    });
+};
 $.fn.handleCounter = function (options) {
     var $input,
         $btnMinus,
@@ -312,7 +172,7 @@ $.fn.handleCounter = function (options) {
         },
         onMaximize: function () {
         }
-    }
+    };
     var settings = $.extend({}, defaultOpts, options)
     minimum = settings.minimum
     maximize = settings.maximize
@@ -349,7 +209,7 @@ $.fn.handleCounter = function (options) {
             $input.val(num + 1)
             changeVal(num + 1)
         }
-    })
+    });
     var keyUpTime
     $input.keyup(function () {
         clearTimeout(keyUpTime)
@@ -373,11 +233,11 @@ $.fn.handleCounter = function (options) {
                 changeVal(num)
             }
         }, 300)
-    })
+    });
     $input.focus(function () {
         var num = $input.val()
         if (num == 0) $input.select()
-    })
+    });
 
     function changeVal(num) {
         $input.data('num', num)
@@ -393,3 +253,161 @@ $.fn.handleCounter = function (options) {
         onChange.call(this, num)
     }
 }
+
+// Promise extends
+Promise.prototype.equals = function (value) {
+    return new Promise(resolve => {
+        this.then(r => resolve(r == value));
+    });
+};
+Promise.prototype.do = function (callable) {
+    return new Promise((resolve, reject) => {
+        this.then(r => {
+            try {
+                callable(r);
+                resolve(r);
+            } catch (err) {
+                reject(err);
+            }
+       }).catch(err => reject(err));
+    });
+};
+Promise.prototype.if = function (query, promiseFunc) {
+  if (!query) return this;
+  return new Promise((resolve, reject) => {
+    promiseFunc().then(result => this).then(result => resolve(result)).catch(err => reject(err));
+  });
+};
+// Custom Objects
+window.DateRange = function DateRange(from, to) {
+  this.from = from;
+  this.to = to;
+  this.from_day = from.get('date');
+  this.from_month = from.get('month') + 1;
+  this.from_year = from.get('year');
+  this.to_day = to.get('date');
+  this.to_month = to.get('month') + 1;
+  this.to_year = to.get('year');
+  this.from_fulldate = from.format('YYYY.MM.DD');
+  this.to_fulldate = to.format('YYYY.MM.DD');
+  this.uniq = from.format('MMDDYYYY') + to.format('MMDDYYYY');
+  var _uniqKey = "MMDDYYYY";
+  this.toUniqKey = function(){
+    return (this.from.format(_uniqKey).toString() + this.to.format(_uniqKey).toString());
+  }
+};
+window.Point = function Point(zoom, m) {
+  this.zoom = zoom;
+  this.latitude = m.getPosition().lat();
+  this.longitude = m.getPosition().lng();
+  this.marker = m;
+  this.toVal = function () {
+    return { zoom: this.zoom, latitude: this.latitude, longitude: this.longitude };
+  };
+};
+window.QueryStr = function QueryStr(query) {
+    var pairs = location.search.slice(1).split('&');
+
+    var result = {};
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+    var params =  JSON.parse(JSON.stringify(result));
+
+    this.checkin = params.checkin;
+    this.checkout = params.checkout;
+    this.day = params.day;
+    this.guest = params.guest;
+    this.lat = params.lat;
+    this.lng = params.lng;
+    this.login = params.login;
+    this.stringfiy = function(fullUrl = false) {
+        const obj = this;
+        return (fullUrl ? window.location.protocol + "//" + window.location.host + window.location.pathname : '' ) + '?'+Object.keys(obj).reduce(function(a,k){
+            if(k != 'stringfiy') a.push(k+'='+encodeURIComponent(obj[k]));return a
+        },[]).join('&');
+    }
+    Object.assign(this,query);
+
+};
+
+
+//Char Converter
+String.prototype.turkishToLower = function(){
+  var string = this;
+
+  var letters = { "İ": "i", "I": "i", "Ş": "s", "Ğ": "g", "Ü": "u", "Ö": "o", "Ç": "c","i": "i","ş": "s","ğ": "g","ü": "u", "ö": "o","ç": "c", "ı": "i" };
+  string = string.replace(/(([İIŞĞÜÇÖiışğüçö]))/g, function(letter){ return letters[letter]; })
+  return string.toLowerCase();
+};
+//get query parameter by name
+String.prototype.getParameterByName = function(name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  var results = regex.exec('?' + this);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+String.prototype.clearHtml = function() {
+  return this.replace(/(<([^>]+)>)/ig, "").trim();
+};
+Array.prototype._advertFilter = function(filter_option) {
+    var advertlist = this;
+    var datem = false;
+  _.each(advertlist, function(advert, key) {
+
+    //visitor
+    if (filter_option.hasOwnProperty('visitor')) { if (parseInt(advert.properties.visitor) < parseInt(filter_option.visitor)) Object.assign(advert, {deleted : true});}
+
+    //beds
+    if (filter_option.hasOwnProperty('beds')) { if (parseInt(advert.properties.beds) < parseInt(filter_option.beds)) Object.assign(advert, {deleted : true});}
+
+    //room
+    if (filter_option.hasOwnProperty('room')) { if (parseInt(advert.properties.room) < parseInt(filter_option.room)) Object.assign(advert, {deleted : true});}
+
+    //advert type
+    if(filter_option.hasOwnProperty('advert_type_id') && filter_option.advert_type_id > 0 ) {
+     if (parseInt(advert.advert_type.id) !=  parseInt(filter_option.advert_type_id)) Object.assign(advert, {deleted : true});
+    }
+    //price
+    if(filter_option.hasOwnProperty('price') && filter_option.hasOwnProperty('price_type') && filter_option.price > 0 ) {
+      if(filter_option.price_type == 0)  {
+        if (parseInt(advert.price) <  parseInt(filter_option.price)) Object.assign(advert, {deleted : true});
+      } else {
+        if (parseInt(advert.price) >  parseInt(filter_option.price)) Object.assign(advert, {deleted : true});
+      }
+    }
+
+    //min layover
+    if (filter_option.hasOwnProperty('min_layover')) {
+       if ( parseInt(advert.min_layover) > parseInt(moment(filter_option.checkout).diff(moment(filter_option.checkin),'day'))  ) Object.assign(advert, {deleted : true});
+     }
+    //available date
+    if ((filter_option.hasOwnProperty('checkin') && filter_option.hasOwnProperty('checkout')) && advert.available_date.length > 0) {
+        _.each(advert.available_date, function(available_date, key) {
+          if(!datem) {
+            var startDate = new Date(moment(available_date.from_date)),
+            endDate   = new Date(moment(available_date.to_date)),
+            range = moment().range(startDate, endDate);
+              for (var m = moment(filter_option.checkin); m.diff(moment(filter_option.checkout), 'days') <= 0; m.add(1, 'days')) {
+                  var date = new Date(m);
+                  if(!range.contains(date)) {
+                      datem = false;
+                      return;
+                  }
+                  datem = true;
+              }
+            return;
+          }
+        });
+        if(!datem) Object.assign(advert, {deleted : true})
+    }
+
+  });
+  _.remove(advertlist, {deleted:  true})
+};
+//Object.prototype.serializeQuery123 = function() {
+//    return "asd";
+    //var obj = this;
+    //return '?'+Object.keys(obj).reduce(function(a,k){a.push(k+'='+encodeURIComponent(obj[k]));return a},[]).join('&')
+//};

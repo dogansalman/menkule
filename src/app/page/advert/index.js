@@ -38,6 +38,9 @@ export default (params) => {
             .then((advert) => $("body").zone('content').setContentAsync(Advert(advert)))
             .then((template) => {
 
+                /* Add body style class*/
+                $('body').addClass('adv-detail');
+
                 /* Scroll down sticky bar */
                 const scrollTop = $(window).scrollTop();
                 let elementOffset = $('.advert-detail-bar').offset().top;
@@ -87,6 +90,9 @@ export default (params) => {
                 /*
                 Inıt Calendar
                  */
+                    const queryDate = new QueryStr();
+                    const dateDiff = parseInt(moment(queryDate.checkout).diff(moment(queryDate.checkin),'day'));
+
                    flatpickr.localize(flatpickr.l10ns.tr);
                    flatpickr(template.find('#calendar')[0], {
                     inline: true,
@@ -95,6 +101,7 @@ export default (params) => {
                     minDate: 'today',
                     maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
                     disable: advert.unavailable_date.map(t => moment(new Date(moment(t.fulldate)._d)).format('YYYY-MM-DD')),
+                    defaultDate: [queryDate.checkin, queryDate.checkout],
                     onDayCreate: function(dObj, dStr, fp, dayElem) {
                       if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event reserved'>Rez</span>";
                     },
@@ -104,17 +111,14 @@ export default (params) => {
                             template.zone('total_price').setContentAsync(Price({
                                 total: ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1) * advert.advert.price), day: (moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1), day_price: advert.advert.price }));
                         } else {
-                            template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price}));
+                            template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price}))
                         }
                     },
                     onReady: function(dateObj, dateStr, instance) {
                         //render price detail default
-                        template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price}))
+                        template.zone('total_price').setContentAsync(Price({total: dateDiff * advert.advert.price, day: dateDiff, day_price: advert.advert.price}));
                     }
                 });
-
-
-
 
                 /*
                 Rezervation

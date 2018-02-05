@@ -3004,6 +3004,7 @@ Advert Detail
     .rezervation-form.open > .rez-create-btn {
         margin: 0px !important;
     }
+
     .details_container .prices {
         background: #fff;
         margin-top: 0px !important;
@@ -3035,6 +3036,9 @@ Advert Detail
         left: 0px;
         bottom: 0px;
         font-size: 16px;
+    }
+    .adv-detail > [data-zone~="content"] {
+      margin:0px 0px 20px;
     }
     .flatpickr-calendar.inline {
         border: none;
