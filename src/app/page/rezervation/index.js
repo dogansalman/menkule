@@ -222,6 +222,7 @@ export default (params) => {
 
                 /* Rezervation */
                 template.find('.rezervation-btn').on('click', e => {
+
                    $(".rezervation-form-container").validateFormAsync(rezervationFormRules)
                         .then((u) => App.promise(() => user = u))
                         .then(() => Confirm({title: AppMessage('rezervation_confirm'), title: AppMessage('rezervation_title')}).do(m => modal = m))
@@ -229,7 +230,6 @@ export default (params) => {
                         .then(() => Menkule.user())
                         .then((loggedUser) => App.promise(() => loggedUser ? Object.assign(user, loggedUser) : Object.assign(user, { 'new': true })))
                         .then(() => {
-
 
                             //If not exist logged user to register, login and send activation code and get activation form
                             if (user && user.new === true) {
@@ -248,16 +248,13 @@ export default (params) => {
                             }
 
                             //If user exist and identity no is null
-                            if(user && !user.new) {
-                                console.log('userin kimlik nosunu kaydet');
-                                //TODO get value field
-                                //$(".rezervation-form-container").validateFormAsync(rezervationFormRules)
-                                Object.assign(user, {identity_no : '123456789'});
+                            if(user && !user.new && (!user.identity_no || user.identity_no.trim() === '')) {
+                                Object.assign(user, {identity_no : template.find('.rezervation-form-container').fieldValue('identity_no')});
+                                Menkule.put('/users', user).catch((err) => App.notifyDanger(err.Message, '') && console.log(err));
                             }
 
                             //If user exist and state is false resend gsm activation code and get activation form
                             if (user && user.state === false) Menkule.get("/users/validate/gsm/send").then(() => getActivationForm(params)).then(() => App.hidePreloader());
-
 
                             //If user exist and state is true create rezervation
                             if (user && user.state === true) {
