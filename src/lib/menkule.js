@@ -20,22 +20,21 @@ let token = function(){
 }();
 
 
-
 let loggedUser = null;
-let apiAddress = config().apiAdress;
-let socketAddress = config().socketAddress;
-let cloudinaryBaseUrl = config().cloudinaryBaseUrl;
-let nullImageUrl = config().nullImageUrl;
+let apiAddress = config.apiAdress;
+let socketAddress = config.socketAddress;
+let cloudinaryBaseUrl = config.cloudinaryBaseUrl;
+let nullImageUrl = config.nullImageUrl;
 
 
 
 // Menkule Constructor
 function Menkule(){
-    this.apiAddress = config().apiAdress;
-    this.socketAddress = config().socketAddress;
-    this.cloudinaryBaseUrl = config().cloudinaryBaseUrl;
-    this.nullImageUrl = config().nullImageUrl;
-    this.secretKey = config().secretKey;
+    this.apiAddress = config.apiAdress;
+    this.socketAddress = config.socketAddress;
+    this.cloudinaryBaseUrl = config.cloudinaryBaseUrl;
+    this.nullImageUrl = config.nullImageUrl;
+    this.secretKey = config.secretKey;
 }
 
 //Extend from eventemmiter

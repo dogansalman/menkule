@@ -2,6 +2,8 @@ import loginModal from './login.handlebars'
 import modal from '../modal';
 import Messages from '../../../lib/appMessages';
 import forgotModal from '../forgot';
+import config from '../../../lib/configs/config';
+
 
 export default () => {
 
@@ -13,7 +15,6 @@ export default () => {
     return new Promise(resolve => {
         modal({template: loginModal, title: 'Üye Giriş', width:350})
             .then(template => {
-
                 const openedModal = template.parents('.modal');
                 /*
                 Login
@@ -47,12 +48,22 @@ export default () => {
                                 })
                         })
                 });
-
+                /*
+                Facebook Login
+                * */
+                template.find('.login-page-withfacebook').on('click', (e) => {
+                    const redirectUri = location.protocol + '//' + location.host + '/sing-in/facebook';
+                    console.log(redirectUri);
+                    const externalProviderUrl = "http://localhost:9090/social/facebook/sing-in?provider=" + 'Facebook'
+                        + "&response_type=token&client_id=" + String(config.facebook_client_id)
+                        + "&redirect_uri=" + redirectUri;
+                     window.open(externalProviderUrl, "Authenticate Account", "location=0,status=0,width=600,height=750");
+                });
                 /*
                 Enter
                  */
                 template.formFields().on('keyup', (e) => {
-                    var keyCode = e.which || e.keyCode;
+                    const keyCode = e.which || e.keyCode;
                     if (keyCode == 13) template.find('button.login-btn').triggerHandler('click');
                 });
 
@@ -63,7 +74,6 @@ export default () => {
                   openedModal.modal('hide');
                   forgotModal();
                 });
-
 
                 /*
                 Focus first form element
