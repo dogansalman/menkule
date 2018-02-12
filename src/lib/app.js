@@ -176,14 +176,7 @@ App.prototype.Login = function() {
       .catch(err => reject(err));
   });
 };
-App.prototype.DatePicker = function() {
-  //var DatePicker = require('template/popup-datetime/popup-datetime.js');
-  //return new Promise((resolve, reject) => {
-  //  DatePicker()
-  //    .then(user => resolve(user))
-  //    .catch(err => reject(err));
-  //});
-};
+
 App.prototype.validate = {
   REQUIRED: function (value) {
     if(value === null) return false;

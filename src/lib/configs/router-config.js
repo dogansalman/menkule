@@ -21,6 +21,7 @@ import UserAdvertCalendar from '../../app/page/user/advert-calendar';
 import UserMessages from '../../app/page/user/messages';
 import UserMessage from '../../app/page/user/message';
 import UserResetPassword from '../../app/page/user/reset-password';
+import ExtarnalLogin from '../../app/page/user/extarnal-login';
 /**
  * Define routes
  * @type {[*]}
@@ -49,5 +50,6 @@ export default [
     ['/user/rezervations/:type', UserRezervations],
     ['/user/rezervation/:id', UserRezervation],
     ['/user/messages', UserMessages],
-    ['/user/messages/:id', UserMessage]
+    ['/user/messages/:id', UserMessage],
+    ['/user/social/login', ExtarnalLogin]
 ];

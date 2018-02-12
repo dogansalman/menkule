@@ -84,7 +84,7 @@ export default(filtered_data) => {
                             const _inDate = filters.date.split(' - ')[0].trim().split('/')[2] + '-' + filters.date.split(' - ')[0].trim().split('/')[1] + '-' + filters.date.split(' - ')[0].trim().split('/')[0];
                             const _outDate = filters.date.split(' - ')[1].trim().split('/')[2] + '-' + filters.date.split(' - ')[1].trim().split('/')[1] + '-' + filters.date.split(' - ')[1].trim().split('/')[0];
                             Object.assign(filters, {'checkin': _inDate,'checkout': _outDate } );
-                            const params = new QueryStr({checkin: _inDate, checkout: _outDate, day: parseInt(moment(_outDate).diff(moment(_inDate),'day'))});
+                            const params = new SearchQuery({checkin: _inDate, checkout: _outDate, day: parseInt(moment(_outDate).diff(moment(_inDate),'day'))});
 
                             window.history.pushState({path:params.stringfiy(true)},'',params.stringfiy(true));
                             openedModal.modal('hide');

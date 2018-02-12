@@ -305,7 +305,7 @@ window.Point = function Point(zoom, m) {
     return { zoom: this.zoom, latitude: this.latitude, longitude: this.longitude };
   };
 };
-window.QueryStr = function QueryStr(query) {
+window.SearchQuery = function SearchQuery(query) {
     var pairs = location.search.slice(1).split('&');
 
     var result = {};
@@ -341,6 +341,7 @@ String.prototype.turkishToLower = function(){
   string = string.replace(/(([İIŞĞÜÇÖiışğüçö]))/g, function(letter){ return letters[letter]; })
   return string.toLowerCase();
 };
+
 //get query parameter by name
 String.prototype.getParameterByName = function(name) {
   name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -351,6 +352,18 @@ String.prototype.getParameterByName = function(name) {
 String.prototype.clearHtml = function() {
   return this.replace(/(<([^>]+)>)/ig, "").trim();
 };
+String.prototype.toQueryStrObj = function () {
+    var pairs = this.slice(1).split('&');
+
+    var result = {};
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+    return JSON.parse(JSON.stringify(result));
+};
+
+//Array prototype
 Array.prototype._advertFilter = function(filter_option) {
     var advertlist = this;
     var datem = false;
@@ -406,8 +419,4 @@ Array.prototype._advertFilter = function(filter_option) {
   });
   _.remove(advertlist, {deleted:  true})
 };
-//Object.prototype.serializeQuery123 = function() {
-//    return "asd";
-    //var obj = this;
-    //return '?'+Object.keys(obj).reduce(function(a,k){a.push(k+'='+encodeURIComponent(obj[k]));return a},[]).join('&')
-//};
+

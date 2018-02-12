@@ -1,4 +1,4 @@
 module.exports = function() {
-    const param = new QueryStr();
+    const param = new SearchQuery();
     return param.stringfiy();
 }

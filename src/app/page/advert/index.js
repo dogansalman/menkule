@@ -90,7 +90,7 @@ export default (params) => {
                 /*
                 Inıt Calendar
                  */
-                    const queryDate = new QueryStr();
+                    const queryDate = new SearchQuery();
                     const dateDiff = parseInt(moment(queryDate.checkout).diff(moment(queryDate.checkin),'day'));
 
                    flatpickr.localize(flatpickr.l10ns.tr);

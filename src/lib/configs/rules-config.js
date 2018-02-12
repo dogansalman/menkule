@@ -48,6 +48,12 @@ export default [
         backUrl: '/'
     },
     {
+        route: '/user/social/login',
+        method: () => Menkule.isLogged(),
+        condition: true,
+        backUrl: '/'
+    },
+    {
         route: '/user/advert/calendar',
         method: () => Menkule.hasOwnershipping(),
         condition: false,

@@ -113,7 +113,7 @@ export default (params,  query = location.href) => {
                                 /*
                                  Go detail
                                  */
-                                const query = new QueryStr();
+                                const query = new SearchQuery();
                                 advertTemple.find('.advert-detail-map').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-detail-map').attr('id') + query.stringfiy()));
 
 
@@ -352,7 +352,7 @@ export default (params,  query = location.href) => {
                 .then(() => globalAdverts.find(a => a.id === e.advert.advert_id))
                 .then((advert) => $(marker.div).appenndContentAsync(infoWindowTemplate(advert)))
                 .then((infowin) => {
-                    const _query = new QueryStr();
+                    const _query = new SearchQuery();
                     /*
                     Go detail
                      */

@@ -84,6 +84,7 @@ Menkule.prototype.hasToken = function(){
   return token !== null;
 };
 Menkule.prototype.saveToken = function(t){
+    console.log(t, 'saved token');
     Object.assign(t, {date: Date()});
     token = t;
 
@@ -96,13 +97,17 @@ Menkule.prototype.removeToken = function(){
     if(!token) return;
     tokenData.forEach(key => window.localStorage.removeItem(key));
 };
-Menkule.prototype.getToken = function(force){
-    if(!token) return null;
-    let property = null;
+Menkule.prototype.getToken = function(force = false){
+    if(!token && !force) return null;
+    let _token = {};
     tokenData.forEach(key => {
-        property = key;
-        Object.assign(token, { property: 'data'});
-    })
+        if(key != 'undefined' && key != null && window.localStorage.getItem(key)) {
+            let Item = window.localStorage.getItem(key);
+            let _key = key;
+            _token[_key] = Item;
+        }
+    });
+    token = _token;
     return token;
 };
 Menkule.prototype.refreshToken = function() {
