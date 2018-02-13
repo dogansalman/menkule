@@ -2,33 +2,14 @@ import loginModal from './login.handlebars'
 import modal from '../modal';
 import Messages from '../../../lib/appMessages';
 import forgotModal from '../forgot';
-import config from '../../../lib/configs/config';
-
+import facebookComponent from '../../components/facebook-login/index';
 
 export default () => {
-
 
     const loginFormRules = {
         username: [App.validate.REQUIRED, App.validate.EMAIL],
         password: [App.validate.REQUIRED]
     };
-
-    function openFacebookPopup(url, w, h){
-        // Fixes dual-screen position  Most browsers      Firefox
-        let dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
-        let dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
-        let width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-        let height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-        let left = ((width / 2) - (w / 2)) + dualScreenLeft;
-        let top = ((height / 2) - (h / 2)) + dualScreenTop;
-        let facebookPopupWin = window.open(url, 'Authenticate Account', 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-        // Puts focus on the window
-        if (window.focus) {
-            facebookPopupWin.focus();
-        }
-        return facebookPopupWin;
-    }
-
 
     return new Promise(resolve => {
         modal({template: loginModal, title: 'Üye Giriş', width:350})
@@ -69,31 +50,9 @@ export default () => {
                 /*
                 Facebook Login
                 * */
-                template.find('.login-page-withfacebook').on('click', (e) => {
-                    const redirectUri = location.protocol + '//' + location.host + '/user/social/login';
-                    const externalProviderUrl = config.apiAdress + "/social/facebook/sing-in?provider=" + 'Facebook'
-                        + "&response_type=token&client_id=" + String(config.facebook_client_id)
-                        + "&redirect_uri=" + redirectUri;
-                    const popupWin = openFacebookPopup(externalProviderUrl,400,400);
+                facebookComponent({template: template.zone('facebook-login')})
 
-                    // popup window closing
-                    var timer = setInterval(function() {
 
-                        if(popupWin.closed) {
-                            clearInterval(timer);
-                            if(window.localStorage.getItem('fb_failed')) {
-                                window.localStorage.removeItem('fb_failed');
-                                return;
-                            }
-
-                            App.promise(() => openedModal.modal('hide'))
-                                .then(() => App.promise(() => Menkule.getToken(true)))
-                                .then((token) => App.promise(() => Menkule.saveToken(token)))
-                                .then(() => Menkule.user(true))
-                                .then((user) => App.emit('logged.user', user))
-                        }
-                    }, 500);
-                });
                 /*
                 Enter
                  */

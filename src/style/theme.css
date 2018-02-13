@@ -2540,6 +2540,9 @@ App Home
   padding: 3px 3px 3px 5px;
   font-size: 12px;
 }
+.popuplogin-container .login-page-withfacebook {
+  width: 100% !important;
+}
 
 /*
 Filter Popup
@@ -3671,6 +3674,7 @@ Modal
 .advert_type .radio-inline {
   padding-left: 0!important
 }
+
 .login-page-withfacebook {
     display: inline-block;
     padding: 10px 12px;
@@ -3695,6 +3699,7 @@ Modal
     background: #1972A5!important;
     border-bottom: 5px solid #155d86;
 }
+
 label {
   font-family: 'Roboto', sans-serif!important;
   font-weight: 400;

@@ -1,6 +1,8 @@
 import Header from '../../header';
 import Footer from '../../footer';
 import template from './register.handlebars';
+import facebookComponent from '../../../components/facebook-login/index';
+
 
 // Validate config
 var registerFormRules = {
@@ -28,6 +30,9 @@ export default () => Header(false)
     .then(() => {
         $('body').zone('content').setContentAsync(template())
             .then((template) => {
+
+            // Facebook login comp
+            facebookComponent({template: template.zone('facebook-login')})
 
             //Login
             template.find('.loginbtn').on('click', (e) => {

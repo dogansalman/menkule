@@ -160,7 +160,9 @@ Menkule.prototype.getUser = function(){
 Menkule.prototype.logout = function(){
   return new Promise(resolve => {
     loggedUser = null;
-    this.removeToken();
+    //clear all token
+      localStorage.clear();
+    //this.removeToken();
     resolve(true);
   });
 };
