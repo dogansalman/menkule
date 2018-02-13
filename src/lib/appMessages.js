@@ -20,9 +20,10 @@ export default (key) => {
         'feedback_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> bildiriminiz iletilemedi. Lütfen tekrar deneyin. </div>",
 
         //messages
-        'error_message_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz bir kayıt bulunamamakta!</h2> <p>Henüz bir mesaj kaydınız bulunmamaktadır. </p> </div></div>",
+        'error_message_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Bir sorun oluştu!</h2> <p>Mesajlarınız listelenirken bir sorun oluştu. Lütfen daha sonra tekrar deneyin. </p> </div></div>",
         'error_message_detail': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Üzgünüz. Bir sorun oluştu !</h2> <p>Mesaj detaylarına erişim sağlanmamaktadır. Bunun nedeni mesaj size ait olmayabilir veya mesaj kaydı silinmiş olabilir. </p> </div></div>",
         'message_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Mesajınız iletilemedi. </div>",
+        'message_not_found': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz bir kayıt bulunmamakta!</h2> <p> Henüz bir mesaj kaydınız bulunmamaktadır.</p> </div></div>",
         //alerts
         'alert_not_found': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Henüz Yeni bildiriminiz bulunamamakta!</h2> <p>Henüz bir bildirim kaydınız bulunmamaktadır. </p> </div></div>",
         'error_alert_list': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Bir sorun oldu!</h2> <p>Bildirimleriniz listelenemedi. Daha sonra tekrar deneyin. </p> </div></div>",

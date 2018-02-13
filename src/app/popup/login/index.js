@@ -71,23 +71,29 @@ export default () => {
                 * */
                 template.find('.login-page-withfacebook').on('click', (e) => {
                     const redirectUri = location.protocol + '//' + location.host + '/user/social/login';
-                    const externalProviderUrl = "http://localhost:9090/social/facebook/sing-in?provider=" + 'Facebook'
+                    const externalProviderUrl = config.apiAdress + "/social/facebook/sing-in?provider=" + 'Facebook'
                         + "&response_type=token&client_id=" + String(config.facebook_client_id)
                         + "&redirect_uri=" + redirectUri;
                     const popupWin = openFacebookPopup(externalProviderUrl,400,400);
 
                     // popup window closing
                     var timer = setInterval(function() {
+
                         if(popupWin.closed) {
-                            App.promise(() => clearInterval(timer))
+                            clearInterval(timer);
+                            if(window.localStorage.getItem('fb_failed')) {
+                                window.localStorage.removeItem('fb_failed');
+                                return;
+                            }
+
+                            App.promise(() => openedModal.modal('hide'))
                                 .then(() => App.promise(() => Menkule.getToken(true)))
                                 .then((token) => App.promise(() => Menkule.saveToken(token)))
                                 .then(() => Menkule.user(true))
                                 .then((user) => App.emit('logged.user', user))
                         }
-                    }, 1000);
+                    }, 500);
                 });
-
                 /*
                 Enter
                  */

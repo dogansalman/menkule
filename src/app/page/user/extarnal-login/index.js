@@ -1,18 +1,24 @@
 import template from './extarnal-login.handlebars';
-
-
 export default() => {
     return new Promise((resolve) => {
             $("body").zone('content').setContentAsync(template())
             .then(() => {
-                App.promise(() => Menkule.saveToken(location.search.toQueryStrObj()))
+                const params = location.search.toQueryStrObj();
+
+                if(params.hasOwnProperty('err')) {
+                    document.body.innerText = params.email + ' e-posta adresi zaten kayıtlı lütfen. Şifrenizi kullanarak oturumunuzu açabilirsiniz.';
+                    const d = new Date();
+                    window.localStorage.setItem('fb_failed', d.toLocaleDateString());
+                    return;
+                }
+
+                App.promise(() => Menkule.saveToken(params))
                     .then(() => App.promise(() => window.close()))
                     .then(() => resolve())
-                    .catch((err) => console.log(err));
+                    .catch((err) => document.body.innerText = err.message || err)
             })
             .catch((err) => {
-                $("body").zone('content').setContentAsync('E-posta adresi ile zaten kayıtlı bir kullanıcı mevcut veya yetki alınamadı.');
-                resolve();
+                document.body.innerText = err.message || err;
             });
 
     })
