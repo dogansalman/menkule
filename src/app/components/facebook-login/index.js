@@ -19,7 +19,10 @@ export default(params) => {
         return facebookPopupWin;
     }
 
+
     return new Promise((resolve) => {
+
+
         params.template.setContentAsync(template())
             .then((component) => {
                 component.find('.login-page-withfacebook').on('click', (e) => {

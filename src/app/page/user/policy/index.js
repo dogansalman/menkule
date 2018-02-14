@@ -1,13 +1,8 @@
-import Footer from '../../footer';
-import Header from '../../header';
 import policy from './policy.handlebars';
-
 export default () => {
-
+  window.document.body.className = "policy";
   new Promise((resolve) => {
-    Header()
-      .then(() => Footer())
-      .then(() => $("body").zone('content').setContentAsync(policy))
+     $("body").zone('content').setContentAsync(policy)
       .then(() => resolve())
   })
 }

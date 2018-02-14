@@ -2,7 +2,7 @@ import template from './account.handlebars';
 import Header from '../../header';
 import Footer from '../../footer';
 import '../../../../lib/uploader';
-import changePasswordModal from '../../../popup/password';
+import changePasswordModal from '../../../modal/password';
 import Account from '../account';
 
 var userFormRules = {

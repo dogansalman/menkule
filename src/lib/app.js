@@ -1,7 +1,7 @@
 import EventEmitter from 'event-emitter';
 import 'bootstrap-notify';
 import Handlebars from 'handlebars/dist/handlebars.min.js';
-import loginModal from '../app/popup/login';
+import loginModal from '../app/modal/login';
 
 // Private Properties
 let preloadState = true;

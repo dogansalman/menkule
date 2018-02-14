@@ -1,4 +1,4 @@
-import modal from '../modal';
+import modal from '../../components/modal';
 import password from './password.handlebars';
 import appMessages from '../../../lib/appMessages';
 

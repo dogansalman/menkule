@@ -1,4 +1,4 @@
-import modal from '../modal';
+import modal from '../../components/modal';
 import calendar from './calendar.handlebars';
 import flatpickr from 'flatpickr';
 

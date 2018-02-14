@@ -1,4 +1,4 @@
-import modal from '../modal';
+import modal from '../../components/modal';
 import confirmTemplate from './confirm.handlebars';
 
 export default (options) => {

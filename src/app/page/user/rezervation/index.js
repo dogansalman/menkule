@@ -3,8 +3,8 @@ import Footer from '../../../page/footer';
 import Rezervation from './rezervation.handlebars';
 import Images from './images.handlebars';
 import Fancybox from  '@fancyapps/fancybox';
-import Message from '../../../popup/message';
-import Confirm from '../../../popup/confirm';
+import Message from '../../../modal/message';
+import Confirm from '../../../modal/confirm';
 import AppMessages  from '../../../../lib/appMessages';
 import _Rezervation from '../rezervation';
 

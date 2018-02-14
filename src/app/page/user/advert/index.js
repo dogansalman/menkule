@@ -1,10 +1,10 @@
 import Header from '../../header';
 import Footer from '../../footer';
 import uploader from '../../../../lib/uploader';
-import Confirm from '../../../popup/confirm';
+import Confirm from '../../../modal/confirm';
 import templatee from './advert.handlebars';
 import avaiableDates from './availableDate.handlebars';
-import calendar from '../../../popup/calendar';
+import calendar from '../../../modal/calendar';
 import MediumEditor from 'medium-editor';
 
 

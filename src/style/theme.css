@@ -2488,7 +2488,13 @@ App Home
     width: 100%;
     top: 0
 }
+body.policy {
+  padding:100pt 90pt 90pt 90pt !important;
+}
 @media all and (max-width: 768px) {
+    body.policy {
+      padding:15px !important;
+    }
     .home > .mobile_footer {
         padding: 0!important;
         background: rgba(0, 0, 0, 0.23);

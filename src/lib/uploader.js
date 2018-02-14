@@ -1,4 +1,4 @@
-import Confirm from '../app/popup/confirm';
+import Confirm from '../app/modal/confirm';
 
 const uploader2 = new uploader();
 

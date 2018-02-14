@@ -21,13 +21,12 @@ import UserAdvertCalendar from '../../app/page/user/advert-calendar';
 import UserMessages from '../../app/page/user/messages';
 import UserMessage from '../../app/page/user/message';
 import UserResetPassword from '../../app/page/user/reset-password';
-import ExtarnalLogin from '../../app/page/user/extarnal-login';
+import ExtarnalLogin from '../../app/modal/extarnal-login';
 /**
  * Define routes
  * @type {[*]}
  */
 export default [
-    //['/detail/advert/:id', () => Menkule.isLogged(), UserAccount ],
     ['/help', Help],
     ['/contact', Contact],
     ['/search/:state', Search],

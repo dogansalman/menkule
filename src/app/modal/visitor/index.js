@@ -1,5 +1,5 @@
 import appMessage from '../../../lib/appMessages';
-import modal from '../modal';
+import modal from '../../components/modal';
 import visitor from './visitor.handlebars';
 /*
 Visitor form validate

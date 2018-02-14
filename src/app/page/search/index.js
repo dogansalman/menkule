@@ -6,7 +6,7 @@ import appMessages from '../../../lib/appMessages';
 import infoWindowTemplate from './info.handlebars';
 import advertListTemplate from './list.handlebars';
 import advertSlideTemplate from './slide.handlebars';
-import filter from '../../popup/filter';
+import filter from '../../modal/filter';
 import resultFooter from './footer.handlebars';
 
 

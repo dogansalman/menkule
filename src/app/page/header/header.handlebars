@@ -77,8 +77,6 @@
                 <div class="bigmenu-name moffset3">
                     {{#if user.state}}
                         <span class=" activemembericon "></span>
-                    {{else}}
-                        <span class=" passiveaccounticon"></span>
                     {{/if}} {{user.name}} {{user.lastname}}
                 </div>
                 <div class="bigmenu-eposta"></div>
@@ -90,7 +88,7 @@
         <div class="col-xs-12 disable_padding bigmenu-menulist moffset4">
             <a href="/user/account">
                 <div class="bigmenu-icon"><i class="fa fa-user"></i></div>
-                <div class="bigmenu-text">Hesabım</div>
+                <div class="bigmenu-text">Hesabım  {{#zif user.state '==' 'false'}} <span class="fright passiveaccounticon"></span> {{/zif}}</div>
             </a>
             {{#if user.ownershiping}}
                 {{#if user.state}}

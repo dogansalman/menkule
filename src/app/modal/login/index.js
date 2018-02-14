@@ -1,5 +1,5 @@
 import loginModal from './login.handlebars'
-import modal from '../modal';
+import modal from '../../components/modal';
 import Messages from '../../../lib/appMessages';
 import forgotModal from '../forgot';
 import facebookComponent from '../../components/facebook-login/index';

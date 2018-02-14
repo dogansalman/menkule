@@ -1,4 +1,4 @@
-import modal from '../modal';
+import modal from '../../components/modal';
 import appMessage from '../../../lib/appMessages';
 import comment from './comment.handlebars'
 

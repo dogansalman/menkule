@@ -5,12 +5,12 @@ import VisitorCountBlock from './visitor-count.handlebars';
 import Complate from './complate.handlebars';
 import Activation from '../user/activate/activate.handlebars';
 import Rezervation from './rezervation.handlebars';
-import Visitor from '../../popup/visitor';
+import Visitor from '../../modal/visitor';
 import _Rezervation from '../rezervation';
 import Advert from './advert.handlebars';
 import AppMessage from '../../../lib/appMessages';
-import Confirm from "../../popup/confirm";
-import ChangePass from '../../popup/password';
+import Confirm from "../../modal/confirm";
+import ChangePass from '../../modal/password';
 
 /*
 Validate rezervation form

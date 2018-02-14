@@ -1,4 +1,6 @@
 import template from './extarnal-login.handlebars';
+import externalConfirm from '../external-confirm';
+
 export default() => {
     return new Promise((resolve) => {
             $("body").zone('content').setContentAsync(template())
@@ -6,7 +8,7 @@ export default() => {
                 const params = location.search.toQueryStrObj();
                 const d = new Date();
                 if(params.hasOwnProperty('err')) {
-                    document.body.innerText = params.email + ' e-posta adresi zaten kayıtlı lütfen. Şifrenizi kullanarak oturumunuzu açabilirsiniz.';
+                    document.body.innerText = params.email + ' ' + params.err;
                     return;
                 }
                 App.promise(() => Menkule.saveToken(params))
@@ -21,3 +23,7 @@ export default() => {
 
     })
 }
+// Open set password and gsm modal
+App.on('logged.user', (user) => {
+    if(!user.is_external_confirm) externalConfirm(user);
+});

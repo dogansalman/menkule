@@ -84,7 +84,6 @@ Menkule.prototype.hasToken = function(){
   return token !== null;
 };
 Menkule.prototype.saveToken = function(t){
-    console.log(t, 'saved token');
     Object.assign(t, {date: Date()});
     token = t;
 

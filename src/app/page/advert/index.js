@@ -5,9 +5,9 @@ import Advert from './advert.handlebars';
 import Comments from './comment.handlebars';
 import Price from './price.handlebars';
 import Images from './images.handlebars';
-import Feedback from '../../popup/feedback';
-import Message from '../../popup/message';
-import Comment from '../../popup/comment';
+import Feedback from '../../modal/feedback';
+import Message from '../../modal/message';
+import Comment from '../../modal/comment';
 import _Advert from '../advert';
 import flatpickr from 'flatpickr';
 

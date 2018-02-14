@@ -2,7 +2,7 @@ import template from './header.handlebars';
 import messages from './messages.handlebars';
 import alerts from './alerts.handlebars';
 import Header from '../header';
-import Confirm from '../../popup/confirm';
+import Confirm from '../../modal/confirm';
 import appMessages from '../../../lib/appMessages';
 
 let notifications = [];
@@ -170,4 +170,6 @@ App.on('logged.user', (user) => {
 App.on('changed.header', (user) => {
     Header(false);
 });
+
+
 

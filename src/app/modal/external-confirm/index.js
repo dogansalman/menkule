@@ -1,10 +1,10 @@
-import forgot from './forgot.handlebars';
-import modal from '../modal';
+import externalConfirm from './external-confirm.handlebars';
+import modal from '../../components/modal';
 import appMessages from '../../../lib/appMessages';
 
-export default () => {
+export default (user) => {
   return new Promise((resolve) => {
-    modal({template: forgot, title: 'Şifre Hatırlat', width:450})
+    modal({template: externalConfirm, title: 'Kaydınızı Tamamlayın', width:350, data: user})
       .then((template) => {
         /*
           Validate forgot password
