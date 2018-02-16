@@ -30,7 +30,7 @@ App.prototype.showPreloader = function(arg, opacity){
     opacity = arg;
     arg = null;
   }
-  opacity = typeof opacity != "undefined" ? opacity : 1;
+  opacity = typeof opacity != "undefined" ? opacity : .6;
   return new Promise(resolve => {
     if (preloadState == true) return resolve(arg);
     $(this.preloaderElem).css('opacity', 0).show().fadeTo(200, opacity, () => {

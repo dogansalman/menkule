@@ -7,63 +7,53 @@ export default (user) => {
     modal({template: externalConfirm, title: 'Kaydınızı Tamamlayın', width:350, data: user})
       .then((template) => {
         /*
-          Validate forgot password
-         */
-        var forgotFormsRules = {
-          email: [App.validate.REQUIRED, App.validate.EMAIL],
-        };
-
-        /*
         Get modal
          */
         const openedModal = template.parents('.modal');
 
+          /*
+            Validate forgot password
+           */
+          var ExternalConfirmValidation = {
+              gsm: [App.validate.REQUIRED, App.validate.PHONE],
+              password: [App.validate.REQUIRED],
+              reply: [App.validate.REQUIRED, function (value, fields) {
+                  return ($(fields['reply']).fieldValue() === value);
+              }]
+          };
+
         /*
-        Forgot password
+        Save
          */
-        template.find('button.forgot-btn').on('click', (e) => {
+        template.find('button.send').on('click', (e) => {
           e.preventDefault();
 
           $(e.target).disable();
           template.formFields().disable();
             template.showPreloader(.7)
-            .then(() =>  template.validateFormAsync(forgotFormsRules))
-            .then((forgotForm) => Menkule.post('/users/password/forgot', { 'email': forgotForm.email }))
+            .then(() =>  template.validateFormAsync(ExternalConfirmValidation))
+            .then((externalUserData) => Menkule.put('/users/external/confirm', externalUserData))
             .then(() => template.hidePreloader())
             .then(() => openedModal.modal('hide'))
-            .then(() => App.notifySuccess('Şifreniz eposta adresinize iletilmiştir.', ''))
+            .then(() => App.notifySuccess('Şifreniz ve gsm numaranız güncellendi. Onay için yönlendiriliyorsunuz...', ''))
+            .then(() => App.wait(2000))
+            .then(() => App.navigate('/user/activate'))
             .catch((err) => {
-              /*
-              Hide preloader
-             */
-              template.hidePreloader()
-                .then(() => App.promise(() => appMessages('forgot_fail')))
-                .then((message) => template.zone('notification').setContentAsync(message))
-                .then(() => template.formFields().enable() && template.formFields().select() && $(e.target).enable());
-
-              /*
-              If Validate Error
-              */
-              if (err instanceof ValidateError) {
-                template.formFields().enable();
                 $(e.target).enable();
-                return ($(err.fields[0]).select());
-              }
-
-
-
+                template.formFields().enable();
+                if (err instanceof ValidateError) return template.hidePreloader().then(() =>  $(err.fields[0]).select());
+                template.hidePreloader().then(() => App.notifyDanger(err.responseJSON.Message));
             });
         });
 
-        // Enter login
+        // Enter
         template.formFields().on('keyup', (e) => {
           var keyCode = e.which || e.keyCode;
-          if (keyCode == 13) template.find('button.forgot-btn').triggerHandler('click');
+          if (keyCode == 13) template.find('button.send').triggerHandler('click');
         });
 
         // Focus first form element
         template.formFields().first().select();
-
         resolve();
       })
 

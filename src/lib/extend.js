@@ -11,7 +11,7 @@ extendMoment(moment);
 moment.locale('tr');
 
 // countdown timer
-$.fn.countdown = function(minutes) {
+$.fn.countdown = function(minutes, msg = "") {
 
     var element = this;
     var d1 = new Date (),
@@ -32,7 +32,7 @@ $.fn.countdown = function(minutes) {
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        element.text( minutes + " Dak. " + seconds + " San.");
+        element.text( minutes + " Dak. " + seconds + " San." + " " + msg);
 
         // If the count down is over, write some text
         if (distance < 0) {

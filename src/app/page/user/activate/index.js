@@ -18,24 +18,27 @@ export default (params) => Header()
             $(".activation-container")
                 .validateFormAsync(activationFormRules)
                 .then(activationForm => {
-                    App.showPreloader(.7)
+                    App.showPreloader()
                         .then(() => {
                             Menkule.post("/users/approve/gsm", {"code": activationForm.code })
                                 .then(() => App.hidePreloader())
                                 .then(() => App.notifySuccess('Üyeliğiniz aktif edildi.', 'Teşekkürler'))
                                 .then(() => App.wait(3000))
                                 .then(() => App.navigate('/'))
-                                .catch((err) =>{
+                                .catch((err) => {
                                     App.hidePreloader()
                                         .then(() => App.notifyDanger('Aktivasyon kodu hatalı. Lütfen tekrar deneyin.', 'Üzgünüz'))
                                 })
                         })
                 })
-                .catch(fields => App.notifyDanger('Bir hata oluştu. Tekrar deneyin.', 'Üzgünüz'));
+                .catch(err => {
+                    if (err instanceof ValidateError) return App.hidePreloader().then(() =>  $(err.fields[0]).select());
+                    App.hidePreloader().then(() => App.notifyDanger('Bir hata oluştu. Tekrar deneyin.', 'Üzgünüz'));
+                });
         });
 
         //Resend Code
-        template.find('button.resend').on('click', (e) => {
+        template.find('a.resend').on('click', (e) => {
             App.showPreloader()
                 .then(() => {
                     Menkule.get("/users/validate/gsm/send", {})
@@ -43,10 +46,16 @@ export default (params) => Header()
                         .then(() => App.notifySuccess('Aktivasyon kodu tekrar iletilmiştir.', 'Tamam'))
                         .then(() => template.zone('countdown').countdown(4))
                         .catch((err) => {
-                            App.hidePreloader()
-                                .then(o => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'));
+                            if (err instanceof ValidateError) return App.hidePreloader().then(() =>  $(err.fields[0]).select());
+                            App.hidePreloader().then(() => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'));
                         });
                 });
+        });
+
+        //Enter
+        template.formFields().on('keyup', (e) => {
+            var keyCode = e.which || e.keyCode;
+            if (keyCode == 13) template.find('button.active').triggerHandler('click');
         });
         resolve();
     }));

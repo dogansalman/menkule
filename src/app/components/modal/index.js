@@ -19,7 +19,7 @@ export default (options) => {
     const compiledTemplate = template({waitMessage: options.waitMessage, width: options.width, data : options.data, title: options.title});
 
       //modal preloaders
-      $.fn.showPreloader = function (opacity) {
+      $.fn.showPreloader = function (opacity = 0.6) {
         opacity = typeof opacity != "undefined" ? opacity : 1;
         return App.promise(() => {
           $(this).append("<div class='loading-process'></div>");
