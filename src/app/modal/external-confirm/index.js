@@ -1,6 +1,6 @@
 import externalConfirm from './external-confirm.handlebars';
 import modal from '../../components/modal';
-import appMessages from '../../../lib/appMessages';
+
 
 export default (user) => {
   return new Promise((resolve) => {
@@ -12,7 +12,7 @@ export default (user) => {
         const openedModal = template.parents('.modal');
 
           /*
-            Validate forgot password
+            Validate Confirm Form
            */
           var ExternalConfirmValidation = {
               gsm: [App.validate.REQUIRED, App.validate.PHONE],
