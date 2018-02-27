@@ -91,8 +91,8 @@ const uploader2 = new uploader();
     function checkImage(image) {
         if (image == undefined) return false;
 
-        if (image.size > 1048576) {
-            App.notifyDanger("Fotoğraf boyutu en fazla 5MB olmalıdır!", 'Üzgünüz');
+        if (image.size > 8388608) {
+            App.notifyDanger("Fotoğraf boyutu en fazla 8MB olmalıdır!", 'Üzgünüz');
             return false;
         }
         var fileExtension = ['jpeg', 'jpg', 'png', 'bmp'];
