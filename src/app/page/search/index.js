@@ -114,8 +114,8 @@ export default (params,  query = location.href) => {
                                  Go detail
                                  */
                                 const query = new SearchQuery();
-                                advertTemple.find('.advert-detail-map').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-detail-map').attr('id') + query.stringfiy()));
-
+                                delete query.stringfiy;
+                                advertTemple.find('.advert-detail-map').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-detail-map').attr('id'), query, true));
 
                                 /*
                                 Hover pan to map
@@ -170,7 +170,11 @@ export default (params,  query = location.href) => {
                 //TODO fix handlebars @index problem
                 for (let i = 0; i < e.adverts.length; i++) { e.adverts[i].indx = i}
                 template.zone('adverts-slidelist').setContentAsync(advertSlideTemplate({adverts: e.adverts}))
-                    .then(() => {
+                    .then((slideTemplate) => {
+
+                        const query = new SearchQuery();
+                        delete query.stringfiy;
+                        slideTemplate.find('.advert-slide-item').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-slide-item').attr('id'), query, true));
                         /*
                         Slider show/hide
                          */

@@ -15,7 +15,9 @@ $.fn.fieldValue = function (key) {
   target.each(function () {
     if (['SELECT', 'INPUT', 'TEXTAREA', 'DIV'].indexOf(this.nodeName) === -1) return;
     switch (this.nodeName) {
-      case 'SELECT' || 'TEXTAREA':
+      case  'TEXTAREA':
+        return value = this.value.replace(/\r?\n/g, ' ');
+      case 'SELECT':
         return value = this.value;
       case 'INPUT':
 

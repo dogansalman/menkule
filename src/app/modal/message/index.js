@@ -18,10 +18,6 @@ export default (recipientDetail) => {
          */
         const openedModal = template.parents('.modal');
 
-        /*
-        Disable enter key
-         */
-        template.find('textarea').on('keydown',function(e) {if(e.keyCode == 13 && !e.shiftKey) e.preventDefault()});
 
         // Login on click
         template.find('button.message-btn').on('click', (e) => {
@@ -44,11 +40,13 @@ export default (recipientDetail) => {
                         $(e.target).enable();
                         return ($(err.fields[0]).select());
                       })
+                  } else {
+                      // If dont send message
+                      template.hidePreloader()
+                          .then(() => template.zone('notification').setContentAsync(appMessage('message_failed')))
+                          .then(() => template.formFields().enable() && template.formFields().select() && $(e.target).enable());
                   }
-                  // If dont send message
-                  template.hidePreloader()
-                    .then(() => template.zone('notification').setContentAsync(appMessage('message_failed')))
-                    .then(() => template.formFields().enable() && template.formFields().select() && $(e.target).enable());
+
                 })
             })
 

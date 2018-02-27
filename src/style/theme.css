@@ -490,7 +490,10 @@ textarea {
 }
 
 
-
+.advert-detail .description{
+  height: 300px;
+  overflow-y: scroll;
+}
 /*
 Message
  */
@@ -1929,13 +1932,13 @@ newmessage-all:focus,
 .alertlists.open{
     top: 15px;
     opacity: 1;
-    z-index: 1;
+    z-index: 4;
     visibility: visible;
 }
 .messagelist.open{
     top: 15px;
     opacity: 1;
-    z-index: 1;
+    z-index: 4;
     visibility: visible;
 }
 .newalert-alert-btn > a{
@@ -3125,6 +3128,16 @@ Flatpicker Custom Style
 /*
 Flatpicker Custom Style
  */
+.flatpickr-day:hover > flatpickr-day.selected.startRange::before{
+  visibility: hidden;
+}
+.flatpickr-day.selected.startRange{
+
+}
+.flatpickr-day.selected.endRange{
+
+}
+
 .event {
     position: absolute;
     width: 100%;
@@ -4342,6 +4355,13 @@ a:hover {
     background: #65C3F9 !important;
     color: #fff !important;
     border-bottom: 5px solid #5eb4e6;
+}
+.link{
+  color: #44b5f4;
+  text-decoration: none;
+}
+.link:hover{
+  color:#6fbde8;
 }
 .banner {
   min-width: 100%;

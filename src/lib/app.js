@@ -111,11 +111,12 @@ App.prototype.showNotify = function(options) {
     });
   });
 };
-App.prototype.navigate = function(path, queryString) {
+App.prototype.navigate = function(path, queryString, newTab = false) {
   var parts = [];
   queryString = queryString || {};
   Object.keys(queryString).forEach(key => parts.push(key + "=" + encodeURIComponent(queryString[key])));
-  window.location = path + (parts.length > 0 ? '?' + parts.join('&') : '');
+  if(newTab)  window.open(path + (parts.length > 0 ? '?' + parts.join('&') : ''));
+  else  window.location = path + (parts.length > 0 ? '?' + parts.join('&') : '');
 };
 App.prototype.generateAdvertSearchUrl = function(searchParameters) {
   return new Promise(resolve => {
@@ -190,7 +191,8 @@ App.prototype.validate = {
   },
   STRING: function (value) {
     if(value == "") return true;
-    if(/^[a-zğ ,./-:üıçöşA-ZĞÜİÇÖŞ()]+$/.test(value) == false) return false;
+    value = value.replace(/\r?\n/g, ' ');
+    if(/^[a-zğ ,./-:üıçöşA-ZĞÜİÇÖŞ().,!?]+$/.test(value) == false) return false;
     return true;
   },
   PHONE: function (value) {

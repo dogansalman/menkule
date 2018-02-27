@@ -12,13 +12,9 @@ export default (params) => {
       .then((template) => {
         const openedModal = template.parents('.modal');
         /*
-        Disable enter key
-         */
-        template.find('textarea').on('keydown',function(e) {if(e.keyCode == 13 && !e.shiftKey) e.preventDefault()});
-        /*
         Comment
          */
-        template.find('button.feedback-btn').on('click', (e) => {
+        template.find('button.comment-btn').on('click', (e) => {
           e.preventDefault();
           $(e.target).disable();
           template.showPreloader(.7)
@@ -28,15 +24,17 @@ export default (params) => {
                 .then(() => App.promise(() => openedModal.modal('hide')))
                 .then(() => App.notifySuccess('Yorumunuz için teşekkürler.', ''))
                 .catch(err => {
+                    console.log(err);
                   // If Validate Error
                   if (err instanceof ValidateError) {
                     template.hidePreloader()
                       .then(() => { $(e.target).enable()});
+                  } else{
+                      // If dont send message
+                      template.hidePreloader()
+                          .then(() => template.zone('notification').setContentAsync(appMessage('comments_failed')))
+                          .then(() => $(e.target).enable());
                   }
-                  // If dont send message
-                  template.hidePreloader()
-                    .then(() => template.zone('notification').setContentAsync(appMessage('comments_failed')))
-                    .then(() => $(e.target).enable());
                 })
             })
         });

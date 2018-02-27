@@ -1,8 +1,7 @@
 <div class="swiper-container swiper-container-horizontal">
     <div class="swiper-wrapper" style="transform: translate3d(-2617.5px, 0px, 0px); transition-duration: 0ms;">
             {{#each adverts}}
-            <div data-index="{{indx}}" class="swiper-slide" style="width: 319px; margin-right: 30px;">
-                <a href="/advert/{{id}}{{queryStr}}">
+            <div data-index="{{indx}}" id="{{id}}" class="swiper-slide advert-slide-item" style="width: 319px; margin-right: 30px;">
                     <div class="col-xs-12 col-sm-12 col-md-12 map-result-image">
                         <div class="map-advertphoto">
                             <img class="photoadvert" src="{{#image images.image.url 400 250 }} {{/image}}"/>
@@ -17,7 +16,6 @@
                             <i class="fa fa-bed"></i> {{properties.beds}} Yatak  / <i class="fa fa-users"></i> {{properties.visitor}} Misafir
                         </div>
                     </div>
-                </a>
             </div>
             {{/each}}
     </div>
