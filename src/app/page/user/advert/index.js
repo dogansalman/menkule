@@ -295,20 +295,27 @@ export default (params) => {
                   $(e.target).enable();
                   $(".advert-detail").formFields().enable();
                   if (!advert.id) App.wait(2000).then(() => App.navigate('/user/adverts'));
-                });
+                })
+                  .catch(err => {
+                      $(e.target).enable();
+                      $(".advert-detail").formFields().enable();
+                      App.hidePreloader()
+                          .then(() => App.notifyDanger(err.responseJSON.Message, ''))
+                          .catch(() => App.notifyDanger('Beklenmeyen bir hata', ''));
+                  })
             })
             .catch((err) => {
+
                 $(e.target).enable();
                 $(".advert-detail").formFields().enable();
-                if (err instanceof ValidateError) {
-                  if (err.fields[0].id == "map") return App.notifyDanger('lütfen ilanınızın konumunu işaretleyin.', 'Üzgünüz');
-                  return App.hidePreloader().then(() => $(err.fields[0]).focus());
-                }
-                if (err instanceof Error) return App.hidePreloader().then(() => App.notifyDanger(err.message));
-                App.hidePreloader()
-                  .then(() => App.parseJSON(err.responseText))
-                  .then(o => App.notifyDanger(o.result || o.Message, 'Üzgünüz'))
-                  .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
+                App.hidePreloader().then(() => {
+                    if (err instanceof ValidateError) {
+                        if (err.fields[0].id == "map") return App.notifyDanger('lütfen ilanınızın konumunu işaretleyin.', 'Üzgünüz');
+                        return App.promise(() => $(err.fields[0]).focus());
+                    }
+                })
+
+
           });
 
         });
