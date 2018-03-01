@@ -26,12 +26,13 @@
                         <label for="ad">Gsm: </label>
                         <h3 class="disable_margin">{{gsm}}</h3>
                     </div>
-                    <p>SN. <span class="capitalize">{{name}}</span> <span class="uppercase">{{lastname}}</span> rezervasyonunuzun onaylanabilmesi için lütfen kimlik numaranızı belirtiniz.</p>
+
                     <div class="form-group">
                         <label for="ad">TC No: </label>
                         {{#if identity_no}}
                         <h3 class="disable_margin">{{identity_no}}</h3>
                         {{else}}
+                            <p>SN. <span class="capitalize">{{name}}</span> <span class="uppercase">{{lastname}}</span> rezervasyonunuzun onaylanabilmesi için lütfen kimlik numaranızı belirtiniz.</p>
                         <input type="number" data-form-element="identity_no" class="form-control"  mask="00000000000" maxlength="11" value="{{identity_no}}" placeholder="TC kimlik numarası">
                         {{/if}}
                     </div>

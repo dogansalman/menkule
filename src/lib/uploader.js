@@ -8,7 +8,7 @@ const uploader2 = new uploader();
     var container = null;
 
     //image limit
-    var maxImage = 20;
+    var maxImage = 4;
 
     var default_icon = $('<a href="#" class="default-img"></a>');
     var emptyMessage = $('<div class="empty-message"><p>Fotoğraflar</p></div>');
@@ -40,7 +40,10 @@ const uploader2 = new uploader();
         $("div[data-id='" + arr[index].id  + "']").append($(default_icon));
     }
     function checkImageLimit() {
-        return _.filter(uploader2.getImages(), function(i) { return i.hasOwnProperty('deleted')} ).length > maxImage ? false : true
+        var images = uploader2.getImages();
+        if(!images) return true;
+        var imgLen = uploader2.getImages().filter(i => !i.delete).length;
+        return imgLen < maxImage;
     }
     //Create Image Template
     function createImage(data) {
@@ -69,6 +72,7 @@ const uploader2 = new uploader();
             e.preventDefault();
             changeDefault(e.target["id"]);
         });
+
         if(data.is_default) $(imageContainer).append($(default_icon));
         return $(imageContainer).append($(image)).append($(deleteImageBtn));
     }
@@ -85,8 +89,18 @@ const uploader2 = new uploader();
         $.each(uploader2.getImages(), function (index, data) {
             $(getContainer()).append($(createImage(data)));
         });
+        renderCounter();
     }
-
+    // Render Images Counter
+    function renderCounter()
+    {
+        $(getContainer()).find('.counter').remove();
+        var images = uploader2.getImages();
+        var imageCount = 0;
+        if(images) imageCount = uploader2.getImages().filter(i => !i.deleted).length;
+        var photoCounter = $('<div class="counter"><p>' + imageCount + '/' + maxImage + '</p></div>');
+        $(getContainer()).append($(photoCounter));
+    }
     //Check Image
     function checkImage(image) {
         if (image == undefined) return false;
@@ -215,6 +229,7 @@ const uploader2 = new uploader();
           Object.assign(array[index],{'deleted':true,'is_default': false})
         }
       });
+        renderCounter();
     }
 
     //extend return value
@@ -226,8 +241,6 @@ const uploader2 = new uploader();
     $.fn.createUploader = function (images) {
         $(this).data('uploader', true);
         return this.each(function () {
-            //add style
-            $(this).attr("style", "width: 100%; min-height: 150px; border: 1px solid #f9f9f9;");
 
             //set uplaoder global
             setContainer($(this));
@@ -242,6 +255,7 @@ const uploader2 = new uploader();
                 setImages(images);
                 renderImages();
             }
+            renderCounter();
         });
 
     };
