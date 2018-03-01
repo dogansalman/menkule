@@ -9,7 +9,10 @@ var userFormRules = {
     email: [App.validate.REQUIRED, App.validate.EMAIL],
     name: [App.validate.REQUIRED, App.validate.STRING],
     lastname: [App.validate.REQUIRED, App.validate.STRING],
-    gsm: [App.validate.REQUIRED, App.validate.PHONE]
+    gsm: [App.validate.REQUIRED, App.validate.PHONE],
+    identity_no: [App.validate.REQUIRED,App.validate.NUMBER,  function(value) {
+        return (value.length === 11);
+    }]
 };
 
 

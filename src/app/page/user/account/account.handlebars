@@ -34,7 +34,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
                 <div class="form-group">
-                    <label for="soyad">Soyad</label>
+                    <label>Soyad</label>
                     <input name="lastname" data-form-element="lastname"  type="text" value="{{user.lastname}}" class="form-control"  placeholder="Soyisim">
                 </div>
             </div>
@@ -43,12 +43,20 @@
         <div class="gmsinfo">
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
                 <div class="form-group">
-                    <label for="soyad">GSM No</label>
+                    <label>GSM No</label>
                     <div class="input-group-addon {{#if user.gsm_state}} activestate {{else}} passivestate {{/if}}"></div>
                     <input name="gsm" data-form-element="gsm" type="tel" class="form-control" value="{{user.gsm}}" mask="0000000000" placeholder="Ornek: 5340000000">
                 </div>
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+            <div class="form-group">
+                <label>T.C Kimlik No</label>
+                <p>TC. no rezervasyon işlemleri için yasal olarak belirtilmesi zorunlu bilgidir.</p>
+                <input name="identity_no" data-form-element="identity_no" type="number" class="form-control" value="{{user.identity_no}}" mask="0000000000" placeholder="TC No">
+            </div>
+        </div>
+
         <div style="clear:both"></div>
         <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">
             <button type="button" name="update" class="btn default_btn">Tamam</button>
