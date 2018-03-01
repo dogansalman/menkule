@@ -4,6 +4,7 @@ import alerts from './alerts.handlebars';
 import Header from '../header';
 import Confirm from '../../modal/confirm';
 import appMessages from '../../../lib/appMessages';
+import policy from '../user/policy/policy.handlebars';
 
 let notifications = [];
 
@@ -133,7 +134,7 @@ export default (isOpen) => Menkule.user(true)
     header.find('.ownerstart').click(e => {
       e.preventDefault();
       let modal;
-      Confirm({title: appMessages('ownership_confirm'), title: appMessages('ownership_title')}).do(m => modal = m)
+      Confirm({message: policy(), title: appMessages('ownership_title'), width: '80%'}).do(m => modal = m)
         .then(() => Menkule.post('/users/approve/ownership'))
         .then(() => Menkule.user(true))
         .then(() => App.promise(() => modal.modal('hide')))
@@ -145,6 +146,9 @@ export default (isOpen) => Menkule.user(true)
           App.showNotify({type:'danger',message:' Bir hata oluştu. Lütfen tekrar deneyin.',title:'Üzgünüz',icon:'fa fa-bell-o'});
         })
     });
+
+
+
 
     header.find('.bigmenu_btn').click(e => {
       e.preventDefault();
