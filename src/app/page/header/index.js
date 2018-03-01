@@ -134,7 +134,7 @@ export default (isOpen) => Menkule.user(true)
     header.find('.ownerstart').click(e => {
       e.preventDefault();
       let modal;
-      Confirm({message: policy(), title: appMessages('ownership_title'), width: '80%'}).do(m => modal = m)
+      Confirm({message: policy(), title: appMessages('ownership_title'), width: '80%', Ok:'Kabul Ediyorum', Cancel:'Kabul Etmiyorum'}).do(m => modal = m)
         .then(() => Menkule.post('/users/approve/ownership'))
         .then(() => Menkule.user(true))
         .then(() => App.promise(() => modal.modal('hide')))
@@ -146,8 +146,6 @@ export default (isOpen) => Menkule.user(true)
           App.showNotify({type:'danger',message:' Bir hata oluştu. Lütfen tekrar deneyin.',title:'Üzgünüz',icon:'fa fa-bell-o'});
         })
     });
-
-
 
 
     header.find('.bigmenu_btn').click(e => {

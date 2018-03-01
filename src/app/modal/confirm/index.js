@@ -7,12 +7,14 @@ export default (options) => {
   options = Object.assign({
     message: 'İşleme devam etmek istediğinize emin misiniz ?',
     title: 'Emin misiniz ?',
-    width: 450
+    width: 450,
+      Ok: 'Evet',
+      Cancel: 'Hayir'
   }, options || {});
 
     return new Promise((resolve,reject) => {
 
-        modal({ template: confirmTemplate({message: options.message, title: options.title}), title: options.title, width: options.width})
+        modal({ template: confirmTemplate({message: options.message, title: options.title, Ok: options.Ok, Cancel: options.Cancel}), title: options.title, width: options.width})
             .then((template) => {
 
             //get opened modal

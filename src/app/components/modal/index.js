@@ -15,7 +15,6 @@ export default (options) => {
         data: {}
     }, options || {});
 
-
     const compiledTemplate = template({waitMessage: options.waitMessage, width: options.width, data : options.data, title: options.title});
 
       //modal preloaders
