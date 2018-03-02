@@ -497,6 +497,88 @@ textarea {
   height: 300px;
   overflow-y: scroll;
 }
+/*Dropdown Bars*/
+.dropdown-container {
+
+}
+.dropdown-container > ul{
+  position: absolute;
+  right: 0px;
+  top: 5px;
+}
+
+.dropdown-container > ul > li{
+  list-style:none;
+}
+.dropdown-container > .dropdown-btn {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 2px;
+}
+.dropdown-container > .dropdown-btn:hover {
+    background: #efefef;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 2px;
+    border-radius: 50%
+}
+.dropdown-container > .dropdown-btn.open{
+    background: #efefef;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 2px;
+    border-radius: 50%
+}
+.dropdown-container > .dropdown-btn:before {
+    content: "\F142";
+    font-family: FontAwesome;
+    z-index: -1;
+    font-size: 19px;
+    color: #a2a2a2;
+}
+.dropdown-container.open > a {
+  display: none;
+}
+ul.dropdown.open{
+  display:block;
+}
+ul.dropdown {
+  background: #ffffff;
+  margin: 0px;
+  padding: 0px;
+  top: 15px;
+  border-radius: 3px;
+  border: 1px solid #f1f1f1;
+  display: none;
+  position: absolute;
+  right: 0px;
+  top: 35px;
+  z-index: 2;
+  width: 25%;
+}
+ul.dropdown li {
+  list-style: none;
+  display: block;
+  min-width: 85px;
+  min-height: 30px;
+  border-bottom: 1px solid #f1f1f1;
+}
+ul.dropdown li:hover{
+  background: #f9f9f9;
+  cursor: pointer;
+}
+ul.dropdown li a {
+  padding: 10px;
+  display: block;
+  font-size: 14px;
+}
 /*
 Message
  */
@@ -614,9 +696,14 @@ overflow-y: scroll
 
 
 @media all and (max-width: 768px) {
-
+   ul.dropdown {
+       width: 45% !important;
+   }
+  .message-detail > [data-zone~="content"] > .container {
+    padding:0px;
+  }
   .messagefulltextcontainer{
-    height: 70%;
+    height: 85%;
     padding:0px;
   }
   .messagefulltext-photo {
@@ -3136,7 +3223,8 @@ Flatpicker Custom Style
 
 }
 .flatpickr-day.selected.endRange{
-
+    background: #e0665a;
+    border-color: #e0665a;
 }
 
 .event {
@@ -3946,7 +4034,7 @@ border-radius: 2px;
 font-size: 12px;
 position: absolute;
 top: 5px;
-right: 5px;
+right: 30px;
 width: 29px;
 text-align: center;
 }

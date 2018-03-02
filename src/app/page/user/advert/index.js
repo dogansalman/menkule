@@ -336,9 +336,9 @@ export default (params) => {
                 .then(() => App.wait(1500))
                 .then(() => App.navigate('/user/adverts'))
                 .catch((err) => {
-                  App.parseJSON(err.responseText)
-                    .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
-                    .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
+                    App.hidePreloader()
+                   .then(() =>  App.notifyDanger(err.responseJSON.Message, ''))
+                   .catch(err => App.notifyDanger(err, 'Beklenmeyen bir hata'));
                 })
             });
         });

@@ -26,6 +26,7 @@ export default (params) => {
       .then(() => $("body").zone('content').setContentAsync(message(messages))).do((t) => template = t)
       .then((template) => {
 
+        document.body.setAttribute('class','message-detail');
         /*
         Render messages
          */

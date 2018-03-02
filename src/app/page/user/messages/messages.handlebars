@@ -1,6 +1,6 @@
 <div class="container">
     {{#each messages}}
-        <div class="col-xs-12 disable_padding">
+        <div class="message-list-container col-xs-12 disable_padding">
             <a href='/user/messages/{{id}}'>
                 <div class='messagelist-container'>
                     <div class='message-container col-xs-2 col-sm-3 col-md-3'>
@@ -11,14 +11,19 @@
                         </div>
                     </div>
                     <div class='message-text col-xs-10 col-sm-9 col-md-9'>
-                        <p>
                             {{#if last_view}} {{else}} <span class="newmessage">yeni</span> {{/if}}
                             <b>{{message.fullname}}:</b> {{message.message}}
-                        </p>
-                        <span class='message-time'> {{fromNow message.date}} </span>
+                            <span class='message-time'> {{fromNow message.date}} </span>
                     </div>
                 </div>
             </a>
+            <div class="dropdown-container">
+                <a href="#" class="dropdown-btn"></a>
+                <ul class="dropdown">
+                    <li><a href='/user/messages/{{id}}'><i class="fa fa-envelope-o"></i> Oku</a></li>
+                    <li><a data="{{id}}" class="delete-message"><i class="fa fa-trash-o"></i> Sil</a></li>
+                </ul>
+            </div>
         </div>
         <div style="clear:both"></div>
     {{else}}
