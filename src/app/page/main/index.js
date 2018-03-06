@@ -35,15 +35,30 @@ export default () => Header(false)
           Gmap.getLocationViewport(result.name).then((locationDetail) => { location = Object.assign(locationDetail,{'name':result.name})});
       });
 
+    //Is real mobile device
+      App.isMobileDevice()
+          .then((ismobile) => {
+              if(ismobile) {
+                  // focus in searchbar
+                  template.find('.searchcity-xs').on('focusin', (e) => {
+                      template.find('.home-message').addClass('focus-search');
+                  });
+                  //focusout searchbar
+                  $(window).on('click', e => {
+                      if (!e.target.closest('.searchcity-xs'))  template.find('.home-message').removeClass('focus-search');
+                  });
+              }
+          });
+
     template.find('.searchcity-xs')
       .geocomplete({  country: ['tr'],types: ['(cities)']})
       .bind("geocode:result", function(event, result) {
           Gmap.getLocationViewport(result.name).then((locationDetail) => { location = Object.assign(locationDetail,{'name':result.name})});
       });
 
-    /*
-    Geocomplate set default text
-     */
+      /*
+      Geocomplate set default text
+       */
     template.find('.searchcity').defaultText();
     template.find('.searchcity-xs').defaultText();
    /*

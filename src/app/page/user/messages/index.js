@@ -16,7 +16,8 @@ export default() => {
           // focus out dropdown
           $(window).on('click', e => {
               if (!e.target.closest('.dropdown-container'))  template.find('.dropdown-container .open').removeClass('open');
-          })
+          });
+
           // open dropdown
           template.find('.dropdown-container .dropdown-btn').on('click', (event) => {
               template.find('.dropdown-container .open').removeClass('open');

@@ -154,11 +154,15 @@ App.prototype.promise = function(callback) {
     }, 0);
   });
 };
-App.prototype.isMobile = function(callback) {
+App.prototype.isMobile = function() {
   return new Promise(resolve => {
     resolve(window.matchMedia("only screen and (max-width: 768px)").matches);
   });
-
+};
+App.prototype.isMobileDevice = function() {
+  return new Promise(resolve => {
+    resolve(window.orientation > -1);
+  });
 };
 
 App.prototype.renderTemplate = function (template, templateData) {

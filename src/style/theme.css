@@ -519,6 +519,7 @@ textarea {
   height: 30px;
   text-align: center;
   padding: 2px;
+  cursor: pointer;
 }
 .dropdown-container > .dropdown-btn:hover {
     background: #efefef;
@@ -534,7 +535,7 @@ textarea {
     height: 30px;
     text-align: center;
     padding: 2px;
-    border-radius: 50%
+    border-radius: 50%;
 }
 .dropdown-container > .dropdown-btn:before {
     content: "\F142";
@@ -2083,7 +2084,7 @@ newmessage-all:focus,
 .alertlist-date {
     display: block;
     font-size: 11px;
-    padding: 5px 0px 5px 0px;
+    padding: 0px 0px 0px 25px;
 }
 .alertlist-date i {
     color: #45b5f4 !important;
@@ -2606,11 +2607,8 @@ body.policy {
         color:#fff;
     }
     .home{
-        background: url(../img/cover_mobile.png) no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+      background: url(../img/cover_mobile.png) no-repeat center top fixed;
+      background-size: 265% auto;
     }
     .easy-autocomplete input {
         width: 100%!important
@@ -2627,7 +2625,15 @@ body.policy {
     .home-message {
         margin-bottom: 10px;
         margin-top: 10px;
+      -webkit-transition: all .5s ease-in-out;
+      -moz-transition: all .5s ease-in-out;
+      -o-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
     }
+    .home-message.focus-search {
+      margin-top: -200px;
+    }
+
 }
 
 /* Login Popup */
@@ -3191,6 +3197,22 @@ Advert Detail
         margin-top: 20px;
     }
 }
+/*Google Geolocation Customize*/
+.pac-item > span:last-child{
+  display:none
+}
+.pac-item > span:last-child{
+  display:none
+}
+.pac-container .pac-icon {
+  display:none;
+}
+.pac-item-query{
+  padding-left:5px;
+}
+.pac-item{
+  line-height: 40px;
+}
 /*
 Flatpicker Custom Style
  */
@@ -3222,11 +3244,15 @@ Flatpicker Custom Style
 .flatpickr-day.selected.startRange{
 
 }
+
 .flatpickr-day.selected.endRange{
     background: #e0665a;
     border-color: #e0665a;
 }
-
+.flatpickr-day.selected.inRange.endRange{
+  background: #49bafb !important;
+  border-color: #49bafb !important;
+}
 .event {
     position: absolute;
     width: 100%;
@@ -5440,9 +5466,20 @@ advert-select:focus:active {
     margin-bottom: 0
   }
   .head_logo {
-    background: #45B5F4!important;
+    background: #45B5F4;
     height: 40px!important
   }
+  .home .head_logo {
+    background: transparent;
+  }
+  .search-form-mobile.searchengine {
+    margin: 10% 0px 0px 0px;
+  }
+  .search-form-mobile.searchengine .seachengine_btn{
+    height: 50px !important;
+  }
+
+
   .search_bar .searchbox {
     margin-top: 0
   }
