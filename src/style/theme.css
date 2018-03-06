@@ -2601,10 +2601,12 @@ body.policy {
     }
     .home-message p{
         color:#fff;
+        font-size: 14px;
     }
     .home-message h2
     {
         color:#fff;
+        font-size: 19px;
     }
     .home{
       background: url(../img/cover_mobile.png) no-repeat center top fixed;
