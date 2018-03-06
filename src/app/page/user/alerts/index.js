@@ -38,7 +38,7 @@ export default() => {
         //dropdown delete
         template.find(".delete-notify").on("click", (e) => {
             App.showPreloader(.7)
-                .then(() =>  Menkule.delete("/notifications/" + $(e.targetas).attr("rel")))
+                .then(() =>  Menkule.delete("/notifications/" + $(e.target).attr("rel")))
                 .then(() =>  App.hidePreloader())
                 .then(() =>  App.notifySuccess('Seçtiğiniz bildirim kayıtları silindi', ''))
                 .then(() =>  alerts())
