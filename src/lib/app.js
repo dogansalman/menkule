@@ -119,6 +119,7 @@ App.prototype.navigate = function(path, queryString, newTab = false) {
   else  window.location = path + (parts.length > 0 ? '?' + parts.join('&') : '');
 };
 App.prototype.generateAdvertSearchUrl = function(searchParameters) {
+
   return new Promise(resolve => {
     const _inDate = searchParameters.checkin.split('/')[2] + '-' + searchParameters.checkin.split('/')[1] + '-' + searchParameters.checkin.split('/')[0];
     const _outDate = searchParameters.checkout.split('/')[2] + '-' + searchParameters.checkout.split('/')[1] + '-' + searchParameters.checkout.split('/')[0];
@@ -129,11 +130,12 @@ App.prototype.generateAdvertSearchUrl = function(searchParameters) {
       'checkin': moment(new Date(_inDate).toISOString()).format('YYYY-MM-DD'),
       'checkout': moment(new Date(_outDate).toISOString()).format('YYYY-MM-DD'),
       'day' : moment(_outDate).diff(moment(_inDate),'days'),
-      'lat' : searchParameters.lat,
-      'lng' : searchParameters.lng,
+      'lat' : searchParameters.viewport.northeast.lat + '-' + searchParameters.viewport.southwest.lat,
+      'lng' : searchParameters.viewport.northeast.lng + '-' + searchParameters.viewport.southwest.lng,
       'guest': searchParameters.guest,
       'login': Menkule.hasToken()
     };
+
     resolve({'url': '/search/' + searchParameters.name, 'query': query });
   });
 };

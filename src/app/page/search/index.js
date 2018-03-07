@@ -63,7 +63,6 @@ export default (params,  query = location.href) => {
                     if(e['cordinates']) latlng = e['cordinates'];
                     if (e['setcenter']) Gmap.getLatLgn(latlng.name).then(coords => template.find("#map").centerTo(coords).zoom(typeof e['zoom'] != typeof undefined ? parseInt(e['zoom']) : 12));
                 }
-
                 Menkule.post('/search', latlng)
                     .then((adverts) => {
 
@@ -155,7 +154,6 @@ export default (params,  query = location.href) => {
                     .then(() => App.promise(() => globalAdverts.length === 0 ? false : true))
                     .then((has_adverts) => !has_adverts ? reject(): null )
                     .catch(err => {
-                        console.log(err);
                         template.zone('advert-list').setContentAsync(appMessages('advert_no_result'))
                             .then(() => App.notifyDanger(appMessages('advert_no_result').clearHtml()))
                             .then(() => template.zone('adverts-slidelist').setContentAsync(''))
@@ -231,8 +229,8 @@ export default (params,  query = location.href) => {
                     })
                         .then((cordinates) => {
                             cordinate = {
-                                'lat': String(cordinates.lat),
-                                'lng': String(cordinates.lng),
+                                'lat': String(cordinates.viewport.northeast.lat + '-' + cordinates.viewport.southwest.lat),
+                                'lng': String(cordinates.viewport.northeast.lng + '-' + cordinates.viewport.southwest.lng),
                                 'name': result.name
                             };
                             var _e = new $.Event('re.advrt');
@@ -310,8 +308,8 @@ export default (params,  query = location.href) => {
                     .then((cities) => {
                         Gmap.getLocationViewport(cities.town).then((latlgn) => {
                             cordinate = {
-                                'lat': String(latlgn.lat),
-                                'lng': String(latlgn.lng),
+                                'lat': String(latlgn.viewport.northeast.lat + '-' + latlgn.viewport.southwest.lat),
+                                'lng': String(latlgn.viewport.northeast.lng + '-' + latlgn.viewport.southwest.lng),
                                 'name': cities.town
                             };
                             var _e = new $.Event('re.advrt');

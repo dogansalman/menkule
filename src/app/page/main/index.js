@@ -25,7 +25,7 @@ export default () => Header(false)
   .then(() => $("body").zone("content").setContentAsync(template()))
   .then(template => new Promise(resolve => {
 
-      template.find('.loadingvideo').fadeOut(2000);
+    template.find('.loadingvideo').fadeOut(2000);
     /*
     Inıt geocomplates
      */
@@ -73,8 +73,7 @@ export default () => Header(false)
           App.generateAdvertSearchUrl({
             'checkin': formData.date.split(' - ')[0].trim(),
             'checkout': formData.date.split(' - ')[1].trim(),
-            'lat' : location.lat,
-            'lng' : location.lng,
+            'viewport' : location.viewport,
             'guest' : formData.guest,
             'name': location.name.turkishToLower()
           })

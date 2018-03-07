@@ -351,7 +351,7 @@ Gmap.prototype.getLocationViewport = function (city) {
       if (request.readyState == 4) {
         if (request.status == 200) {
           var data = JSON.parse(request.responseText);
-          resolve({'lat': data.results[0].geometry.viewport.northeast.lat, 'lng': data.results[0].geometry.viewport.southwest.lng });
+          resolve({'viewport':data.results[0].geometry.viewport});
         }
         else {
           reject(request.status);
