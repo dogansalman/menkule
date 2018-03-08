@@ -8,7 +8,7 @@ const uploader2 = new uploader();
     var container = null;
 
     //image limit
-    var maxImage = 4;
+    var maxImage = 3;
 
     var default_icon = $('<a href="#" class="default-img"></a>');
     var emptyMessage = $('<div class="empty-message"><p>Fotoğraflar</p></div>');

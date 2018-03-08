@@ -766,6 +766,7 @@ Search
 }
 .search-pg > [data-zone~="content"] {
   padding-top:50px;
+  padding-bottom:50px;
 }
 
 .advert-info-window {
@@ -3201,11 +3202,8 @@ Advert Detail
 }
 /*Google Geolocation Customize*/
 .pac-item > span:last-child{
-  display:none
 }
-.pac-item > span:last-child{
-  display:none
-}
+
 .pac-container .pac-icon {
   display:none;
 }
