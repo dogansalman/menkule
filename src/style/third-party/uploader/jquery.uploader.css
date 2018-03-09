@@ -2,6 +2,15 @@
   width: 100%;
   border: 1px solid #f9f9f9;
 }
+.uploader .uploading{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.788235294117647);
+  text-align: center;
+  z-index: 1;
+  left: 0;
+}
 .uploader .uploader-btn{
   bottom: 0px;
   width: 140px;
@@ -19,6 +28,23 @@
   font-family: FontAwesome;
   font-size: 33px;
   color: #9e9e9e;
+}
+.uploader .uploader-photo {
+  width:125px;
+  margin:10px 10px 10px 0px;
+  max-height: 100px;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+}
+.uploader .uploader-photo > img {
+  width:100%;
+  max-height: 150px !important;
+  overflow: hidden;
+  cursor:pointer;
+}
+.uploader .uploader-photo:hover {
+  opacity: 0.7;
 }
 .uploader .empty-message p{
   margin: 0;
@@ -61,6 +87,9 @@
   font-size: 12px;
   padding: 0px;
   margin: 5px 3px 0px 0px;
+}
+.uploader .delete-img-btn:hover {
+  background:#e04130;
 }
 .uploader .delete-img-btn:before{
   content: "\f00d";

@@ -12,6 +12,7 @@ const uploader2 = new uploader();
 
     var default_icon = $('<a href="#" class="default-img"></a>');
     var emptyMessage = $('<div class="empty-message"><p>Fotoğraflar</p></div>');
+    var loader = $('<div class="uploading loading-process"><p></p></div>');
 
 
     /*
@@ -65,8 +66,8 @@ const uploader2 = new uploader();
              })
              .catch((err) => console.log(err))
         });
-        var imageContainer = $('<div data-id="' + data.id + '"class="col-xs-6 col-sm-3 col-md-3 disable_padding" style=" width:125px; margin:10px 10px 10px 0px; max-height: 100px; overflow: hidden; display: inline-block; position: relative;"></div>');
-        var image = $('<img style="width:100%; max-height: 150px !important; overflow: hidden; cursor:pointer;" src=' + Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" +  data.url + ' id="' + data.id  + '"/>');
+        var imageContainer = $('<div data-id="' + data.id + '"class="col-xs-6 col-sm-3 col-md-3 disable_padding uploader-photo"></div>');
+        var image = $('<img src=' + Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" +  data.url + ' id="' + data.id  + '"/>');
 
         $(image).on('click', (e) => {
             e.preventDefault();
@@ -117,21 +118,32 @@ const uploader2 = new uploader();
         return true;
     }
 
+    function showLoader(){
+        return App.promise(() => {
+            $(getContainer()).find('.loader').remove();
+            $(getContainer()).append($(loader));
+        })
+    }
+    function hideLoader(){
+        return App.promise(() => {
+            $(getContainer()).find('.loader').remove();
+        })
+    }
     //Uploader Image to Advert
     function uploadImage(image) {
         if (!checkImage(image)) return false;
         //add to image list
-        App.showPreloader(0.8)
+        showLoader()
             .then(() => Menkule.post("/adverts/photo", image))
             .then((data) => {
                 appendFile(data);
                 renderImages();
                 $("#uploader").val('');
             })
-            .then(() => App.hidePreloader())
+            //.then(() => hideLoader())
             .catch((err) => {
                 $("#uploader").val('');
-                App.hidePreloader()
+                hideLoader()
                     .then(() => App.parseJSON(err.responseText))
                     .then(o => App.notifyDanger(o.result || o.Message, 'Üzgünüz'))
                     .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
