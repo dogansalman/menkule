@@ -250,11 +250,11 @@ export default (params,  query = location.href) => {
                     .then((latlng) => {
                         Gmap.getCityName(latlng.latitude, latlng.longitude)
                             .then((cities) => {
-                                Gmap.getLocationViewport(cities.town).then((latlgn) => {
+                                Gmap.getLocationViewport(cities.town).then((latlng) => {
                                     var _e = new $.Event('re.advrt');
                                     _e['cordinates'] = {
-                                        'lat': String(latlgn.lat),
-                                        'lng': String(latlgn.lng),
+                                        'lat': String(latlng.viewport.northeast.lat + '-' + latlng.viewport.southwest.lat),
+                                        'lng': String(latlng.viewport.northeast.lng + '-' + latlng.viewport.southwest.lng),
                                         'name': cities.town
                                     };
                                     _e['setcenter'] = false;
