@@ -8,7 +8,7 @@ const uploader2 = new uploader();
     var container = null;
 
     //image limit
-    var maxImage = 3;
+    var maxImage = 20;
 
     var default_icon = $('<a href="#" class="default-img"></a>');
     var emptyMessage = $('<div class="empty-message"><p>Fotoğraflar</p></div>');
@@ -42,7 +42,7 @@ const uploader2 = new uploader();
     function checkImageLimit() {
         var images = uploader2.getImages();
         if(!images) return true;
-        var imgLen = uploader2.getImages().filter(i => !i.delete).length;
+        var imgLen = uploader2.getImages().filter(i => !i.deleted).length;
         return imgLen < maxImage;
     }
     //Create Image Template
@@ -133,7 +133,7 @@ const uploader2 = new uploader();
                 $("#uploader").val('');
                 App.hidePreloader()
                     .then(() => App.parseJSON(err.responseText))
-                    .then(o => App.notifyDanger(o.result || o.message, 'Üzgünüz'))
+                    .then(o => App.notifyDanger(o.result || o.Message, 'Üzgünüz'))
                     .catch(o => App.notifyDanger(o, 'Beklenmeyen bir hata'));
             })
     }
@@ -182,10 +182,14 @@ const uploader2 = new uploader();
     //File Uploader
     function FileManager(isUserPhoto, targetElm) {
         $('#uploader').remove();
-        var uploader = $("<input type='file' style='display:none!important;' id='uploader' name='myfiles[]'  accept='image/*' />");
+        var uploader = $("<input type='file' multiple style='display:none!important;' id='uploader' name='myfiles[]'  accept='image/*' />");
         $(uploader).on('change', (e) => {
-            if(!isUserPhoto) uploadImage($(e.target).get(0).files[0]);
-            if(isUserPhoto) uploadPhotoUser($(e.target).get(0).files[0],targetElm);
+            for (let i = 0; i < $(e.target).get(0).files.length; i++) {
+                if(!isUserPhoto) uploadImage($(e.target).get(0).files[i]);
+                if(isUserPhoto) uploadPhotoUser($(e.target).get(0).files[i],targetElm);
+            }
+
+
         });
         return uploader;
     }
