@@ -52,7 +52,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
             <div class="form-group">
                 <label>T.C Kimlik No</label>
-                <p>TC. no rezervasyon işlemleri için yasal olarak belirtilmesi zorunlu bilgidir.</p>
+            {{#unless  user.identity_no}} <p>TC. no rezervasyon işlemleri için yasal olarak belirtilmesi zorunlu bilgidir.</p>  {{/unless }}
                 <input name="identity_no" data-form-element="identity_no" type="number" class="form-control" value="{{user.identity_no}}" mask="0000000000" placeholder="TC No">
             </div>
         </div>

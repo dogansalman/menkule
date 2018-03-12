@@ -131,6 +131,10 @@ textarea {
 .inline {
   display: inline-block !important;
 }
+.breakword {
+  word-wrap: break-word;
+  -ms-word-wrap: break-word;
+}
 .mauto {
   margin: auto !important;
 }
@@ -145,6 +149,9 @@ textarea {
 }
 .fleft {
   float: left;
+}
+.tright{
+  text-align: right !important;
 }
 .radius-circle{
     -webkit-border-radius: 50%;
@@ -2760,7 +2767,7 @@ Advert Detail
     color: #444;
 }
 .details_container .small_desc p {
-    font-size: 13px;
+    font-size: 12px;
     color: #666;
     font-weight: 300;
 }
@@ -2781,6 +2788,12 @@ Advert Detail
 .details_container .detail_content_list span {
     font-weight: 300;
 }
+.details_container .advert-no {
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif!important;
+  font-size: 13px;
+  color: #666;
+}
 
 .details_container .prices {} .details_container .prices span {
     font-size: 16px;
@@ -2798,6 +2811,8 @@ Advert Detail
 .detaildesc {
     margin-bottom: 30px;
     font-size: 13px;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
 .feedback-container {
     border: 1px solid #f7f7f7;
@@ -2833,9 +2848,10 @@ Advert Detail
 }
 .detail_content .advert_title {
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     color: #666;
     font-weight: 400;
+    word-wrap: break-word;
 }
 .detail_content .advert-detail-bar.sticky {
   background: #fff;
@@ -3084,7 +3100,8 @@ Advert Detail
 }
 @media all and (max-width: 768px) {
     .details_container .details_logo {
-        font-size: 18px!important
+        font-size: 18px!important;
+        text-align: center;
     }
     .rezervation-form.open {
         position: absolute;
@@ -4426,6 +4443,10 @@ a:hover {
 .success_btn:focus {
     background: #38d47a !important;
     border-bottom: 5px solid #30b96a;
+}
+.link{
+  cursor: pointer;
+  color:#0FA2F5;
 }
 .default_btn {
   display: inline-block;

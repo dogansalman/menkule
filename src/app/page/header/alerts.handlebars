@@ -10,7 +10,7 @@
     <ul>
         {{#each alert}}
             <li>
-                <a class='alertmessage-alert-title' bind-data="{{id}}">
+                <a bind-data="{{id}}" class='alertmessage-alert-title'>
                     <div class='alertlist-title'>
                         <div class='alertlist-icon'><i class='fa fa-bell'></i></div>
                         {{title}} <span class='alertlist-date'>{{date created_date "D MMMM YYYY, dddd"}} </span>

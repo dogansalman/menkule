@@ -6,7 +6,6 @@ import Confirm from '../../modal/confirm';
 import appMessages from '../../../lib/appMessages';
 import policy from '../user/policy/policy.handlebars';
 
-let notifications = [];
 
 export default (isOpen) => Menkule.user(true)
   .then(user => $("body").zone('header').setContentAsync(template({ user, isOpen: isOpen || false }))
@@ -29,59 +28,36 @@ export default (isOpen) => Menkule.user(true)
       Menkule.on('new.notification', (notification) => {
             App.promise(() => user.notifications.push(notification))
                 .then(() => App.promise(() => user.notification_size = +1))
-                .then(() => $("body").zone('alert').setContentAsync( alerts({alert: user.notifications})))
+                .then(() => Menkule.emit('render.notification', user.notifications));
         });
 
-      //On change notification
-      Menkule.on('change.notification', () => {
-        App.promise(() => App.promise(() => user.alert_count = user.notifications.length))
-          .then(() => App.renderTemplate(header.find('#alert-template').html(), {
-            alert: user.notifications
-          }))
-          .then((msg_temp) => $("body").zone('alert').setContentAsync(msg_temp))
-          .then(() => {
-            //On clicked notification
-            header.find('.alertmessage-alert-title').on('click', (e) => {
-              e.preventDefault();
-              if ($(e.target).closest('.alertmessage-alert-title')) {
-                Menkule.post("/alert/read", {
-                  id: $(e.target).closest('.alertmessage-alert-title').attr('bind-data')
-                }).
-                then(() => App.promise(() => $(e.target).closest('li').fadeOut(500, function() {
-                  $(e.target).closest('li').remove()
-                })))
-                  .then(() => App.promise(() => user.notifications.splice(user.notifications.findIndex(i => i.id == $(e.target).closest('.alertmessage-alert-title').attr('bind-data')), 1)))
-                  .then(() => App.wait(1000))
-                  .then(() => App.promise(() => Menkule.emit('change.notification')))
-              }
+      // Render notifications
+      Menkule.on('render.notification', (notifications) => {
+        $("body").zone('alert').setContentAsync( alerts({alert: notifications}))
+            .then((notify_template) => {
+                notify_template.find('.alertmessage-alert-title').on('click', (e) => {
+                    e.preventDefault();
+                    if ($(e.target).closest('.alertmessage-alert-title')) {
+                        const notification_id = $(e.target).closest('.alertmessage-alert-title').attr('bind-data');
+                        if(notification_id) {
+                            Menkule.put("/notifications/" + notification_id)
+                                .then(() => {
+                                    const notify = user.notifications.find(n => n.id == notification_id);
+                                    if(notify) App.navigate(notify.rezervation_id ? '/user/rezervation/' + notify.rezervation_id : 'user/alerts');
+                                })
+                        }
+                    }
+                })
             })
-          })
-          .then(() => header.find('.alertlists').addClass('open'))
-      });
+    });
 
       // Notifications
       Menkule.get('/notifications/last/10').do(n => Object.assign(user, {notifications: n}))
-          .then((notifications) => $("body").zone('alert').setContentAsync( alerts({alert: notifications})));
+          .then((notifications) => Menkule.emit('render.notification', notifications));
 
      // Messages
       Menkule.get('/message/last/10').do(m => Object.assign(user, {messages: m}))
           .then((message) => $("body").zone('messages').setContentAsync( messages({message: message})))
-
-      //On clicked notification
-      header.find('.alertmessage-alert-title').on('click', (e) => {
-        e.preventDefault();
-        if ($(e.target).closest('.alertmessage-alert-title')) {
-          Menkule.post("/alert/read", {
-            id: $(e.target).closest('.alertmessage-alert-title').attr('bind-data')
-          }).
-          then(() => App.promise(() => $(e.target).closest('li').fadeOut(500, function() {
-            $(e.target).closest('li').remove()
-          })))
-            .then(() => App.promise(() => user.notifications.splice(user.notifications.findIndex(i => i.id == $(e.target).closest('.alertmessage-alert-title').attr('bind-data')), 1)))
-            .then(() => App.wait(1000))
-            .then(() => App.promise(() => Menkule.emit('change.notification')))
-        }
-      })
 
       //On clicked alert button
       header.find('.newalert-alert-btn').click(e => {

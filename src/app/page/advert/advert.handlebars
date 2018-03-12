@@ -22,8 +22,8 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-8 disable_padding">
-                        <h2 class="advert_title moffset2"><strong>#{{id}}</strong> {{advert.title}}</h2>
-                        <div class="col-xs-6 col-sm-6 col-md-12 disable_padding">
+                        <h2 class="advert_title moffset2">{{advert.title}}</h2>
+                        <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">
                             <span class="advert_location_detail">{{city.name}} / {{town.name}}</span>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-12 disable_padding">
@@ -39,6 +39,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-xs-12 col-sm-12 col-md-7 text-right">
                 <div class="col-xs-12">
                     <div class="col-xs-6 col-sm-6 col-md-3 details_logo">
@@ -60,7 +61,8 @@
                 </div>
                 <div class="hidden-xs col-sm-12 col-md-12 small_desc moffset2 text-left">
                     <p>
-                        İlan <b> <span class="advertdate">{{date advert.created_date "D MMMM YYYY, dddd"}}</span> </b> <b class="profilenamedesc">{{user.fullname}}</b> tarafından  yayınlanmıştır. İlan sahibi <span class="registerdate"> {{date user.created_date "D MMMM YYYY, dddd"}} </span>  tarihinden beri menkule.com.tr üyesidir. İlan detaylarını aşağıda bulabilirsiniz.  İlanın yanıltıcı olduğunu düşünüyorsanız lütfen bize bildiriniz.
+                        Bu ilan <b> <span class="advertdate">{{date advert.created_date "D MMMM YYYY, dddd"}}</span> </b> tarihinde <b class="profilenamedesc">{{user.fullname}}</b>
+                        tarafından  yayınlanmıştır. İlan detayları için sayfayı inceleyiniz.   İlanın yanıltıcı olduğunu düşünüyorsanız lütfen bize <a class="feedback-btn link">geri bildirin.</a>
                     </p>
                 </div>
             </div>
@@ -154,23 +156,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12">
+            <div class="col-xs-12 detaildesc">
                 <h2 class="detail_content_title bottomset2 moffset2">Açıklama</h2>
-                <p class="detaildesc">{{{advert.description}}}</p>
+                {{{advert.description}}}
             </div>
         </div>
         <!-- ADVERT DESC END-->
-
         <div style="clear: both"></div>
     </div>
-
     <!-- ADVERT LOCATİON START-->
     <div id="location" class="col-xs-12 map">
         <div id="map" style="width: 100%; height: 400px;"></div>
     </div>
     <!-- ADVERT LOCATİON END-->
-
-
     <div class="container">
         <!-- ADVERT OWNER DETAIL START-->
         <div id="advert_user" class="col-xs-12 col-sm-12 col-md-2 hidden-xs hidden-sm advert_owner_container text-center moffset4">
@@ -182,14 +180,12 @@
                 {{#if user.state}}
                     <a href="javascript:void(0);" class="activeaccount"><i class="fa fa-check"></i> Onaylanmış Kimlik</a>
                 {{/if}}
-        {{#isLogin}}
-            <a href="#" class="default_btn moffset3 fullwidth feedback-btn">Geri Bildirim</a>
-        {{/isLogin}}
-        </div>
+                <p class="advert-no moffset2">İlan Numarası: #{{advert.id}}</p>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-10 advert_owner_desc moffset3">
             <h2>İlan Sahibi Hakkında</h2>
-            <p>İlan sahibi <b> {{date user.created_date "D MMMM YYYY, dddd"}}  </b> tarihinde menkule.com.tr üye olmuştur.  menkule.com.tr da yayinlanmış  <b class="profilenamedesc" style="text-transform: uppercase">{{user.fullname}} </b>'ın üyeliği aktif ve onaylanmış profildir. </p>
+            <p>İlan sahibi <b> {{date user.created_date "D MMMM YYYY, dddd"}}  </b> tarihiden itibaren menkule.com.tr üyesidir.  menkule.com.tr da yayinlanmış  <b class="profilenamedesc" style="text-transform: uppercase">{{user.fullname}} </b>'ın üyeliği aktif ve onaylanmış profildir. </p>
             {{#isLogin}} <button class="default_btn message-btn moffset2">Mesaj Gönder</button>{{/isLogin}}
             {{#notLogged}}
 

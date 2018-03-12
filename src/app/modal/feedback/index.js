@@ -10,7 +10,7 @@ const feedbackFormRules = {
 
 export default(params) => {
   return new Promise((resolve) => {
-    modal({template: feedback, title: 'Gerş bildirim', width: 450})
+    modal({template: feedback, title: 'Geri bildirim', width: 450})
       .then((template) => {
       //get opened modal
       const openedModal = template.parents('.modal');

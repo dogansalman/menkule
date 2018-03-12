@@ -30,6 +30,12 @@ export default [
         backUrl: '/'
     },
     {
+        route: '/user/advert',
+        method: () => Menkule.isActive(),
+        condition: false,
+        backUrl: '/user/activate'
+    },
+    {
         route: '/user/alerts',
         method: () => Menkule.isLogged(),
         condition: false,
