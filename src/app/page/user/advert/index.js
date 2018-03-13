@@ -44,7 +44,7 @@ var advertRules = {
   },
   'description': function(value) {
       //add required class has not valid
-      if(value.clearHtml().length === 0) {
+      if(value.clearHtml().length === 0 || value.length > 5000) {
           document.getElementsByClassName("description")[0].classList.add("required");
           return false;
       }
