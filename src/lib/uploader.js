@@ -1,17 +1,18 @@
 import Confirm from '../app/modal/confirm';
 
-const uploader2 = new uploader();
+    const uploader2 = new uploader();
 
-//Images List
+    //Images List
     var imageList = [];
     //Uploader
     var container = null;
 
     //image limit
-    var maxImage = 20;
+    var maxImage = 10;
 
     var default_icon = $('<a href="#" class="default-img"></a>');
     var emptyMessage = $('<div class="empty-message"><p>Fotoğraflar</p></div>');
+    var uploaderPhotosContainer = $('<div class="uploader-photos"></div>');
     var loader = $('<div class="uploading loading-process"><p></p></div>');
 
 
@@ -27,7 +28,6 @@ const uploader2 = new uploader();
         }).length == 0) Object.assign(imageList[0], {'is_default': true});
       return imageList;
     }
-
 
     ///////////////Private Functions
     function changeDefault(id){
@@ -79,18 +79,21 @@ const uploader2 = new uploader();
     }
 
 
-
     //Render Images
     function renderImages()
     {
         $(getContainer()).find('div').remove();
+        $(getContainer()).find('.uploader-btn').before($(uploaderPhotosContainer));
+
         if ( uploader2.getImages() == null || uploader2.getImages().length == 0 ) {
             $(getContainer()).append($(emptyMessage));
         }
         $.each(uploader2.getImages(), function (index, data) {
-            $(getContainer()).append($(createImage(data)));
+            $(uploaderPhotosContainer).append($(createImage(data)));
         });
         renderCounter();
+
+
     }
     // Render Images Counter
     function renderCounter()
@@ -101,6 +104,11 @@ const uploader2 = new uploader();
         if(images) imageCount = uploader2.getImages().filter(i => !i.deleted).length;
         var photoCounter = $('<div class="counter"><p>' + imageCount + '/' + maxImage + '</p></div>');
         $(getContainer()).append($(photoCounter));
+
+        // Uploader Button Hide
+        imageCount == maxImage ? $(getContainer()).find('.uploader-btn').addClass('hide') : $(getContainer()).find('.uploader-btn').removeClass('hide');
+
+
     }
     //Check Image
     function checkImage(image) {
@@ -140,7 +148,6 @@ const uploader2 = new uploader();
                 renderImages();
                 $("#uploader").val('');
             })
-            //.then(() => hideLoader())
             .catch((err) => {
                 $("#uploader").val('');
                 hideLoader()
@@ -206,7 +213,6 @@ const uploader2 = new uploader();
         return uploader;
     }
 
-
     //Set Uploader
     function setContainer(containerElm) {
       container = containerElm;
@@ -220,20 +226,12 @@ const uploader2 = new uploader();
     function setImages(images) {
       Object.assign(imageList,images)
     };
-    //Set Image Collection
-    function setImageCollection (images) {
-      imageList = images;
-    };
+
     //Add Images
     function appendFile(image) {
       imageList.push(Object.assign(image, {'is_new':true}));
     };
-    //add empty message
-    function setEmptyMessage () {
-      if (uploader2.getImages().length == 0) {
-        $(getContainer()).append($(emptyMessage));
-      }
-    };
+
     //find and remove image
     function findAndRemove(property, value) {
       var array = uploader2.getImages();
@@ -247,7 +245,6 @@ const uploader2 = new uploader();
       });
         renderCounter();
     }
-
     //extend return value
     var _valFn = $.fn.val;
     $.fn.val = function () {
@@ -262,6 +259,7 @@ const uploader2 = new uploader();
             setContainer($(this));
 
             //create uploader
+            $(this).append($(uploaderPhotosContainer));
             $(this).append($(emptyMessage));
             $(this).append($(FileManager()));
             $(this).append($(uploaderButton()));
@@ -285,9 +283,6 @@ const uploader2 = new uploader();
         });
 
     };
-
-
-
 
     export default new uploader;
 

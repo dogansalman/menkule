@@ -131,6 +131,9 @@ textarea {
 .inline {
   display: inline-block !important;
 }
+.hide{
+  display:none !important;
+}
 .breakword {
   word-wrap: break-word;
   -ms-word-wrap: break-word;
@@ -2151,7 +2154,7 @@ newmessage-all:focus,
     transition: all .2s ease-in-out;
     display: inline-block!important;
     color: #666!important;
-    padding: 5px 0px 0px 10px !important;
+    padding: 5px 0px 5px 0px !important;
     vertical-align: inherit!important;
     width: 100%;
     border-bottom: 1px solid #f1f1f1;

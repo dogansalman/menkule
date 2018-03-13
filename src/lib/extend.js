@@ -275,7 +275,9 @@ Promise.prototype.do = function (callable) {
 Promise.prototype.if = function (query, promiseFunc) {
   if (!query) return this;
   return new Promise((resolve, reject) => {
-    promiseFunc().then(result => this).then(result => resolve(result)).catch(err => reject(err));
+      if(promiseFunc instanceof Promise) promiseFunc().then(result => this).then(result => resolve(result)).catch(err => reject(err));
+      else
+          promiseFunc();
   });
 };
 // Custom Objects

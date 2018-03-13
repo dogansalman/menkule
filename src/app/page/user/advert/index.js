@@ -164,10 +164,11 @@ export default (params) => {
            */
         template.find("button.search-cordi-btn").on('click', (e) => {
           App.showPreloader(.7)
-            .then((latlng) => Gmap.getMyLocation())
+            .then(() => Gmap.getMyLocation())
             .then((latlng) => {
               Gmap.getCityName(latlng.latitude, latlng.longitude)
                 .then((cities) => App.promise(() => {
+                    console.log(latlng);
                   App.promise(() => template.find(".cities").val(template.find(".cities option").filter(function() {
                     return $(this).html().toLowerCase() == cities.city.toLowerCase();
                   }).val()))
@@ -177,11 +178,11 @@ export default (params) => {
                       return $(this).html().toLowerCase() == cities.town.toLowerCase();
                     }).val()))
                     .then(() => App.promise(() => template.find(".towns").trigger("change", new Event('change'))))
+                    .then(() => App.promise(() => template.find("#map").clearMarkers()))
+                    .then(() => App.promise(() => template.find('#map').addMarker({lat: latlng.latitude,lng: latlng.longitude})))
+                    .then(() => App.promise(() => template.find("#map").centerTo({lat: latlng.latitude,lng: latlng.longitude})))
+                    .then(() => App.promise(() => template.find("#map").zoom(16)))
                 }))
-                .then(() => App.promise(() => template.find("#map").clearMarkers()))
-                .then(() => App.promise(() => template.find('#map').addMarker({lat: latlng.latitude,lng: latlng.longitude})))
-                .then(() => App.promise(() => template.find("#map").panToMarker(template.find("#map").getMarkers()[0])))
-                .then(() => App.promise(() => template.find("#map").zoom(16)))
                 .then(() => App.hidePreloader())
             })
             .catch((err) => {

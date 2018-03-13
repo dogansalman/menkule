@@ -207,12 +207,20 @@ export default (params) => {
                     });
                 });
 
+
                 /* Add new visitor */
                 template.find('.add-visitor').on('click', (e) => {
-                    Visitor()
-                        .then((visitor) => addVisitor(Object.assign(visitor, { 'is_visitor': true })))
-                        .then(() => renderVisitor())
+                   //if(advert.properties.visitor == (visitors.length +1)) App.notifyDanger('Bu ilan için en fazla ' + advert.properties.visitor + ' misafir kabul edilebilmektedir.','').then(() => return);
+                   App.promise(() => advert.properties.visitor)
+                   .if((advert.properties.visitor == (visitors.length +1)), () => {
+                       App.notifyDanger('Bu ilan için en fazla ' + advert.properties.visitor + ' misafir kabul edilebilmektedir.','');
+                   }).do(() => {
+                       Visitor()
+                           .then((visitor) => addVisitor(Object.assign(visitor, { 'is_visitor': true })))
+                           .then(() => renderVisitor())
+                   })
                 });
+
 
                 /* Login */
                 template.find('.login-btn').click(e => {
@@ -243,7 +251,7 @@ export default (params) => {
                                     .then(() => modal.modal('hide'))
                                     .catch(e => {
                                         modal.modal('hide');
-                                        App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, 'Üzgünüz'))
+                                        App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, ''))
                                     })
                             }
 
@@ -281,14 +289,14 @@ export default (params) => {
                                     .then(() => modal.modal('hide'))
                                     .catch((e) => {
                                         modal.modal('hide');
-                                        App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, 'Üzgünüz'))
+                                        App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, ''))
                                     });
                             }
 
                         })
                         .catch((e) => {
                             if(modal) modal.modal('hide');
-                            App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, 'Üzgünüz'))
+                            App.hidePreloader().then(() => App.parseJSON(e.responseText)).then(o => App.notifyDanger(o.Message, ''))
                         });
                 })
             })
