@@ -30,11 +30,10 @@ export default () => Header(false)
     Inıt geocomplates
      */
     template.find('.searchcity')
-      .geocomplete({  country: ['tr'],types: ['(cities)']})
+      .geocomplete({  country: ['tr'], type: ['cities', 'locality', 'political', 'geocode']})
       .bind("geocode:result", function(event, result) {
           Gmap.getLocationViewport(result.name).then((locationDetail) => { location = Object.assign(locationDetail,{'name':result.name})});
       });
-
     //Is real mobile device
       App.isMobileDevice()
           .then((ismobile) => {
@@ -51,8 +50,8 @@ export default () => Header(false)
           });
 
     template.find('.searchcity-xs')
-      .geocomplete({  country: ['tr'],types: ['(cities)']})
-      .bind("geocode:result", function(event, result) {
+        .geocomplete({  country: ['tr'], type: ['cities', 'locality', 'political', 'geocode']})
+        .bind("geocode:result", function(event, result) {
           Gmap.getLocationViewport(result.name).then((locationDetail) => { location = Object.assign(locationDetail,{'name':result.name})});
       });
 

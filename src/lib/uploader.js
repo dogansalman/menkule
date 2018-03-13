@@ -8,7 +8,7 @@ import Confirm from '../app/modal/confirm';
     var container = null;
 
     //image limit
-    var maxImage = 10;
+    var maxImage = 20;
 
     var default_icon = $('<a href="#" class="default-img"></a>');
     var emptyMessage = $('<div class="empty-message"><p>Fotoğraflar</p></div>');

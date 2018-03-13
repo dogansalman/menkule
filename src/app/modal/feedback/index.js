@@ -10,7 +10,7 @@ const feedbackFormRules = {
 
 export default(params) => {
   return new Promise((resolve) => {
-    modal({template: feedback, title: 'Geri bildirim', width: 450})
+    modal({template: feedback, title: 'Geri bildirim', width: 450, data: Menkule.getUser()})
       .then((template) => {
       //get opened modal
       const openedModal = template.parents('.modal');
@@ -33,15 +33,14 @@ export default(params) => {
                 .then(() => App.promise(() => openedModal.modal('hide')))
                 .then(() => App.notifySuccess('Geri bildiriminiz iletilmiştir.', 'Teşekkürler.'))
                 .catch(err => {
-                  // If Validate Error
-                  if (err instanceof ValidateError) {
-                    template.hidePreloader()
-                      .then(() => { $(e.target).enable()});
-                  }
-                  // If dont send message
-                  template.hidePreloader()
-                    .then(() =>  template.zone('notification').setContentAsync(appMessage('feedback_failed')))
-                    .then(() => $(e.target).enable());
+                    template.hidePreloader().then(() => {
+                        $(e.target).enable();
+                        // If Validate Error
+                        if (err instanceof ValidateError) {
+                            return ($(err.fields[0]).select());
+                        }
+                        App.hidePreloader().then(() => App.parseJSON(err.responseText)).then(o => App.notifyDanger(o.Message, ''))
+                    });
                 })
             })
         });

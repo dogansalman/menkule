@@ -4,7 +4,7 @@
         <div class="map-advertphoto">
             <img class="photoadvert" src="{{#image images.image.url 250 200 }} {{/image}}"/>
         </div>
-        <div class="col-md-12 map-result-price">{{price}} TL</div>
+        <div class="col-md-12 map-result-price">{{#currency price 2 0 }} {{/currency}} TL</div>
         <div style="display:none;" class="map-result-profilecontainer text-center">
             <img alt="profile-photo" class="map-result-profileimage" src="{{#image user.photo 60 60 }} {{/image}}"/>
             <h2 class="map-result-profilename">{{user.fullname}}</h2>

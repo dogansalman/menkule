@@ -215,10 +215,7 @@ export default (params,  query = location.href) => {
             template.trigger(_e);
 
             template.find('.searchtxt_searchmap')
-                .geocomplete({
-                    country: ['tr'],
-                    types: ['(cities)']
-                })
+                .geocomplete({  country: ['tr'], type: ['cities', 'locality', 'political', 'geocode']})
                 .bind("geocode:result", function(event, result) {
                     Gmap.getLocationViewport(result.name).then((locationDetail) => {
                         return App.promise(function() {
@@ -319,6 +316,9 @@ export default (params,  query = location.href) => {
                             $(e.target).enable().removeClass('btn-loading-ico');
                         })
                     })
+                    .catch((err) => {
+                        App.notifyDanger('Lütfen tekrar deneyin','').then(() => $(e.target).enable().removeClass('btn-loading-ico'));
+                    })
             })
 
            /*
@@ -358,7 +358,7 @@ export default (params,  query = location.href) => {
                     /*
                     Go detail
                      */
-                    infowin.find('.advert-info-window').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-detail-map').attr('id') + _query.stringfiy()));
+                    infowin.find('.advert-info-window').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-detail-map').attr('id') + _query.stringfiy(), true));
                     /*
                     Close
                      */

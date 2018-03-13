@@ -103,11 +103,10 @@
 }
 @media all and (max-width: 768px) {
  .uploader .uploader-btn{
-    height: auto;
     width: 100%;
   }
  .uploader .empty-message p{
-        top: 60%;
+    top: 60%;
   }
 
 }

@@ -971,7 +971,7 @@ Search
   margin: 0px 0px 5px 0px;
 }
 .map-result-price {
-  font-size: 16px;
+  font-size: 15px;
   color: #fff;
   display: block;
   padding: 0;
@@ -981,7 +981,7 @@ Search
   width: 90px;
   text-align: center;
   left: 0px;
-  font-weight: 500;
+  font-weight: 400;
   font-family: 'Roboto', sans-serif;
 }
 .map-advertphoto {
@@ -1174,8 +1174,8 @@ Search
 .advert-marker {
   position: absolute;
   cursor: pointer;
-  width: 50px;
   height: 25px;
+  min-width: 50px;
   padding: 6px;
   color: rgb(255, 255, 255);
   background: rgb(46, 204, 113);

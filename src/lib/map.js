@@ -251,7 +251,7 @@ Gmap.prototype.getCityName = function (latitude, longitude) {
     var cities = {};
     var request = new XMLHttpRequest();
     var method = 'GET';
-    var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true';
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyB1aHTBVGeBLG20XKvpQiwa4MOnn_ZRCCw&latlng=' + latitude + ',' + longitude + '&sensor=true';
     var async = true;
     request.open(method, url, async);
     request.onreadystatechange = function () {
