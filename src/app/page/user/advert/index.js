@@ -199,14 +199,28 @@ export default (params) => {
         //check marker location
         template.find("#map").on('pin.map', function(e) {
           e.preventDefault();
+
           Gmap.getCityName(e.location.lat(), e.location.lng())
-            .then((cities) => {
-              if(template.find(".towns option:selected").text().toLowerCase() == cities.town.toLowerCase()) {
-                $(e.target).clearMarkers();
-                template.find('#map').addMarker({lat: e.location.lat(),lng: e.location.lng()});
-              } else {
-                App.notifyDanger('Seçtiğiniz il/ilçe dışında bir lokasyon tanımlamaya çalıştınız.', 'Üzgünüz');
-              }
+            .then((location) => {
+
+                Gmap.getLocationViewport(location.town).then((locationViewport) => {
+                    console.log(locationViewport);
+
+                    if((e.location.lat() <= locationViewport.viewport.northeast.lat && e.location.lng() <= locationViewport.viewport.northeast.lng) && (e.location.lat() >= locationViewport.viewport.southwest.lat && e.location.lng() >= locationViewport.viewport.southwest.lng ))
+                    {
+                        console.log('içerde');
+                    } else {
+                        console.log('dışlarda');
+                    }
+                });
+
+
+              //if(template.find(".towns option:selected").text().toLowerCase() == cities.town.toLowerCase()) {
+              //  $(e.target).clearMarkers();
+              //  template.find('#map').addMarker({lat: e.location.lat(),lng: e.location.lng()});
+              //} else {
+              //  App.notifyDanger('Seçtiğiniz il/ilçe dışında bir lokasyon tanımlamaya çalıştınız.', 'Üzgünüz');
+             // }
             })
         });
           
@@ -265,10 +279,13 @@ export default (params) => {
         */
         template.formFields('town_id').on("change", (e, a) => {
           if (a && advert) return;
-          var city = template.formFields('city_id')[0].value ? template.formFields('city_id')[0].selectedOptions.item(0).text : "Türkiye";
-          if (city != "Türkiye" && e.target.value) city = city + " " + e.target.selectedOptions.item(0).text;
-          var zoom = (city == "Türkiye") ? 6 : (e.target.value ? 15 : 10);
-          Gmap.getLatLgn(city).then(coords => template.find("#map").centerTo(coords).zoom(zoom));
+            var city = template.formFields('city_id')[0].value ? template.formFields('city_id')[0].selectedOptions.item(0).text : "Türkiye";
+            var town = template.formFields('town_id')[0].value ? template.formFields('town_id')[0].selectedOptions.item(0).text : null;
+
+            if (city != "Türkiye" && e.target.value) city = city + " " + e.target.selectedOptions.item(0).text;
+            var zoom = (city == "Türkiye") ? 6 : (e.target.value ? 15 : 10);
+            if(town && town == 'Merkez')  city = template.formFields('city_id')[0].selectedOptions[0].text;
+            Gmap.getLatLgn(city).then(coords => template.find("#map").centerTo(coords).zoom(zoom));
         });
 
         /*
