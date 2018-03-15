@@ -5,8 +5,10 @@ Properties
  */
 let map = null;
 let markers = [];
+let polygons = null;
 let circles = [];
 let peopleMarker = null;
+
 
 /*
  Map icon
@@ -58,7 +60,7 @@ $.fn.addAdvertToMap = function (location,options) {
     }
   );
   this.MapMarkers().push(advertmarker);
-}
+};
 
 $.fn.AddPeopleMarker = function (location) {
      if (peopleMarker) peopleMarker.setMap(null)
@@ -69,7 +71,56 @@ $.fn.AddPeopleMarker = function (location) {
       peopleMarker:true
     }
   );
-}
+};
+
+$.fn.AddPolygon = function (data) {
+
+  //clear polygon
+   if (polygons) polygons.setMap(null);
+
+   const worldCoord =  [
+        new google.maps.LatLng(85, 180),
+        new google.maps.LatLng(85, 90),
+        new google.maps.LatLng(85, 0),
+        new google.maps.LatLng(85,-90),
+        new google.maps.LatLng(85,-180),
+        new google.maps.LatLng(0,-180),
+        new google.maps.LatLng(-85,-180),
+        new google.maps.LatLng(-85,-90),
+        new google.maps.LatLng(-85,0),
+        new google.maps.LatLng(-85,90),
+        new google.maps.LatLng(-85,180),
+        new google.maps.LatLng(0,180),
+        new google.maps.LatLng(85,180)
+    ];
+
+    // coord parse
+    const coordinates = data.multi_coords ? data.coordinates.map(s => s.map(c => new google.maps.LatLng(c.lat, c.lon))) : [data.coordinates.map(c => new google.maps.LatLng(c.lat, c.lon))];
+
+    // bounds
+    const bounds = new google.maps.LatLngBounds();
+    coordinates.forEach(s => s.forEach(c => bounds.extend(c)));
+
+    // new polygon
+   polygons = new google.maps.Polygon({
+        paths: coordinates.concat([worldCoord]),
+        strokeColor: "#666",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#666",
+        fillOpacity: 0.35
+    });
+    polygons.setMap(this.Map());
+
+    // Sınırları uygula
+    this.Map().fitBounds(bounds);
+
+    if (polygons) this.data("polygon", polygons);
+    return this.data("polygon");
+
+
+};
+
 //get marker locations
 $.fn.getLocationMarker = function () {
   return { 'lat': this.MapMarkers()[0].getPosition().lat(), 'lng': this.MapMarkers()[0].getPosition().lng() };
@@ -79,11 +130,11 @@ $.fn.getLocationMarker = function () {
 $.fn.getMarkers = function() {
   return this.MapMarkers();
 };
+
 //Return map center codinates
 $.fn.getMapCenterCordinate = function() {
   return this.Map().getCenter();
 };
-
 
 //Pan to Marker
 $.fn.panToMarker = function(marker) {
@@ -122,9 +173,13 @@ $.fn.zoom = function (zoom){
   return this;
 };
 
+// Get polygon
+$.fn.getPolygon = function () {
+    return this.data("polygon");
+};
 // Get zoom level
 $.fn.getZoom = function () {
-  return this.Map().getZoom();
+    return this.Map().getZoom();
 };
 
 var _valFn = $.fn.val;
@@ -154,17 +209,6 @@ $.fn.createMap = function(options) {
     marker: true,
     scroll:false
   }, options || {});
-
-  //fix scroll with css
-    /*
-    * Google fixed
-    * */
-  //if(options.scroll) {
-   // $(el).addClass('map-disable');
-   // $(el).parent()
-   //   .click(function() { $(el).addClass('active') })
-   //   .mouseleave(function() { $(el).removeClass('active') });
-  //}
 
   return new Promise((resolve) => {
     var map = new google.maps.Map(el, options);
@@ -220,7 +264,20 @@ $.fn.MapMarkers = function(markers) {
 function Gmap() {
 }
 
-
+Gmap.prototype.getMapCoord = function (id) {
+  return new Promise((resolve,reject) => {
+    const ajaxOptions = {
+      url: 'http://map.menkule.com.tr/' + id.join('/'),
+      method: 'GET'
+    };
+      $.ajax(ajaxOptions)
+          .done(result => resolve(result))
+          .fail(err => {
+              if (err && err.statusText == 'timeout') App.notifyDanger('Üzgünüz istek zaman aşımına uğradı. Lütfen tekrar deneyin.', '');
+              reject(err);
+          });
+  })
+};
 /*
  Get maps location zoom
  */
@@ -242,6 +299,7 @@ Gmap.prototype.getMyLocation = function () {
     });
   })
 };
+
 
 /*
  Get city name with cordinate
