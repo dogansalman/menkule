@@ -42,7 +42,7 @@ export default (params,  query = location.href) => {
              */
             template.find("#map").createMap();
             Gmap.getLatLgn(params.state).then(coords => {
-                template.find("#map").centerTo(coords).zoom(15)
+                template.find("#map").centerTo(coords).zoom(12)
             });
 
             /*
@@ -233,7 +233,7 @@ export default (params,  query = location.href) => {
                             var _e = new $.Event('re.advrt');
                             _e['cordinates'] = cordinate;
                             _e['setcenter'] = true;
-                            _e['zoom'] = 15;
+                            _e['zoom'] = 12;
                             template.trigger(_e);
                         });
                 });
@@ -255,7 +255,7 @@ export default (params,  query = location.href) => {
                                         'name': cities.town
                                     };
                                     _e['setcenter'] = false;
-                                    _e['zoom'] = 15;
+                                    _e['zoom'] = 12;
                                     template.trigger(_e);
                                 })
                             })
