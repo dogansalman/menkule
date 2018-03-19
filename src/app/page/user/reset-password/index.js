@@ -32,6 +32,7 @@ export default (params) => {
                         .then(() => App.hidePreloader())
                         .then(() => App.notifySuccess('Şifreniz güncellendi', ''))
                         .then(() => template.find('.container').setContentAsync(AppMessages('password_changed')))
+                        .then(() => App.Login().then((user) => App.emit('logged.user', user)))
                         .catch((err) => {
                             $(e.target).enable();
                             App.hidePreloader()

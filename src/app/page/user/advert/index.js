@@ -197,18 +197,9 @@ export default (params) => {
         //check marker location
         template.find("#map").on('pin.map', function(e) {
           e.preventDefault();
-            console.log('map pin oldu');
-           // Gmap.getCityName(e.location.lat(), e.location.lng())
-           // .then((location) => {
-              //if(template.find(".towns option:selected").text().toLowerCase() == cities.town.toLowerCase()) {
-              //  $(e.target).clearMarkers();
-              //  template.find('#map').addMarker({lat: e.location.lat(),lng: e.location.lng()});
-              //} else {
-              //  App.notifyDanger('Seçtiğiniz il/ilçe dışında bir lokasyon tanımlamaya çalıştınız.', 'Üzgünüz');
-             // }
-           // })
+            template.find('#map').clearMarkers()
+                .then(() => template.find('#map').addMarker({lat: e.location.lat(),lng: e.location.lng()}));
         });
-          
         /*
         Advert types
          */
@@ -239,23 +230,24 @@ export default (params) => {
 
         template.formFields('city_id')
           .on("change", (e, firstLoad) => {
-
-              // add polygon to map
-              if(e.target.value) {
-                  Gmap.getMapCoord([e.target.value]).then((result) => template.find('#map').AddPolygon(result));
-              }
-
-            if (e.target.value)
-              template.formFields('town_id').disable().applyRemote("refresh", {
-                get: {},
-                urlPar: e.target.value,
-                url: '/cities/' + e.target.value,
-                loadingText: "<option>Lütfen bekleyin</option>"
-              });
-            else
-              template.formFields('town_id').disable().applyRemote("reset", {
-                loadingText: "<option>İl seçiniz</option>"
-              });
+              template.find("#map").clearMarkers()
+                  .then(() => {
+                      // add polygon to map
+                      if(e.target.value) {
+                          Gmap.getMapCoord([e.target.value]).then((result) => template.find('#map').AddPolygon(result));
+                      }
+                      if (e.target.value)
+                          template.formFields('town_id').disable().applyRemote("refresh", {
+                              get: {},
+                              urlPar: e.target.value,
+                              url: '/cities/' + e.target.value,
+                              loadingText: "<option>Lütfen bekleyin</option>"
+                          });
+                      else
+                          template.formFields('town_id').disable().applyRemote("reset", {
+                              loadingText: "<option>İl seçiniz</option>"
+                          });
+                  });
           })
           .on('rendered.template', (e) => $(e.target).trigger("change", e))
           .applyRemote('/cities', {
@@ -270,18 +262,20 @@ export default (params) => {
         Change map on town select
         */
         template.formFields('town_id').on("change", (e, a) => {
-
           if (a && advert) return;
             // add polygon to map
-            const locations_id = [template.formFields('city_id').val()];
-            if(template.formFields('town_id')[0].selectedOptions.item(0).text.trim() != 'Merkez') locations_id.push(e.target.value);
-            if(e.target.value) {
-                Gmap.getMapCoord(locations_id).then((result) => template.find('#map').AddPolygon(result));
-            }
-            var city = template.formFields('city_id')[0].value ? template.formFields('city_id')[0].selectedOptions.item(0).text : "Türkiye";
-            var town = template.formFields('town_id')[0].value ? template.formFields('town_id')[0].selectedOptions.item(0).text : null;
-            if (city != "Türkiye" && e.target.value) city = city + " " + e.target.selectedOptions.item(0).text;
-            if(town && town == 'Merkez')  city = template.formFields('city_id')[0].selectedOptions[0].text;
+            template.find("#map").clearMarkers().then(() => {
+                const locations_id = [template.formFields('city_id').val()];
+                if(template.formFields('town_id')[0].selectedOptions.item(0).text.trim() != 'Merkez') locations_id.push(e.target.value);
+                if(e.target.value) {
+                    Gmap.getMapCoord(locations_id).then((result) => template.find('#map').AddPolygon(result));
+                }
+                var city = template.formFields('city_id')[0].value ? template.formFields('city_id')[0].selectedOptions.item(0).text : "Türkiye";
+                var town = template.formFields('town_id')[0].value ? template.formFields('town_id')[0].selectedOptions.item(0).text : null;
+                if (city != "Türkiye" && e.target.value) city = city + " " + e.target.selectedOptions.item(0).text;
+                if(town && town == 'Merkez')  city = template.formFields('city_id')[0].selectedOptions[0].text;
+            });
+
         });
 
 
