@@ -169,18 +169,17 @@ export default (params) => {
               Gmap.getCityName(latlng.latitude, latlng.longitude)
                 .then((cities) => App.promise(() => {
                   App.promise(() => template.find(".cities").val(template.find(".cities option").filter(function() {
-                    return $(this).html().toLowerCase() == cities.city.toLowerCase();
+                    return $(this).html().toLowerCase().replace('merkez','').trim() == cities.city.toLowerCase().replace('merkez','').trim();
                   }).val()))
                     .then(() => App.promise(() => template.find(".cities").trigger("change", new Event('change'))))
                     .then(() => App.wait(500))
                     .then(() => template.find(".towns").val(template.find(".towns option").filter(function() {
-                      return $(this).html().toLowerCase() == cities.town.toLowerCase();
+                      return $(this).html().toLowerCase().replace('merkez','').trim() == cities.town.toLowerCase().replace('merkez','').trim();
                     }).val()))
                     .then(() => App.promise(() => template.find(".towns").trigger("change", new Event('change'))))
                     .then(() => App.promise(() => template.find("#map").clearMarkers()))
                     .then(() => App.promise(() => template.find('#map').addMarker({lat: latlng.latitude,lng: latlng.longitude})))
                     .then(() => App.promise(() => template.find("#map").centerTo({lat: latlng.latitude,lng: latlng.longitude})))
-                    .then(() => App.promise(() => template.find("#map").zoom(16)))
                 }))
                 .then(() => App.hidePreloader())
             })
@@ -271,22 +270,18 @@ export default (params) => {
         Change map on town select
         */
         template.formFields('town_id').on("change", (e, a) => {
+
           if (a && advert) return;
             // add polygon to map
             const locations_id = [template.formFields('city_id').val()];
             if(template.formFields('town_id')[0].selectedOptions.item(0).text.trim() != 'Merkez') locations_id.push(e.target.value);
-
             if(e.target.value) {
                 Gmap.getMapCoord(locations_id).then((result) => template.find('#map').AddPolygon(result));
             }
-
             var city = template.formFields('city_id')[0].value ? template.formFields('city_id')[0].selectedOptions.item(0).text : "Türkiye";
             var town = template.formFields('town_id')[0].value ? template.formFields('town_id')[0].selectedOptions.item(0).text : null;
-
             if (city != "Türkiye" && e.target.value) city = city + " " + e.target.selectedOptions.item(0).text;
-            var zoom = (city == "Türkiye") ? 6 : (e.target.value ? 15 : 10);
             if(town && town == 'Merkez')  city = template.formFields('city_id')[0].selectedOptions[0].text;
-            Gmap.getLatLgn(city).then(coords => template.find("#map").centerTo(coords).zoom(zoom));
         });
 
 

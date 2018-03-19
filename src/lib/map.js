@@ -316,17 +316,15 @@ Gmap.prototype.getCityName = function (latitude, longitude) {
       if (request.readyState == 4) {
         if (request.status == 200) {
           var data = JSON.parse(request.responseText);
-          for (let i = 0; i < data.results[0].address_components.length; i++) {
-            for (let j = 0; j < data.results[0].address_components[i].types.length; j++) {
-              if (data.results[0].address_components[i].types[j] == "administrative_area_level_2") {
-                Object.assign(cities,{town: data.results[0].address_components[i].long_name.replace("Merkez", "").trim()})
-              }
-              if (data.results[0].address_components[i].types[j] == "administrative_area_level_1") {
-                Object.assign(cities,{city: data.results[0].address_components[i].long_name.replace("Merkez", "").trim()})
-              }
-            }
-          }
-          resolve(cities);
+            data.results.forEach(address => {
+                address.address_components.forEach(address_component => {
+                    address_component.types.forEach(address_types => {
+                        if(address_types == "administrative_area_level_2") Object.assign(cities,{town: address_component.long_name.replace("Merkez", "").trim()});
+                        if(address_types == "administrative_area_level_1")Object.assign(cities,{city: address_component.long_name.replace("Merkez", "").trim()});
+                    })
+                })
+            });
+            resolve(cities);
         }
         else {
           reject(request.status);
