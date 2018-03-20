@@ -307,17 +307,19 @@ export default (params) => {
             });
         })
         .then(() => App.wait(500))
-        .if((advert), () => {
-          // Set center latitude longitude
-          template.find("#map").centerTo({
-            'lat': advert.latitude,
-            'lng': advert.longitude
-          })
-            .zoom(12).addMarker({
-            'lat': advert.latitude,
-            'lng': advert.longitude
-          });
-        }).do(() => {})
+        .do(() => {
+          if(advert) {
+            // Set center latitude longitude
+            template.find("#map").centerTo({
+              'lat': advert.latitude,
+              'lng': advert.longitude
+            })
+              .zoom(12).addMarker({
+              'lat': advert.latitude,
+              'lng': advert.longitude
+            });
+          }
+        })
         .then(() => resolve())
   })
 
