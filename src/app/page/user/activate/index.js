@@ -27,13 +27,13 @@ export default (params) => Header()
                                 .then(() => App.navigate('/'))
                                 .catch((err) => {
                                     App.hidePreloader()
-                                        .then(() => App.notifyDanger('Aktivasyon kodu hatalı. Lütfen tekrar deneyin.', 'Üzgünüz'))
+                                        .then(() => App.notifyDanger('Aktivasyon kodu hatalı. Lütfen tekrar deneyin.', ''))
                                 })
                         })
                 })
                 .catch(err => {
                     if (err instanceof ValidateError) return App.hidePreloader().then(() =>  $(err.fields[0]).select());
-                    App.hidePreloader().then(() => App.notifyDanger('Bir hata oluştu. Tekrar deneyin.', 'Üzgünüz'));
+                    App.hidePreloader().then(() => App.notifyDanger('Bir hata oluştu. Tekrar deneyin.', ''));
                 });
         });
 
@@ -47,7 +47,7 @@ export default (params) => Header()
                         .then(() => template.zone('countdown').countdown(4))
                         .catch((err) => {
                             if (err instanceof ValidateError) return App.hidePreloader().then(() =>  $(err.fields[0]).select());
-                            App.hidePreloader().then(() => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'));
+                            App.hidePreloader().then(() => App.notifyDanger(err.responseJSON.Message, ''));
                         });
                 });
         });

@@ -41,8 +41,7 @@ import appMessages from '../../../lib/appMessages';
                   .then(() => {
                     $(".changepassword-container").formFields().enable();
                     if (err instanceof ValidateError) return template.hidePreloader().then(() => $(err.fields[0]).select());
-                    App.promise(() => appMessages('changepass_fail'))
-                      .then((errorMessage) => template.zone('notification').setContentAsync(errorMessage))
+                      App.notifyDanger(appMessages('changepass_fail'),'')
                   })
               })
           })

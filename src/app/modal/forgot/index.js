@@ -37,8 +37,7 @@ export default () => {
               Hide preloader
              */
               template.hidePreloader()
-                .then(() => App.promise(() => appMessages('forgot_fail')))
-                .then((message) => template.zone('notification').setContentAsync(message))
+                .then(() => App.notifyDanger(appMessages('forgot_fail'), ''))
                 .then(() => template.formFields().enable() && template.formFields().select() && $(e.target).enable());
 
               /*

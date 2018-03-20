@@ -24,7 +24,6 @@ export default (params) => {
                 .then(() => App.promise(() => openedModal.modal('hide')))
                 .then(() => App.notifySuccess('Yorumunuz için teşekkürler.', ''))
                 .catch(err => {
-                    console.log(err);
                   // If Validate Error
                   if (err instanceof ValidateError) {
                     template.hidePreloader()
@@ -32,7 +31,7 @@ export default (params) => {
                   } else{
                       // If dont send message
                       template.hidePreloader()
-                          .then(() => template.zone('notification').setContentAsync(appMessage('comments_failed')))
+                          .then(() => App.notifyDanger(appMessage('comments_failed'),''))
                           .then(() => $(e.target).enable());
                   }
                 })

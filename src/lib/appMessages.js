@@ -6,8 +6,8 @@ export default (key) => {
         'token_fail': "<div class='container' <h2=''><h2>Geçersiz istek. Lütfen tekrar deneyin </h2><p>Her şifre yenileme talebi 2 saat için geçerlidir.</p><p> Eğer hesabınızın erişimi ile ilgili bizimile iletişime geçebilirsiniz.</p> </div>",
         'password_changed': "<div class='col-xs-12 col-sm-12 col-md-12 moffset2 bottomset2'> <h2>Şifreniz Güncellendi !</h2> <p>Şifreniz güncellendi yeni şifrenizi kullanarak hemen oturum açabilirsiniz...</p> </div>",
         'login_fail': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> E-posta adresiniz veya şifreniz hatalı. </div>",
-        'forgot_fail': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> E-posta adresiniz hatalı. Lütfen tekrar deneyin. </div>",
-        'changepass_fail': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Şifreniz hatalı. Lütfen tekrar deneyin. </div>",
+        'forgot_fail': "E-posta adresiniz hatalı. Lütfen tekrar deneyin.",
+        'changepass_fail': "Şifreniz hatalı. Lütfen tekrar deneyin.",
 
         //search
         'advert_error_search': "<div class='container'><div class='col-xs-12 disable_padding'> <h2>Üzgünüz beklenmedik bir hata!</h2> <p>Beklenmedik bir hata yaşandı. Lütfen tekrar deneyin. </p> </div></div>",
@@ -31,7 +31,7 @@ export default (key) => {
         'visitor_error': "<div class='container'><div class='col-xs-12 disable_padding'> <p> Yeni misafir kaydı oluşturulamadı. Tekrar deneyin.</p> </div></div>",
         //comments
         'no_comments': "<div class='col-xs-12 disable_padding'> <h2>Henüz bir yorum bulunmamakta!</h2> <p>İlk yorum yapan siz olun!</p> </div>",
-        'comments_failed': "<div class='required_alert' role='alert'> <strong>Üzgünüz !</strong> Yorumunuz iletilemedi. </div>",
+        'comments_failed': "Yorumunuz iletilemedi",
         //rezervations
         'no_rezervation': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Rezevasyon bulunamadı!</h2> <p>Henüz bir rezervasyon kaydınız bulunmamaktadır.</p> </div></div>",
         'rezervation_error': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Bir sorun oluştu!</h2> <p>İlana erişim sağlanılamadı. Bu ilan yayından kaldırılmış olabilir. </p> </div></div>",
