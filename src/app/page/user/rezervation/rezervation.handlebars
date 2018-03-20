@@ -41,15 +41,20 @@
                     {{#if is_cancelable}}
                         <div class="col-xs-12 col-sm-12  disable_padding moffset2">
                             <h2 class="bold textupper">Rezervasyon İptal</h2>
-                            <p> Rezervasyonu check-in tarihinizden  <b>{{rezervation_advert.advert.cancel_time}}</b>  gün veya daha önce iptal edebilirsiniz.
-                </p>
+                            <p> Rezervasyonu check-in tarihinizden  <b>{{rezervation_advert.advert.cancel_time}}</b>  gün veya daha önce iptal edebilirsiniz.</p>
                             <a class="cancelbtn fullwidth" href="javascript:void(0);"><i class="fa fa-exclamation-circle"></i> Rezervasyonu İptal Et! </a>
                         </div>
+                    {{else}}
+                    <div class="col-xs-12 col-sm-12  disable_padding moffset2">
+                        <h2 class="bold textupper">Rezervasyon İptal Süresi Aşıldı</h2>
+                        <p> Bu rezervasyon talebi iptal edilemez.</p>
+                    </div>
                     {{/if}}
-
                 {{/zif}}
             {{/zif}}
         </div>
+
+
         <div  class="col-xs-12 col-sm-12 col-md-9 rezervation-detail-container">
             {{#if advert_owner}}
                 {{#zif updated_date '==' 'false' }}

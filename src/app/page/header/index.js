@@ -43,7 +43,7 @@ export default (isOpen) => Menkule.user(true)
                             Menkule.put("/notifications/" + notification_id)
                                 .then(() => {
                                     const notify = user.notifications.find(n => n.id == notification_id);
-                                    if(notify) App.navigate(notify.rezervation_id ? '/user/rezervation/' + notify.rezervation_id : 'user/alerts');
+                                    if(notify) App.navigate(notify.rezervation_id ? '/user/rezervation/' + notify.rezervation_id : '/user/alerts');
                                 })
                         }
                     }

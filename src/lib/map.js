@@ -267,7 +267,7 @@ function Gmap() {
 Gmap.prototype.getMapCoord = function (id) {
   return new Promise((resolve,reject) => {
     const ajaxOptions = {
-      url: 'http://map.menkule.com.tr/' + id.join('/'),
+      url: 'https://map.menkule.com.tr/' + id.join('/'),
       method: 'GET'
     };
       $.ajax(ajaxOptions)
