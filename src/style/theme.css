@@ -1026,6 +1026,7 @@ Search
   max-height: 60px;
   font-family: 'Roboto', sans-serif;
   color: #666;
+  overflow: hidden;
 }
 .advert-detail-map {
   padding: 0px 10px;
@@ -3179,7 +3180,7 @@ Advert Detail
     .mprice {
         position: absolute;
         bottom: 20%;
-        background: #d9534f;
+        background: #2ecc71;
         width: 90px;
         height: 30px;
         text-align: center;
