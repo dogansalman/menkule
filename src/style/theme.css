@@ -3244,7 +3244,9 @@ Flatpicker Custom Style
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
+    border: 1px solid #f1eded
 }
+
 .flatpickr-calendar{
     -webkit-box-shadow: none;
     -moz-box-shadow: none;

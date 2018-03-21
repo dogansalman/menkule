@@ -408,7 +408,6 @@ Array.prototype._advertFilter = function(filter_option) {
 
     //available date
     if ((filter_option.hasOwnProperty('checkin') && filter_option.hasOwnProperty('checkout')) && advert.available_date.length > 0) {
-        console.log('girdi');
         _.each(advert.available_date, function(available_date, key) {
           if(!datem) {
             var startDate = new Date(moment(available_date.from_date)),
@@ -431,9 +430,7 @@ Array.prototype._advertFilter = function(filter_option) {
       if ((filter_option.hasOwnProperty('checkin') && filter_option.hasOwnProperty('checkout')) && advert.unavaiable_date.length > 0) {
           for (var d = new Date(filter_option.checkin); d <= new Date(filter_option.checkout); d.setDate(d.getDate() + 1)) {
            if(advert.unavaiable_date.filter(uad => uad.day == d.getDate() && uad.month == d.getMonth() +1 && uad.year == d.getFullYear()).length > 0) {
-               console.log('asd');
                 Object.assign(advert, {deleted : true})
-               //return;
            }
           }
       }
