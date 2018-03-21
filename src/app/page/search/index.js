@@ -355,15 +355,17 @@ export default (params,  query = location.href) => {
                 .then((advert) => $(marker.div).appenndContentAsync(infoWindowTemplate(advert)))
                 .then((infowin) => {
                     const _query = new SearchQuery();
+                    delete _query.stringfiy;
                     /*
                     Go detail
                      */
-                    infowin.find('.advert-info-window').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-detail-map').attr('id') + _query.stringfiy(), true));
+                    infowin.find('.advert-info-window').on('click', (e) => App.navigate('/advert/' + $(e.target).closest('.advert-detail-map').attr('id'), _query, true));
                     /*
                     Close
                      */
                     template.find("#map").on('clk.map', (e) => infowin.find('.advert-info-window').remove());
                 })
+
             });
         })
         .catch(err => {

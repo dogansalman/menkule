@@ -13,7 +13,7 @@
         <div class="col-xs-12 disable_padding rezervation-form-container">
             <div class="col-xs-12 col-sm-12 col-md-5 moffset2 borderer">
                 {{#isLogin}}
-                    <div class="col-xs-12 text-center disable_padding">
+                    <div class="col-xs-12 text-center moffset2 disable_padding">
                         <img alt="photo" class="img-responsive photo bottomset2" src="{{#image photo 150 150 }} {{/image}}"/>
                         <span class="activemembericon"></span>
                         <h3 class="inline disable_margin"> <span class="capitalize">{{name}}</span> <span class="uppercase">{{lastname}}</span></h3>
@@ -83,6 +83,14 @@
                 <div class="form-group">
                     <p>Rezervasyon talebiniz ile ilgili varsa notunuzu iletebilirsiniz.</p>
                     <textarea class="form-control" data-form-element="note" rows="5" cols="70" maxlength="255" placeholder="(Maks 255 karakter)"></textarea>
+                </div>
+                <div class="col-xs-12 disable_padding">
+                    {{#if rezervation.cancelable_date}}
+                        <p class="cancelable">Bu rezervasyon talebi en geç {{rezervation.cancelable_date}} tarihin de iptal edilebilir.</p>
+                    {{else}}
+                        <p class="cancelable">Bu rezervasyon talebi en geç iptal edilemez.</p>
+                    {{/if}}
+
                 </div>
                 <div class="col-xs-12 moffset2 disable_padding">
                     <div class="form-group">

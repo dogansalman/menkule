@@ -180,10 +180,15 @@ export default (params) => {
                 days: location.href.getParameterByName('days'),
                 total: location.href.getParameterByName('total')
             }))
+            .do(() => {
+                let cancelable_date = new Date(new Date(rezervation.checkin).setDate(new Date(rezervation.checkin).getDate() - advert.advert.cancel_time));
+                cancelable_date = moment(new Date(moment(cancelable_date)._d)).format('YYYY-MM-DD');
+                let today = moment(new Date()).format('YYYY-MM-DD');
+                if(moment(cancelable_date).diff(moment(today), 'days') > 0) Object.assign(rezervation, {cancelable_date: moment(new Date(moment(cancelable_date)._d)).format('DD/MM/YYYY')});
+            })
             .then(() => $("body").zone('content').setContentAsync(Rezervation(Object.assign(Menkule.getUser() || {}, { advert: advert, rezervation: rezervation }))))
             .do(t => templateRez = t)
             .then((template) => {
-
                 /* Advert detail */
                 template.zone('advert').setContentAsync(Advert( { advert: advert, rezervation: rezervation, visitor: visitors.length })).then((advertDetailTemplate) => {
                     //set global
@@ -207,7 +212,6 @@ export default (params) => {
                     });
                 });
 
-
                 /* Add new visitor */
                 template.find('.add-visitor').on('click', (e) => {
                    //if(advert.properties.visitor == (visitors.length +1)) App.notifyDanger('Bu ilan için en fazla ' + advert.properties.visitor + ' misafir kabul edilebilmektedir.','').then(() => return);
@@ -221,7 +225,6 @@ export default (params) => {
                    })
                 });
 
-
                 /* Login */
                 template.find('.login-btn').click(e => {
                     e.preventDefault();
@@ -230,10 +233,11 @@ export default (params) => {
 
                 /* Rezervation */
                 template.find('.rezervation-btn').on('click', e => {
-
+                    let confirmMessage = AppMessage('rezervation_confirm');
+                    confirmMessage +=  rezervation.cancelable_date ? "<br/><b>Bu rezervasyon en geç " + rezervation.cancelable_date + " tarihin de iptal edilebilir.</b>": "<br/><b>Bu rezervasyon iptal edilemez.</b>";
                    $(".rezervation-form-container").validateFormAsync(rezervationFormRules)
                         .then((u) => App.promise(() => user = u))
-                        .then(() => Confirm({title: AppMessage('rezervation_confirm'), title: AppMessage('rezervation_title')}).do(m => modal = m))
+                        .then(() => Confirm({message: confirmMessage , title: AppMessage('rezervation_title')}).do(m => modal = m))
                         .then(() => App.showPreloader(.8))
                         .then(() => Menkule.user())
                         .then((loggedUser) => App.promise(() => loggedUser ? Object.assign(user, loggedUser) : Object.assign(user, { 'new': true })))

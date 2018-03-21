@@ -9,6 +9,7 @@ const filterFormRules = {
     'visitor': [App.validate.NUMBER],
     'beds': [App.validate.NUMBER],
     'room': [App.validate.NUMBER],
+    'date': [App.validate.REQUIRED],
     'price_type': [App.validate.NUMBER]
 };
 
@@ -64,14 +65,19 @@ export default(filtered_data) => {
                  */
                 flatpickr.localize(flatpickr.l10ns.tr);
                 flatpickr(template.find('.calendar')[0],
-                    {
-                        mode: 'range',
-                        minDate: 'today',
-                        static: true,
-                        dateFormat: 'd/m/Y',
-                        maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
-                        defaultDate: [moment(new Date(filtered_data.checkin).toISOString()).format('DD-MM-YYYY'), moment(new Date(filtered_data.checkout).toISOString()).format('DD-MM-YYYY')]
-                    });
+                {
+                    mode: 'range',
+                    minDate: 'today',
+                    static: true,
+                    dateFormat: 'd/m/Y',
+                    maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
+                    defaultDate: [moment(new Date(filtered_data.checkin).toISOString()).format('DD-MM-YYYY'), moment(new Date(filtered_data.checkout).toISOString()).format('DD-MM-YYYY')],
+                    onChange: (e) => {
+                        if(e.length === 2 && moment(new Date(moment(e[0])._d)).format('DD-MM-YYYY') == moment(new Date(moment(e[1])._d)).format('DD-MM-YYYY')) {
+                            template.find('.calendar')[0].value = "";
+                        }
+                    }
+                });
 
 
                 /*

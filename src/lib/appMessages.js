@@ -36,7 +36,7 @@ export default (key) => {
         'no_rezervation': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Rezevasyon bulunamadı!</h2> <p>Henüz bir rezervasyon kaydınız bulunmamaktadır.</p> </div></div>",
         'rezervation_error': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Bir sorun oluştu!</h2> <p>İlana erişim sağlanılamadı. Bu ilan yayından kaldırılmış olabilir. </p> </div></div>",
         'rezervation_title': 'REZERVASYONU ONAYLIYOR MUSUNUZ ?',
-        'rezervation_confirm': 'Rezervasyon talebini onaylamak istediğiniz emin misiniz ? Onaylanan rezervasyon talebi üzerinde daha sonra değişiklik gerçekleştirilemez.',
+        'rezervation_confirm': 'Rezervasyon talebini onaylamak istediğiniz emin misiniz ? <br/> Onaylanan rezervasyon talebi üzerinde daha sonra değişiklik gerçekleştirilemez.',
         //confirms
         'ownership_title': 'EV SAHİPLİĞİ YAPMAK ÜZERESİNİZ!',
         'ownership_confirm': 'Ev sahipliği ile ile ek kazanç elde edebilir ve kullanmadığınız evinizi odanızı veya yazlığınızı değerlendirebilirsiniz. Ev sahipliği ile üyelik sözleşmesinde ki ev sahipliği şartlarını kabul etmiş olursunuz.',

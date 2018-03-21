@@ -306,7 +306,7 @@ export default (params) => {
                 });
             });
         })
-        .then(() => App.wait(500))
+        .then(() => App.wait(1000))
         .do(() => {
           if(advert) {
             // Set center latitude longitude
@@ -314,7 +314,7 @@ export default (params) => {
               'lat': advert.latitude,
               'lng': advert.longitude
             })
-              .zoom(12).addMarker({
+              .zoom(16).addMarker({
               'lat': advert.latitude,
               'lng': advert.longitude
             });

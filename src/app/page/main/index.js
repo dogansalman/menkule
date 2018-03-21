@@ -11,11 +11,10 @@ let location = null;
 // Validate config
 var searchRules = {
   'state': [App.validate.REQUIRED, App.validate.STRING],
-  'date': function (value) {
-    return (value != null);
-  },
+  'date':  [App.validate.REQUIRED],
   'guest': [App.validate.REQUIRED, App.validate.NUMBER]
 };
+
 
 /**
  * Main page
@@ -66,10 +65,10 @@ export default () => Header(false)
     template.find('button.seachengine_btn').on('click', (e) => {
       e.preventDefault();
       App.isMobile()
-        .then((mobile) => App.promise(() => mobile ? template.find(".search-form-mobile") : template.find(".search-form") )   )
+        .then((mobile) => App.promise(() => mobile ? template.find(".search-form-mobile") : template.find(".search-form")))
         .then((searchForm) => $(searchForm).validateFormAsync(searchRules))
         .then((formData) =>  {
-          App.generateAdvertSearchUrl({
+            App.generateAdvertSearchUrl({
             'checkin': formData.date.split(' - ')[0].trim(),
             'checkout': formData.date.split(' - ')[1].trim(),
             'viewport' : location.viewport,
@@ -77,9 +76,9 @@ export default () => Header(false)
             'name': location.name.turkishToLower()
           })
           .then((searchUrl) => App.navigate(searchUrl.url, searchUrl.query));
-
         });
     });
+
 
     //Initalize Swiper FAQ
       new Swiper('.swiper-container', {
@@ -95,8 +94,13 @@ export default () => Header(false)
        */
       const calendars = template.find('.calendar');
       flatpickr.localize(flatpickr.l10ns.tr);
-      flatpickr(calendars[1],  { mode: 'range', minDate: 'today', dateFormat: 'd/m/Y', maxDate: moment(new Date()).add(1, 'year').format('DD-MM-YYYY') });
-      flatpickr(calendars[0],  { mode: 'range', minDate: 'today', dateFormat: 'd/m/Y', maxDate: moment(new Date()).add(1, 'year').format('DD-MM-YYYY') });
+      flatpickr(calendars[1],  { mode: 'range', minDate: 'today', dateFormat: 'd/m/Y', maxDate: moment(new Date()).add(1, 'year').format('DD-MM-YYYY'), onChange: (e) => {
+          if(e.length === 2 && moment(new Date(moment(e[0])._d)).format('DD-MM-YYYY') == moment(new Date(moment(e[1])._d)).format('DD-MM-YYYY')) calendars[1].value = "";
+      }});
+      flatpickr(calendars[0],  { mode: 'range', minDate: 'today', dateFormat: 'd/m/Y', maxDate: moment(new Date()).add(1, 'year').format('DD-MM-YYYY'), onChange: (e) => {
+          if(e.length === 2 && moment(new Date(moment(e[0])._d)).format('DD-MM-YYYY') == moment(new Date(moment(e[1])._d)).format('DD-MM-YYYY')) calendars[0].value = "";
+      }});
       $('body').addClass('home');
-    resolve();
+      resolve();
   }));
+
