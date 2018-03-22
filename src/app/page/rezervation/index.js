@@ -105,7 +105,7 @@ function getActivationForm(params) {
                         .catch(fields => App.notifyDanger('Bir hata oluştu. Tekrar deneyin.', 'Üzgünüz'));
                 })
                 //re send code
-                template.find('button.resend').on('click', (e) => {
+                template.find('.resend').on('click', (e) => {
                     App.showPreloader()
                         .then(() => {
                             Menkule.get("/users/validate/gsm/send", {})
