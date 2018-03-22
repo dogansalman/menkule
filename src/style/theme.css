@@ -3148,7 +3148,6 @@ Advert Detail
     .details_container .prices {
         background: #fff;
         margin-top: 0px !important;
-        min-height: 150px;
     }
     .open-calendar {
         position: fixed !important;
@@ -4040,6 +4039,8 @@ User Messages
 .message-text p {
   margin: 0px;
   padding: 0px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .message-recipient > div {
     background: #49bafb;
@@ -4098,11 +4099,10 @@ background: #2ecc71;
 color: #fff;
 border-radius: 2px;
 font-size: 12px;
-position: absolute;
-top: 5px;
-right: 30px;
+display:inline-block;
 width: 29px;
 text-align: center;
+margin-right: 5px;
 }
 .sender-fullname {
   display: inline-block;

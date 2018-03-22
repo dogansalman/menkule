@@ -45,7 +45,15 @@ export default (params) => {
 
                                 })
                         })
-                })
+                });
+
+              /*
+             Enter
+              */
+              template.formFields().on('keyup', (e) => {
+                const keyCode = e.which || e.keyCode;
+                if (keyCode == 13) template.find('button.default_btn').triggerHandler('click');
+              });
             })
             .catch(() => {
                 $("body").zone('content').setContentAsync(AppMessages('token_fail'))

@@ -35,7 +35,6 @@ import appMessages from '../../../lib/appMessages';
                 resolve();
               })
               .catch((err) => {
-
                 $(e.target).enable();
                 template.hidePreloader()
                   .then(() => {
@@ -45,6 +44,12 @@ import appMessages from '../../../lib/appMessages';
                   })
               })
           })
+
+          // Enter key
+          template.formFields().on('keyup', (e) => {
+            const keyCode = e.which || e.keyCode;
+            if (keyCode == 13) template.find('.acceptbtn').triggerHandler('click');
+          });
         })
   })
 }

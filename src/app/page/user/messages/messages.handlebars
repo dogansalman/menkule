@@ -10,13 +10,16 @@
                             <span class='message-date'> {{date date "D MMMM YYYY, dddd" }} </span>
                         </div>
                     </div>
-                    <div class='message-text col-xs-10 col-sm-9 col-md-9'>
+                    <div class='message-text col-xs-9 col-sm-9 col-md-9'>
+                        <p>
                             {{#if last_view}} {{else}} <span class="newmessage">yeni</span> {{/if}}
                             <b class="capitalize">{{message.fullname}}:</b> {{message.message}}
-                            <span class='message-time'> {{fromNow message.date}} </span>
+                        </p>
+                        <span class='message-time'> {{fromNow message.date}} </span>
                     </div>
                 </div>
             </a>
+
             <div class="dropdown-container">
                 <a href="#" class="dropdown-btn"></a>
                 <ul class="dropdown">
