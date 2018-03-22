@@ -106,10 +106,12 @@ export default (params) => {
                       if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event reserved'>Rez</span>";
                     },
                     onChange: function(selectedDates, dateStr, instance) {
-
                         if(selectedDates.length == 2 && moment(new Date(selectedDates[1])) != moment(new Date(selectedDates[0]))) {
                             template.zone('total_price').setContentAsync(Price({
-                                total: ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1) * advert.advert.price), day: (moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days') + 1), day_price: advert.advert.price }));
+                                total: ((moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days')) * advert.advert.price),
+                                day: (moment(selectedDates[1]).diff(moment(selectedDates[0]), 'days')),
+                                day_price: advert.advert.price
+                            }));
                         } else {
                             template.zone('total_price').setContentAsync(Price({total: 0,day: 0, day_price: advert.advert.price}))
                         }
@@ -124,6 +126,7 @@ export default (params) => {
                 Rezervation
                  */
                 template.find('.rez-create').on('click', e => {
+
                     App.isMobile()
                         .then((mbl) => {
                             var dateValue = template.find('#calendar').val();
@@ -131,13 +134,22 @@ export default (params) => {
                                 template.find('.rezervation-form').addClass('open');
                                 $('body').addClass("open-calendar");
                             }
-                        })
+                        });
+
+
                     template.find('.rezervation-form').validateFormAsync(rezervationRules)
                         .then((d) =>  {
+
                             var checkin = d.date.split(' - ')[0].trim();
                             var checkout =  d.date.split(' - ')[1].trim();
-                            var days =  moment(checkout).diff(moment(checkin),'days')+1
-                            var total = advert.advert.price * days
+                            var days =  moment(checkout).diff(moment(checkin),'days')
+                            var total = advert.advert.price * days;
+
+                            if(days < advert.advert.min_layover) {
+                                App.notifyDanger('Bu ilan için en az ' + advert.advert.min_layover + ' gün rezervasyon yapabilirsiniz.','');
+                                return;
+                            }
+
                             App.navigate('/rezervation/' + params.id, {'checkin':checkin, 'checkout':checkout, 'days':days, 'total': total});
                         })
                         .catch((e) =>
@@ -146,14 +158,13 @@ export default (params) => {
                                 App.isMobile().then((mbl) => { if(!mbl) App.notifyDanger('Rezervasyon tarihini seçin.', '') })
                             }
                         );
-                })
+                });
 
                 //close calendar btn
                 template.find('.close-calendar').on('click', e => {
                     $('body').removeClass('open-calendar');
                     template.find('.rezervation-form').removeClass('open');
                     document.dispatchEvent(new CustomEvent("onDateChange"))
-
                 });
 
                 /*

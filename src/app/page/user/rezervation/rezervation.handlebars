@@ -31,7 +31,7 @@
                 <span class="rezervation-detial-date-state">Çıkış Saati</span>
             </div>
             <div class="col-xs-12 col-sm-12  disable_padding rezervation-detail-city-container">
-                <span class="rezervation-detail-city">{{rezervation_advert.cities.name}} / {{rezervation_advert.towns.name}}</span>
+                <span class="rezervation-detail-city"></span>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
                 <a href="javascript:void(0);"  class="default_btn fullwidth message moffset2">Mesaj Gönder</a>
@@ -157,9 +157,13 @@
                     {{/if}}
                         <div class="col-xs-12 disable_padding">
                             <h2>Misafirler</h2>
-                            <div class="col-xs-12 disable_padding">
+                            <div class="col-xs-12 disable_padding visitor-list">
                                 {{#each visitors}}
-                                    <span class="capitalize">{{fullname}}</span> <span class="capitalize">({{gender}})</span> - {{tc}}</div></br>
+                                    <div data-index="{{@index}}" class="col-xs-12 visitor">
+                                        <div data-id="" class="col-xs-11 disable_padding">
+                                            <h3> <span class="capitalize">{{fullname}}</span>  <span class="capitalize">({{gender}})</span> - {{tc}}   </h3>
+                                        </div>
+                                    </div>
                                 {{/each}}
                             </div>
                         </div>

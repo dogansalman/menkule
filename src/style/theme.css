@@ -576,6 +576,7 @@ ul.dropdown {
   top: 35px;
   z-index: 2;
   width: 25%;
+  max-width: 150px;
 }
 ul.dropdown li {
   list-style: none;
@@ -2100,6 +2101,7 @@ newmessage-all:focus,
     display: block;
     font-size: 11px;
     padding: 0px 0px 0px 25px;
+    text-align: right;
 }
 .alertlist-date i {
     color: #45b5f4 !important;
@@ -2719,6 +2721,11 @@ Advert Detail
 }
 .rezervation-form{
     border: 10px solid #f9f9f9;
+}
+.rezervation-form .min_layover{
+  padding: 10px !important;
+  color: #ff7675;
+  font-size: 12px;
 }
 .advert-state {
     background: #45b5f4;
@@ -3387,14 +3394,14 @@ Rezervation
 }
 .visitor-infor-form{
 }
-.visitor-infor-form .visitor-list .visitor{
+.visitor-list .visitor{
     background: #ececec;
     color: #7d7d7d;
     padding: 10px;
     margin-top: 5px;
 }
 
-.visitor-infor-form .visitor-list .visitor .remove-visitor > a{
+.visitor-list .visitor .remove-visitor > a{
     background: #56b2e6;
     height: 20px;
     width: 20px;
@@ -3404,11 +3411,11 @@ Rezervation
     padding: 1px 0px 0px 0px;
 }
 
-.visitor-infor-form .visitor-list h3{
+.visitor-list h3{
     margin:0px;
     font-weight: 400;
 }
-.visitor-infor-form .visitor-list h3:before{
+.visitor-list h3:before{
     content: "\f2c0";
     font-family: FontAwesome;
     color: #666;
@@ -3976,6 +3983,7 @@ alert-selected i:focus {
 .alertlisting .title{
   font-size:14px;
   font-weight:300;
+  cursor:pointer;
 }
 .alertlisting .newalert {
   margin-left: 5px;
@@ -4316,6 +4324,10 @@ text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%
+}
+.alertdetailtext > .link {
+  font-size: 12px;
+  padding: 0px 0px 0px 25px;
 }
 .alertlist h5 {
   margin: 0;

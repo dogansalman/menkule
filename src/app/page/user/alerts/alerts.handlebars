@@ -3,11 +3,16 @@
         <div class="alertlist moffset3">
             {{#each alerts}}
                 <div class='col-xs-12 alertlisting'>
-                    <div class='col-xs-12 col-sm-12 col-md-8 disable_padding'>
+                    <div class='col-xs-12 col-sm-12 col-md-12 disable_padding'>
                         <a rel='{{id}}' class='alert-check'><i class='fa fa-check'></i>
                         <span class='title'> {{title}} </span> {{#if state }}<span class='newalert'>yeni</span> {{/if}}
                         </a>
-                        <p class='alertdetailtext'> {{detail}}<span class='alertlist-date'>{{date created_date "D MMMM YYYY, dddd"}} </span>
+                        <p class='alertdetailtext'>
+                            {{detail}}
+                            {{#if rezervation_id}}
+                                <a class="link" href='/user/rezervation/{{rezervation_id}}'>Rezervasyonu Görüntüle</a>
+                            {{/if}}
+                            <span class='alertlist-date'>{{date created_date "D MMMM YYYY, dddd"}} </span>
                         </p>
                     </div>
                     <div class="dropdown-container">
@@ -26,6 +31,5 @@
             <a href="javascript:void(0);" class="default_btn selectall">Tümünü Seç</a>
             <button href="javascript:void(0);" class="default_btn deleteall">Sil</button>
         </div>
-
     </div>
 </div>

@@ -41,8 +41,7 @@ export default () => {
                                     }
                                     // If User not found
                                     template.hidePreloader()
-                                        .then(() => App.promise(() => Messages('login_fail')))
-                                        .then(message => template.zone('notification').setContentAsync(message))
+                                        .then(() => App.notifyDanger(Messages('login_fail')))
                                         .then(() => template.formFields().enable() && $(e.target).enable());
                                 })
                         })
@@ -50,8 +49,7 @@ export default () => {
                 /*
                 Facebook Login
                 * */
-                facebookComponent({template: template.zone('facebook-login')})
-
+                facebookComponent({template: template.zone('facebook-login')});
 
                 /*
                 Enter
