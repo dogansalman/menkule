@@ -94,7 +94,6 @@ function getActivationForm(params) {
                                         .then(() => App.hidePreloader())
                                         .then(() => modal.modal('hide'))
                                         .catch((err) => {
-
                                             // If Validate Error
                                             if (err instanceof ValidateError) {
                                               App.hidePreloader()
@@ -272,7 +271,7 @@ export default (params) => {
                                     .then((usr) => Object.assign(user, usr))
                                     .then(() => App.emit('logged.user', user))
                                     .then(() => getActivationForm(params)
-                                        .then(() => App.hidePreloader()))
+                                    .then(() => App.hidePreloader()))
                                     .then(() => modal.modal('hide'))
                                     .catch(e => {
                                         modal.modal('hide');
@@ -287,7 +286,15 @@ export default (params) => {
                             }
 
                             //If user exist and state is false resend gsm activation code and get activation form
-                            if (user && user.state === false) Menkule.get("/users/validate/gsm/send").then(() => getActivationForm(params)).then(() => App.hidePreloader());
+                            if (user && user.state === false) {
+                                Menkule.get("/users/validate/gsm/send")
+                                    .then(() => getActivationForm(params))
+                                    .then(() => App.hidePreloader()).then(() => modal.modal('hide'))
+                                    .catch((err) => {
+                                        modal.modal('hide');
+                                        App.hidePreloader().then(() => App.notifyDanger(err.responseJSON.Message, ''))
+                                    })
+                            }
 
                             //If user exist and state is true create rezervation
                             if (user && user.state === true) {
@@ -304,7 +311,7 @@ export default (params) => {
                                         'checkout': rezervation.checkout,
                                         'note': user.note
                                     }))
-                                   .then(() => template.zone('rezervation').setContentAsync(Complate({
+                                    .then(() => template.zone('rezervation').setContentAsync(Complate({
                                         advert: advert,
                                         rezervation: rezervation,
                                         visitors: visitors
