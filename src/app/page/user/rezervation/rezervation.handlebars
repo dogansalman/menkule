@@ -1,5 +1,6 @@
 <div class="container ">
     <div class="col-xs-12 disable_padding details_container ">
+
         <div class="col-xs-12 col-sm-12 col-md-3 rezervation-owner-detail">
             <img alt="photo" src='{{#image user_information.photo 150 150 }} {{/image}}' onerror="this.onerror=null;this.src='/theme/img/no-photo.png';" class="rezervation-detail-photo"></img>
             <span class="rezervation-detail-name">{{user_information.fullname}}</span>
@@ -45,10 +46,10 @@
                             <a class="cancelbtn fullwidth" href="javascript:void(0);"><i class="fa fa-exclamation-circle"></i> Rezervasyonu İptal Et! </a>
                         </div>
                     {{else}}
-                    <div class="col-xs-12 col-sm-12  disable_padding moffset2">
-                        <h2 class="bold textupper">Rezervasyon İptal Süresi Aşıldı</h2>
-                        <p> Bu rezervasyon talebi iptal edilemez.</p>
-                    </div>
+                        <div class="col-xs-12 col-sm-12  disable_padding moffset2">
+                            <h2 class="bold textupper">Rezervasyon İptal Süresi Aşıldı</h2>
+                            <p> Bu rezervasyon talebi iptal edilemez.</p>
+                        </div>
                     {{/if}}
                 {{/zif}}
             {{/zif}}
@@ -56,12 +57,12 @@
         <div  class="col-xs-12 col-sm-12 col-md-9 rezervation-detail-container">
             {{#if advert_owner}}
                 {{#zif updated_date '==' 'false' }}
-                <div class="col-xs-12 rezervation-confirm-box">
-                    <p>Rezervasyon hemen onaylamak için <strong>Onayla</strong> seçeneğini kullanabilirsiniz. Unutmayın ! İptal edilen rezervasyon onaylanmamaktadır.</p>
-                    <p>Rezervasyonu talebini onaylıyor musunuz ? </p>
-                    <button class="acceptbtn" href="#">Onayla</button>
-                    <button class="cancelbtn" href="#">İptal</button>
-                </div>
+                    <div class="col-xs-12 rezervation-confirm-box bottomset2">
+                        <p>Rezervasyon hemen onaylamak için <strong>Onayla</strong> seçeneğini kullanabilirsiniz. Unutmayın ! İptal edilen rezervasyon onaylanmamaktadır.</p>
+                        <p>Rezervasyonu talebini onaylıyor musunuz ? </p>
+                        <button class="acceptbtn" href="#">Onayla</button>
+                        <button class="cancelbtn" href="#">İptal</button>
+                    </div>
                 {{/zif}}
             {{/if}}
             <div class="col-xs-12 col-sm-4 col-md-4 rezervation-detail-box">
@@ -150,18 +151,19 @@
                     </div>
                     <div class="col-xs-12 disable_padding moffset2 bottomset2">
                         <h2>Rezervasyon Notu</h2>
-                    {{#if note}}
-                        <p>{{note}}</p>
-                    {{else}}
-                       <p>Rezervasyon notu bulunmamaktadır.</p>
-                    {{/if}}
+                        {{#if note}}
+                            <p>{{note}}</p>
+                        {{else}}
+                            <p>Rezervasyon notu bulunmamaktadır.</p>
+                        {{/if}}
                         <div class="col-xs-12 disable_padding">
                             <h2>Misafirler</h2>
                             <div class="col-xs-12 disable_padding visitor-list">
                                 {{#each visitors}}
-                                    <div data-index="{{@index}}" class="col-xs-12 visitor">
+
+                                    <div data-index="{{getIndex @index}}" class="col-xs-12 visitor">
                                         <div data-id="" class="col-xs-11 disable_padding">
-                                            <h3> <span class="capitalize">{{fullname}}</span>  <span class="capitalize">({{gender}})</span> - {{tc}}   </h3>
+                                            <h3> <span class="capitalize">{{fullname}}</span> <span class="capitalize">({{gender}})</span> - {{tc}}   </h3>
                                         </div>
                                     </div>
                                 {{/each}}
@@ -170,11 +172,13 @@
 
                     </div>
                 </div>
+            </div>
         </div>
     </div>
+
+    <div data-zone="images" class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-images"> </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
+        <div id="map" style="width: 100%; height: 400px;"></div>
+    </div>
+    <div style="clear:both"></div>
 </div>
-<div data-zone="images" class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-images"> </div>
-<div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
-    <div id="map" style="width: 100%; height: 400px;"></div>
-</div>
-<div style="clear:both"></div>

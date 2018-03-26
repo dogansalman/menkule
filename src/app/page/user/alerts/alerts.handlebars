@@ -5,16 +5,18 @@
                 <div class='col-xs-12 alertlisting'>
                     <div class='col-xs-12 col-sm-12 col-md-12 disable_padding'>
                         <a rel='{{id}}' class='alert-check'><i class='fa fa-check'></i>
-                        <span class='title'> {{title}} </span> {{#if state }}<span class='newalert'>yeni</span> {{/if}}
+                            {{#if rezervation_id}}
+                                <a class="link" href='/user/rezervation/{{rezervation_id}}'>{{title}}</a>
+                            {{else}}
+                                {{title}}
+                            {{/if}}
+                         {{#if state }}<span class='newalert'>yeni</span> {{/if}}
                         </a>
                         <p class='alertdetailtext'>
-                            {{detail}}
-                            {{#if rezervation_id}}
-                                <a class="link" href='/user/rezervation/{{rezervation_id}}'>Rezervasyonu Görüntüle</a>
-                            {{/if}}
                             <span class='alertlist-date'>{{date created_date "D MMMM YYYY, dddd"}} </span>
                         </p>
                     </div>
+
                     <div class="dropdown-container">
                         <a class="dropdown-btn"></a>
                         <ul class="dropdown">

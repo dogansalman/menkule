@@ -1236,6 +1236,17 @@ img[src="https://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png"] {
 img[src="https://maps.gstatic.com/mapfiles/transparent.png"] {
   display: none !important;
 }
+ul.confirm-rezervation{
+  padding: 0px;
+  margin:0px;
+}
+ul.confirm-rezervation li {
+  list-style: none;
+  background: #fdfdfd;
+  margin: 5px 0px 0px 0px;
+  padding: 5px;
+  border: 1px solid #f9f9f9;
+}
 
 @media all and (max-width: 768px) {
   .map-container {
@@ -2101,7 +2112,7 @@ newmessage-all:focus,
     display: block;
     font-size: 11px;
     padding: 0px 0px 0px 25px;
-    text-align: right;
+    text-align: left;
 }
 .alertlist-date i {
     color: #45b5f4 !important;
@@ -3542,15 +3553,16 @@ Rezervation Detail
     vertical-align: middle;
     padding: 15px;
     background: #fbfbfb;
-    border: 3px solid #ffffff;
+    border: 1px solid #f1f1f1;
 }
 .rezervation-detail-box {
     min-height: 100px;
-    border: 3px solid #ffffff;
+    border: 1px solid #f1f1f1;
     text-align: center;
     vertical-align: middle;
     padding: 15px 0 0 1px;
     background: #fbfbfb;
+    font-size:12px;
 }
 .rezervation-home-images,
 .rezervation-home-map {
@@ -4471,10 +4483,6 @@ a:hover {
     background: #38d47a !important;
     border-bottom: 5px solid #30b96a;
 }
-.link{
-  cursor: pointer;
-  color:#0FA2F5;
-}
 .default_btn {
   display: inline-block;
   padding: 6px 10px;
@@ -4519,7 +4527,9 @@ a:hover {
     border-bottom: 5px solid #5eb4e6;
 }
 .link{
-  color: #44b5f4;
+  cursor: pointer;
+  color:#0FA2F5;
+  font-size:13px;
   text-decoration: none;
 }
 .link:hover{

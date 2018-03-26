@@ -12,6 +12,19 @@
         <div class="col-xs-12">
             <div class="col-xs-12 detail_content_list form-inline">
                 <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Giriş:</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">
+                        {{rezervation.checkin}}  -  <span style="font-size:11px;">{{advert.advert.entry_time}}</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 property-container disable_padding">
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Çıkış:</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">
+                        {{rezervation.checkout}}  -  <span style="font-size:11px;">{{advert.advert.exit_time}}</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 property-container disable_padding">
                     <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Oda Sayısı</div>
                     <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.properties.room}}</div>
                 </div>
@@ -34,14 +47,6 @@
                 <div class="col-xs-12 property-container disable_padding">
                     <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Yatak Odası:</div>
                     <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.properties.bedroom}}</div>
-                </div>
-                <div class="col-xs-12 property-container disable_padding">
-                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Giriş Saati:</div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.advert.entry_time}}</div>
-                </div>
-                <div class="col-xs-12 property-container disable_padding">
-                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Çıkış Saati:</div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{advert.advert.exit_time}}</div>
                 </div>
             </div>
         </div>
