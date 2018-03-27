@@ -1,5 +1,6 @@
-<p>Bu rezervasyonun günlerini kapsayan rezervasyon talepleri bulunmaktadır.</p>
-<p><b>Rezervasyonu onayladığınızda aşağıdaki talepler iptal edilecektir.</b> Onaylıyorsanız işleme devam ediniz.</p>
+<p>Bu rezervasyonun günlerini kapsayan başka rezervasyon talepleri bulunmaktadır.</p>
+<p>Rezervasyonu onayladığınızda aşağıdaki rezervasyon talepleri iptal edilecektir.</p>
+<h2>İşleme devam etmek istediğinize emin misiniz ?</h2>
 <ul class='confirm-rezervation'>
 {{#each rezervations}}
     <li><a class='link' target="_blank" href='/user/rezervation/{{id}}'>{{date checkin "DD MMMM YYYY, dddd"}}  /  {{date checkout "DD MMMM YYYY, dddd"}}  - {{days}} Gece -  {{#currency total_price 2 0 }} {{/currency}} TL.</a> </li>

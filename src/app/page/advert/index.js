@@ -90,8 +90,15 @@ export default (params) => {
                 /*
                 Inıt Calendar
                  */
-                    const queryDate = new SearchQuery();
-                    const dateDiff = parseInt(moment(queryDate.checkout).diff(moment(queryDate.checkin),'day'));
+                let enabledDates = [];
+                if(advert.available_date.length > 0) {
+                    advert.available_date.forEach(d => {
+                        getDateRange(d.from_date, d.to_date, 'YYYY-MM-DD').forEach(dt => enabledDates.push((dt)));
+                    });
+                }
+
+                const queryDate = new SearchQuery();
+                const dateDiff = parseInt(moment(queryDate.checkout).diff(moment(queryDate.checkin),'day'));
 
                    flatpickr.localize(flatpickr.l10ns.tr);
                    flatpickr(template.find('#calendar')[0], {
@@ -99,12 +106,11 @@ export default (params) => {
                     fullwidth: true,
                     mode: "range",
                     minDate: 'today',
+                    enable:enabledDates,
                     maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
                     disable: advert.unavailable_date.map(t => moment(new Date(moment(t.fulldate)._d)).format('YYYY-MM-DD')),
                     defaultDate: [queryDate.checkin, queryDate.checkout],
-                    onDayCreate: function(dObj, dStr, fp, dayElem) {
-                      if ($(dayElem).hasClass('disabled')) dayElem.innerHTML += "<span class='event reserved'>Rez</span>";
-                    },
+
                     onChange: function(selectedDates, dateStr, instance) {
                         if(selectedDates.length == 2 && moment(new Date(selectedDates[1])) != moment(new Date(selectedDates[0]))) {
                             template.zone('total_price').setContentAsync(Price({
@@ -142,7 +148,7 @@ export default (params) => {
 
                             var checkin = d.date.split(' - ')[0].trim();
                             var checkout =  d.date.split(' - ')[1].trim();
-                            var days =  moment(checkout).diff(moment(checkin),'days')
+                            var days =  moment(checkout).diff(moment(checkin),'days');
                             var total = advert.advert.price * days;
 
                             if(days < advert.advert.min_layover) {

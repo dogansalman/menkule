@@ -1,3 +1,3 @@
 {{#each dates}}
-    <div class="datecontainer">{{date from 'D MMM YYYY'}} - {{date to 'D MMM YYYY'}}<a href="#" data-index="{{@index}}" class="deletedatebtn">X</a></div>
+    <div class="datecontainer">{{date from 'D MMM YYYY'}} - {{date to 'D MMM YYYY'}}<a href="#" data-index="{{getIndex @index}}" class="deletedatebtn">X</a></div>
 {{/each}}

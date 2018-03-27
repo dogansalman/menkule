@@ -1,6 +1,7 @@
 import Header from '../../../page/header';
 import Footer from '../../../page/footer';
-import Rezervation from './rezervation.handlebars';
+import RezervationTemplate from './rezervation.handlebars';
+import Rezervation from '../rezervation';
 import Images from './images.handlebars';
 import Fancybox from  '@fancyapps/fancybox';
 import Message from '../../../modal/message';
@@ -16,7 +17,7 @@ export default (params) => {
             .then(() => Menkule.get('/rezervations/' + params.id))
             .then((rez) => rezervation = rez)
             .then(() => rezervation.updated_date = rezervation.updated_date == null ? false : true)
-            .then(() => $('body').zone('content').setContentAsync(Rezervation(rezervation)))
+            .then(() => $('body').zone('content').setContentAsync(RezervationTemplate(rezervation)))
             .then((template) => {
                 // Message
                 template.find('.message').on('click', function(e) {
@@ -31,16 +32,21 @@ export default (params) => {
                     let modal;
                     e.preventDefault();
                     Confirm({message: AppMessages ('rezervation_approved_confirm'), title: AppMessages('rezervation_approved_title')}).do(m => modal = m)
-                        .then(() => Menkule.get('/rezervations/approve/' + rezervation.id))
-                        .then(() => App.notifySuccess('Rezervasyon onaylandı!',''))
+                        .then(() => Menkule.put('/rezervations/approve/' + rezervation.id))
+                        .then(() => App.notifySuccess('Rezervasyon onaylandı.',''))
                         .then(() => Rezervation(params))
                         .then(() => modal.modal('hide'))
                         .catch((err) => {
+
                             if(err.status === 501) {
+                                App.promise(() => modal.modal('hide'))
+                                    .then(() => Confirm({title: 'Önemli Uyarı', message: rezervationConfirmMessage})).do(m => modal = m)
+                                    .then(() => Menkule.put('/rezervations/force/approve/' + rezervation.id, {rezervations: err.responseJSON}))
+                                    .then(() => modal.modal('hide'))
+                                    .then(() => App.notifySuccess('Rezervasyon onaylandı.'))
+                                    .then(() => Rezervation(params))
+                                    .catch((err) => App.notifyDanger(err.responseJSON.Message || err, '').then(() => modal.modal('hide')))
                                 const rezervationConfirmMessage = ConfirmRezervations({rezervations: err.responseJSON});
-                                    App.promise(() => modal.modal('hide'))
-                                    .then(() => Confirm({title: 'Önemli Uyarı', message: rezervationConfirmMessage}))
-                                    .then(() => console.log('send'))
                             } else {
                                 App.notifyDanger(err.responseJSON.Message, '')
                                     .then(() => modal.modal('hide'))
@@ -86,6 +92,7 @@ export default (params) => {
             .catch(err => console.log(err))
     })
 }
+
 
 
 

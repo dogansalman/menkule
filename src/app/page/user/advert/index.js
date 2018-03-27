@@ -143,7 +143,6 @@ export default (params) => {
 
           template.formFields('city_id')
               .on("change", (e,a) => {
-                  console.log('1');
                   template.find("#map").clearMarkers();
                   // add polygon to map
                   if(e.target.value) {

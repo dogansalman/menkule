@@ -288,6 +288,23 @@ Promise.prototype.if = function (query, promiseFunc) {
 
   });
 };
+
+window.getDateRange = function getDateRange(startDate, endDate, dateFormat){
+    startDate = moment(startDate);
+    endDate = moment(endDate);
+    var dates = [],
+        end = endDate,
+        diff = endDate.diff(startDate, 'days');
+    if(!startDate.isValid() || !endDate.isValid() || diff <= 0) {
+        return;
+    }
+    for(var i = 0; i < diff; i++) {
+        dates.push(end.subtract(1,'d').format(dateFormat));
+    }
+
+    return dates;
+};
+
 // Custom Objects
 window.DateRange = function DateRange(from, to) {
   this.from = from;
