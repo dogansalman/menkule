@@ -3323,9 +3323,11 @@ Flatpicker Custom Style
 }
 
 .event.unavailable {
-    background: #f5f5f5;
-    color: #666;
-    font-size: 11px;
+  background: #f5f5f5;
+  color: #bdbdbd;
+  font-size: 11px;
+  border-radius: 50%;
+
 }
 /*
 Rezervation
