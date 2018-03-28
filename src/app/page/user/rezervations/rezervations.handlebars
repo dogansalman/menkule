@@ -1,28 +1,15 @@
 <div class="container">
-    {{#each rezervations}}
-        <div class="list col-xs-12">
-            <a href='/user/rezervation/{{rezervation.id}}'>
-                <div class='col-xs-3 col-sm-2 col-md-1 photo'> <img alt='photo' src='{{#image advert.photo 150 150 }} {{/image}}' /> </div>
-            </a>
-            <div class='col-xs-9 col-sm-10 col-md-11 detail'>
-                <a href='/user/rezervation/{{rezervation.id}}'>
-                    <div class='col-xs-12 col-sm-12 col-md-12 text'>
-
-                        <h2 class='title'>
-                            {{#if rezervation.state}}
-                                <div class="rezervation-state approved"></div>
-                            {{/if}}
-                            {{#if rezervation.is_cancel}}
-                                <div class="rezervation-state cancel"></div>
-                            {{/if}}
-                            {{advert.title}}
-                        </h2>
-                        <span class="block moffset1"><b>Tutar: {{#currency rezervation.total_price 2 0 }} {{/currency}} TL </b></span>
-                        <span class="block moffset1">{{date rezervation.checkin "DD-MM-YYYY" }} / {{date rezervation.checkout "DD-MM-YYYY" }} {{rezervation.days}} Gece</span>
-                    </div>
-
-                </a>
-            </div>
+    <div class="advert-selected list col-xs-12 disable_padding">
+        <div class="col-xs-12 disable_padding" id="advert-selected" data-zone="advert-selected">
+            <p style="padding:10px;">Tüm Rezervasyon Talepleri</p>
         </div>
-    {{/each}}
+        <div style="clear:both"></div>
+        <div id="advert-list" class="col-xs-12 advert-selectlist" data-zone="advert-list"></div>
+        <div style="clear:both"></div>
+    </div>
+
+    <div class="col-xs-12 disable_padding" data-zone="rezervation-list">
+
+    </div>
+
 </div>

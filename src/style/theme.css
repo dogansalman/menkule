@@ -2331,7 +2331,39 @@ newalerts-all:focus,
     font-size: 16px;
     color: #fff
 }
+.rezervation-tabs{
 
+}
+.rezervation-tabs div:hover {
+  background: #ececec;
+}
+.rezervation-tabs div {
+  display: inline-block;
+  border: 1px solid #efebeb;
+  padding: 5px;
+  font-size: 14px;
+  background: #f9f9f9;
+  cursor: pointer;
+}
+.rezervation-tabs div > span{
+  background: #e4e4e4;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: inline-block;
+  font-size: 12px;
+  padding: 1px;
+  text-align: center;
+}
+.rezervation-tabs div.approved{
+
+}
+.rezervation-tabs div.canceled{
+
+}
+.rezervation-tabs div.waiting{
+
+}
 
 @media all and (min-width: 1200px) {
     .headmenu {
@@ -4900,6 +4932,7 @@ a:hover {
   text-overflow: ellipsis;
   overflow: hidden;
   display: block;
+  font-weight: 400;
 }
 .list .location {
   font-size: 12px;

@@ -34,6 +34,7 @@ export default (key) => {
         'comments_failed': "Yorumunuz iletilemedi",
         //rezervations
         'no_rezervation': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Rezevasyon bulunamadı!</h2> <p>Henüz bir rezervasyon kaydınız bulunmamaktadır.</p> </div></div>",
+        'select_advert': "<div class='container'><div class='col-xs-12 disable_padding'><h2>İlan seçin!</h2> <p>Rezervasyonlarını görüntülemek istediğiniz ilanınızı seçin.</p> </div></div>",
         'rezervation_error': "<div class='container'><div class='col-xs-12 disable_padding'><h2>Bir sorun oluştu!</h2> <p>İlana erişim sağlanılamadı. Bu ilan yayından kaldırılmış olabilir. </p> </div></div>",
         'rezervation_title': 'REZERVASYONU ONAYLIYOR MUSUNUZ ?',
         'rezervation_confirm': 'Rezervasyon talebini onaylamak istediğiniz emin misiniz ? <br/> Onaylanan rezervasyon talebi üzerinde daha sonra değişiklik gerçekleştirilemez.',
