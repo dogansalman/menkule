@@ -2739,6 +2739,9 @@ Advert Detail
 .rezervation-form .flatpickr-calendar {
   border:none !important;
 }
+.advert-calendar .flatpickr-calendar{
+  border:none !important;
+}
 .rezervation-form .min_layover{
   padding: 10px !important;
   color: #ff7675;
@@ -3621,7 +3624,9 @@ User Rezervation
 }
 .list .rezervation-state.approved
 {
-    background: #65c3f9;
+  background: #65c3f9;
+  padding: 3px;
+  margin-right: 3px;
 }
 .list .rezervation-state.cancel
 {
@@ -4837,6 +4842,8 @@ a:hover {
   color: #fff;
   border-radius: 50%;
   text-align: center;
+  padding: 2px;
+  margin-right: 5px;
 }
 .advert-active:before {
   font-family: FontAwesome;
@@ -4884,13 +4891,15 @@ a:hover {
   padding: 0px 0px 0px 10px;
 }
 .list .title {
-  color: #666;
   font-size: 14px;
-  font-weight: 300;
-  margin: 0px;
-  padding: 0px;
-  word-wrap: break-word;
-  display: inline;
+  color: #797979;
+  font-family: 'Roboto', sans-serif!important;
+  padding: 0!important;
+  margin: 0 0 5px!important;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
 }
 .list .location {
   font-size: 12px;
