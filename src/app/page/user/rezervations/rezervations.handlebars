@@ -1,15 +1,20 @@
 <div class="container">
-    <div class="advert-selected list col-xs-12 disable_padding">
-        <div class="col-xs-12 disable_padding" id="advert-selected" data-zone="advert-selected">
-            <p style="padding:10px;">Tüm Rezervasyon Talepleri</p>
+    {{#if dropdown}}
+        <div class="advert-selected list col-xs-12 disable_padding">
+            <div id="advert-selected" data-zone="advert-selected">
+                <p class="disable_margin" style="padding: 8px 0px 0px 10px;">Tüm İlanlar</p>
+            </div>
+            <div style="clear:both"></div>
+            <div id="advert-list" class="col-xs-12 advert-selectlist" data-zone="advert-list"></div>
+            <div style="clear:both"></div>
         </div>
-        <div style="clear:both"></div>
-        <div id="advert-list" class="col-xs-12 advert-selectlist" data-zone="advert-list"></div>
-        <div style="clear:both"></div>
+    {{/if}}
+    <div class="col-xs-12 disable_padding" data-zone="tabs"></div>
+    <div class="col-xs-12 disable_padding" data-zone="rezervation-list"></div>
+    <div class="col-xs-12 disable_padding text-right moffset2">
+        <div class="rezervation-state cancel"></div> İptal Edildi
+        <div class="rezervation-state approved"></div> Onaylandı
     </div>
-
-    <div class="col-xs-12 disable_padding" data-zone="rezervation-list">
-
-    </div>
-
 </div>
+
+
