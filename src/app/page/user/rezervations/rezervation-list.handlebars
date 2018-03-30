@@ -10,14 +10,17 @@
         <div class='col-xs-9 col-sm-10 disable_padding col-md-10 detail'>
             <a href='/user/rezervation/{{rezervation.id}}'>
                 <div class='col-xs-12 col-sm-12 col-md-12 text'>
-
-                    <h2 class='title'>
+                    <span class="block moffset1">
                         {{#if rezervation.state}}
                             <div class="rezervation-state approved"></div>
                         {{/if}}
                         {{#if rezervation.is_cancel}}
                             <div class="rezervation-state cancel"></div>
                         {{/if}}
+                        {{date rezervation.checkin "DD-MM-YYYY" }} / {{date rezervation.checkout "DD-MM-YYYY" }} ({{rezervation.days}} Gece)
+                    </span>
+                    <h2 class='title'>
+
                         {{#if ../type_is_out}}
                            {{advert.title}}
                         {{else}}
@@ -26,10 +29,21 @@
 
                     </h2>
                     <span class="block moffset1"><b>Tutar: {{#currency rezervation.total_price 2 0 }} {{/currency}} TL </b></span>
-                    <span class="block moffset1">{{date rezervation.checkin "DD-MM-YYYY" }} / {{date rezervation.checkout "DD-MM-YYYY" }} {{rezervation.days}} Gece</span>
                     <span class="block moffset1">{{visitors.length}} Misafir</span>
                 </div>
             </a>
+            <div class="dropdown-container">
+                <a class="dropdown-btn"></a>
+                <ul class="dropdown">
+                    {{#unless rezervation.state}}
+                        {{#unless rezervation.is_cancel}}
+                            <li><a class="approved-btn" item-data="{{rezervation.id}}"> Onayla</a></li>
+                            <li><a class="cancelled-btn" item-data="{{rezervation.id}}"> İptal Et</a></li>
+                        {{/unless}}
+                    {{/unless}}
+                    <li><a href="/user/rezervation/{{rezervation.id}}"> İncele</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 {{/each}}

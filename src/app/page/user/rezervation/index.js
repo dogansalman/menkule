@@ -39,14 +39,16 @@ export default (params) => {
                         .catch((err) => {
 
                             if(err.status === 501) {
+                                const existRezervation  = Object.assign({}, { rezervations: Array.isArray(err.responseJSON) ? err.responseJSON : [err.responseJSON] });
+                                const rezervationConfirmMessage = ConfirmRezervations(existRezervation);
                                 App.promise(() => modal.modal('hide'))
                                     .then(() => Confirm({title: 'Önemli Uyarı', message: rezervationConfirmMessage})).do(m => modal = m)
-                                    .then(() => Menkule.put('/rezervations/force/approve/' + rezervation.id, {rezervations: err.responseJSON}))
+                                    .then(() => Menkule.put('/rezervations/force/approve/' + rezervation.id, existRezervation))
                                     .then(() => modal.modal('hide'))
                                     .then(() => App.notifySuccess('Rezervasyon onaylandı.'))
                                     .then(() => Rezervation(params))
                                     .catch((err) => App.notifyDanger(err.responseJSON.Message || err, '').then(() => modal.modal('hide')))
-                                const rezervationConfirmMessage = ConfirmRezervations({rezervations: err.responseJSON});
+
                             } else {
                                 App.notifyDanger(err.responseJSON.Message, '')
                                     .then(() => modal.modal('hide'))

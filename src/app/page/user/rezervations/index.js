@@ -2,10 +2,14 @@ import Header from '../../header';
 import Footer from '../../footer';
 import appMessage from '../../../../lib/appMessages';
 import Rezervations from './rezervations.handlebars'
+import _Rezervations from '../rezervations'
 import RezervationList from './rezervation-list.handlebars'
 import advertList from './advert-list.handlebars';
 import Advert from './selected-advert.handlebars';
 import Tabs from './tabs.handlebars';
+import ConfirmRezervations from '../rezervation/confirmRezervation.handlebars';
+import Confirm from "../../../modal/confirm";
+import Rezervation from "../rezervation";
 
 export default (params) => {
     let rezervation = [];
@@ -18,6 +22,58 @@ export default (params) => {
         return new Promise((resolve, reject) => {
             $("body").zone('rezervation-list')
                 .setContentAsync(rez.length > 0 ? RezervationList({rezervations: rez}) : appMessage('no_rezervation'))
+                .then((rezListTemplate) => {
+
+                    rezListTemplate.find(".approved-btn").on("click", (e) => {
+                        const rez_id = $(e.target).attr("item-data");
+                        let modal;
+                        e.preventDefault();
+                        Confirm({message: appMessage ('rezervation_approved_confirm'), title: appMessage('rezervation_approved_title')}).do(m => modal = m)
+                            .then(() => Menkule.put('/rezervations/approve/' + rez_id))
+                            .then(() => App.notifySuccess('Rezervasyon onaylandı.',''))
+                            .then(() => _Rezervations(params))
+                            .then(() => modal.modal('hide'))
+                            .catch((err) => {
+
+                                if(err.status === 501) {
+                                    const existRezervation  = Object.assign({}, { rezervations: Array.isArray(err.responseJSON) ? err.responseJSON : [err.responseJSON] });
+                                    const rezervationConfirmMessage = ConfirmRezervations(existRezervation);
+                                    App.promise(() => modal.modal('hide'))
+                                        .then(() => Confirm({title: 'Önemli Uyarı', message: rezervationConfirmMessage})).do(m => modal = m)
+                                        .then(() => Menkule.put('/rezervations/force/approve/' + rez_id, existRezervation))
+                                        .then(() => modal.modal('hide'))
+                                        .then(() => App.notifySuccess('Rezervasyon onaylandı.'))
+                                        .then(() => _Rezervations(params))
+                                        .catch((err) => App.notifyDanger(err.responseJSON.Message || err, '').then(() => modal.modal('hide')))
+                                } else {
+                                    App.notifyDanger(err.responseJSON.Message, '')
+                                        .then(() => modal.modal('hide'))
+                                }
+                            })
+                    });
+
+                    rezListTemplate.find('.cancelled-btn').on('click', (e) => {
+                        const rez_id = $(e.target).attr('item-data');
+                        let modal;
+                        e.preventDefault();
+                        Confirm({message: appMessage ('rezervation_cancel_confirm'), title: appMessage('rezervation_cancel_title')}).do(m => modal = m)
+                            .then(() => Menkule.get('/rezervations/cancel/' + rez_id))
+                            .then(() => App.notifySuccess('Rezervasyon iptal edildi!',''))
+                            .then(() => _Rezervations(params))
+                            .then(() => modal.modal('hide'))
+                            .catch((err) => {
+                                App.notifyDanger(err.responseJSON.Message, 'Üzgünüz')
+                                    .then(() => modal.modal('hide'))
+                            })
+                    })
+
+                    // open dropdown
+                    rezListTemplate.find('.dropdown-container .dropdown-btn').on('click', (event) => {
+                        rezListTemplate.find('.dropdown-container .open').removeClass('open');
+                        $(event.target).toggleClass('open');
+                        $(event.target.offsetParent).find('.dropdown').toggleClass('open');
+                    });
+                });
                 App.promise(() => {
                     return {
                         approved: rez.filter(r => r.rezervation.is_cancel == false && r.rezervation.state == true).length,
@@ -34,7 +90,8 @@ export default (params) => {
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
-      .then(() => $("body").zone('content').setContentAsync(Rezervations(params.type === 'in' ? { dropdown: true} : { dropdown: false }))).do(t => template = t)
+      .then(() => App.promise(() => params.type === 'in' ? { dropdown: true} : { dropdown: false }))
+      .then((p) => $("body").zone('content').setContentAsync(Rezervations(p))).do(t => template = t)
       .then(() => Menkule.get("/rezervations/" + params.type )).do(r => rezervation = r)
       .then((rezevations) => {
 
@@ -45,6 +102,7 @@ export default (params) => {
 
           // On select advert
           template.zone('advert-selected').on('rendered.template', (e) => {
+
               template.find('#advert-list').toggleClass("advert-selectlist").toggleClass("animated").toggleClass("fadeIn");
               selectedAdvert = _.find(adverts, {'selected': true});
               selectedRezervation = rezervation.filter(r => r.rezervation.advert_id === selectedAdvert.advert.id);
@@ -53,7 +111,8 @@ export default (params) => {
 
           // Focus out close dropdown
           $(window).on('click', e => {
-              if (!e.target.closest('#advert-list') && !e.target.closest('.advert-selected')) template.find('#advert-list').addClass("advert-selectlist").removeClass("animated").removeClass("fadeIn");
+              if ((e.target.closest('#advert-list') && !e.target.closest('.advert-selected')) || (!e.target.closest('#advert-list') && !e.target.closest('.advert-selected'))) template.find('#advert-list').addClass("advert-selectlist").removeClass("animated").removeClass("fadeIn");
+              if (!e.target.closest('.dropdown-btn'))  template.find('.dropdown-container .open').removeClass('open');
           });
 
           // Advert dropdown list
