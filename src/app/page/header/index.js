@@ -16,6 +16,7 @@ export default (isOpen) => Menkule.user(true)
 
       // On new message
       Menkule.on('new.message', (message) => {
+          console.log(message);
         App.promise(() => user.messages.findIndex(ms => ms.id === message.id))
           .then((msgIndex) => App.promise(() => {
             if (msgIndex > -1) user.messages.splice(msgIndex, 1)

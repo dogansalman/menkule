@@ -2,7 +2,6 @@ import Header from '../../header';
 import Footer from '../../footer';
 import message from './message.handlebars';
 import appMessage from '../../../../lib/appMessages';
-import Message from '../message';
 import messageslist from './messages.handlebars';
 
 export default (params) => {
@@ -14,10 +13,21 @@ export default (params) => {
   let messages = [];
   let template;
 
-    App.on('new.message', (messages) => {
-        template.zone('messages').setContentAsync(messageslist({message: messages.message}))
+
+    //new message on websocket
+    Menkule.on('new.message', (message) => {
+        if(!Array.isArray(message.message)) messages.message.push(message.message);
+        template.zone('messages-full').setContentAsync(messageslist({message: messages.message}))
             .then(() => template.find(".messagelistcontainer").scrollTop(template.find(".messagelistcontainer")[0].scrollHeight))
     });
+
+    // new message send on button
+    App.on('new.message', (message) => {
+        if(!Array.isArray(message.message)) messages.message.push(message.message);
+        template.zone('messages-full').setContentAsync(messageslist({message: messages.message}))
+            .then(() => template.find(".messagelistcontainer").scrollTop(template.find(".messagelistcontainer")[0].scrollHeight))
+    });
+
 
   return new Promise((resolve) => {
     Header()
@@ -30,7 +40,7 @@ export default (params) => {
         /*
         Render messages
          */
-        App.emit('new.message', messages);
+          App.emit('new.message', messages);
 
        /*
        Enter repy message

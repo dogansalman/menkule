@@ -1171,13 +1171,28 @@ Search
   width: 30px!important
 }
 .advertbig-icons .badcount {
-  margin-right: 5px
+  margin-right: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 68px;
+  display: inline-block;
 }
 .advertbig-icons .visitorcount {
-  margin-right: 5px
+  margin-right: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 70px;
+  display: inline-block;
 }
 .advertbig-icons .adverttype {
-  margin-right: 5px
+  margin-right: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 65px;
+  display: inline-block;
 }
 .advert-marker {
   position: absolute;
@@ -2828,7 +2843,7 @@ Advert Detail
     margin-right: 5px
 }
 .details_container .details_logo span {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 18px;
     color: #666;
     display: inline-block;
@@ -2846,7 +2861,6 @@ Advert Detail
     font-size: 16px;
     font-weight: 400;
     color: #666;
-    text-transform: uppercase;
     padding: 0px;
     margin: 0px;
 }

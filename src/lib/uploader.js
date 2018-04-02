@@ -67,7 +67,7 @@ import Confirm from '../app/modal/confirm';
              .catch((err) => console.log(err))
         });
         var imageContainer = $('<div data-id="' + data.id + '"class="col-xs-6 col-sm-3 col-md-3 disable_padding uploader-photo"></div>');
-        var image = $('<img src=' + Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" +  data.url + ' id="' + data.id  + '"/>');
+        var image = $('<img src=' + Menkule.cloudinaryBaseUrl + "/w_150,h_150,c_fill/" +  data.url +' id="' + data.id  + '"/>');
 
         $(image).on('click', (e) => {
             e.preventDefault();
@@ -203,6 +203,13 @@ import Confirm from '../app/modal/confirm';
         $('#uploader').remove();
         var uploader = $("<input type='file' multiple style='display:none!important;' id='uploader' name='myfiles[]'  accept='image/*' />");
         $(uploader).on('change', (e) => {
+
+            const currentImagesLen = uploader2.getImages().filter(i => !i.deleted).length;
+            if($(e.target).get(0).files.length > (maxImage - currentImagesLen)) {
+                App.notifyDanger('En fazla ' + (maxImage - currentImagesLen) + ' adet fotoğraf seçebilirsiniz.');
+                return;
+            }
+
             for (let i = 0; i < $(e.target).get(0).files.length; i++) {
                 if(!isUserPhoto) uploadImage($(e.target).get(0).files[i]);
                 if(isUserPhoto) uploadPhotoUser($(e.target).get(0).files[i],targetElm);

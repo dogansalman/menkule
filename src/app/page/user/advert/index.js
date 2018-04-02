@@ -6,6 +6,7 @@ import templatee from './advert.handlebars';
 import avaiableDates from './availableDate.handlebars';
 import calendar from '../../../modal/calendar';
 import MediumEditor from 'medium-editor';
+import Advert from '../advert';
 
 
 /*
@@ -258,7 +259,8 @@ export default (params) => {
                       App.notifySuccess('İlanınız kaydedildi.', 'Tamam');
                       $(e.target).enable();
                       $(".advert-detail").formFields().enable();
-                      if (!advert.id) App.wait(2000).then(() => App.navigate('/user/adverts'));
+                      if (!advert.id)  App.wait(2000).then(() => App.navigate('/user/adverts'));
+                        Advert(params);
                     })
                       .catch(err => {
                           $(e.target).enable();
