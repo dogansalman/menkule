@@ -204,18 +204,17 @@ import Confirm from '../app/modal/confirm';
         var uploader = $("<input type='file' multiple style='display:none!important;' id='uploader' name='myfiles[]'  accept='image/*' />");
         $(uploader).on('change', (e) => {
 
-            const currentImagesLen = uploader2.getImages().filter(i => !i.deleted).length;
+
+            const currentImagesLen = uploader2.getImages() ? uploader2.getImages().filter(i => !i.deleted).length : 0;
+
             if($(e.target).get(0).files.length > (maxImage - currentImagesLen)) {
                 App.notifyDanger('En fazla ' + (maxImage - currentImagesLen) + ' adet fotoğraf seçebilirsiniz.');
                 return;
             }
-
             for (let i = 0; i < $(e.target).get(0).files.length; i++) {
                 if(!isUserPhoto) uploadImage($(e.target).get(0).files[i]);
                 if(isUserPhoto) uploadPhotoUser($(e.target).get(0).files[i],targetElm);
             }
-
-
         });
         return uploader;
     }
