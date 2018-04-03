@@ -26,7 +26,6 @@
                         {{else}}
                             <span class="capitalize">{{user.name}}</span> <span class="uppercase">{{user.lastname}}</span> {{user.identity_no}} ({{user.gender}})
                         {{/if}}
-
                     </h2>
                     <span class="block moffset1"><b>Tutar: {{#currency rezervation.total_price 2 0 }} {{/currency}} TL </b></span>
                     <span class="block moffset1">{{visitors.length}} Misafir</span>
@@ -35,13 +34,15 @@
             <div class="dropdown-container">
                 <a class="dropdown-btn"></a>
                 <ul class="dropdown">
+                {{#unless ../type_is_out}}
                     {{#unless rezervation.state}}
                         {{#unless rezervation.is_cancel}}
                             <li><a class="approved-btn" item-data="{{rezervation.id}}"> Onayla</a></li>
                             <li><a class="cancelled-btn" item-data="{{rezervation.id}}"> İptal Et</a></li>
                         {{/unless}}
                     {{/unless}}
-                    <li><a href="/user/rezervation/{{rezervation.id}}"> İncele</a></li>
+                {{/unless}}
+                <li><a href="/user/rezervation/{{rezervation.id}}"> İncele</a></li>
                 </ul>
             </div>
         </div>
