@@ -6,6 +6,7 @@ import _Rezervations from '../rezervations'
 import RezervationList from './rezervation-list.handlebars'
 import advertList from './advert-list.handlebars';
 import Advert from './selected-advert.handlebars';
+import DefaultAdvert from './default-advert.handlebars';
 import Tabs from './tabs.handlebars';
 import ConfirmRezervations from '../rezervation/confirmRezervation.handlebars';
 import Confirm from "../../../modal/confirm";
@@ -91,26 +92,63 @@ export default (params) => {
 
                 // filter waiting rezervation
                 tabTemplate.find('div.waiting').on('click', (e) => {
-                    App.promise(() => rezervation.filter(r => r.rezervation.state === false && r.rezervation.is_cancel === false))
+                    tabTemplate.find('.tab').removeClass('select');
+                    $(e.target).addClass('select');
+                    App.promise(() => rez.filter(r => r.rezervation.state === false && r.rezervation.is_cancel === false))
                         .then((r) => { renderRezervations(r, type_is_out)});
                 });
 
                 // filter cancelled rezervation
                 tabTemplate.find('div.cancaled').on('click', (e) => {
-                    App.promise(() => rezervation.filter(r => r.rezervation.state === false && r.rezervation.is_cancel === true))
+                    tabTemplate.find('.tab').removeClass('select');
+                    $(e.target).addClass('select');
+                    App.promise(() => rez.filter(r => r.rezervation.state === false && r.rezervation.is_cancel === true))
                         .then((r) => renderRezervations(r, type_is_out));
                 });
 
                 // filter approved rezervation
                 tabTemplate.find('div.approved').on('click', (e) => {
-                    App.promise(() => rezervation.filter(r => r.rezervation.state === true && r.rezervation.is_cancel === false))
+                    tabTemplate.find('.tab').removeClass('select');
+                    $(e.target).addClass('select');
+                    App.promise(() => rez.filter(r => r.rezervation.state === true && r.rezervation.is_cancel === false))
                         .then((r) => renderRezervations(r, type_is_out));
                 });
+
+                // default select
+                tabTemplate.find('.tab').removeClass('select');
+                tabTemplate.find('div.waiting').addClass('select');
+                tabTemplate.find('div.waiting').click();
             })
             .then(() => resolve());
         })
     }
+    function renderAdvert(){
+        return new Promise((resolve) => {
+            template.zone('advert-list').setContentAsync(advertList({adverts: adverts}))
+                .then(() => {
+                    //Select advert
+                    template.find(".advert").on('click', (e) => {
+                        e.preventDefault();
+                        $('#advert-list').toggleClass("advert-selectlist").toggleClass("animated").toggleClass("fadeIn");
 
+                        for (var i in adverts) {   delete adverts[i]['selected'];  }
+                        const selectedIndex = $(e.currentTarget).attr('data-index');
+
+
+                        if(selectedIndex < 0) {
+                        // If default selected
+                         return  renderRezervations(rezervation).then(() => renderTabs(rezervation)).then(() => template.zone('advert-selected').setContentAsync(DefaultAdvert())).then(() => renderAdvert())
+                             .then(() => resolve())
+                        }
+
+                        const selectedAdvert = adverts[parseInt(selectedIndex, 10)];
+                        Object.assign(selectedAdvert, {'selected': true});
+                        template.zone('advert-selected').trigger(new $.Event('rendered.template'));
+
+                    });
+                }).then(() => resolve());
+        })
+    }
     return new Promise((resolve) => {
             Header()
               .then(() => Footer())
@@ -119,6 +157,12 @@ export default (params) => {
               .then(() => Menkule.get("/rezervations/" + params.type )).do(r => rezervation = r)
               .then((rezevations) => {
 
+                  // Focus out close dropdown
+                  $(window).on('click', e => {
+                      if ((e.target.closest('#advert-list') && !e.target.closest('.advert-selected')) || (!e.target.closest('#advert-list') && !e.target.closest('.advert-selected'))) template.find('#advert-list').addClass("advert-selectlist").removeClass("animated").removeClass("fadeIn");
+                      if (!e.target.closest('.dropdown-btn'))  template.find('.dropdown-container .open').removeClass('open');
+                  });
+
                   // On out rezervations
                   if(params.type === 'out') return renderRezervations(rezevations, true).then(() => renderTabs(rezevations, true)).then(() => resolve());
 
@@ -126,16 +170,9 @@ export default (params) => {
                   template.zone('advert-selected').on('rendered.template', (e) => {
                       template.find('#advert-list').toggleClass("advert-selectlist").toggleClass("animated").toggleClass("fadeIn");
                       selectedAdvert = _.find(adverts, {'selected': true});
-                      selectedRezervation = rezervation.filter(r => r.rezervation.advert_id === selectedAdvert.advert.id);
-
+                      selectedRezervation = rezervation.filter(r => r.rezervation.advert_id === selectedAdvert.advert.id && r.rezervation.state === false && r.rezervation.is_cancel === false );
                       renderRezervations(selectedRezervation).then(() => template.zone('advert-selected').setContentAsync(Advert(selectedAdvert)))
-                          .then(() => renderTabs(selectedRezervation));
-                  });
-
-                  // Focus out close dropdown
-                  $(window).on('click', e => {
-                      if ((e.target.closest('#advert-list') && !e.target.closest('.advert-selected')) || (!e.target.closest('#advert-list') && !e.target.closest('.advert-selected'))) template.find('#advert-list').addClass("advert-selectlist").removeClass("animated").removeClass("fadeIn");
-                      if (!e.target.closest('.dropdown-btn'))  template.find('.dropdown-container .open').removeClass('open');
+                          .then(() => renderTabs(selectedRezervation)).then(() => renderAdvert())
                   });
 
                   // Advert dropdown list
@@ -146,28 +183,7 @@ export default (params) => {
 
                   // Get adverts
                   Menkule.get("/rezervations/adverts").do(a => adverts = a)
-                      .then(() => {
-                          for (let i = 0; i < adverts.length; i++) { adverts[i].indx = i}
-                          template.zone('advert-list').setContentAsync(advertList({adverts: adverts}))
-                              .then(() => {
-                                  //Select advert
-                                  template.find(".advert").on('click', (e) => {
-                                      e.preventDefault();
-                                      $('#advert-list').toggleClass("advert-selectlist").toggleClass("animated").toggleClass("fadeIn");
-
-                                      for (var i in adverts) {   delete adverts[i]['selected'];  }
-                                      const selectedIndex = $(e.currentTarget).attr('data-index');
-                                      // If default selected
-                                      if(selectedIndex < 0) {
-                                          return App.promise(() => rezevations.filter(r => r.rezervation.state == false && r.rezervation.is_cancel == false))
-                                              .then((r) => renderRezervations(r).then(() => renderTabs(r)))
-                                      }
-                                      const selectedAdvert = adverts[parseInt(selectedIndex, 10)];
-                                      Object.assign(selectedAdvert, {'selected': true});
-                                      template.zone('advert-selected').trigger(new $.Event('rendered.template'));
-                                  });
-                              });
-                      })
+                      .then(() => renderAdvert())
                       .then(() =>  App.promise(() => rezevations.filter(r => r.rezervation.state == false && r.rezervation.is_cancel == false)))
                       .then((r) => {
                           renderRezervations(r).then(() => renderTabs(r));

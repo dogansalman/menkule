@@ -11,6 +11,11 @@
             <a href='/user/rezervation/{{rezervation.id}}'>
                 <div class='col-xs-12 col-sm-12 col-md-12 text'>
                     <span class="block moffset1">
+                           {{#unless rezervation.state}}
+                               {{#unless rezervation.is_cancel}}
+                                   <div class="rezervation-state wait"></div>
+                               {{/unless}}
+                           {{/unless}}
                         {{#if rezervation.state}}
                             <div class="rezervation-state approved"></div>
                         {{/if}}
@@ -20,7 +25,6 @@
                         {{date rezervation.checkin "DD-MM-YYYY" }} / {{date rezervation.checkout "DD-MM-YYYY" }} ({{rezervation.days}} Gece)
                     </span>
                     <h2 class='title'>
-
                         {{#if ../type_is_out}}
                            {{advert.title}}
                         {{else}}

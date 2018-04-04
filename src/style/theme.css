@@ -2360,6 +2360,7 @@ newalerts-all:focus,
   background: #f9f9f9;
   cursor: pointer;
 }
+
 .rezervation-tabs div > span{
   background: #e4e4e4;
   border-radius: 50%;
@@ -2369,6 +2370,15 @@ newalerts-all:focus,
   font-size: 12px;
   padding: 1px;
   text-align: center;
+}
+
+.rezervation-tabs div.select {
+  border: 1px solid #57b0e4;
+  background: #65c3fa;
+  color: #ffff;
+}
+.rezervation-tabs div.select > span {
+  background: #57b0e4;
 }
 .rezervation-tabs div.approved{
 
@@ -3684,6 +3694,11 @@ User Rezervation
     background: #e74c3c;
     padding: 2px;
 }
+.rezervation-state.wait
+{
+    background: #65c3fa;
+    padding: 2px;
+}
 
 .rezervation-state.approved:before {
     font-family: 'icomoon';
@@ -3694,6 +3709,12 @@ User Rezervation
 .rezervation-state.cancel:before {
     font-family: 'icomoon';
     content: "\ea0f";
+    font-size: 8px;
+    color: #fff;
+}
+.rezervation-state.wait:before {
+    font-family: 'icomoon';
+    content: "\E952";
     font-size: 8px;
     color: #fff;
 }
@@ -3714,6 +3735,9 @@ Advert calendar
 }
 #advert-list .list, .advert-selected{
   border: 1px solid #f9f9f9;
+}
+#advert-list .list.advert{
+  cursor:pointer;
 }
 .calendar-container{
   border: 1px solid #f9f9f9;
