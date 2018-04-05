@@ -1,14 +1,11 @@
 {{#each rezervations}}
-    <div class="list col-xs-12 col-sm-12 col-md-6">
-        <a href='/user/rezervation/{{rezervation.id}}'>
+    <div data-item="{{rezervation.id}}" class="list col-xs-12 col-sm-12 col-md-6 rezervation">
             {{#if ../type_is_out}}
                 <div class='col-xs-3 col-sm-2 col-md-2 photo'> <img alt='photo' src='{{#image advert.photo 150 150 }} {{/image}}' /> </div>
             {{else}}
                 <div class='col-xs-3 col-sm-2 col-md-2 photo'> <img alt='photo' src='{{#image user.photo 150 150 }} {{/image}}' /> </div>
             {{/if}}
-        </a>
         <div class='col-xs-9 col-sm-10 disable_padding col-md-10 detail'>
-            <a href='/user/rezervation/{{rezervation.id}}'>
                 <div class='col-xs-12 col-sm-12 col-md-12 text'>
                     <span class="block moffset1">
                            {{#unless rezervation.state}}
@@ -22,7 +19,7 @@
                         {{#if rezervation.is_cancel}}
                             <div class="rezervation-state cancel"></div>
                         {{/if}}
-                        {{date rezervation.checkin "DD-MM-YYYY" }} / {{date rezervation.checkout "DD-MM-YYYY" }} ({{rezervation.days}} Gece)
+                        <a class="link" href="/advert/{{rezervation.advert_id}}" target="_blank">#{{rezervation.advert_id}}</a> {{date rezervation.checkin "DD-MM-YYYY" }} / {{date rezervation.checkout "DD-MM-YYYY" }} ({{rezervation.days}} Gece)
                     </span>
                     <h2 class='title'>
                         {{#if ../type_is_out}}
@@ -34,7 +31,6 @@
                     <span class="block moffset1"><b>Tutar: {{#currency rezervation.total_price 2 0 }} {{/currency}} TL </b></span>
                     <span class="block moffset1">{{visitors.length}} Misafir</span>
                 </div>
-            </a>
             <div class="dropdown-container">
                 <a class="dropdown-btn"></a>
                 <ul class="dropdown">

@@ -361,16 +361,24 @@
             </div>
             {{#if id}}
             <div class="text-right col-xs-12 col-sm-6 col-md-6">
-                <div class="col-xs-12 col-sm-6 col-md-12">
-                    <div class="advert-state"> {{#if state}}
-                        <b>Onaylandı</b> <i class="fa fa-check"></i> {{else}}  <b>Onay Bekleniyor</b> <i class="fa fa-clock-o"></i> {{/if}}
-                    </div>
-                </div>
                 <div class="col-xs-12 col-sm-6 col-md-12 moffset2">
                     {{date date "D MMMM YYYY, dddd"}} - {{fromNow date}} - {{views}} Görüntülenme
+                    <div class="disable_padding bottomset2 col-xs-12 col-sm-6 col-md-12 text-right advert-status">
+                        {{#if state}}<div class="advert-active"></div> Onaylandı{{/if}}
+                        {{#if is_cancel}}
+                        <p> <div class="advert-cancel"></div> {{cancel_description}}</p>
+
+                        {{/if}}
+                        {{#unless state}}
+                        {{#unless is_cancel}}
+                        <div class="advert-wait"></div> Onay Bekleniyor
+                        {{/unless}}
+                        {{/unless}}
+                    </div>
                 </div>
             </div>
             {{/if}}
         </div>
     </div>
     </div>
+

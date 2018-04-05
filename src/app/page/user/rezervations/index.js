@@ -18,11 +18,18 @@ export default (params) => {
     let selectedAdvert = {};
     let template;
 
+
+
     function renderRezervations(rez,type_is_out = false){
         return new Promise((resolve, reject) => {
             $("body").zone('rezervation-list')
                 .setContentAsync(rez.length > 0 ? RezervationList({rezervations: rez, type_is_out: type_is_out}) : appMessage('no_rezervation'))
                 .then((rezListTemplate) => {
+                    // on click
+                    rezListTemplate.find('.rezervation').on('click', (e) => {
+                        if(!$(e.target).closest('.dropdown-container').length && !$(e.target).closest('.link').length)  App.navigate('/user/rezervation/' + $(e.target).parents('.rezervation').attr('data-item'), null, true);
+                    });
+                    // on approve
                     rezListTemplate.find(".approved-btn").on("click", (e) => {
                         const rez_id = $(e.target).attr("item-data");
                         let modal;
@@ -50,7 +57,7 @@ export default (params) => {
                                 }
                             })
                     });
-
+                    // on cancel
                     rezListTemplate.find('.cancelled-btn').on('click', (e) => {
                         const rez_id = $(e.target).attr('item-data');
                         let modal;
@@ -65,7 +72,6 @@ export default (params) => {
                                     .then(() => modal.modal('hide'))
                             })
                     });
-
                     // open dropdown
                     rezListTemplate.find('.dropdown-container .dropdown-btn').on('click', (event) => {
                         rezListTemplate.find('.dropdown-container .open').removeClass('open');
@@ -124,23 +130,29 @@ export default (params) => {
     }
     function renderAdvert(){
         return new Promise((resolve) => {
-            template.zone('advert-list').setContentAsync(advertList({adverts: adverts}))
+                App.promise(() => adverts.forEach(a => Object.assign(a, { new_rezervation: rezervation.filter(r => r.rezervation.advert_id === a.advert.id && !r.rezervation.is_cancel && !r.rezervation.state).length})))
+                .then(() => template.zone('advert-list').setContentAsync(advertList({adverts: adverts})) )
                 .then(() => {
                     //Select advert
-                    template.find(".advert").on('click', (e) => {
-                        e.preventDefault();
+                    template.find('.advert').on('click', (e) => {
+
                         $('#advert-list').toggleClass("advert-selectlist").toggleClass("animated").toggleClass("fadeIn");
+                        // new rezervation lenght & delete selected
+                        adverts.forEach( a => {
+                            delete a['selected'];
+                            Object.assign(a, {
+                                new_rezervation: rezervation.filter(r => r.rezervation.advert_id === a.advert.id && !r.rezervation.is_cancel && !r.rezervation.state).length
+                            })
+                        });
 
-                        for (var i in adverts) {   delete adverts[i]['selected'];  }
+                        //for (var i in adverts) {   delete adverts[i]['selected'];  }
                         const selectedIndex = $(e.currentTarget).attr('data-index');
-
 
                         if(selectedIndex < 0) {
                         // If default selected
                          return  renderRezervations(rezervation).then(() => renderTabs(rezervation)).then(() => template.zone('advert-selected').setContentAsync(DefaultAdvert())).then(() => renderAdvert())
                              .then(() => resolve())
                         }
-
                         const selectedAdvert = adverts[parseInt(selectedIndex, 10)];
                         Object.assign(selectedAdvert, {'selected': true});
                         template.zone('advert-selected').trigger(new $.Event('rendered.template'));
@@ -170,14 +182,13 @@ export default (params) => {
                   template.zone('advert-selected').on('rendered.template', (e) => {
                       template.find('#advert-list').toggleClass("advert-selectlist").toggleClass("animated").toggleClass("fadeIn");
                       selectedAdvert = _.find(adverts, {'selected': true});
-                      selectedRezervation = rezervation.filter(r => r.rezervation.advert_id === selectedAdvert.advert.id && r.rezervation.state === false && r.rezervation.is_cancel === false );
+                      selectedRezervation = rezervation.filter(r => r.rezervation.advert_id === selectedAdvert.advert.id);
                       renderRezervations(selectedRezervation).then(() => template.zone('advert-selected').setContentAsync(Advert(selectedAdvert)))
                           .then(() => renderTabs(selectedRezervation)).then(() => renderAdvert())
                   });
 
                   // Advert dropdown list
                   template.find(".advert-selected").on('click', (e) => {
-                      e.preventDefault();
                       template.find('#advert-list').toggleClass("advert-selectlist").toggleClass("animated").toggleClass("fadeIn");
                   });
 
