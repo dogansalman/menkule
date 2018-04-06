@@ -3365,6 +3365,11 @@ Flatpicker Custom Style
     background: #e0665a;
     border-color: #e0665a;
 }
+.disabled-endRange .flatpickr-day.selected.endRange{
+  background: #49bafb;
+  border-color: #49bafb;
+}
+
 .flatpickr-day.selected.inRange.endRange{
   background: #49bafb !important;
   border-color: #49bafb !important;

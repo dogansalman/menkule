@@ -289,19 +289,20 @@ Promise.prototype.if = function (query, promiseFunc) {
   });
 };
 
-window.getDateRange = function getDateRange(startDate, endDate, dateFormat){
+window.getDateRange = function getDateRange(startDate, endDate, dateFormat, lastDate = true){
     startDate = moment(startDate);
     endDate = moment(endDate);
     var dates = [],
         end = endDate,
         diff = endDate.diff(startDate, 'days');
-    if(!startDate.isValid() || !endDate.isValid() || diff <= 0) {
-        return;
-    }
+    if(!startDate.isValid() || !endDate.isValid() || diff <= 0) return;
     for(var i = 0; i < diff; i++) {
+        if(i == 0 && lastDate) {
+            dates.push(end.subtract(0,'d').format(dateFormat));
+            continue;
+        }
         dates.push(end.subtract(1,'d').format(dateFormat));
     }
-
     return dates;
 };
 

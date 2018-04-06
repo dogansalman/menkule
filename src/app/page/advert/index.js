@@ -72,6 +72,7 @@ export default (params) => {
                     e.preventDefault();
                 });
 
+                console.log(advert);
                 /*
                 Render comments
                  */
@@ -234,7 +235,7 @@ export default (params) => {
                 /*
                 Message
                  */
-                template.find('.message-btn').on('click', function(e) {
+                template.find('.send-messagebtn').on('click', function(e) {
                   e.preventDefault();
                   Message({
                     fullname: advert.user.fullname,

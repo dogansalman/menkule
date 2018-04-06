@@ -2,8 +2,13 @@ import modal from '../../components/modal';
 import calendar from './calendar.handlebars';
 import flatpickr from 'flatpickr';
 
-export default () => {
+export default (options) => {
     return new Promise((resolve) => {
+
+        options = Object.assign({
+            endRangeStyle: true,
+        }, options || {});
+
         modal({template: calendar, width:320, title: 'Takvim'})
             .then((template) => {
 
@@ -24,6 +29,8 @@ export default () => {
                         template.find('.acceptbtn').button('reset');
                     }
                 });
+
+                if(options.endRangeStyle) template.find('.flatpickr-calendar').addClass('disabled-endRange');
 
                 /*
                 Select date

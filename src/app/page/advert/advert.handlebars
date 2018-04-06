@@ -197,12 +197,13 @@
                     <a href="javascript:void(0);" class="activeaccount"><i class="fa fa-check"></i> Onaylanmış Kimlik</a>
                 {{/if}}
                 <p class="advert-no moffset2">İlan Numarası: #{{advert.id}}</p>
+                {{#isLogin}} <a class="send-messagebtn link moffset2">Mesaj Gönder</a>{{/isLogin}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-10 advert_owner_desc moffset3">
             <h2>İlan Sahibi Hakkında</h2>
             <p>İlan sahibi <b> {{date user.created_date "D MMMM YYYY, dddd"}}  </b> tarihiden itibaren menkule.com.tr üyesidir.  menkule.com.tr da yayinlanmış  <b class="profilenamedesc" style="text-transform: uppercase">{{user.fullname}} </b>'ın üyeliği aktif ve onaylanmış profildir. </p>
-            {{#isLogin}} <button class="default_btn message-btn moffset2">Mesaj Gönder</button>{{/isLogin}}
+
             {{#notLogged}}
 
                 <p>İlan sahibine mesaj göndermek için öncelikle üye girişi yapmalısınız eğer üye değilseniz hemen kayıt olabilirsiniz.</p>

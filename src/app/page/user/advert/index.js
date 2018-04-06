@@ -183,7 +183,7 @@ export default (params) => {
 
             // Add avaiable dates
             template.find('.daterangebtn').on('click', (e) => {
-                calendar()
+                calendar({endRangeStyle: true})
                     .then((dateRange) => App.promise(() =>  dateList.push(dateRange)))
                     //TODO fix dispatchEvent console error.
                     .then(() => App.promise(() => $("body").zone('dateselect-container')[0].dispatchEvent((new CustomEvent('selected.date', { detail: dateList})))))
