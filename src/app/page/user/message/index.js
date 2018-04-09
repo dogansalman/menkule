@@ -37,10 +37,11 @@ export default (params) => {
       .then((template) => {
 
         document.body.setAttribute('class','message-detail');
-        /*
-        Render messages
-         */
+          // Render messages
           App.emit('new.message', messages);
+
+
+          Menkule.emit('clear.message', params.id);
 
        /*
        Enter repy message

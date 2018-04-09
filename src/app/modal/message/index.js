@@ -11,6 +11,7 @@ const messageFormRules = {
 
 export default (recipientDetail) => {
   return new Promise((resolve) => {
+
     modal({template: message, title: 'Yeni mesaj', width:450, data: recipientDetail})
       .then((template) => {
         /*

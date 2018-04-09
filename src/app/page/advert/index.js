@@ -72,7 +72,6 @@ export default (params) => {
                     e.preventDefault();
                 });
 
-                console.log(advert);
                 /*
                 Render comments
                  */

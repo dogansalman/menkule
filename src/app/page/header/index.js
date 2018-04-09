@@ -14,15 +14,27 @@ export default (isOpen) => Menkule.user(true)
     // User Logged
     if (user) {
 
+
+        // On clear message
+        Menkule.on('clear.message', (message_id) => {
+            const msgIndex = user.messages.findIndex(m => m.id ===  Number(message_id));
+            if(msgIndex > -1) user.messages.splice(msgIndex, 1) &&  $("body").zone('messages').setContentAsync( messages({message: user.messages}))
+
+        });
+
       // On new message
       Menkule.on('new.message', (message) => {
-          console.log(message);
-        App.promise(() => user.messages.findIndex(ms => ms.id === message.id))
-          .then((msgIndex) => App.promise(() => {
-            if (msgIndex > -1) user.messages.splice(msgIndex, 1)
-          }))
-          .then(() => App.promise(() => user.messages.unshift(message)))
-          .then(() => $("body").zone('messages').setContentAsync( messages({message: user.messages})))
+          if(window.location.href.indexOf('user/messages') > -1 && Number(location.href.split('/').slice(-1)[0]) === message.id) {
+              Menkule.put('/message/read/' + message.id, {});
+              return;
+          }
+          App.promise(() => user.messages.findIndex(ms => ms.id === message.id))
+              .then((msgIndex) => App.promise(() => {
+                  if (msgIndex > -1) user.messages.splice(msgIndex, 1)
+              }))
+              .then(() => App.promise(() => user.messages.unshift(message)))
+              .then(() => $("body").zone('messages').setContentAsync( messages({message: user.messages})))
+
       });
 
       // On new notification

@@ -24,6 +24,7 @@ export default() => {
               $(event.target).toggleClass('open');
               $(event.target.offsetParent).find('.dropdown').toggleClass('open');
           });
+
           //on delete message
           template.find('.delete-message').on('click', (e) => {
               const id = $(e.target).attr('data');
