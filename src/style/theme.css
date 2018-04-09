@@ -1017,7 +1017,8 @@ Search
 .map-result-comments {
   font-size: 12px;
   position: absolute;
-  top: 0px;
+  top: 10px;
+  left: 10px;
   padding: 5px;
   color: #f1f1f1;
   background: rgba(4, 4, 4, 0.2);
@@ -1034,13 +1035,19 @@ Search
   font-family: 'Roboto', sans-serif;
   color: #666;
   overflow: hidden;
+  overflow-wrap: break-word;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .advert-detail-map {
-  padding: 0px 10px;
+  padding: 10px 10px;
   margin-top: 10px;
   cursor: pointer;
   width: 250px;
   position: relative;
+  border: 1px solid #f3f3f3;
+  margin-bottom: 5px;
+  margin-right: 5px;
 }
 .advert-detail-map.loading:before {
   content: "";
@@ -1063,7 +1070,6 @@ Search
   visibility: visible;
 }
 .advert-detail-map-footer {
-  border-bottom: 1px solid #f1f1f1;
   padding: 3px 0px 3px 0px;
 }
 
@@ -1289,7 +1295,12 @@ ul.confirm-rezervation li {
     padding: 0px;
     margin: 0px;
   }
-  .advert-slide-footer > div { padding:3px;}
+  .advert-slide-footer > div {
+    padding:3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .map-advertphoto {
     overflow: hidden;
     width: 100%;
