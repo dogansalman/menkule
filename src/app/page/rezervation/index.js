@@ -75,6 +75,7 @@ function getActivationForm(params) {
                                     Menkule.post("/users/approve/gsm", {
                                             "code": activationForm.code
                                         })
+                                        .then(() => App.promise(() => App.emit('changed.header', true)))
                                         .then(() => App.wait(1000))
                                         .then(() => addVisitor({
                                             fullname: user.name + ' ' + user.lastname,
@@ -104,7 +105,7 @@ function getActivationForm(params) {
                                                   return ($(err.fields[0]).select());
                                                 })
                                             }
-                                            App.hidePreloader().then(() => App.notifyDanger('Aktivasyon kodu hatalı. Lütfen tekrar deneyin.', ''))
+                                            App.hidePreloader().then(() => App.notifyDanger( err.responseJSON ? err.responseJSON.Message : 'Aktivasyon kodu hatalı. Lütfen tekrar deneyin.', ''))
                                         })
                                 })
                         })

@@ -1,3 +1,12 @@
 {{#each images}}
-    <div data-fancybox="gallery" class="col-xs-5 col-sm-3 col-md-2 image" href="{{#image url 0 0 }} {{/image}}" style="background:url('{{#image url 150 150 }} {{/image}}');"></div>
+    {{#zif getIndex @index '==' '13'}}
+        <div class="image-counter col-xs-12 col-sm-2 col-md-2">{{../images.length}} Fotoğraf Tümünü Gör</div>
+        <div data-fancybox="gallery" href="{{#image url 0 0 }} {{/image}}" style="background:url('{{#image url 1000 500 }} {{/image}}')" class="fullwidth detail_image">
+            <div class="visible-xs visible-sm mprice">{{../price}} TL</div>
+        </div>
+    {{/zif}}
+    {{#zif getIndex @index '!=' '0'}}
+        <div data-fancybox="gallery" href="{{#image url 0 0 }} {{/image}}" style="display:none;"class="detail_image"></div>
+    {{/zif}}
+
 {{/each}}

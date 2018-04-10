@@ -1,6 +1,5 @@
 <div class="container ">
     <div class="col-xs-12 disable_padding details_container ">
-
         <div class="col-xs-12 col-sm-12 col-md-3 rezervation-owner-detail">
             <img alt="photo" src='{{#image user_information.photo 150 150 }} {{/image}}' onerror="this.onerror=null;this.src='/theme/img/no-photo.png';" class="rezervation-detail-photo"></img>
             <span class="rezervation-detail-name">{{user_information.fullname}}</span>
@@ -18,18 +17,24 @@
                 {{/if}}
             </div>
             <div class="col-xs-12 col-sm-12 disable_padding text-left">
-                <div class="col-xs-6">
+                <div class="col-xs-6 rezervation-checkin-box disable_padding">
                     <span class="rezervation-detial-date"><i class="fa fa-calendar-o"></i> {{date checkin "DD-MM-YYYY" }}</span>
                     <span class="rezervation-detial-date-state">Giriş Tarihi</span>
                 </div>
-                <span class="rezervation-detial-date"><i class="fa fa-calendar-o"></i> {{date checkout "DD-MM-YYYY" }}</span>
-                <span class="rezervation-detial-date-state">Çıkış Tarihi</span>
-                <div class="col-xs-6">
+                <div class="col-xs-6 rezervation-checkin-box disable_padding">
+                    <span class="rezervation-detial-date"><i class="fa fa-calendar-o"></i> {{date checkout "DD-MM-YYYY" }}</span>
+                    <span class="rezervation-detial-date-state">Çıkış Tarihi</span>
+                </div>
+
+                <div class="col-xs-6 rezervation-checkin-box disable_padding">
                     <span class="rezervation-detial-date"><i class="fa fa-clock-o"></i> {{rezervation_advert.advert.entry_time}}</span>
                     <span class="rezervation-detial-date-state">Giriş Saati</span>
                 </div>
-                <span class="rezervation-detial-date"><i class="fa fa-clock-o"></i> {{rezervation_advert.advert.exit_time}}</span>
-                <span class="rezervation-detial-date-state">Çıkış Saati</span>
+                <div class="col-xs-6 rezervation-checkin-box disable_padding">
+                    <span class="rezervation-detial-date"><i class="fa fa-clock-o"></i> {{rezervation_advert.advert.exit_time}}</span>
+                    <span class="rezervation-detial-date-state">Çıkış Saati</span>
+                </div>
+
             </div>
             <div class="col-xs-12 col-sm-12  disable_padding rezervation-detail-city-container">
                 <span class="rezervation-detail-city"></span>
@@ -67,7 +72,7 @@
             {{/if}}
             <div class="col-xs-12 col-sm-4 col-md-4 rezervation-detail-box">
                 <span class="rezervation-detail-icon">{{#currency total_price 2 0 }} {{/currency}} TL<i class="fa fa-try "></i> </span>
-                Toplam tutar
+                Toplam Tutar
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 rezervation-detail-box">
                 <span class="rezervation-detail-icon">{{days}} Gün <i class="fa fa-calendar"></i> </span>
@@ -77,6 +82,7 @@
                 <span class="rezervation-detail-icon">{{visitor}} Misafir <i class="fa fa-bed"></i> </span>
                 Toplam Misafir
             </div>
+            <div data-zone="images" class="col-xs-12 col-sm-12 col-md-12 moffset2 bottomset1 detail_image_container"></div>
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-advert-properties">
                 <div class="col-xs-12">
                     <div class="col-xs-12 detail_content_list form-inline">
@@ -114,7 +120,11 @@
                         </div>
                         <div class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Bulunduğu Kat</div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{rezervation_advert.properties.floor}}</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">
+                                {{#zif rezervation_advert.properties.floor '===' '0' }} Zemin Kat {{/zif}}
+                                {{#zif rezervation_advert.properties.floor '===' '-1' }} Kot 1{{/zif}}
+                                {{#zif rezervation_advert.properties.floor '===' '-2' }} Kot 2{{/zif}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -181,7 +191,6 @@
         </div>
     </div>
 
-    <div data-zone="images" class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-images"> </div>
     <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
         <div id="map" style="width: 100%; height: 400px;"></div>
     </div>

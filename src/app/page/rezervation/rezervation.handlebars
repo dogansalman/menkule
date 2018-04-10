@@ -15,22 +15,25 @@
                 {{#isLogin}}
                     <div class="col-xs-12 text-center moffset2 disable_padding">
                         <img alt="photo" class="img-responsive photo bottomset2" src="{{#image photo 150 150 }} {{/image}}"/>
-                        <span class="activemembericon"></span>
+                        <span class="{{#if state}} activemembericon  {{else}} passiveaccounticon {{/if}}"></span>
                         <h3 class="inline disable_margin"> <span class="capitalize">{{name}}</span> <span class="uppercase">{{lastname}}</span></h3>
+                        {{#unless state}}
+                            <p style="font-size:11px; text-align: left">Rezervasyonunuzu tamamlamak için hesabınızı onaylamanız gerekmektedir. Bir sonraki adımda hesabınız doğrulamanız gerekebilir.</p>
+                        {{/unless}}
                     </div>
                     <div class="form-group">
-                        <label for="ad">E-Posta: </label>
-                        <h3 class="disable_margin">{{email}}</h3>
+                        <label class="bold" for="ad">E-Posta: </label>
+                        <p class="disable_margin">{{email}}</p>
                     </div>
                     <div class="form-group">
-                        <label for="ad">Gsm: </label>
-                        <h3 class="disable_margin">{{gsm}}</h3>
+                        <label class="bold" for="ad">Gsm: </label>
+                        <p class="disable_margin">{{gsm}}</p>
                     </div>
 
                     <div class="form-group">
-                        <label for="ad">TC No: </label>
+                        <label class="bold" for="ad">TC No: </label>
                         {{#if identity_no}}
-                        <h3 class="disable_margin">{{identity_no}}</h3>
+                        <p class="disable_margin">{{identity_no}}</p>
                         {{else}}
                             <p>SN. <span class="capitalize">{{name}}</span> <span class="uppercase">{{lastname}}</span> rezervasyonunuzun onaylanabilmesi için lütfen kimlik numaranızı belirtiniz.</p>
                         <input type="number" data-form-element="identity_no" class="form-control"  mask="00000000000" maxlength="11" value="{{identity_no}}" placeholder="TC kimlik numarası">
@@ -72,7 +75,7 @@
                     </div>
 
                 {{/notLogged}}
-                <div class="col-xs-12 bottomset3 visitor-infor-form">
+                <div class="col-xs-12 disable_padding bottomset3 visitor-infor-form">
                     <div class="form-group">
                         <h2>Misafir Ekle</h2>
                         <p>Sizinle birlikte konaklayacak misafirler</p>

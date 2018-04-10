@@ -71,7 +71,7 @@ export default (params) => {
                         })
                 });
                 // Render Images
-                template.zone('images').setContentAsync(Images({images: rezervation.rezervation_advert.images, price: '250'}))
+                template.zone('images').setContentAsync(Images({images: rezervation.rezervation_advert.images, price: rezervation.total_price}))
                     .then(() => App.promise(() => template.find("[data-fancybox]").fancybox( { buttons : ['close']})))
                     .then(() => {
                         template.find('.image-counter').on('click', e => $.fancybox.open($("[data-fancybox]"), { buttons : ['close']}))

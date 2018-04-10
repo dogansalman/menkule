@@ -209,6 +209,10 @@ App.prototype.validate = {
     if(/^[0-9]+$/.test(value) == false) return false;
     return true;
   },
+  NUMBER_NEGATIVE: function(value) {
+        if(/^-?[0-9]\d*(\.\d+)?$/.test(value) == false) return false;
+        return true;
+  },
   PRICE: function(value) {
     if(/^[0-9].+$/.test(value) == false) return false;
     return true;

@@ -164,6 +164,9 @@ textarea {
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
+.bold {
+  font-weight: 500;
+}
 .borderer {
   border: 1px solid #f7f7f7 !important;
 }
@@ -787,8 +790,7 @@ Search
 }
 
 .advert-info-window {
-  width: 250px;
-  height: 260px;
+  width: auto;
   background: #fff;
   border: 1px solid #efefef;
   left: 50px;
@@ -1041,13 +1043,11 @@ Search
 }
 .advert-detail-map {
   padding: 10px 10px;
-  margin-top: 10px;
   cursor: pointer;
   width: 250px;
   position: relative;
-  border: 1px solid #f3f3f3;
-  margin-bottom: 5px;
-  margin-right: 5px;
+  height: auto;
+  background: #fff;
 }
 .advert-detail-map.loading:before {
   content: "";
@@ -3118,7 +3118,7 @@ Advert Detail
 }
 .detail_image {
     padding: 0px;
-    height: 350px;
+    height: 300px;
     overflow: hidden;
     background-size: 100% !important;
     background-position: left 50% !important;
@@ -3141,7 +3141,7 @@ Advert Detail
 .detail_image_container {
     padding: 0!important;
     cursor: pointer;
-    min-height: 350px;
+    min-height: 300px;
 }
 .image-counter {
   position: absolute;
@@ -3654,6 +3654,9 @@ Rezervation Detail
     padding: 15px 0 0 1px;
     background: #fbfbfb;
     font-size:12px;
+}
+.rezervation-checkin-box{
+  
 }
 .rezervation-home-images,
 .rezervation-home-map {

@@ -23,7 +23,7 @@ var advertRules = {
   'bathroom': [App.validate.REQUIRED, App.validate.NUMBER],
   'beds': [App.validate.REQUIRED, App.validate.NUMBER],
   'build_age': [App.validate.REQUIRED, App.validate.NUMBER],
-  'floor': [App.validate.REQUIRED, App.validate.NUMBER],
+  'floor': [App.validate.REQUIRED, App.validate.NUMBER_NEGATIVE],
   'room': [App.validate.REQUIRED, App.validate.NUMBER],
   'price': [App.validate.REQUIRED, App.validate.PRICE],
   'hall': [App.validate.REQUIRED, App.validate.NUMBER],
@@ -68,7 +68,28 @@ Avaiable date list
  */
 let dateList = [];
 
+const AdvertTypesInputDeny =
+    {
+        1: ['floor'], //Villa
+        2: ['bedroom', 'hall', 'room'], //Oda
+        9: ['floor'], //Müstakil Ev
+        5: ['floor','bedroom','room','hall','bathroom','bedroom','build_age'] //Çadır Kamp
+    };
+
+function AdvertTypeInput(selectedTypeId) {
+
+    // Enable all inputs
+    Object.keys(AdvertTypesInputDeny).forEach(key => {
+        AdvertTypesInputDeny[key].forEach(i => template.formFields(i).removeAttr('disabled'))
+    });
+    const disabledInputs = AdvertTypesInputDeny[selectedTypeId];
+    if(!disabledInputs) return;
+    disabledInputs.forEach(i => template.formFields(i).attr('disabled',true));
+}
+
 export default (params) => {
+
+
   return new Promise((resolve) => {
     Header()
       .then(() => Footer())
@@ -169,6 +190,8 @@ export default (params) => {
               }
           })
 
+
+
             // Advert exists
             if(advert) {
               // Notify advert state
@@ -235,7 +258,9 @@ export default (params) => {
                 extraData: {
                   advert_type_id: advert ? advert.advert_type.id : 0
                 }
-              });
+              }).on('change', (e) => {
+                AdvertTypeInput(Number(e.target.value))
+                })
 
             // Update or Create
             template.find('button.update').on('click', (e) => {

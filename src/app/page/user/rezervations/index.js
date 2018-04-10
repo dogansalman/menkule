@@ -195,10 +195,9 @@ export default (params) => {
                   // Get adverts
                   Menkule.get("/rezervations/adverts").do(a => adverts = a)
                       .then(() => renderAdvert())
-                      .then(() =>  App.promise(() => rezevations.filter(r => r.rezervation.state == false && r.rezervation.is_cancel == false)))
-                      .then((r) => {
-                          renderRezervations(r).then(() => renderTabs(r));
-                      });
+                      .then(() => renderRezervations(rezevations))
+                      .then(() => renderTabs(rezevations))
+
 
               })
               .catch((e) => {

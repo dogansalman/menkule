@@ -122,7 +122,11 @@
                         </div>
                         <div class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Bulunduğu Kat</div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{properties.floor}}</div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">
+                                {{#zif properties.floor '===' '0' }} Zemin Kat {{/zif}}
+                                {{#zif properties.floor '===' '-1' }} Kot 1{{/zif}}
+                                {{#zif properties.floor '===' '-2' }} Kot 2{{/zif}}
+                            </div>
                         </div>
                         <div class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Giriş Saati:</div>

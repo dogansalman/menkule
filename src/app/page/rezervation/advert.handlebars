@@ -8,6 +8,17 @@
         Toplam Gün
     </div>
     <div data-zone="visitor-count" class="col-xs-12 col-sm-4 col-md-4 rezervation-detail-box"></div>
+    <div class="col-xs-12 col-sm-12 col-md-12 detail_image_container disable_padding">
+        {{#each advert.images}}
+            {{#if is_default}}
+
+                <div data-fancybox="gallery" href="{{#image url 0 0 }} {{/image}}" style="background:url('{{#image url 1000 500 }} {{/image}}')" class="fullwidth detail_image"></div>
+                <div class="image-counter col-xs-12 col-sm-2 col-md-2">{{../advert.images.length}} Fotoğraf Tümünü Gör</div>
+            {{else}}
+                <div data-fancybox="gallery" href="{{#image url 0 0 }} {{/image}}" style="display:none;"class="detail_image"></div>
+            {{/if}}
+        {{/each}}
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-advert-properties">
         <div class="col-xs-12">
             <div class="col-xs-12 detail_content_list form-inline">
@@ -87,13 +98,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-images">
-        {{#each advert.images}}
-            <div data-fancybox="gallery" class="col-xs-5 col-sm-3 col-md-2 image" href="{{#image url 0 0 }} {{/image}}" style="background:url('{{#image url 150 150 }} {{/image}}');height: 100px;"></div>
-        {{/each}}
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-map breakword">
+     <div class="col-xs-12 col-sm-12 col-md-12 disable_padding rezervation-home-map breakword">
         <div id="map" style="width: 100%; height: 200px;"></div>
     </div>
 </div>
