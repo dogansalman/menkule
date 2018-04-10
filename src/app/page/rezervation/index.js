@@ -231,6 +231,7 @@ export default (params) => {
                     advertDetailTemplate.find("#map").on('pin.map', function(e) {
                         e.preventDefault()
                     });
+                    advertDetailTemplate.find('.image-counter').on('click', e => $.fancybox.open($("[data-fancybox]"), { buttons : ['close']}))
                 });
 
                 /* Add new visitor */
