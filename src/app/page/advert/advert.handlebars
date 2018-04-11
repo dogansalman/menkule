@@ -88,11 +88,11 @@
                 <div class="col-xs-12">
                     <h2 class="detail_content_title bottomset2">Özellikler</h2>
                     <div class="col-xs-12 detail_content_list form-inline">
-                        <div class="col-xs-12 property-container disable_padding">
+                        <div data-form-element="room" class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Oda</div>
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{properties.room}}</div>
                         </div>
-                        <div class="col-xs-12 property-container disable_padding">
+                        <div data-form-element="hall" class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Salon</div>
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{properties.hall}}</div>
                         </div>
@@ -100,7 +100,7 @@
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Misafir Kapasitesi</div>
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{properties.visitor}}</div>
                         </div>
-                        <div class="col-xs-12 property-container disable_padding">
+                        <div data-form-element="bathroom" class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Banyo</div>
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{properties.bathroom}}</div>
                         </div>
@@ -108,19 +108,19 @@
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Metrekare</div>
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{properties.m2}}</div>
                         </div>
-                        <div class="col-xs-12 property-container disable_padding">
+                        <div data-form-element="beds" class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Yatak</div>
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{properties.beds}}</div>
                         </div>
-                        <div class="col-xs-12 property-container disable_padding">
+                        <div data-form-element="bedroom" class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Yatak Odası</div>
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{properties.bedroom}}</div>
                         </div>
-                        <div class="col-xs-12 property-container disable_padding">
+                        <div data-form-element="build_age" class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Bina Yaşı</div>
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">{{properties.build_age}}</div>
                         </div>
-                        <div class="col-xs-12 property-container disable_padding">
+                        <div data-form-element="floor" class="col-xs-12 property-container disable_padding">
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding">Bulunduğu Kat</div>
                             <div class="col-xs-6 col-sm-6 col-md-6 disable_padding text-right">
                                 {{#zif properties.floor '===' '0' }} Zemin Kat {{/zif}}
@@ -191,7 +191,7 @@
     <!-- ADVERT LOCATİON END-->
     <div class="container">
         <!-- ADVERT OWNER DETAIL START-->
-        <div id="advert_user" class="col-xs-12 col-sm-12 col-md-2 hidden-xs hidden-sm advert_owner_container text-center moffset4">
+        <div id="advert_user" class="col-xs-12 col-sm-12 col-md-2 advert_owner_container text-center moffset2">
             <div class="col-xs-12 disable_padding advert_owner_profile">
                 <img src='{{#image user.photo 150 150 }} {{/image}}' alt="Profile Photo">
             </div>
@@ -200,8 +200,8 @@
                 {{#if user.state}}
                     <a href="javascript:void(0);" class="activeaccount"><i class="fa fa-check"></i> Onaylanmış Kimlik</a>
                 {{/if}}
-                <p class="advert-no moffset2">İlan Numarası: #{{advert.id}}</p>
-                {{#isLogin}} <a class="send-messagebtn link moffset2">Mesaj Gönder</a>{{/isLogin}}
+                <p class="advert-no">İlan Numarası: #{{advert.id}}</p>
+                {{#isLogin}} <a class="message link">Mesaj Gönder</a>{{/isLogin}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-10 advert_owner_desc moffset3">

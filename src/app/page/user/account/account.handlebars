@@ -1,8 +1,8 @@
 <div class='container'>
     <div class="profile_setting col-xs-12 col-sm-12 col-md-3">
         <div class="profil_photo text-center">
-            <img alt="photo" class="img-responsive img-circle profile_photo" src="{{#image user.photo 150 150 }} {{/image}}"/>
-            <a class="photoadd" href="#"><i class="fa fa-camera"></i> Düzenle</a>
+            <img alt="photo" class="img-responsive img-circle profile_photo photoadd" src="{{#image user.photo 150 150 }} {{/image}}"/>
+
             <input type="file" accept="image/*" style="display:none" id="FileUpload1" />
             <h4 class="name"><span class="{{#if user.state}} activemembericon {{else}} passiveaccounticon {{/if}}"></span> {{user.name}} {{user.lastname}}</h4>
             <div class="member_state active">

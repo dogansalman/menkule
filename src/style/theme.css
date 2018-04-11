@@ -4465,10 +4465,13 @@ margin-right: 5px;
   margin: auto
 }
 .profile_setting .photoadd {
-  color: #797B7D
+  color: #797B7D;
+  cursor: pointer;
 }
+
 .profile_setting .photoadd:hover {
-  color: #45B5F4
+  color: #45B5F4;
+  opacity: 0.7;
 }
 .profile_setting a {
   color: #45B5F4;

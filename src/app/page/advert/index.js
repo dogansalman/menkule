@@ -21,7 +21,23 @@ export default (params) => {
             return true;
         }
     };
+    let template = null;
 
+
+    const AdvertTypesInputDeny =
+        {
+            1: ['floor'], //Villa
+            2: ['bedroom', 'hall', 'room'], //Oda
+            9: ['floor'], //Müstakil Ev
+            5: ['floor','bedroom','room','hall','bathroom','bedroom','build_age'] //Çadır Kamp
+        };
+
+    function AdvertTypeInput(selectedTypeId) {
+        // Enable all inputs
+        const disabledInputs = AdvertTypesInputDeny[selectedTypeId];
+        if(!disabledInputs) return;
+        disabledInputs.forEach(i => template.formFields(i).remove());
+    }
 
     return new Promise((resolve) => {
         /*
@@ -35,7 +51,7 @@ export default (params) => {
             .then(() => Menkule.get('/adverts/find/' + params.id))
             .do(a => advert = a)
             .do(() =>  Object.assign(advert, {loggin: Menkule.hasToken()}))
-            .then((advert) => $("body").zone('content').setContentAsync(Advert(advert)))
+            .then((advert) => $("body").zone('content').setContentAsync(Advert(advert))).do(t => template = t)
             .then((template) => {
 
                 /* Add body style class*/
@@ -52,6 +68,9 @@ export default (params) => {
                 $(document).on('scroll', e => {
                     $(document).scrollTop() > currentElementOffset ? template.find('.advert-detail-bar').addClass('sticky') : template.find('.advert-detail-bar').removeClass('sticky');
                 });
+
+                console.log(Number(advert.advert_type.id));
+                AdvertTypeInput(Number(advert.advert_type.id));
 
                 /*
                 Inıt Gmap
@@ -234,7 +253,7 @@ export default (params) => {
                 /*
                 Message
                  */
-                template.find('.send-messagebtn').on('click', function(e) {
+                template.find('.message').on('click', function(e) {
                   e.preventDefault();
                   Message({
                     fullname: advert.user.fullname,

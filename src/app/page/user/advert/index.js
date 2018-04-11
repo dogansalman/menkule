@@ -84,7 +84,11 @@ function AdvertTypeInput(selectedTypeId) {
     });
     const disabledInputs = AdvertTypesInputDeny[selectedTypeId];
     if(!disabledInputs) return;
-    disabledInputs.forEach(i => template.formFields(i).attr('disabled',true));
+    disabledInputs.forEach(i =>
+    {
+        template.formFields(i)[0].selectedIndex  = 0;
+        template.formFields(i).attr('disabled',true);
+    });
 }
 
 export default (params) => {
@@ -261,6 +265,7 @@ export default (params) => {
               }).on('change', (e) => {
                 AdvertTypeInput(Number(e.target.value))
                 })
+                .on('rendered.template', (e) =>  $(e.target).find('select').trigger('change'));
 
             // Update or Create
             template.find('button.update').on('click', (e) => {

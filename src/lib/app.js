@@ -198,7 +198,7 @@ App.prototype.validate = {
   STRING: function (value) {
     if(value == "") return true;
     value = value.replace(/\r?\n/g, ' ');
-    if(/^[a-zğ ,./-:üıçöşA-ZĞÜİÇÖŞ().,!?]+$/.test(value) == false) return false;
+    if(/^[a-zğ ,./-:üıçöşA-ZĞÜİÇÖŞ().,'!?]+$/.test(value) == false) return false;
     return true;
   },
   PHONE: function (value) {

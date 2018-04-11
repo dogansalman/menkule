@@ -1,5 +1,5 @@
 {{#each images}}
-    {{#zif getIndex @index '==' '13'}}
+    {{#zif getIndex @index '==' '0'}}
         <div class="image-counter col-xs-12 col-sm-2 col-md-2">{{../images.length}} Fotoğraf Tümünü Gör</div>
         <div data-fancybox="gallery" href="{{#image url 0 0 }} {{/image}}" style="background:url('{{#image url 1000 500 }} {{/image}}')" class="fullwidth detail_image">
             <div class="visible-xs visible-sm mprice">{{../price}} TL</div>

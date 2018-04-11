@@ -117,6 +117,23 @@
         <div class="col-xs-12">
             <h2>Özellikler</h2>
         </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div data-zone="adverttypes" class="form-group">
+                <h3>Menkul Tipi</h3>
+            <select data-form-element="advert_type_id" class="form-control moffset1">
+                {{{{raw-helper}}}}
+                <option value="">Seçiniz</option>
+                {{#each types}}
+                {{#zif ../advert_type_id "==" id}}
+                <option value="{{id}}" selected="selected">{{name}}</option>
+                {{else}}
+                <option value="{{id}}">{{name}}</option>
+                {{/zif}}
+                {{/each}}
+{{{{/raw-helper}}}}
+</select>
+</div>
+</div>
         <div class="col-xs-12 col-sm-12 col-md-6">
             <h3>Misafir Kapasitesi (Maks)</h3>
             {{#select properties.visitor}}
@@ -127,7 +144,8 @@
             </select>
             {{/select}}
         </div>
-        <div class=" col-xs-12 col-sm-12 col-md-6">
+        <div style="clear:both"></div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
             <h3>Banyo Sayısı</h3>
             {{#select properties.bathroom}}
             <select data-form-element="bathroom" class="form-control">
@@ -137,13 +155,13 @@
             </select>
             {{/select}}
         </div>
-        <div class=" col-xs-12 col-sm-12 col-md-6">
+        <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <h3>Metrekare</h3>
                 <input data-form-element="m2" type="text" value="{{properties.m2}}" class="form-control" placeholder="Menkul kaydı kaç metrekare" />
             </div>
         </div>
-        <div class=" col-xs-12 col-sm-12 col-md-6">
+        <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <h3>Yatak Sayısı</h3>
                 {{#select properties.beds}}
@@ -155,7 +173,7 @@
                 {{/select}}
             </div>
         </div>
-        <div class=" col-xs-12 col-sm-12 col-md-6">
+        <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <h3>Yatak Odası</h3>
                 <select data-form-element="bedroom" class="form-control">
@@ -167,7 +185,7 @@
                 {{/select}}
             </div>
         </div>
-        <div class=" col-xs-12 col-sm-12 col-md-6">
+        <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <h3>Bina Yaşı</h3>
                 {{#select properties.build_age}}
@@ -180,7 +198,7 @@
                 {{/select}}
             </div>
         </div>
-        <div class=" col-xs-12 col-sm-12 col-md-6">
+        <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <h3>Bulunduğu Kat</h3>
                 <select data-form-element="floor" class="form-control">
@@ -199,7 +217,7 @@
             <h3></h3>
             <div class="col-xs-12 col-sm-12 col-md-5 disable_padding">
                 <div class="form-group">
-                    <label class="advert_title_label">Oda Sayısı</label>
+                    <h3>Oda Sayısı</h3>
                     {{#select properties.room}}
                     <select data-form-element="room" class="form-control">
                         {{#times 7}}
@@ -212,7 +230,7 @@
             <div class="hidden-xs hidden-sm col-md-1 disable_padding"></div>
             <div class="col-xs-12 col-sm-12 col-md-6 disable_padding">
                 <div class="form-group">
-                    <label class="advert_title_label">Salon</label>
+                    <h3>Salon</h3>
                     {{#select properties.hall}}
                     <select data-form-element="hall" class="form-control">
                         {{#times 7}}
@@ -223,7 +241,6 @@
                 </div>
             </div>
         </div>
-        <div style="clear:both"></div>
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group ">
                 <h3>Min. Konaklama Süresi</h3>
@@ -237,6 +254,7 @@
                 {{/select}}
             </div>
         </div>
+        <div style="clear:both"></div>
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group ">
                 <h3>Rezervasyon İptal Süresi</h3>
@@ -317,26 +335,9 @@
                 {{/select}}
             </div>
         </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-    <div data-zone="adverttypes" class="form-group">
-        <h3>Menkul Tipi</h3>
-    <select data-form-element="advert_type_id" class="form-control moffset1">
-        {{{{raw-helper}}}}
-        <option value="">Seçiniz</option>
-        {{#each types}}
-        {{#zif ../advert_type_id "==" id}}
-        <option value="{{id}}" selected="selected">{{name}}</option>
-        {{else}}
-        <option value="{{id}}">{{name}}</option>
-        {{/zif}}
-        {{/each}}
-    {{{{/raw-helper}}}}
-    </select>
-    </div>
-    </div>
         <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group ">
-                <h3>Gecelik Ücret</h3>
+                <h3>Günlük Ücret</h3>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-try"></i></div>
                     <input data-form-element="price" type="text" class="form-control price" value="{{price}}" placeholder="00">
@@ -383,4 +384,3 @@
         </div>
     </div>
     </div>
-
