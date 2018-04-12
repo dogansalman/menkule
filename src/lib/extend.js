@@ -80,6 +80,21 @@ $.fn.setContentAsync = function(content) {
         }, 0);
     });
 };
+// show loader
+$.fn.showLoading = function() {
+    return new Promise(resolve => {
+        $(this).append("<div class='loading-zone' id='page-preloader' style='opacity: 0.6;'></div>");
+        resolve();
+    })
+};
+// show loader
+$.fn.hideLoading = function() {
+    return new Promise(resolve => {
+        $(this).find('.loading-zone').remove();
+        resolve();
+    })
+};
+
 // Set content async
 $.fn.appenndContentAsync = function(content) {
     return new Promise(resolve => {

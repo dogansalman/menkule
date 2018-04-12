@@ -1,25 +1,23 @@
 <div class="container">
     <div class="col-xs-12 disable_padding">
-        <div class="col-xs-12 col-sm-5 col-md-7 disable_padding">
+        <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
             <div class="advert-selected list col-xs-12 disable_padding">
                 <div class="col-xs-12 disable_padding" id="advert-selected" data-zone="advert-selected"></div>
             </div>
             <div style="clear:both"></div>
             <div id="advert-list" class="col-xs-12 advert-selectlist" data-zone="advert-list"></div>
-            <div style="clear:both"></div>
-            <div data-zone="selected-advert-detail" class="hidden-xs col-sm-12 col-md-12 advert-selected-detail"></div>
-        </div>
-        <div class="hidden-xs col-sm-1 col-md-1"></div>
-        <div class="col-xs-12 col-sm-6 col-md-4 advert-calendar calendar-container">
-            <div id="calendar"></div>
-            <div class="col-xs-12 moffset2 bottomset2 disable_padding">
-                <div class="col-xs-12 text-right rez-cal-icon-container">
-                    <button  style="float:left;" href="javascript:void(0)" class="default_btn update">Kaydet</button>
-                    <span class="rezerved-msg">Rezerve Edildi</span>
-                    <span class="unavailable-msg">Dolu</span>
+            <div data-zone="advert-calendar" class="col-xs-12 col-sm-6 col-md-4 advert-calendar calendar-container moffset2 disable_padding ">
+                <div id="calendar"></div>
+                <div class="col-xs-12 moffset2 bottomset2 disable_padding">
+                    <div class="col-xs-12 text-right rez-cal-icon-container">
+                        <button  style="float:left;" href="javascript:void(0)" class="default_btn update">Kaydet</button>
+                        <span class="rezerved-msg">Rezerve Edildi</span>
+                        <span class="unavailable-msg">Dolu</span>
+                    </div>
                 </div>
+                <div data-zone="calendar-footer"></div>
             </div>
-            <div data-zone="calendar-footer"></div>
+            <div data-zone="rezervation-detail" class="col-xs-12 col-sm-6 col-md-7 advert-selected-detail col-md-offset-1 moffset2 disable_padding "></div>
         </div>
     </div>
 </div>

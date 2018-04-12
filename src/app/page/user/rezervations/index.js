@@ -145,7 +145,6 @@ export default (params) => {
                             })
                         });
 
-                        //for (var i in adverts) {   delete adverts[i]['selected'];  }
                         const selectedIndex = $(e.currentTarget).attr('data-index');
 
                         if(selectedIndex < 0) {

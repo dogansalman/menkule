@@ -1,0 +1,22 @@
+{{#if user_information}}
+    <div class="col-xs-12 col-sm-3 col-md-3 moffset3">
+        <img alt='photo' class='photo' src='{{#image user_information.photo 150 150 }} {{/image}}' />
+    </div>
+    <div class="col-xs-12 col-sm-9 col-md-9">
+        <h2> <b class="capitalize">{{user_information.fullname}}</b></h2>
+        <p> {{date checkin 'D MMM YYYY'}} - {{date checkout 'D MMM YYYY'}} / {{days}} Gün</p>
+        <p> {{user_information.identity_no}} -  ({{user_information.gender}}) </p>
+        <p><b> {{visitor}} Misafir</b> </p>
+        <p> <b>Toplam</b>  {{#currency total_price 2 0 }} {{/currency}} <i class="fa fa-try "></i></p>
+        <p> <b>Rezervasyon Tarih</b> {{date created_date 'D MMM YYYY'}} </p>
+        <a href="/user/rezervation/{{id}}" target="_blank" class="default_btn bottomset2">Rezervasyon Detay</a>
+    </div>
+{{else}}
+    <div class="col-xs-12 moffset2">
+        <h2>Rezervasyon Detayları</h2>
+        <p>Rezervasyon detaylarını görüntülemek için takvimi kullanabilirsiniz.</p>
+        <button class="default_btn bottomset2">Yeni Rezervasyon Ekle</button>
+    </div>
+
+{{/if}}
+

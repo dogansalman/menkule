@@ -420,7 +420,14 @@ textarea {
   background-position: center;
   z-index: 9999
 }
-.loading-process:before {
+.loading-zone {
+  top: 0;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 9999
+}
+.loading-process:before, .loading-zone:before {
   content: '';
   box-sizing: border-box;
   position: absolute;
@@ -3400,8 +3407,14 @@ Flatpicker Custom Style
     color: #fff;
     font-size: 11px;
     border-radius: 50%;
-}
 
+}
+.event.reserved.point {
+  cursor:pointer;
+}
+.event.reserved.point:hover {
+  background: #7ee8ab;
+}
 .event.unavailable {
   background: #f5f5f5;
   color: #bdbdbd;
@@ -3737,20 +3750,21 @@ User Rezervation
     font-size: 8px;
     color: #fff;
 }
-.rezervation-list .rezervation {
-
-}
+.rezervation-list .rezervation {}
 /*
 Advert calendar
  */
 .advert-selected-detail{
-  min-height: 280px;
+
 }
 .advert-selected-detail .photo {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
     width: 100%;
+    max-width: 120px;
+    margin: auto;
+    display: block;
 }
 #advert-list .list, .advert-selected{
   border: 1px solid #f9f9f9;
@@ -4491,7 +4505,7 @@ margin-right: 5px;
   text-transform: capitalize;
 }
 .activemembericon {
-  background: #45b5f4;
+  background: #45b5f4;.event.reserved
   height: 17px;
   width: 17px;
   display: inline-block;
@@ -5006,7 +5020,6 @@ a:hover {
 }
 .advert-selected-detail {
   border: 1px solid #f9f9f9;
-  margin: 10px 0px 0px 0px;
 }
 .list {
   padding: 5px 0px 5px 0px;
