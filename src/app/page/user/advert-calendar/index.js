@@ -92,6 +92,33 @@ export default () => {
                     .then(() => resolve())
                     .catch(() => template.zone('advert-calendar').hideLoading());
 
+                //render calendar detail
+                template.zone('calendar-footer').showLoading()
+                    .then(() => template.zone('calendar-footer').setContentAsync(calendarDetail({reserved: reserved_dates.length, unavaiable: unavailable_dates.length, percent: (reserved_dates.length / 365 * 100).toFixed(2)})))
+                    .then(() => {
+                        //upload event
+                        template.find('button.update').off('click').on('click', (e) => {
+                            e.preventDefault();
+                            delete advert["user_id"];
+                            //get unavaiable date
+                            unavailable_dates = template.find('#calendar').val() != "" ? _.map(template.find('#calendar').val().split(',')).map(function (x) {
+                                return {
+                                    'day': moment(x)._d.getDate(),
+                                    'month': moment(x)._d.getMonth() + 1,
+                                    'year': moment(x)._d.getFullYear(),
+                                    'fulldate': moment(x).format('YYYY-MM-DD')
+                                }
+                            }) : [];
+                            //post upload advert
+                            App.showPreloader(.7)
+                                .then(() => Menkule.put('/dates/unavailable/' + advert.id, unavailable_dates))
+                                .then(() => App.hidePreloader())
+                                .then(() => App.notifySuccess('İlanınızın takvini güncellendi.', ''));
+                        })
+                    })
+                    .then(() => template.zone('calendar-footer').hideLoading())
+                    .catch(() => template.zone('calendar-footer').hideLoading())
+
             })
         }
         Header()
@@ -126,35 +153,6 @@ export default () => {
 
                             renderCalendar(advert);
 
-
-
-
-                            //render calendar detail
-                            template.zone('calendar-footer').showLoading()
-                                .then(() => template.zone('calendar-footer').setContentAsync(calendarDetail({reserved: reserved_dates.length, unavaiable: unavailable_dates.length, percent: (reserved_dates.length / 365 * 100).toFixed(2)})))
-                                .then(() => {
-                                    //upload event
-                                    template.find('button.update').off('click').on('click', (e) => {
-                                        e.preventDefault();
-                                        delete advert["user_id"];
-                                        //get unavaiable date
-                                        unavailable_dates = template.find('#calendar').val() != "" ? _.map(template.find('#calendar').val().split(',')).map(function (x) {
-                                            return {
-                                                'day': moment(x)._d.getDate(),
-                                                'month': moment(x)._d.getMonth() + 1,
-                                                'year': moment(x)._d.getFullYear(),
-                                                'fulldate': moment(x).format('YYYY-MM-DD')
-                                            }
-                                        }) : [];
-                                        //post upload advert
-                                        App.showPreloader(.7)
-                                            .then(() => Menkule.put('/dates/unavailable/' + advert.id, unavailable_dates))
-                                            .then(() => App.hidePreloader())
-                                            .then(() => App.notifySuccess('İlanınızın takvini güncellendi.', ''));
-                                    })
-                                })
-                                .then(() => template.zone('calendar-footer').hideLoading())
-                                .catch(() => template.zone('calendar-footer').hideLoading())
                         })
                 });
 
