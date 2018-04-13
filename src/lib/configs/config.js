@@ -1,5 +1,5 @@
 export default {
-        "apiAdress": "https://webapi.menkule.com.tr",
+        "apiAdress": "http://devapi.menkule.com.tr",
         "cloudinaryBaseUrl": "https://res.cloudinary.com/www-menkule-com-tr/image/upload/",
         "socketAddress": "https://ws.menkule.com.tr",
         "nullImageUrl": "/assets/no-photo.png",
