@@ -60,8 +60,10 @@ export default () => Header(false)
                               .then(o => App.notifyDanger(err.responseJSON.Message, 'Üzgünüz'));
                       });
               });
-
-            new Promise((resolve) => resolve());
-
             })
     });
+
+
+App.on('logged.user', (user) => {
+   if(location.pathname === '/user/register') App.navigate('/');
+});
