@@ -140,7 +140,7 @@ export default () => {
                 // Render selected advert
                 template.zone('advert-selected').on('rendered.template', (e) => {
 
-                    if(adverts.length === 0) $("body").zone('content').setContentAsync(appMessage('advert_not_found'));
+                    if(adverts.length === 0) return $("body").zone('content').setContentAsync(appMessage('advert_not_found'));
 
                     var selectedAdvert = _.find(adverts, {'selected': true});
 
@@ -149,11 +149,7 @@ export default () => {
 
                     template.zone('advert-selected').setContentAsync(_selectedAdvert(selectedAdvert))
                         .then(() => Menkule.get("/adverts/" + selectedAdvert.advert.id))
-                        .then((advert) => {
-
-                            renderCalendar(advert);
-
-                        })
+                        .then((advert) => renderCalendar(advert))
                 });
 
                 // Fire render template

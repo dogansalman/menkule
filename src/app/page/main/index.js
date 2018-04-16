@@ -5,7 +5,7 @@ import swiper from 'swiper';
 import geocomplate from 'geocomplete';
 import flatpickr from "flatpickr"
 import Turkish from 'flatpickr/dist/l10n/tr.js';
-
+import Main from '../main';
 
 let location = null;
 // Validate config
@@ -102,5 +102,15 @@ export default () => Header(false)
       }});
       $('body').addClass('home');
       resolve();
+
   }));
+
+
+    App.on('logged.user', (user) => {
+        App.emit('changed.main');
+    });
+
+    App.on('changed.main', (user) => {
+        if(window.location.pathname === '/') Main();
+    });
 
