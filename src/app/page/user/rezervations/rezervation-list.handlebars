@@ -10,24 +10,25 @@
                     <span class="block moffset1">
                            {{#unless rezervation.state}}
                                {{#unless rezervation.is_cancel}}
-                                   <div class="rezervation-state wait"></div>
+                                   <div class="rezervation-state wait"></div> Onay Bekleniyor
                                {{/unless}}
                            {{/unless}}
                         {{#if rezervation.state}}
-                            <div class="rezervation-state approved"></div>
+                            <div class="rezervation-state approved"></div> Onaylandı
                         {{/if}}
                         {{#if rezervation.is_cancel}}
-                            <div class="rezervation-state cancel"></div>
+                            <div class="rezervation-state cancel"></div> İptal Edildi
                         {{/if}}
-                        <a class="link" href="/advert/{{rezervation.advert_id}}" target="_blank">#{{rezervation.advert_id}}</a> {{date rezervation.checkin "DD-MM-YYYY" }} / {{date rezervation.checkout "DD-MM-YYYY" }} ({{rezervation.days}} Gece)
                     </span>
-                    <h2 class='title'>
+                    <a class="link" href="/advert/{{rezervation.advert_id}}" target="_blank">#{{rezervation.advert_id}}</a> {{date rezervation.checkin "DD-MM-YYYY" }} / {{date rezervation.checkout "DD-MM-YYYY" }} ({{rezervation.days}} Gece)
+                    <h2 class='title moffset2'>
                         {{#if ../type_is_out}}
                            {{advert.title}}
                         {{else}}
                             <span class="capitalize">{{user.name}}</span> <span class="uppercase">{{user.lastname}}</span> {{user.identity_no}} ({{user.gender}})
                         {{/if}}
                     </h2>
+
                     <span class="block moffset1"><b>Tutar: {{#currency rezervation.total_price 2 0 }} {{/currency}} TL </b></span>
                     <span class="block moffset1">{{visitors.length}} Misafir</span>
                 </div>

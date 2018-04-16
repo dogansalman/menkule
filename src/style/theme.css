@@ -264,7 +264,8 @@ textarea {
   text-align: left!important
 }
 .textcenter {
-  text-align: center!important
+  text-align: center!important;
+  text-align-last:center;
 }
 .input-group-addon {
   border-radius: 0!important
@@ -281,12 +282,22 @@ textarea {
   font-weight: 200!important;
   height:35px;
 }
-.form-control::-webkit-input-placeholder,
-.form-control:-moz-placeholder,
-.form-control::-moz-placeholder,
-.form-control:-ms-input-placeholder {
-  color: #444!important
+
+
+
+.form-control::-webkit-input-placeholder {
+  color: #999!important
 }
+.form-control:-moz-placeholder {
+  color: #999!important
+}
+.form-control::-moz-placeholder {
+  color: #999!important
+}
+.form-control:-ms-input-placeholder {
+  color: #999!important
+}
+
 .form-control:focus {
   border-color: #49BAFB!important;
   outline: 0;
@@ -5036,7 +5047,7 @@ a:hover {
 }
 .list .photo img {
   width: initial!important;
-  height: 60px;
+  height: 75px;
   margin: auto;
   margin-top: 1px;
   display: block;
@@ -5045,7 +5056,7 @@ a:hover {
   border-radius: 50%;
 }
 .list .detail {
-  color: #565656;
+
 }
 .list .text {
   padding: 0px 0px 0px 0px;
@@ -5071,10 +5082,10 @@ a:hover {
 }
 .list .title {
   font-size: 14px;
-  color: #797979;
+  color: #666;
   font-family: 'Roboto', sans-serif!important;
   padding: 0px!important;
-  margin: 10px 0px 5px 0px!important;
+  margin: 5px 0px 5px 0px!important;
 }
 .list-titleadded a {
   color: #666;
@@ -5713,11 +5724,30 @@ advert-select:focus:active {
   }
   .search-form-mobile.searchengine {
     margin: 10% 0px 0px 0px;
+    background:none;
   }
   .search-form-mobile.searchengine .seachengine_btn{
-    height: 50px !important;
+    height: 40px !important;
+    border-radius:5px !important;
   }
-
+  .search-form-mobile.searchengine input, .search-form-mobile.searchengine select {
+    background: rgba(0, 0, 0, 0.38) !important;
+    border: none !important;
+    color: #fff !important;
+  }
+  .search-form-mobile .form-control::-webkit-input-placeholder
+  {
+    color: #fff!important;
+  }
+  .search-form-mobile .form-control::-moz-placeholder{
+    color: #fff!important;
+  }
+  .search-form-mobile .form-control:-ms-input-placeholder{
+    color: #fff!important;
+  }
+  .search-form-mobile .form-control:-moz-placeholder{
+    color: #fff!important;
+  }
 
   .search_bar .searchbox {
     margin-top: 0

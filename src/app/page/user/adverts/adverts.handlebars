@@ -1,35 +1,25 @@
 <div class="container">
     {{#each adverts}}
-        <div class="list col-xs-12">
-            <a href='/user/advert/{{advert.id}}'>
-                <div class='col-xs-3 col-sm-2 col-md-1 photo'> <img alt='photo' src='{{#image image 150 150 }} {{/image}}' /> </div>
-            </a>
+        <div data-item="{{advert.id}}" class="list advert col-xs-12">
+            <div class='col-xs-3 col-sm-2 col-md-1 photo'> <img alt='photo' src='{{#image image 150 150 }} {{/image}}' /> </div>
             <div class='col-xs-9 col-sm-10 col-md-11 detail'>
-                <a href='/user/advert/{{advert.id}}'>
                     <div class='col-xs-12 col-sm-12 col-md-12 text'>
-                        <h2 class='title'>
-                            {{#if advert.state}}<div class="advert-active"></div>{{/if}}
-                            {{#if advert.is_cancel}}<div class="advert-cancel"></div>{{/if}}
+                        <h2 class="disable_margin"> {{#if advert.state}}<div class="advert-active"></div> Onaylandı{{/if}}
+                            {{#if advert.is_cancel}}<div class="advert-cancel"></div> Onaylanmadı{{/if}}
                             {{#unless advert.state}}
                                 {{#unless advert.is_cancel}}
-                                    <div class="advert-wait"></div>
+                                    <div class="advert-wait"> </div> Onay Bekleniyor.
                                 {{/unless}}
-                            {{/unless}}
-                            <strong style="font-weight: 500;">#{{advert.id}}</strong>
+                            {{/unless}}</h2>
+                         <h2 class='title'>
+                            <a item-data="{{advert.id}}" class="link detail" style="font-weight: 500;">#{{advert.id}}</a>
                             {{advert.title}}
                         </h2>
-                        <span style="padding-left:25px" class="block"> {{city.name}} / {{town.name}}  </span>
-                        <span style="padding-left:25px" class="block"> {{advert_type.name}} </span>
+                        <span class="location block"> {{city.name}} / {{town.name}}  </span>
+                        <span class="location block"> {{advert_type.name}} </span>
                     </div>
-                </a>
             </div>
         </div>
     {{/each}}
 </div>
-<div class="container" style="min-height: inherit;">
-    <div class="col-xs-12 disable_padding text-right moffset2 bottomset2">
-        <div class="advert-wait" style="padding:2px"></div> Onay Bekleniyor
-        <div class="advert-cancel" style="padding:2px"></div> İptal Edildi
-        <div class="advert-active" style="padding:1px"></div> Onaylandı
-    </div>
-</div>
+
