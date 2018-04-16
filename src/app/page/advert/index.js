@@ -23,7 +23,6 @@ export default (params) => {
     };
     let template = null;
 
-
     const AdvertTypesInputDeny =
         {
             1: ['floor'], //Villa
@@ -45,7 +44,6 @@ export default (params) => {
          */
         let advert = {};
 
-
         Header()
             .then(() => Footer())
             .then(() => Menkule.get('/adverts/find/' + params.id))
@@ -57,6 +55,7 @@ export default (params) => {
                 /* Add body style class*/
                 $('body').addClass('adv-detail');
 
+                console.log(advert);
                 /* Scroll down sticky bar */
                 const scrollTop = $(window).scrollTop();
                 let elementOffset = $('.advert-detail-bar').offset().top;
@@ -262,6 +261,9 @@ export default (params) => {
                 });
             })
             .then(() => resolve())
+            .catch((err) => {
+                $("body").zone('content').setContentAsync(appMessage('advert_failed')).then(() => App.notifyDanger('İlan bulunamadı','')).then(() => resolve());
+            });
 
         /*
        When user logged
