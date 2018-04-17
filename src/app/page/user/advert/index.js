@@ -194,8 +194,6 @@ export default (params) => {
               }
           })
 
-
-
             // Advert exists
             if(advert) {
               // Notify advert state
@@ -251,6 +249,12 @@ export default (params) => {
               e.preventDefault();
                 template.find('#map').clearMarkers()
                     .then(() => template.find('#map').addMarker({lat: e.location.lat(),lng: e.location.lng()}));
+            });
+
+            // Map full screen
+            template.find('button.fullscreen-btn').on('click', (e) => {
+                template.find('div.map-container').toggleClass('map-fullscreen');
+                template.find('div.location-select-container').toggleClass('fullscreen');
             });
 
             // Advert types

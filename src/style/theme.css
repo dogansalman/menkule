@@ -986,6 +986,34 @@ Search
     top: 0;
 }
 
+.fullscreen-btn {
+  position: absolute;
+  width: 35px;
+  background: rgb(73, 186, 251);
+  z-index: 2;
+  font-size: 20px;
+  padding: 0;
+  color: #fff;
+  border: none;
+  height: 35px;
+  top: 100px;
+  right: 10px;
+  border-radius: 50%;
+}
+.fullscreen-btn:active,
+.fullscreen-btn:focus,
+.fullscreen-btn:focus:active,
+.fullscreen-btn:hover {
+  background: rgb(42, 161, 230);
+}
+.fullscreen-btn:before {
+  content: "\f0b2";
+  font-family: FontAwesome;
+  z-index: -1;
+  top: 0;
+}
+
+
 .advert-detail-map {} .search-result-icon i {
                         font-size: 18px;
                         padding-top: 10px;
@@ -1622,8 +1650,10 @@ Header
     -moz-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    overflow: hidden;
 }
-
 .help_menu {
     right: 0;
     position: absolute;
@@ -1769,8 +1799,15 @@ Header
     border: 1px solid #49BAFB
 }
 .bigmenu-menulist {
-    display: block
+  display: block;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100% - 235px);
 }
+.bigmenu-menulist::-webkit-scrollbar {
+  display: none;
+}
+
 .bigmenu-icon {
     float: left;
     background: #fff;
@@ -2424,6 +2461,8 @@ newalerts-all:focus,
         width: 1200px;
     }
 }
+
+
 @media all and (max-width: 768px) {
   .rezervation-tabs div{
     display:inline-block;
@@ -2819,10 +2858,46 @@ Notify
 /*
 Advert Detail
  */
+.advert-detail .location-select-container {
+  padding:10px;
+  position: absolute;
+  top: 9%;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.81);
+}
 .advert-detail .search-cordi-container .search-cordi-btn {
     bottom: 25px;
     right: 20px;
     top: inherit;
+}
+.advert-detail .fullscreen-map-container .fullscreen-btn {
+  bottom: 70px;
+  right: 20px;
+  top: inherit;
+}
+.advert-detail .map-fullscreen {
+  position: fixed;
+  z-index: 9;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  background: #fff;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+.advert-detail .map-fullscreen #map{
+   height: 94% !important;
+ }
+.advert-detail .location-select-container.fullscreen{
+  padding: 10px;
+  position: fixed;
+  top: 50px;
+  left: 0px;
+  width: 100%;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.81);
 }
 .rezervation-form{
     border: 1px solid #f9f9f9;

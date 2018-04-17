@@ -166,6 +166,10 @@ $.fn.addCircle = function (latlng) {
   circle.setMap(this.Map());
   circles.push(circle);
 };
+// Resize map
+$.fn.resize = function() {
+    google.maps.event.trigger(this.Map(), 'resize');
+}
 
 // Set zoom level
 $.fn.zoom = function (zoom){
