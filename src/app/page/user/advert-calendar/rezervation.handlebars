@@ -9,13 +9,13 @@
         <p><b> {{visitor}} Misafir</b> </p>
         <p> <b>Toplam</b>  {{#currency total_price 2 0 }} {{/currency}} <i class="fa fa-try "></i></p>
         <p> <b>Rezervasyon Tarih</b> {{date created_date 'D MMM YYYY'}} </p>
-        <a href="/user/rezervation/{{id}}" target="_blank" class="default_btn bottomset2">Rezervasyon Detay</a>
+        <a href="/user/rezervation/{{id}}" target="_blank" class="default_btn bottomset2 rezervation-btn">Rezervasyon Detay</a>
     </div>
 {{else}}
     <div class="col-xs-12 moffset2">
         <h2>Rezervasyon Detayları</h2>
         <p>Rezervasyon detaylarını görüntülemek için takvimi kullanabilirsiniz.</p>
-        <button class="default_btn bottomset2">Yeni Rezervasyon Ekle</button>
+        <button class="default_btn bottomset2 rezervation-btn">Yeni Rezervasyon Ekle</button>
     </div>
 
 {{/if}}

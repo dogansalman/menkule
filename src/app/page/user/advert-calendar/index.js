@@ -7,6 +7,7 @@ import rezervation from './rezervation.handlebars';
 import advertList from './advert-list.handlebars';
 import calendarDetail from './calendar-detail.handlebars';
 import flatpickr from 'flatpickr';
+import rezervationForm from '../../../modal/rezervation-form';
 
 export default () => {
     return new Promise((resolve) => {
@@ -29,15 +30,25 @@ export default () => {
                     .then(() => resolve())
             })
         };
+
+        function onRezervationForm(temp) {
+            temp.find('button.rezervation-btn').on('click',(e) => {
+                rezervationForm();
+            });
+
+        }
+
         function renderRezervation(rezervation_id){
             return new Promise((resolve) => {
-                if(!rezervation_id) return template.zone('rezervation-detail').setContentAsync(rezervation(null))
+
+                 if(!rezervation_id) return template.zone('rezervation-detail').setContentAsync(rezervation(null)).then((temp) => onRezervationForm(temp));
                 template.zone('rezervation-detail').showLoading()
                     .then(() => Menkule.get('/rezervations/' + rezervation_id))
                     .then((rez) => template.zone('rezervation-detail').setContentAsync(rezervation(rez)))
+                    .then((temp) => App.promise(() => onRezervationForm(temp)))
                     .then(() => resolve())
                     .then(() => template.zone('rezervation-detail').hideLoading())
-                    .catch(e => template.zone('rezervation-detail').hideLoading())
+                    .catch(() => template.zone('rezervation-detail').hideLoading())
             })
         }
         function renderCalendar(advert){
