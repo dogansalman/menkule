@@ -12,22 +12,17 @@ export default (advert) => {
         share_email: [],
     };
     const rezervationFormRules = {
-        'name': [App.validate.REQUIRED, App.validate.STRING],
-        'lastname': [App.validate.REQUIRED, App.validate.STRING],
+        'fullname': [App.validate.REQUIRED, App.validate.STRING],
         'email': [App.validate.REQUIRED, App.validate.EMAIL],
-        'note': [App.validate.STRING],
         'gsm': [App.validate.REQUIRED, App.validate.PHONE],
         'identity_no': [App.validate.REQUIRED, App.validate.NUMBER, App.validate.BETWEEN(10, 12)],
         'gender': [App.validate.REQUIRED, function (value, fields) {
             return ($(fields['gender']).fieldValue() === 'Bayan' || $(fields['gender']).fieldValue() == 'Bay');
-        }],
-        'accept_policy': function(value) {
-            if (value !== true) {
-                App.notifyDanger('Devam etmek için Üyelik Koşulları ve Ön Bilgilendirme formunu onaylamanız gerekmektedir.', 'Üzgünüz');
-            }
-            return value;
-        }
+        }]
     };
+    const visitors = [];
+
+
     function renderAdvertPrice(params){
         return new Promise((resolve) => template.zone('price-table').setContentAsync(advertPrice(params)).then(() => resolve()));
     }
@@ -39,6 +34,7 @@ export default (advert) => {
                     getDateRange(d.from_date, d.to_date, 'YYYY-MM-DD').forEach(dt => enabledDates.push((dt)));
                 });
             }
+
             // Init Calendar
             flatpickr.localize(flatpickr.l10ns.tr);
             flatpickr(template.find('.calendar')[0],
@@ -109,8 +105,12 @@ export default (advert) => {
             // On rezervation
             template.find('button.acceptbtn').on('click', (e) => {
                 template.find('.rezervation').validateFormAsync(rezervationFormRules).then((data) => {
-
-                    console.log(data);
+                    if(!template.formFields('date').val()) return App.notifyDanger('Lütfen giriş/çıkış tarihini seçin.','');
+                    const checkin = moment(template.formFields('date').val().split(' - ')[0].trim(), 'DD/MM/YYYY').format('YYYY-MM-DD');
+                    const checkout = moment(template.formFields('date').val().split(' - ')[1].trim(), 'DD/MM/YYYY').format('YYYY-MM-DD');
+                    visitors.push(data);
+                    Menkule.post('/rezervations/manuel', {'checkin':checkin, 'checkout': checkout, 'visitors': visitors, 'advert_id': advert.id})
+                        .then((r) => console.log(r))
                 });
             })
 

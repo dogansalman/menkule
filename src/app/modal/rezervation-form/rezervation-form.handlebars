@@ -1,27 +1,23 @@
 <div class='col-xs-12 rezervation-form-container'>
     <h2>Giriş / Çıkış Tarihi</h2>
     <div class="col-xs-12 disable_padding">
-        <input type="text" data-form-element="date" placeholder="Giriş Tarihi / Çıkış Tarihi" class="form-control calendar fullwidth"/>
+        <input type="text" data-form-element="date" placeholder="Giriş Tarihi / Çıkış Tarihi" class="form-control pointer calendar fullwidth"/>
     </div>
+
     <div data-zone="price-table" style="background: #fbfbfb; border: 1px solid #f3f2f2 !important;" class="col-xs-12 moffset2 paddingset4 borderer">
         <p class="disable_margin">Rezervasyon tarihini seçiniz.</p>
     </div>
 
-
     <div style="clear:both;"></div>
     <h2 class="moffset2">Kişisel Bilgi</h2>
-    <div class="col-xs-12 rezervation borderer paddingset4">
+    <div class="col-xs-12 rezervation borderer paddingset4 ">
         <div class="form-group">
-            <label for="ad">Ad </label>
-            <input type="text" data-form-element="name" class="form-control" value="{{name}}" maxlength="90" placeholder="Ad">
-        </div>
-        <div class="form-group">
-            <label for="ad">Soyad</label>
-            <input type="text" data-form-element="lastname" class="form-control" value="{{lastname}}" maxlength="90" placeholder="Soyad">
+            <label for="ad">Ad Soyad</label>
+            <input type="text" data-form-element="fullname" class="form-control" maxlength="255" placeholder="Ad">
         </div>
         <div class="form-group">
             <label for="eposta">E-Posta</label>
-            <input type="text" data-form-element="email" class="form-control" value="{{email}}" maxlength="120" placeholder="E-Posta">
+            <input type="text" data-form-element="email" class="form-control"  maxlength="120" placeholder="E-Posta">
         </div>
         <div class="form-group">
             <label for="cinsiyet">Cinsiyet</label>
