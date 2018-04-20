@@ -26,6 +26,9 @@ input[type="email"] {
 input[type='number'] {
     -moz-appearance:textfield;
 }
+button[disabled], html input[disabled]{
+  opacity:0.7 !important;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

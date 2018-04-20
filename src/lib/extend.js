@@ -118,6 +118,18 @@ $.fn.clearForm = function () {
     $(this).find('textarea').val('');
     $(this).find('select').selectedIndex = 0
 };
+// disable form
+$.fn.disableForm = function () {
+    $(this).find('input').attr('disabled', true).removeClass('required');
+    $(this).find('textarea').attr('disabled', true).removeClass('required');
+    $(this).find('select').attr('disabled', true).removeClass('required');
+};
+// enable form
+$.fn.enableForm = function () {
+    $(this).find('input').removeAttr('disabled');
+    $(this).find('textarea').removeAttr('disabled');
+    $(this).find('select').removeAttr('disabled');
+};
 $.fn.applyRemote = function (url, options) {
     var el = $(this).toArray().find(e => true);
     if (url == "refresh" && !$(el).data("template")) return this;

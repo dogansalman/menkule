@@ -1,12 +1,16 @@
 <div class='col-xs-12 rezervation-form-container'>
-    <h2>Giriş / Çıkış </h2>
-    <div class="col-xs-12 paddingset4">
+    <h2>Giriş / Çıkış Tarihi</h2>
+    <div class="col-xs-12 disable_padding">
         <input type="text" data-form-element="date" placeholder="Giriş Tarihi / Çıkış Tarihi" class="form-control calendar fullwidth"/>
     </div>
+    <div data-zone="price-table" style="background: #fbfbfb; border: 1px solid #f3f2f2 !important;" class="col-xs-12 moffset2 paddingset4 borderer">
+        <p class="disable_margin">Rezervasyon tarihini seçiniz.</p>
+    </div>
+
 
     <div style="clear:both;"></div>
     <h2 class="moffset2">Kişisel Bilgi</h2>
-    <div class="col-xs-12 borderer paddingset4">
+    <div class="col-xs-12 rezervation borderer paddingset4">
         <div class="form-group">
             <label for="ad">Ad </label>
             <input type="text" data-form-element="name" class="form-control" value="{{name}}" maxlength="90" placeholder="Ad">
@@ -30,7 +34,7 @@
             <label for="gsm">GSM No</label>
             <div class="input-group">
                 <div class="input-group-addon">0</div>
-                <input type="tel" data-form-element="gsm" class="form-control" mask="0000000000" value="{{gsm}}" maxlength="10" placeholder="5550000000 ">
+                <input type="tel" data-form-element="gsm" class="form-control" mask="0000000000" value="{{gsm}}" maxlength="10" placeholder="5550000000">
             </div>
         </div>
         <div class="form-group">
@@ -38,25 +42,31 @@
             <input type="number" data-form-element="identity_no"  mask="00000000000" maxlength="11" class="form-control" placeholder="TC kimlik numarası">
         </div>
         <div class='col-xs-12 modal-buttoncontainer disable_padding text-left'>
-            <p>Formdaki </p>
-            <a class='acceptbtn' href='javascript:void(0);'>Kaydet ve Onayla </a>
-            <a class='cancelbtn' data-dismiss='modal' href='javascript:void(0);'>İptal</a>
+            <p style="font-size:12px;">Rezervasyon kaydı oluşturmak için lütfen yukarıdaki formu eksiksiz doldurunuz.</p>
+            <button class='acceptbtn'>Kaydet</button>
         </div>
     </div>
     <div style="clear:both;"></div>
 
     <h2 class="moffset2">Paylaş</h2>
-    <div class="col-xs-12 borderer paddingset4">
-        <p>Seçtiğiniz tarih aralığında rezervasyon talebini paylaşabilirsiniz.</p>
+    <div class="col-xs-12 borderer paddingset4 rezervation-share">
+        <p style="font-size: 12px;">Seçtiğiniz tarih aralığında rezervasyon formunu aşağıdaki seçenekleri kullanarak paylaşabilirsiniz.</p>
         <div class="checkbox checkbox-info">
             <input data-form-element="share_gsm" id="share_gsm" type="checkbox" />
             <label for="share_gsm">GSM No ile Paylaş</label>
+        </div>
+        <div style="display: none" class="input-group gsm-number-share">
+            <div class="input-group-addon">0</div>
+            <input type="tel" data-form-element="gsm" class="form-control" mask="0000000000" value="{{gsm}}" maxlength="10" placeholder="5550000000">
         </div>
         <div class="checkbox checkbox-info">
             <input data-form-element="share_email" id="share_email" type="checkbox" />
             <label for="share_email">E-posta ile Paylaş</label>
         </div>
-        <input class="form-control" style="display: none" data-form-element="email" placeholder="E-posta adresi" id="share_email" type="email" />
+        <div style="display: none" class="form-group email-share">
+            <input class="form-control" data-form-element="email" placeholder="E-posta adresi" id="share_email" type="email" />
+        </div>
+
         <a class='default_btn share_btn'>Paylaş </a>
     </div>
 </div>

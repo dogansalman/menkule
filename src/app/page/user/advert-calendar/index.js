@@ -13,6 +13,7 @@ export default () => {
     return new Promise((resolve) => {
         let adverts = [];
         let template = null;
+        let selectedAdvert = null;
 
         function renderAdvertList(){
             return new Promise((resolve) => {
@@ -33,7 +34,7 @@ export default () => {
 
         function onRezervationForm(temp) {
             temp.find('button.rezervation-btn').on('click',(e) => {
-                rezervationForm();
+                rezervationForm(selectedAdvert);
             });
 
         }
@@ -132,6 +133,7 @@ export default () => {
 
             })
         }
+
         Header()
             .then(() => Footer())
             .then(() => Menkule.get("/adverts").do(a => adverts = a))
@@ -153,7 +155,7 @@ export default () => {
 
                     if(adverts.length === 0) return $("body").zone('content').setContentAsync(appMessage('advert_not_found'));
 
-                    var selectedAdvert = _.find(adverts, {'selected': true});
+                    selectedAdvert = _.find(adverts, {'selected': true});
 
                     if (typeof selectedAdvert == "undefined") selectedAdvert = adverts[0];
                     Object.assign(selectedAdvert, {selected: true});
