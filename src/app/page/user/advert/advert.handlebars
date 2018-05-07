@@ -246,10 +246,13 @@
                 <h3>Min. Konaklama Süresi</h3>
                 {{#select min_layover}}
                 <select data-form-element="min_layover" class="form-control">
-                    {{#times 9}}
+                    {{#times 5}}
                     <option value="{{this}}">{{this}} Gün</option>
                     {{/times}}
-                    <option value="50">10 Gün ve Üzeri</option>
+                    <option value="7">1 Hafta</option>
+                    <option value="14">2 Hafta</option>
+                    <option value="21">3 Hafta</option>
+                    <option value="30">1 Ay (30 Gün)</option>
                 </select>
                 {{/select}}
             </div>
