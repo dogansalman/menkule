@@ -3013,6 +3013,15 @@ Advert Detail
   -ms-word-wrap: break-word;
   word-wrap: break-word;
 }
+.detaildesc b, .detaildesc strong {
+  font-weight: 500 !important;
+}
+.detaildesc h2{
+  font-size:14px !important;
+}
+.detaildesc h3{
+  font-size:16px !important;
+}
 .feedback-container {
     border: 1px solid #f7f7f7;
     padding: 10px;
