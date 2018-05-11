@@ -270,7 +270,8 @@ textarea {
   text-align: left!important
 }
 .textcenter {
-  text-align: center!important
+  text-align: center!important;
+  text-align-last:center;
 }
 .input-group-addon {
   border-radius: 0!important
@@ -287,12 +288,22 @@ textarea {
   font-weight: 200!important;
   height:35px;
 }
-.form-control::-webkit-input-placeholder,
-.form-control:-moz-placeholder,
-.form-control::-moz-placeholder,
-.form-control:-ms-input-placeholder {
-  color: #444!important
+
+
+
+.form-control::-webkit-input-placeholder {
+  color: #999!important
 }
+.form-control:-moz-placeholder {
+  color: #999!important
+}
+.form-control::-moz-placeholder {
+  color: #999!important
+}
+.form-control:-ms-input-placeholder {
+  color: #999!important
+}
+
 .form-control:focus {
   border-color: #49BAFB!important;
   outline: 0;
@@ -981,6 +992,34 @@ Search
     top: 0;
 }
 
+.fullscreen-btn {
+  position: absolute;
+  width: 35px;
+  background: rgb(73, 186, 251);
+  z-index: 2;
+  font-size: 20px;
+  padding: 0;
+  color: #fff;
+  border: none;
+  height: 35px;
+  top: 100px;
+  right: 10px;
+  border-radius: 50%;
+}
+.fullscreen-btn:active,
+.fullscreen-btn:focus,
+.fullscreen-btn:focus:active,
+.fullscreen-btn:hover {
+  background: rgb(42, 161, 230);
+}
+.fullscreen-btn:before {
+  content: "\f0b2";
+  font-family: FontAwesome;
+  z-index: -1;
+  top: 0;
+}
+
+
 .advert-detail-map {} .search-result-icon i {
                         font-size: 18px;
                         padding-top: 10px;
@@ -1010,7 +1049,7 @@ Search
   height: auto;
   overflow: hidden;
   width: 100%;
-  min-height: 200px;
+  min-height: 165px;
 }
 .map-result-profileimage {
   width: 40px!important;
@@ -1617,8 +1656,10 @@ Header
     -moz-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    overflow: hidden;
 }
-
 .help_menu {
     right: 0;
     position: absolute;
@@ -1764,8 +1805,15 @@ Header
     border: 1px solid #49BAFB
 }
 .bigmenu-menulist {
-    display: block
+  display: block;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100% - 235px);
 }
+.bigmenu-menulist::-webkit-scrollbar {
+  display: none;
+}
+
 .bigmenu-icon {
     float: left;
     background: #fff;
@@ -2419,6 +2467,8 @@ newalerts-all:focus,
         width: 1200px;
     }
 }
+
+
 @media all and (max-width: 768px) {
   .rezervation-tabs div{
     display:inline-block;
@@ -2817,10 +2867,46 @@ Notify
 /*
 Advert Detail
  */
+.advert-detail .location-select-container {
+  padding:10px;
+  position: absolute;
+  top: 9%;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.81);
+}
 .advert-detail .search-cordi-container .search-cordi-btn {
     bottom: 25px;
     right: 20px;
     top: inherit;
+}
+.advert-detail .fullscreen-map-container .fullscreen-btn {
+  bottom: 70px;
+  right: 20px;
+  top: inherit;
+}
+.advert-detail .map-fullscreen {
+  position: fixed;
+  z-index: 9;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  background: #fff;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+.advert-detail .map-fullscreen #map{
+   height: 94% !important;
+ }
+.advert-detail .location-select-container.fullscreen{
+  padding: 10px;
+  position: fixed;
+  top: 50px;
+  left: 0px;
+  width: 100%;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.81);
 }
 .rezervation-form{
     border: 1px solid #f9f9f9;
@@ -2935,6 +3021,15 @@ Advert Detail
     font-size: 13px;
   -ms-word-wrap: break-word;
   word-wrap: break-word;
+}
+.detaildesc b, .detaildesc strong {
+  font-weight: 500 !important;
+}
+.detaildesc h2{
+  font-size:14px !important;
+}
+.detaildesc h3{
+  font-size:16px !important;
 }
 .feedback-container {
     border: 1px solid #f7f7f7;
@@ -5045,7 +5140,7 @@ a:hover {
 }
 .list .photo img {
   width: initial!important;
-  height: 60px;
+  height: 75px;
   margin: auto;
   margin-top: 1px;
   display: block;
@@ -5054,7 +5149,7 @@ a:hover {
   border-radius: 50%;
 }
 .list .detail {
-  color: #565656;
+
 }
 .list .text {
   padding: 0px 0px 0px 0px;
@@ -5080,10 +5175,10 @@ a:hover {
 }
 .list .title {
   font-size: 14px;
-  color: #797979;
+  color: #666;
   font-family: 'Roboto', sans-serif!important;
   padding: 0px!important;
-  margin: 10px 0px 5px 0px!important;
+  margin: 5px 0px 5px 0px!important;
 }
 .list-titleadded a {
   color: #666;
@@ -5722,11 +5817,30 @@ advert-select:focus:active {
   }
   .search-form-mobile.searchengine {
     margin: 10% 0px 0px 0px;
+    background:none;
   }
   .search-form-mobile.searchengine .seachengine_btn{
-    height: 50px !important;
+    height: 40px !important;
+    border-radius:5px !important;
   }
-
+  .search-form-mobile.searchengine input, .search-form-mobile.searchengine select {
+    background: rgba(0, 0, 0, 0.38) !important;
+    border: none !important;
+    color: #fff !important;
+  }
+  .search-form-mobile .form-control::-webkit-input-placeholder
+  {
+    color: #fff!important;
+  }
+  .search-form-mobile .form-control::-moz-placeholder{
+    color: #fff!important;
+  }
+  .search-form-mobile .form-control:-ms-input-placeholder{
+    color: #fff!important;
+  }
+  .search-form-mobile .form-control:-moz-placeholder{
+    color: #fff!important;
+  }
 
   .search_bar .searchbox {
     margin-top: 0

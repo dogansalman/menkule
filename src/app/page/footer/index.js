@@ -1,4 +1,5 @@
 import footer from './footer.handlebars';
+import _Footer from '../footer';
 
 const suggestionsForm = {
     email: [App.validate.REQUIRED, App.validate.EMAIL],
@@ -40,12 +41,14 @@ export  default () => {
                                         App.notifyDanger('E-posta adresiniz zaten kayıtlı.', '')
                                     }
                                 })
-
                         });
                 });
                 resolve();
             })
     })
 }
+App.on('logged.user', (user) => {
+    _Footer();
+});
 
 
