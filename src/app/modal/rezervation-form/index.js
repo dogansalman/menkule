@@ -109,7 +109,7 @@ export default (advert) => {
                     const checkin = moment(template.formFields('date').val().split(' - ')[0].trim(), 'DD/MM/YYYY').format('YYYY-MM-DD');
                     const checkout = moment(template.formFields('date').val().split(' - ')[1].trim(), 'DD/MM/YYYY').format('YYYY-MM-DD');
                     visitors.push(data);
-                    Menkule.post('/rezervations/manuel', {'checkin':checkin, 'checkout': checkout, 'visitors': visitors, 'advert_id': advert.id})
+                    Menkule.post('/rezervations/add', {'checkin':checkin, 'checkout': checkout, 'visitors': visitors, 'advert_id': advert.id})
                         .then((r) => console.log(r))
                 });
             })
