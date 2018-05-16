@@ -12,8 +12,12 @@
     <h2 class="moffset2">Kişisel Bilgi</h2>
     <div class="col-xs-12 rezervation borderer paddingset4 ">
         <div class="form-group">
-            <label for="ad">Ad Soyad</label>
-            <input type="text" data-form-element="fullname" class="form-control" maxlength="255" placeholder="Ad">
+            <label for="ad">Ad</label>
+            <input type="text" data-form-element="name" class="form-control" maxlength="255" placeholder="Ad">
+        </div>
+        <div class="form-group">
+            <label for="ad">Soyad</label>
+            <input type="text" data-form-element="lastname" class="form-control" maxlength="255" placeholder="Soyad">
         </div>
         <div class="form-group">
             <label for="eposta">E-Posta</label>
@@ -36,6 +40,9 @@
         <div class="form-group">
             <label for="tc">TC No: </label>
             <input type="number" data-form-element="identity_no"  mask="00000000000" maxlength="11" class="form-control" placeholder="TC kimlik numarası">
+        </div>
+        <div class="form-group">
+            <button type="button" class="default_btn addvisitor">Yeni Misafir Ekle</button>
         </div>
         <div class='col-xs-12 modal-buttoncontainer disable_padding text-left'>
             <p style="font-size:12px;">Rezervasyon kaydı oluşturmak için lütfen yukarıdaki formu eksiksiz doldurunuz.</p>

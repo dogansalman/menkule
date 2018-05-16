@@ -35,12 +35,14 @@ export default (options) => {
 
         //close event remove modal
         $(template).on('hidden.bs.modal', (e) => {
+            if($(template).zone('modal-body').length > 1) $(template).zone('modal-body').first().removeClass('blurred');
             e.target.remove();
         });
 
         //show event and render modal content
         $(template).on('shown.bs.modal', (e) => {
-            $(template).zone('modal-body').setContentAsync( typeof options.template === 'function' ? options.template(options.data): options.template)
+            if($(template).zone('modal-body').length > 1) $(template).zone('modal-body').first().addClass('blurred');
+            $(template).zone('modal-body').last().setContentAsync( typeof options.template === 'function' ? options.template(options.data): options.template)
                 .then(t => resolve(t));
         });
 

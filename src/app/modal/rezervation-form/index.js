@@ -3,6 +3,7 @@ import rezervationForm from './rezervation-form.handlebars';
 import flatpickr from "flatpickr"
 import Turkish from 'flatpickr/dist/l10n/tr.js';
 import advertPrice from './advert-price.handlebars';
+import visitorModal from '../../modal/visitor';
 
 export default (advert) => {
 
@@ -12,7 +13,8 @@ export default (advert) => {
         share_email: [],
     };
     const rezervationFormRules = {
-        'fullname': [App.validate.REQUIRED, App.validate.STRING],
+        'name': [App.validate.REQUIRED, App.validate.STRING],
+        'lastname': [App.validate.REQUIRED, App.validate.STRING],
         'email': [App.validate.REQUIRED, App.validate.EMAIL],
         'gsm': [App.validate.REQUIRED, App.validate.PHONE],
         'identity_no': [App.validate.REQUIRED, App.validate.NUMBER, App.validate.BETWEEN(10, 12)],
@@ -71,6 +73,9 @@ export default (advert) => {
         .then(() => InitCalendar())
         .then(() => {
 
+            template.find('button.addvisitor').on('click', () => {
+               visitorModal().then((t) => console.log(t));
+            });
             // On Share Email
             template.formFields('share_email').on('change', (e) => {
                 if($(e.target).is(':checked')){
