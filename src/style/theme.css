@@ -2847,6 +2847,7 @@ Notify
     width: auto;
     border-radius: 0px;
     min-width: 300px;
+    z-index: 2000 !important;
 }
 .alert-success{
     border-color: #2ecc71;
@@ -2856,6 +2857,7 @@ Notify
     width: auto;
     border-radius: 0px;
     min-width: 300px;
+    z-index: 2000 !important;
 }
 .alert-success.clickabled, .alert-danger.clickabled {
   cursor:pointer;

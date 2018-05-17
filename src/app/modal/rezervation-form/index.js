@@ -4,6 +4,7 @@ import flatpickr from "flatpickr"
 import Turkish from 'flatpickr/dist/l10n/tr.js';
 import advertPrice from './advert-price.handlebars';
 import visitorModal from '../../modal/visitor';
+import visitorList from '../../page/rezervation/visitors.handlebars';
 
 export default (advert) => {
 
@@ -24,6 +25,40 @@ export default (advert) => {
     };
     const visitors = [];
 
+    /*
+    Add new visitor
+     */
+    function addVisitor(visitor) {
+        return new Promise((resolve) => {
+            App.promise(() => visitors.filter(item => JSON.stringify(item) == JSON.stringify(visitor)).length == 0 ? false : true)
+                .then((isExist) => { if (!isExist) visitors.push(visitor) })
+                .then(() => resolve(visitors))
+        });
+    }
+    /*
+    Render visitor
+     */
+    function renderVisitor() {
+        return new Promise((resolve) => {
+            template.zone('visitor').setContentAsync(visitorList({visitor: visitors}))
+                .then((visitorTemplate) => {
+                    //render visitor count block
+                    //advertDetailTemplateGlobal.zone('visitor-count').setContentAsync(VisitorCountBlock({visitor: visitors.length +1}));
+                    //remove visitor
+                    visitorTemplate.find('.remove-visitor').on('click', (e) => {
+                        e.preventDefault();
+                        App.promise(() => App.showPreloader(.7))
+                            .then(() => App.promise(() => $(e.target).closest('.visitor').attr('data-index')))
+                            .then((visitorIndex) => App.promise(() => visitors.splice(visitorIndex, 1)))
+                            .then(() => App.hidePreloader())
+                            .then(() => renderVisitor())
+                            .catch(() => App.hidePreloader())
+                    })
+                })
+                .then(() => resolve(true));
+        });
+    }
+
 
     function renderAdvertPrice(params){
         return new Promise((resolve) => template.zone('price-table').setContentAsync(advertPrice(params)).then(() => resolve()));
@@ -37,6 +72,23 @@ export default (advert) => {
                 });
             }
 
+
+            //get reserved date
+            var reserved_dates = _.map(_.map(_.filter(advert.unavailable_date, function (o) {
+                return o.rezervation_id > 0;
+            }), 'fulldate')).map(function (x) {
+                return moment(new Date(moment(x)._d)).format('DD/MM/YYYY');
+            });
+            //get unavailable date
+            var unavailable_dates = _.map(_.map(_.filter(advert.unavailable_date, function (o) {
+                return o.rezervation_id === 0;
+            }), 'fulldate')).map(function (x) {
+                return moment(new Date(moment(x)._d)).format('DD/MM/YYYY');
+            });
+
+            console.log(reserved_dates);
+
+
             // Init Calendar
             flatpickr.localize(flatpickr.l10ns.tr);
             flatpickr(template.find('.calendar')[0],
@@ -45,8 +97,10 @@ export default (advert) => {
                     minDate: 'today',
                     static: true,
                     dateFormat: 'd/m/Y',
-                    enable:enabledDates,
-                    disable: advert.unavailable_date.map(t => moment(new Date(moment(t.fulldate)._d)).format('YYYY-MM-DD')),
+                    //enable:enabledDates,
+                    //disable: advert.unavailable_date.map(t => moment(new Date(moment(t.fulldate)._d)).format('YYYY-MM-DD')),
+                    disable: reserved_dates,
+                    defaultDate: unavailable_dates,
                     maxDate: moment(new Date()).add(1, 'year').format('YYYY-MM-DD'),
                     onChange: (selectedDates, dateStr, instance) => {
                         if(selectedDates.length === 2 && moment(new Date(moment(selectedDates[0])._d)).format('DD-MM-YYYY') == moment(new Date(moment(selectedDates[1])._d)).format('DD-MM-YYYY')) {
@@ -61,20 +115,35 @@ export default (advert) => {
                         } else {
                             renderAdvertPrice({total: 0,day: 0, day_price: advert.price});
                         }
+                    },
+                    onDayCreate: function (dObj, dStr, fp, dayElem) {
+                        if ($(dayElem).hasClass('disabled')) {
+                            const unavaiableDate = advert.unavailable_date.find(d => moment(new Date(d.fulldate)).format('YYYY/MM/DD') == moment(new Date(dayElem.dateObj)).format('YYYY/MM/DD') && d.rezervation_id);
+                            if(unavaiableDate) {
+                                dayElem.innerHTML += "<span class='event reserved point'>#" + unavaiableDate.rezervation_id + "</span>";
+                                dayElem.setAttribute('data-id', unavaiableDate.rezervation_id);
+                            }
+                        }
                     }
+
+
                 });
             resolve();
         });
 
     }
+
     modal({template: rezervationForm, title: 'Yeni Rezervasyon', width: 650})
         .do((t) => template = t)
         .then(() => Menkule.get("/adverts/" + advert.advert.id).do(a => advert = a))
         .then(() => InitCalendar())
         .then(() => {
 
+            const openedModal = template.parents('.modal');
+
             template.find('button.addvisitor').on('click', () => {
-               visitorModal().then((t) => console.log(t));
+               visitorModal().then((visitor) => addVisitor(Object.assign(visitor, { 'is_visitor': true })))
+                   .then(() => renderVisitor())
             });
             // On Share Email
             template.formFields('share_email').on('change', (e) => {
@@ -113,9 +182,12 @@ export default (advert) => {
                     if(!template.formFields('date').val()) return App.notifyDanger('Lütfen giriş/çıkış tarihini seçin.','');
                     const checkin = moment(template.formFields('date').val().split(' - ')[0].trim(), 'DD/MM/YYYY').format('YYYY-MM-DD');
                     const checkout = moment(template.formFields('date').val().split(' - ')[1].trim(), 'DD/MM/YYYY').format('YYYY-MM-DD');
-                    visitors.push(data);
-                    Menkule.post('/rezervations/add', {'checkin':checkin, 'checkout': checkout, 'visitors': visitors, 'advert_id': advert.id})
-                        .then((r) => console.log(r))
+
+                    template.showPreloader(.7)
+                        .then(() => Menkule.post('/rezervations/add', {'checkin':checkin, 'checkout': checkout, 'visitors': visitors, 'advert_id': advert.id, 'name': data.name, 'lastname': data.lastname, 'gsm': data.gsm, 'email': data.email, 'identity': data.identity_no, 'gender': data.gender}) )
+                        .then((r) => openedModal.modal('hide') | App.notifySuccess('Rezervasyon kayıt edildi.','') |  console.log(r))
+                        .catch(err => App.notifyDanger(err.responseJSON.Message, '') | template.hidePreloader())
+
                 });
             })
 

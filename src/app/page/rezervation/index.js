@@ -236,7 +236,6 @@ export default (params) => {
 
                 /* Add new visitor */
                 template.find('.add-visitor').on('click', (e) => {
-                   //if(advert.properties.visitor == (visitors.length +1)) App.notifyDanger('Bu ilan için en fazla ' + advert.properties.visitor + ' misafir kabul edilebilmektedir.','').then(() => return);
                    App.promise(() => advert.properties.visitor)
                    .if((advert.properties.visitor == (visitors.length +1)), () => {
                        App.notifyDanger('Bu ilan için en fazla ' + advert.properties.visitor + ' misafir kabul edilebilmektedir.','');

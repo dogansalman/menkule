@@ -86,7 +86,7 @@ export default () => {
                                 if ($(dayElem).hasClass('disabled')) {
                                     const unavaiableDate = advert.unavailable_date.find(d => moment(new Date(d.fulldate)).format('YYYY/MM/DD') == moment(new Date(dayElem.dateObj)).format('YYYY/MM/DD') && d.rezervation_id);
                                     if(unavaiableDate) {
-                                        dayElem.innerHTML += "<span class='event reserved point'>" + unavaiableDate.rezervation_id + "</span>";
+                                        dayElem.innerHTML += "<span class='event reserved point'>#" + unavaiableDate.rezervation_id + "</span>";
                                         dayElem.setAttribute('data-id', unavaiableDate.rezervation_id);
                                     }
                                 }

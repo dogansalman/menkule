@@ -35,7 +35,7 @@ export default (options) => {
 
         //close event remove modal
         $(template).on('hidden.bs.modal', (e) => {
-            if($(template).zone('modal-body').length > 1) $(template).zone('modal-body').first().removeClass('blurred');
+            if($(template).zone('modal-body').length > 1) $(template).zone('modal-body').first().removeClass('blurred') & $('body').addClass('modal-open');
             e.target.remove();
         });
 

@@ -1,9 +1,20 @@
 <div class="container ">
     <div class="col-xs-12 disable_padding details_container ">
         <div class="col-xs-12 col-sm-12 col-md-3 rezervation-owner-detail">
-            <img alt="photo" src='{{#image user_information.photo 150 150 }} {{/image}}' onerror="this.onerror=null;this.src='/theme/img/no-photo.png';" class="rezervation-detail-photo"></img>
-            <span class="rezervation-detail-name">{{user_information.fullname}}</span>
-            <span class="rezervation-detail-phone"><i class="fa fa-mobile"></i> {{user_information.gsm}}</span>
+            {{#if is_manuel}}
+                <img alt="photo" src='/assets/no-photo.png' class="rezervation-detail-photo">
+                {{#each visitors}}
+                    {{#if is_rezervation_profile}}
+                        <span class="rezervation-detail-name">{{fullname}}</span>
+                        <span class="rezervation-detail-phone"><i class="fa fa-mobile"></i> {{gsm}}</span>
+                    {{/if}}
+                {{/each}}
+            {{else}}
+                <img alt="photo" src='{{#image user_information.photo 150 150 }} {{/image}}' class="rezervation-detail-photo">
+                <span class="rezervation-detail-name">{{user_information.fullname}}</span>
+                <span class="rezervation-detail-phone"><i class="fa fa-mobile"></i> {{user_information.gsm}}</span>
+            {{/if}}
+
             <div style="clear: both"></div>
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding text-center">
                 {{#if state}}
@@ -61,14 +72,15 @@
         </div>
         <div  class="col-xs-12 col-sm-12 col-md-9 rezervation-detail-container">
             {{#if advert_owner}}
-                {{#zif updated_date '==' 'false' }}
+                {{#unless state}}
                     <div class="col-xs-12 rezervation-confirm-box bottomset2">
                         <p>Rezervasyon hemen onaylamak için <strong>Onayla</strong> seçeneğini kullanabilirsiniz. Unutmayın ! İptal edilen rezervasyon onaylanmamaktadır.</p>
                         <p>Rezervasyonu talebini onaylıyor musunuz ? </p>
                         <button class="acceptbtn" href="#">Onayla</button>
                         <button class="cancelbtn" href="#">İptal</button>
                     </div>
-                {{/zif}}
+                {{/unless}}
+
             {{/if}}
             <div class="col-xs-12 col-sm-4 col-md-4 rezervation-detail-box">
                 <span class="rezervation-detail-icon">{{#currency total_price 2 0 }} {{/currency}} TL<i class="fa fa-try "></i> </span>
