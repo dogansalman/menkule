@@ -26,6 +26,11 @@
                         <span class="rezervation-detail-state wait">Onay Bekleniyor.</span>
                     {{/if}}
                 {{/if}}
+                {{#if is_manuel}}
+                    <div class="col-xs-12 disable_padding">
+                        <span class="label label-success moffset2 paddingset2 block">Bu rezervasyonu {{date created_date "DD-MM-YYYY" }} tarihinde eklediniz.</span>
+                    </div>
+                {{/if}}
             </div>
             <div class="col-xs-12 col-sm-12 disable_padding text-left">
                 <div class="col-xs-6 rezervation-checkin-box disable_padding">
@@ -53,6 +58,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 disable_padding">
                 <a href="javascript:void(0);"  class="default_btn fullwidth message moffset2">Mesaj Gönder</a>
             </div>
+
             {{#zif advert_owner '==' 'false'}}
                 {{#zif is_cancel '==' 'false'}}
                     {{#if is_cancelable}}
