@@ -31,6 +31,17 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+.label{
+  font-weight: 400;
+  line-height: 1.2;
+  font-size: 12px;
+}
+.label.label-danger{
+  background:#f88180;
+}
+.label.label-info{
+  background:#73c1ec;
+}
 a:hover,
 a:focus {
     color: inherit;
