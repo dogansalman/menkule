@@ -42,7 +42,7 @@ export default (params,  query = location.href) => {
              */
             template.find("#map").createMap();
             Gmap.getLatLgn(params.state).then(coords => {
-                template.find("#map").centerTo(coords).zoom(12)
+                template.find("#map").centerTo(coords).zoom(11)
             });
 
             /*
@@ -61,9 +61,11 @@ export default (params,  query = location.href) => {
 
                 if (typeof e['cordinates'] != typeof undefined) {
                     if(e['cordinates']) latlng = e['cordinates'];
-                    if (e['setcenter']) Gmap.getLatLgn(latlng.name).then(coords => template.find("#map").centerTo(coords).zoom(typeof e['zoom'] != typeof undefined ? parseInt(e['zoom']) : 12));
+                    if (e['setcenter']) Gmap.getLatLgn(latlng.name).then(coords => template.find("#map").centerTo(coords).zoom(typeof e['zoom'] != typeof undefined ? parseInt(e['zoom']) : 7));
                 }
-                Menkule.post('/search', latlng)
+                template.find('.mapsearch').showLoading()
+                    .then(() => template.find('.advert-list-container').showLoading())
+                    .then(() =>  Menkule.post('/search', latlng))
                     .then((adverts) => {
 
 
@@ -151,15 +153,19 @@ export default (params,  query = location.href) => {
                             .then(() => Gmap.getLocationLevelTree(latlng.name || params.state))
                             .then((locations) => template.zone('advert-result-footer').setContentAsync(resultFooter({count: globalAdverts.length, locations: locations})))
                     })
+                    .then(() => template.find('.mapsearch').hideLoading())
+                    .then(() => template.find('.advert-list-container').hideLoading())
                     .then(() => App.promise(() => globalAdverts.length === 0 ? false : true))
                     .then((has_adverts) => !has_adverts ? reject(): null )
                     .catch(err => {
                         template.zone('advert-list').setContentAsync(appMessages('advert_no_result'))
                             .then(() => App.notifyDanger(appMessages('advert_no_result').clearHtml()))
                             .then(() => template.zone('adverts-slidelist').setContentAsync(''))
+                            .then(() => template.find('.mapsearch').hideLoading())
+                            .then(() => template.find('.advert-list-container').hideLoading())
                             .then(() => resolve());
                     })
-            })
+            });
 
             /*
             Render slide
@@ -233,7 +239,7 @@ export default (params,  query = location.href) => {
                             var _e = new $.Event('re.advrt');
                             _e['cordinates'] = cordinate;
                             _e['setcenter'] = true;
-                            _e['zoom'] = 12;
+                            _e['zoom'] = 11;
                             template.trigger(_e);
                         });
                 });
@@ -255,7 +261,7 @@ export default (params,  query = location.href) => {
                                         'name': cities.town
                                     };
                                     _e['setcenter'] = false;
-                                    _e['zoom'] = 12;
+                                    _e['zoom'] = 11;
                                     template.trigger(_e);
                                 })
                             })
