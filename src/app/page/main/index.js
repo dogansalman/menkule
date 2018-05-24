@@ -10,7 +10,7 @@ import Main from '../main';
 let location = null;
 // Validate config
 var searchRules = {
-  'state': [App.validate.REQUIRED, App.validate.STRING],
+  'state': [App.validate.REQUIRED],
   'date':  [App.validate.REQUIRED],
   'guest': [App.validate.REQUIRED, App.validate.NUMBER]
 };
