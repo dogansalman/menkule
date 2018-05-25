@@ -46,9 +46,6 @@ export default (advert) => {
         return new Promise((resolve) => {
             template.zone('visitor').setContentAsync(visitorList({visitor: visitors}))
                 .then((visitorTemplate) => {
-                    //render visitor count block
-                    //advertDetailTemplateGlobal.zone('visitor-count').setContentAsync(VisitorCountBlock({visitor: visitors.length +1}));
-                    //remove visitor
                     visitorTemplate.find('.remove-visitor').on('click', (e) => {
                         e.preventDefault();
                         App.promise(() => App.showPreloader(.7))
@@ -149,34 +146,18 @@ export default (advert) => {
             // On Share Email
 
             template.find('#checkbox_mail').on('change', (e) => {
-
                 if($(e.target).is(':checked')){
-                    template.find('.rezervation').disableForm();
-                    template.find('button.acceptbtn').attr('disabled', true);
                     template.find('.email-share').show();
                 } else {
                     template.find('.email-share').hide();
                 }
-
-                if(!template.find('#checkbox_mail').is(':checked') && !template.find('#checkbox_gsm').is(':checked')) {
-                    template.find('.rezervation').enableForm();
-                    template.find('button.acceptbtn').removeAttr('disabled');
-                }
-
             });
             // On Share Gsm
             template.find('#checkbox_gsm').on('change', (e) => {
                 if($(e.target).is(':checked')){
-                    template.find('.rezervation').disableForm();
-                    template.find('button.acceptbtn').attr('disabled', true);
                     template.find('.gsm-number-share').show();
                 } else {
                     template.find('.gsm-number-share').hide();
-                }
-
-                if(!template.find('#checkbox_mail').is(':checked') && !template.find('#checkbox_gsm').is(':checked')) {
-                    template.find('.rezervation').enableForm();
-                    template.find('button.acceptbtn').removeAttr('disabled');
                 }
             });
 
@@ -204,7 +185,11 @@ export default (advert) => {
                         const checkout = moment(template.formFields('date').val().split(' - ')[1].trim(), 'DD/MM/YYYY').format('YYYY-MM-DD');
 
                         if(data.gsm.trim() === '' && data.email.trim() === '') return  App.notifyDanger('Gsm numarası veya e-posta adresi belirtmelisiniz.', '');
-                        console.log(Object.assign(data, {checkin: checkin, checkout: checkout, advert_id: advert.id}));
+
+                        template.showPreloader(.7).then(() => Menkule.post('/rezervations/share', Object.assign(data, {checkin: checkin, checkout: checkout, advert_id: advert.id})))
+                            .then(() => openedModal.modal('hide') | App.notifySuccess('Rezervasyon talep formu iletildi.',''))
+                            .catch(err => App.notifyDanger(err.responseJSON.Message, '') | template.hidePreloader())
+
                     })
                     .catch(e => {
                         console.log(e);
