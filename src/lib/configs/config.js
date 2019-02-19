@@ -4,5 +4,5 @@ export default {
         "socketAddress": "https://ws.menkule.com.tr",
         "nullImageUrl": "/assets/no-photo.png",
         'secretKey': 'qQrsBccsx0KHjPOuXOYg5sMeJ1GT0uFiwDVvVBrs',
-        'facebook_client_id': '801273326684314',
+        'facebook_client_id': '*****************',
 }
